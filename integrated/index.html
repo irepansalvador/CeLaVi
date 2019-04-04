@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<!-- JS scripts -->
+
+	<head>
+		<meta charset="UTF-8">
+		<title>C. elegans cell lineage</title>
+		<!-- Custom CSS styles -->
+		<link href="style.css" rel="stylesheet" type="text/css" >
+        <link rel="stylesheet" href="../d3-context-menu.css" />
+        <script src="../d3-context-menu.js"></script>
+	</head>
+
+    <body>
+		<div class="container">
+			<h1> <i>C. elegans</i> cell lineage tree and cells in 3D</h1>
+            <h3> <i> by Irepan Salvador-Martinez </i> </h3>
+
+            <!-- Custom Buttons -->
+            <button id="Reset" onclick="update(root)">Reset tree</button>
+            <button id="CollapseAll" onclick="collapseAll()">Collapse All</button>
+	        <button id="ExpandAll" onclick="expandAll()">Expand All</button>	
+            <button id="Update" onclick="init()">Reset cells</button>
+            
+            <div class="status">Click on a cell</div>
+            
+            <!-- Separate Areas -->
+			<div id="area1"> <!-- cell lineage -->
+            <h2>Cell lineage</h2>
+			</div>
+            
+            
+			<div id="area2"> <!-- cells in 3d -->
+            <h2> Cells in 3D</h2>
+            </div>
+		</div> 
+		<div id="footer">
+			<strong>Source</strong> : www.whatever.ug
+		</div>
+		<!-- JS Libraries -->
+		<!--<script src="d3.js" charset="utf-8"></script>-->
+        <script src="d3.v3.js"></script>
+        <script src="d3.v4.min.js"></script> <!-- 3d cells-->
+        <script src="d3-3d.min.js"></script>
+        <script src="jquery.min.js"></script>
+        <!--<script src="d3.min.js"></script>  TREE -->
+        <script src="newick.js"></script>
+        <script src="../d3-hierarchy.min.js"></script>
+        <!-- Custom JS code -->
+        <script src="cells_3d.js"></script><!-- -->
+		<script src="cell_lineage_v4.js"></script>
+        <script src="../d3-context-menu.js"></script>
+        
+	</body>
