@@ -1,6 +1,12 @@
 //Store width, height and margin in variables
-var w = 1200;
-var h = 1100;
+//var w = 1200;
+//var h = 1100;
+
+
+var chartDiv = document.getElementById("area2");
+var w = chartDiv.clientWidth;
+var h = chartDiv.clientHeight-200;
+
 var margin = {top: 20, right: 10, bottom:10, left: 50};
 
 // Scale the width and height
