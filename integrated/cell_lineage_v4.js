@@ -1,13 +1,43 @@
 //Store width, height and margin in variables
 //var w = 1200;
 //var h = 1100;
+var div = d3.select("body").append("div")	
+    .attr("class", "tooltip")				
+    .style("opacity", 0);
 
+var margin = {top: 15, right: 15, bottom:5, left: 30};
 
-var chartDiv = document.getElementById("area2");
-var w = chartDiv.clientWidth;
-var h = chartDiv.clientHeight-200;
+var svg_tree = d3.select("#area1")
+    .classed("svg-container-inbox", true) //container class to make it responsive
+    .append("svg")
+    //class to make it responsive
+    //responsive SVG needs these 2 attributes and no width and height attr
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 600 500")
+    .classed("svg-content-responsive", true)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + 0 + ")");
 
-var margin = {top: 20, right: 10, bottom:10, left: 50};
+/*-- append svg to body
+var svg_tree = d3.select("#area1").append("svg")
+    .attr("width", w)
+    .attr("height", h+100)
+  //  .attr("id", "treeG")
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+---*/
+
+var w = d3.select("#area1").selectAll("svg")
+      // get the width of div element
+      .style('width')
+      // take of 'px'
+      .slice(0, -2);
+var h = d3.select("#area1").selectAll("svg")
+      // get the width of div element
+      .style('height')
+      // take of 'px'
+      .slice(0, -2);
+
 
 // Scale the width and height
 var xScale = d3.scale.linear()
@@ -92,7 +122,8 @@ d3.json("json-celllineage_DEATH.js", function(error, p0) {
 });
 d3.select(self.frameElement).style("height", "300px");
 
-    
+ 
+/*   
 // Define the div for the tooltip
 var div = d3.select("body").append("div")	
     .attr("class", "tooltip")				
@@ -101,24 +132,18 @@ var div = d3.select("body").append("div")
 var div = d3.select("#area1").append("div")	
     .attr("class", "tooltip")				
     .style("opacity", 0);
+*/
 
 //-- From here starts the tree part, from 
 //-- https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd
 
-/*-- append svg to body ---*/
-var svg_tree = d3.select("#area1").append("svg")
-    .attr("width", w)
-    .attr("height", h+100)
-  //  .attr("id", "treeG")
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var i = 0,
     duration = 750,
     root;
 
 // declares a tree layout and assigns the size
-var treemap = d3.tree().size([h, w]);
+var treemap = d3.tree().size([h/2, w]);
 
 // Collapse the node and all it's children
 function collapse(d) {
@@ -139,7 +164,7 @@ function update(source) {
       links = treeData.descendants().slice(1);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d){ d.y = d.depth * 55});
+  nodes.forEach(function(d){ d.y = d.depth * 30});
 
   // ****************** Nodes section ***************************
 
@@ -176,13 +201,13 @@ function update(source) {
       .attr("dy", ".35em")
      // position of label depends on children 
       .attr("x", function(d) 
-            {return d.children || d._children ? -13 : 13; })
+            {return d.children || d._children ? -10 : 10; })
       .attr("text-anchor", function(d) { 
             return d.children || d._children ? "end" : "start"; })
      // HERE I CAN MODIFY TO TUNE THE SIZE AS A FUNCTION OF THE DEPTH
       .attr("font-size", function(d) {
                 return d.children || d._children ? 
-                    (16- (d.depth/3) + "px" ) : "12px" })
+                    (9- (d.depth*0.2) + "px" ) : "9px" })
       .attr("font-family", "sans serif")
       .text(function(d) 
             {return d.data.name; })
@@ -203,7 +228,7 @@ function update(source) {
   nodeUpdate.select('circle.node')
 //    .attr('r', 4.5)
     .attr('r', function(d) {
-                return (10- (d.depth/2)) })
+                return (6- (d.depth/3)) })
     .style("fill", function(d) {
             return d._children ? "lightblue" : "#fff";})
     .style('stroke-width', 2)
@@ -389,3 +414,60 @@ var findCommonElements= function(arrs) {
     }
     return resArr;
 }
+
+
+///  experiments
+/*
+    var brushSVG = d3.select("#brush")
+    .append("svg").attr("height", "100%").attr("width", "50%");
+brushSVG.append("g").attr("transform", "translate(0,50)")
+.attr("id", "brushG").call(timeBrush)
+.selectAll("rect").attr("height", 50);
+brushSVG.append("g").attr("transform", "translate(0,50)")
+.attr("id", "brushG").call(timeBrush)
+.selectAll("rect").attr("height", 50);
+
+function createBrush(incData) {
+    var timeRange = d3.extent(incData.map(function(d) {
+        return new Date(d.timestamp);
+        }));
+
+    var timeScale = d3.time.scale().domain(timeRange).range([10,990]);
+    var timeBrush = d3.svg.brush()
+    .x(timeScale)
+    .extent(timeRange)
+    .on("brush", brushed);
+    var timeAxis = d3.svg.axis()
+    .scale(timeScale)
+    .orient('bottom')
+    .ticks(d3.time.hours, 2)
+    .tickFormat(d3.time.format('%I%p'));
+//    Fires the brushed()
+//    function on every "brush" event shows a tick for every two
+//    hours, and formats it to only show hour and AM/PM
+
+    var brushSVG = d3.select("#brush")
+    .append("svg").attr("height", "100%").attr("width", "100%");
+
+//    Immediately calls the
+//    created rect elements
+//    and makesthem 50px high
+
+    brushSVG.append("g")
+    .attr("transform", "translate(0,100)")
+    .attr("id", "brushAxis").call(timeAxis);
+    // Our axis
+    brushSVG.append("g").attr("transform", "translate(0,50)")
+    .attr("id", "brushG").call(timeBrush)
+    .selectAll("rect").attr("height", 50);
+    function brushed() {
+        // brushed code
+    };
+};
+
+*/
+
+/*init();
+processData(data,0);
+reset_cell_cols();
+//console.log("here?")*/

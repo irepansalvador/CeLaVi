@@ -6,6 +6,7 @@
 	background-color: white;
 	box-shadow: 0 0 20px #ccc;
 }
+
 #footer {
 	border-top: 1px solid silver;
 	color: #888888;
@@ -14,8 +15,49 @@
 	margin-top: 1rem;
 	padding: 0.5rem;
 }
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 99%;
+    /*padding-bottom: 1%;  aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-container-inbox {
+    display: inline-block;
+    position: relative;
+    width: 48%;
+    padding-bottom: 35%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-container-brush {
+    display: inline-block;
+    position: relative;
+    width: 48%;
+    padding-bottom: 5%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+.svg-content-responsive {
+    display: inline-block;
+    position: absolute;
+    top: 80px;
+    left: 0;
+}
+.svg-content-responsive-nospace {
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    left: 0;
+}
 
-
+.svg-content { 
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 body {
 	background-color: #fff;
 	font-family: "adelle-1","adelle-2", constantia, cambria, Georgia, serif;

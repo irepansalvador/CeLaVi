@@ -1,6 +1,32 @@
 //Store width, height and margin in variables
-var wLine = 650;
-var hLine = 1200;
+//var wLine = 650;
+//var hLine = 1200;
+var linechart = d3.select("#area2")
+                .classed("svg-container-inbox", true) //container class to make it responsive
+                .append("svg")
+                //class to make it responsive
+                //responsive SVG needs these 2 attributes and no width and height attr
+                .attr("preserveAspectRatio", "xMinYMin meet")
+                .attr("viewBox", "0 0 600 500")
+                .classed("svg-content-responsive", true); ;
+
+var ww = d3.select("#area2").selectAll("svg")
+      // get the width of div element
+      .style('width')
+      // take of 'px'
+      .slice(0, -2);
+var hh = d3.select("#area2").selectAll("svg")
+      // get the width of div element
+      .style('height')
+      // take of 'px'
+      .slice(0, -2);
+
+var wLine = ww;
+var hLine = hh;
+var points = [];
+
+console.log(hh);
+
 var marginLine = {top: 20, right: 10, bottom: 20, left: 30};
 
 var selections; 
@@ -43,18 +69,11 @@ var line = d3.svg.line()
 //Create an empty svg
 -- */
 
-var linechart = d3.select("#area2")
-                .append("svg")
-                .attr("width", wLine)
-                .attr("height", hLine);
-
-
-var dataset; // This is a Global variable
+var data; // This is a Global variable
 
 var activeDistrict; // Will be used for linked hovering
 
 // --- Show menu with custom functions in right click
-
 var menu2 = [
 	{
 	title: 'Show ancestors',
@@ -95,7 +114,6 @@ var menu2 = [
         }
     }
 ];
-
 
 // Load in csv data 
 
@@ -246,52 +264,60 @@ d3.csv("div9.csv", function(data) {
 
 
 // DO the stuff
-   /* ---------- INITIAL CONDITIONS -------- */
+/* ---------- INITIAL CONDITIONS -------- */
 
-    var origin = [300, 500], p = 10, j = 2, scale = 400, rad = 3,
-        scatter = [], yLine = [], xGrid = [],
-        beta = 0, alpha = 0, 
-        key = function(d){ return d.id; },
-        startAngle = Math.PI/2;
-    
+var origin = [ww/2.5, hh/3], p = 10, j = 2, scale = ww/4, rad = 2.5,
+    scatter = [], yLine = [], xGrid = [],
+    beta = 0, alpha = 0, 
+    key = function(d){ return d.id; },
+    startAngle = Math.PI/5;
 
-    /* ----------- SVG OBJECT ----------- */
-    var svg_3d = d3.select("#area2").select('svg')
-        .call(d3.drag().on('drag', dragged)
+/* ----------- SVG OBJECT ----------- */
+var svg_3d = d3.select("#area2").selectAll('svg')
+    .call(d3.drag().on('drag', dragged)
         .on('start', dragStart)
-        .on('end', dragEnd)).append('g');
-    
-    /* ----------- ZOOM AND PAN ----------- */
-    svg_3d.call(d3.zoom().on("zoom", function () {
-    svg_3d.attr("transform", d3.event.transform)}))
-    
-    var color  = d3.scaleOrdinal(d3.schemeCategory20);
+        .on('end', dragEnd))
+    .append('g');
+
+/* ----------- ZOOM AND PAN ----------- */
+svg_3d.call(d3.zoom().on("zoom", function () {
+svg_3d.attr("transform", d3.event.transform)}))
+
+var color  = d3.scaleOrdinal(d3.schemeCategory10);
 //  var color  =  [d3.color('crimson')];
 
-    var mx, my, mouseX, mouseY;
+var mx, my, mouseX, mouseY;
 
-       
-    /* -------- GRID AND POINTS VARS ----------- */
+/* -------- GRID AND POINTS VARS ----------- */
 
-    var grid3d = d3._3d()
-        .shape('GRID', j*2)
-        .origin(origin)
-        .rotateY( startAngle)
-        .rotateX(-startAngle)
-        .scale(scale);
+var grid3d = d3._3d()
+    .shape('GRID', j*2)
+    .origin(origin)
+    .rotateY( startAngle)
+    .rotateX(-startAngle)
+    .scale(scale);
 
-    var point3d = d3._3d()
-        .x(function(d){ return d.x; })
-        .y(function(d){ return d.y; })
-        .z(function(d){ return d.z; })
-        .origin(origin)
-        .rotateY( startAngle)
-        .rotateX(-startAngle)
-        .scale(scale);
+var point3d = d3._3d()
+    .x(function(d){ return d.x; })
+    .y(function(d){ return d.y; })
+    .z(function(d){ return d.z; })
+    .origin(origin)
+    .rotateY( startAngle)
+    .rotateX(-startAngle)
+    .scale(scale);
         
-     /* -------- LOAD THE POINTS ----------- */
+/* ------- YLAB VAR ----------- */
 
-    d3.csv("Worm_atlas_3D_norm_MOD.csv", function(file) {        
+var yScale3d = d3._3d()
+    .shape('LINE_STRIP')        
+    .origin(origin)
+    .rotateY( startAngle)
+    .rotateX(-startAngle)
+    .scale(scale);
+
+/* -------- LOAD THE POINTS ----------- */
+
+d3.csv("Worm_atlas_3D_norm_MOD.csv", function(file) {        
          file.forEach(function(d) 
             {
             scatter.push({x: +d.Xnorm, 
@@ -302,121 +328,108 @@ d3.csv("div9.csv", function(data) {
            //console.log(file[0])
          });
     console.log(scatter)
-    
-    /* ------- YLAB VAR ----------- */
 
-    var yScale3d = d3._3d()
-        .shape('LINE_STRIP')        
-        .origin(origin)
-        .rotateY( startAngle)
-        .rotateX(-startAngle)
-        .scale(scale);
+function processData(data, tt){
 
+    /* ----------- GRID ----------- */
 
-    function processData(data, tt){
+    var xGrid = svg_3d.selectAll('path.grid').data(data[0], key);
 
-        /* ----------- GRID ----------- */
+    xGrid
+        .enter()
+        .append('path')
+        .attr('class', '_3d grid')
+        .merge(xGrid)
+        .attr('stroke', 'grey')
+        .attr('stroke-width', 0.3)
+        .attr('fill', function(d){ return d.ccw ? 'lightblue' : '#717171'; })
+        .attr('fill-opacity', 0.2)
+        .attr('d', grid3d.draw);
 
-        var xGrid = svg_3d.selectAll('path.grid').data(data[0], key);
+    xGrid.exit().remove();
 
-        xGrid
-            .enter()
-            .append('path')
-            .attr('class', '_3d grid')
-            .merge(xGrid)
-            .attr('stroke', 'grey')
-            .attr('stroke-width', 0.3)
-            .attr('fill', function(d){ return d.ccw ? 'lightblue' : '#717171'; })
-            .attr('fill-opacity', 0.2)
-            .attr('d', grid3d.draw);
+    /* ----------- POINTS ----------- */
 
-        xGrid.exit().remove();
+    points = svg_3d.selectAll('circle').data(scatter, key);
 
-        /* ----------- POINTS ----------- */
+    points
+        .enter()
+        .append('circle')
+        .attr('class', '_3d')
+        .attr('opacity', 10)
+        .attr('fill-opacity', 0.7)
+        .attr('cx', posPointX)
+        .attr('cy', posPointY)
+        .attr('id',myid)
+        .merge(points)
+        .transition().duration(tt)
+        .attr('r', rad)
+//      .attr('stroke', function(d){ return d3.color(color(d.id)).darker(3); })
+//      .attr('fill', function(d){ return color(d.id); })
+        //.attr('fill', function(d){ return "grey" })
+        .attr('opacity', 0.8)
+        .attr('cx', posPointX)
+        .attr('cy', posPointY)
+        .attr('id',myid);
 
-        var points = svg_3d.selectAll('circle').data(scatter, key);
+    /* ----------- Interactions ----------- */
+    points.on('click', click2);
 
-        points
-            .enter()
-            .append('circle')
-            .attr('class', '_3d')
-            .attr('opacity', 10)
-            .attr('fill-opacity', 0.7)
-            .attr('cx', posPointX)
-            .attr('cy', posPointY)
-            .attr('id',myid)
-            .merge(points)
-            .transition().duration(tt)
-            .attr('r', rad)
-    //      .attr('stroke', function(d){ return d3.color(color(d.id)).darker(3); })
-    //      .attr('fill', function(d){ return color(d.id); })
-            .attr('fill', function(d){ return "grey" })
-            .attr('opacity', 0.8)
-            .attr('cx', posPointX)
-            .attr('cy', posPointY)
-            .attr('id',myid);
-            
-        /* ----------- Interactions ----------- */
-        points.on('click', click2)
+    points.on("contextmenu", d3.contextMenu(menu2) );
 
-        points.on("contextmenu", d3.contextMenu(menu2) )
-        
-        points.exit().remove();
+    //points.exit().remove();
 
-    
-        /* ----------- y-Scale ----------- */
+    /* ----------- y-Scale ----------- */
 
-        var yScale = svg_3d.selectAll('path.yScale').data(data[2]);
+    var yScale = svg_3d.selectAll('path.yScale').data(data[2]);
 
-        yScale
-            .enter()
-            .append('path')
-            .attr('class', '_3d yScale')
-            .merge(yScale)
-            .attr('stroke', 'black')
-            .attr('stroke-width', .5)
-            .attr('d', yScale3d.draw);
+    yScale
+        .enter()
+        .append('path')
+        .attr('class', '_3d yScale')
+        .merge(yScale)
+        .attr('stroke', 'black')
+        .attr('stroke-width', .5)
+        .attr('d', yScale3d.draw);
 
-        yScale.exit().remove();
+    yScale.exit().remove();
 
-         /* ----------- y-Scale Text ----------- */
+     /* ----------- y-Scale Text ----------- */
 
-        var yText = svg_3d.selectAll('text.yText').data(data[2][0]);
+    var yText = svg_3d.selectAll('text.yText').data(data[2][0]);
 
-        yText
-            .enter()
-            .append('text')
-            .attr('class', '_3d yText')
-            .attr('dx', '.3em')
-            .merge(yText)
-            .each(function(d){
-                d.centroid = {x: d.rotated.x, y: d.rotated.y, z: d.rotated.z};
-            })
-            .attr('x', function(d){ return d.projected.x; })
-            .attr('y', function(d){ return d.projected.y; })
-            .text(function(d){ return d[1] <= 0 ? d[1] : ''; });
+    yText
+        .enter()
+        .append('text')
+        .attr('class', '_3d yText')
+        .attr('dx', '.3em')
+        .merge(yText)
+        .each(function(d){
+            d.centroid = {x: d.rotated.x, y: d.rotated.y, z: d.rotated.z};
+        })
+        .attr('x', function(d){ return d.projected.x; })
+        .attr('y', function(d){ return d.projected.y; })
+        .text(function(d){ return d[1] <= 0 ? d[1] : ''; });
 
-        yText.exit().remove();
+    yText.exit().remove();
 
-        d3.selectAll('._3d').sort(d3._3d().sort);
+    d3.selectAll('._3d').sort(d3._3d().sort);
     }
-
-    function posPointX(d){
+  
+function posPointX(d){
         return d.projected.x;
         }
 
-    function posPointY(d){
+function posPointY(d){
         return d.projected.y;
         }
  
-    function myid(d){
+function myid(d){
         return d.id;
         }
 
-
-    
-    /* --------- RESTART RANDOM POINTS (AND FIXED GRID) ---------- */
-	function init(){
+/* --------- RESTART RANDOM POINTS (AND FIXED GRID) ---------- */
+function init(){
         var cnt = 0;
         xGrid = [], yLine = [];
         
@@ -430,37 +443,40 @@ d3.csv("div9.csv", function(data) {
         //---determine y range based on j variable --/
         d3.range(0, j, 1).forEach(function(d){ yLine.push([-1, -d, -1]); });
 
-        var data = [
+        
+        data = [
             grid3d(xGrid),
             point3d(scatter),
             yScale3d([yLine])
-            ];
+            ];top
         processData(data, 0);
     }
 
-    function dragStart(){
+function dragStart(){
         mx = d3.event.x;
         my = d3.event.y;
+        console.log("started dragging!")
     }
 
-    function dragged(){
+function dragged(){
+        console.log("Dragging!")
         mouseX = mouseX || 0;
         mouseY = mouseY || 0;
         beta   = (d3.event.x - mx + mouseX) * Math.PI / 230 ;
         alpha  = (d3.event.y - my + mouseY) * Math.PI / 230  * (-1);
-        var data = [
-             grid3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)(xGrid),
+        data = [
+            grid3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)(xGrid),
             point3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)(scatter),
             yScale3d.rotateY(beta + startAngle).rotateX(alpha - startAngle)([yLine]),
         ];
         processData(data, 0);
     }
 
-    function dragEnd(){
+function dragEnd(){
         mouseX = d3.event.x - mx + mouseX;
         mouseY = d3.event.y - my + mouseY;
+        console.log("stopped dragging!")
     }
-
 
 function common_anc1(d) {
     console.log("I have clicked in cell "+ d)
@@ -505,8 +521,7 @@ function common_anc2(d) {
           })
     }
 
-
-    function show_anc(d) {
+function show_anc(d) {
         console.log("I have clicked in cell "+ d)
         d3.selectAll("#area1").select("g").select(d)
             .each(function(d) 
@@ -522,8 +537,7 @@ function common_anc2(d) {
                   })
             }
 
-function click2(d)
-    {
+function click2(d) {
      d3.select('.status')
         .text('You clicked on ' + myid(d)); // Logs the x and y position of the datum.
         // $(this).hide();
@@ -541,4 +555,12 @@ function click2(d)
 
     // ----- experiments --/
 
-    init();
+function reset_cell_cols() {
+    d3.selectAll("#area2")
+        .selectAll("circle")
+        .attr("fill", "grey");
+    }
+
+/*init();
+processData(data,0);
+console.log("here?")*/
