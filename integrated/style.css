@@ -26,30 +26,23 @@
 .svg-container-inbox {
     display: inline-block;
     position: relative;
-    width: 48%;
+    width: 49%;
     padding-bottom: 35%; /* aspect ratio */
-    vertical-align: top;
-    overflow: hidden;
-}
-.svg-container-brush {
-    display: inline-block;
-    position: relative;
-    width: 48%;
-    padding-bottom: 5%; /* aspect ratio */
     vertical-align: top;
     overflow: hidden;
 }
 .svg-content-responsive {
     display: inline-block;
     position: absolute;
-    top: 80px;
+    top: 50px;
     left: 0;
 }
 .svg-content-responsive-nospace {
     display: inline-block;
     position: absolute;
     top: 0px;
-    left: 0;
+    left: 0px;
+    right: 0px;
 }
 
 .svg-content { 
@@ -57,6 +50,14 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+.svg-container-slider {
+    display: inline-block;
+    position: relative;
+    width: 48%;
+    padding-bottom: 5%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
 }
 body {
 	background-color: #fff;

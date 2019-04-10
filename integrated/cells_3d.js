@@ -455,11 +455,11 @@ function init(){
 function dragStart(){
         mx = d3.event.x;
         my = d3.event.y;
-        console.log("started dragging!")
+       // console.log("started dragging!")
     }
 
 function dragged(){
-        console.log("Dragging!")
+       // console.log("Dragging!")
         mouseX = mouseX || 0;
         mouseY = mouseY || 0;
         beta   = (d3.event.x - mx + mouseX) * Math.PI / 230 ;
@@ -475,7 +475,7 @@ function dragged(){
 function dragEnd(){
         mouseX = d3.event.x - mx + mouseX;
         mouseY = d3.event.y - my + mouseY;
-        console.log("stopped dragging!")
+        //console.log("stopped dragging!")
     }
 
 function common_anc1(d) {

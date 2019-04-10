@@ -8,7 +8,10 @@
 		<!-- Custom CSS styles -->
 		<link href="style.css" rel="stylesheet" type="text/css" >
         <link rel="stylesheet" href="../d3-context-menu.css" />
-        <script src="../d3-context-menu.js"></script>
+        <script src="d3.v3.js"></script>
+        <script src="d3.v4.min.js"></script> <!-- 3d cells-->
+        <script src="d3-3d.min.js"></script>
+        <script src="jquery.min.js"></script>
 	</head>
 
     <body>
@@ -34,16 +37,15 @@
             <h2> Cells in 3D</h2>
             </div>
 		</div> 
-        <div id="brush"></div>
+        <div id="slider">
+           <h2>Tree depth</h2>
+        </div>
 		<div id="footer">
 			<strong>Source</strong> : www.my_github_account.com
 		</div>
 		<!-- JS Libraries -->
 		<!--<script src="d3.js" charset="utf-8"></script>-->
-        <script src="d3.v3.js"></script>
-        <script src="d3.v4.min.js"></script> <!-- 3d cells-->
-        <script src="d3-3d.min.js"></script>
-        <script src="jquery.min.js"></script>
+  
         <!--<script src="d3.min.js"></script>  TREE -->
         <script src="newick.js"></script>
         <script src="../d3-hierarchy.min.js"></script>
@@ -57,7 +59,7 @@
             init();
             processData(data,0);
             reset_cell_cols();
-            console.log("here?")   
+            console.log("here?");
         </script>
         
 	</body>

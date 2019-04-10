@@ -55,6 +55,8 @@ var yAxis = d3.svg.axis()
               .scale(yScale)
               .orient("left");
 
+var depths;
+
 // --- Show menu with custom functions in right click
 
 var double_element = [];
@@ -108,17 +110,27 @@ var menu = [
 
 
 /*--- Json option --*/
-
 d3.json("json-celllineage_DEATH.js", function(error, p0) {
-  if (error) throw error;
-  root = d3.hierarchy(p0, function(d) 
-    { return d.children; });
-  root.x0 = h / 2;
-  root.y0 = 0;
+    if (error) throw error;
+    root = d3.hierarchy(p0, function(d) 
+        { return d.children; });
+    root.x0 = h / 2;
+    root.y0 = 0;
 
-  // shows only the root children 
-  root.children.forEach(collapse);
-  update(root);
+    // shows only the root children 
+    expand(root); 
+    root.children.forEach(expand);
+    update(root);
+    
+    // get all the heights
+    get_height();
+    
+    my_slider();
+   
+    //console.log(depths);
+    // collapse all   
+//    root.children.forEach(collapse);
+//    update(root);
 });
 d3.select(self.frameElement).style("height", "300px");
 
@@ -139,7 +151,7 @@ var div = d3.select("#area1").append("div")
 
 
 var i = 0,
-    duration = 750,
+    duration = 800,
     root;
 
 // declares a tree layout and assigns the size
@@ -154,14 +166,16 @@ function collapse(d) {
   }
 }
 
+var nodes;
+
 function update(source) {
 
   // Assigns the x and y position for the nodes
   var treeData = treemap(root);
- //console.log(treeData)
+  //console.log(treeData)
   // Compute the new tree layout.
-  var nodes = treeData.descendants(),
-      links = treeData.descendants().slice(1);
+  nodes = treeData.descendants(),
+  links = treeData.descendants().slice(1);
 
   // Normalize for fixed-depth.
   nodes.forEach(function(d){ d.y = d.depth * 30});
@@ -417,57 +431,27 @@ var findCommonElements= function(arrs) {
 
 
 ///  experiments
-/*
-    var brushSVG = d3.select("#brush")
-    .append("svg").attr("height", "100%").attr("width", "50%");
-brushSVG.append("g").attr("transform", "translate(0,50)")
-.attr("id", "brushG").call(timeBrush)
-.selectAll("rect").attr("height", 50);
-brushSVG.append("g").attr("transform", "translate(0,50)")
-.attr("id", "brushG").call(timeBrush)
-.selectAll("rect").attr("height", 50);
-
-function createBrush(incData) {
-    var timeRange = d3.extent(incData.map(function(d) {
-        return new Date(d.timestamp);
-        }));
-
-    var timeScale = d3.time.scale().domain(timeRange).range([10,990]);
-    var timeBrush = d3.svg.brush()
-    .x(timeScale)
-    .extent(timeRange)
-    .on("brush", brushed);
-    var timeAxis = d3.svg.axis()
-    .scale(timeScale)
-    .orient('bottom')
-    .ticks(d3.time.hours, 2)
-    .tickFormat(d3.time.format('%I%p'));
-//    Fires the brushed()
-//    function on every "brush" event shows a tick for every two
-//    hours, and formats it to only show hour and AM/PM
-
-    var brushSVG = d3.select("#brush")
-    .append("svg").attr("height", "100%").attr("width", "100%");
-
-//    Immediately calls the
-//    created rect elements
-//    and makesthem 50px high
-
-    brushSVG.append("g")
-    .attr("transform", "translate(0,100)")
-    .attr("id", "brushAxis").call(timeAxis);
-    // Our axis
-    brushSVG.append("g").attr("transform", "translate(0,50)")
-    .attr("id", "brushG").call(timeBrush)
-    .selectAll("rect").attr("height", 50);
-    function brushed() {
-        // brushed code
-    };
-};
-
-*/
 
 /*init();
 processData(data,0);
 reset_cell_cols();
 //console.log("here?")*/
+
+
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+    }
+
+function get_height(){
+    // get all the nodes (opened) and get their height
+    xxx = d3.selectAll("#area1").selectAll("g")
+            .select("circle").data()
+            .filter(function(d) {return d.y >= 0});
+    var yyy = [];
+    xxx.filter(function(d) {yyy.push(d.depth)})
+
+    // get the unique vals for x coordinates
+    depths = yyy.filter( onlyUnique );
+    return depths;    
+    console.log(depths);
+}
