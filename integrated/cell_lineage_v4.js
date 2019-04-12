@@ -219,9 +219,11 @@ function update(source) {
       .attr("text-anchor", function(d) { 
             return d.children || d._children ? "end" : "start"; })
      // HERE I CAN MODIFY TO TUNE THE SIZE AS A FUNCTION OF THE DEPTH
+//      .attr("font-size", function(d) {
+//                return d.children || d._children ? 
+//                    (9- (d.depth*0.2) + "px" ) : "9px" })
       .attr("font-size", function(d) {
-                return d.children || d._children ? 
-                    (9- (d.depth*0.2) + "px" ) : "9px" })
+               return d.depth <= 3 ? (9- (d.depth*0.2) + "px" ) : "0px" })
       .attr("font-family", "sans serif")
       .text(function(d) 
             {return d.data.name; })
@@ -315,25 +317,26 @@ function update(source) {
     return path
   }
 
-  // Toggle children on click.
-  function click(d) {
-    console.log("I have clicked in cell "+ d.data.did)
-    console.log("depth "+ d.depth)
-    console.log("parents " + d.ancestors().map( d => d.data.did ))   
-    if (d.children) {
-    //    console.log("descendants " + d.descendants().map( d => d.data.did )) 
-        d._children = d.children;
-        d.children = null;
-      } else {
-        d.children = d._children;
-        d._children = null;
-    //    console.log("descendants " + d.descendants().map( d => d.data.did )) 
-      }
-    update(d);    
-  }
+
 }
 
 // my functions
+// Toggle children on click.
+function click(d) {
+//console.log("I have clicked in cell "+ d.data.did)
+//console.log("depth "+ d.depth)
+//console.log("parents " + d.ancestors().map( d => d.data.did ))   
+if (d.children) {
+//    console.log("descendants " + d.descendants().map( d => d.data.did )) 
+    d._children = d.children;
+    d.children = null;
+  } else {
+    d.children = d._children;
+    d._children = null;
+//    console.log("descendants " + d.descendants().map( d => d.data.did )) 
+  }
+update(d);    
+}
 
 function expand(d) {
     if (d._children) {
@@ -375,13 +378,15 @@ function count_leaves(d){
             if (d.children[ii].children){
                 count_subleaves(d.children[ii]);
                  var xx = "#"+d.children[ii].data.id;
-                 d3.selectAll("#area2").select(xx.toUpperCase()).attr("fill", "blue");
+                 d3.selectAll("#area2").select(xx.toUpperCase())
+                     .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "blue");
                  d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
                 }
             //if not then it is a leaf so we count it
             else{count++;
                  var xx = "#"+d.children[ii].data.id;
-                 d3.selectAll("#area2").select(xx.toUpperCase()).attr("fill", "blue")
+                 d3.selectAll("#area2").select(xx.toUpperCase())
+                     .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "blue")
                  d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
            //      console.log(count + " " + xx.toUpperCase())
                 }
@@ -401,13 +406,15 @@ function count_subleaves(d){;
             if (d.children[jj].children){
                 count_subleaves(d.children[jj]);
                 var xx = "#"+d.children[jj].data.id;
-                d3.selectAll("#area2").select(xx.toUpperCase()).attr("fill", "blue");
+                d3.selectAll("#area2").select(xx.toUpperCase())
+                    .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "blue");
                 d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
                 }
             //if not then it is a leaf so we count it
             else{count++;
                  var xx = "#"+d.children[jj].data.id;
-                 d3.selectAll("#area2").select(xx.toUpperCase()).attr("fill", "blue");
+                 d3.selectAll("#area2").select(xx.toUpperCase())
+                     .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "blue");
                  d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
            //      console.log(count + " " + xx.toUpperCase())
                 }
@@ -449,6 +456,19 @@ function get_height(){
             .filter(function(d) {return d.y >= 0});
     var yyy = [];
     xxx.filter(function(d) {yyy.push(d.depth)})
+
+    // get the unique vals for x coordinates
+    depths = yyy.filter( onlyUnique );
+    return depths;    
+    console.log(depths);
+}
+function get_heightID(){
+    // get all the nodes (opened) and get their height
+    xxx = d3.selectAll("#area1").selectAll("g")
+            .select("circle").data()
+            .filter(function(d) {return d.y >= 0});
+    var yyy = [];
+    xxx.filter(function(d) {yyy.push(d.data.id)})
 
     // get the unique vals for x coordinates
     depths = yyy.filter( onlyUnique );

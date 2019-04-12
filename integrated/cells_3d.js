@@ -266,7 +266,7 @@ d3.csv("div9.csv", function(data) {
 // DO the stuff
 /* ---------- INITIAL CONDITIONS -------- */
 
-var origin = [ww/2.5, hh/3], p = 10, j = 2, scale = ww/4, rad = 2.5,
+var origin = [ww/2.5, hh/3], p = 10, j = 2, scale = ww/4, rad = 3,
     scatter = [], yLine = [], xGrid = [],
     beta = 0, alpha = 0, 
     key = function(d){ return d.id; },
@@ -357,7 +357,7 @@ function processData(data, tt){
         .append('circle')
         .attr('class', '_3d')
         .attr('opacity', 10)
-        .attr('fill-opacity', 0.7)
+     //   .attr('fill-opacity', 1)
         .attr('cx', posPointX)
         .attr('cy', posPointY)
         .attr('id',myid)
@@ -514,7 +514,8 @@ function common_anc2(d) {
                         d3.selectAll("#area1").selectAll("#"+selections[jj])
                         .select("circle").style("fill", "red")
                         var xx = "#"+selections[jj];
-                        d3.selectAll("#area2").select(xx).attr("fill", "purple");
+                        d3.selectAll("#area2").select(xx)
+                            .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "purple");
                         d3.selectAll("#area2").select(xx).attr("r", 3);
                         }
                     })
@@ -542,7 +543,7 @@ function click2(d) {
         .text('You clicked on ' + myid(d)); // Logs the x and y position of the datum.
         // $(this).hide();
     $(this).attr("r", 3);
-    $(this).attr("fill", "purple");
+    $(this).attr("fill", "purple").attr('opacity', 10).attr('fill-opacity', 1);
     var yy = "#"+myid(d);
     d3.selectAll("#area1").select(yy).select("circle")
         .style("stroke", "purple")
@@ -558,6 +559,8 @@ function click2(d) {
 function reset_cell_cols() {
     d3.selectAll("#area2")
         .selectAll("circle")
+         //.attr('opacity', 10)
+        .attr('fill-opacity', 0.3)
         .attr("fill", "grey");
     }
 
