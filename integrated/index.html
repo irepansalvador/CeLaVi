@@ -12,7 +12,11 @@
         <script src="d3.v4.min.js"></script> <!-- 3d cells-->
         <script src="d3-3d.min.js"></script>
         <script src="jquery.min.js"></script>
-	</head>
+        <!--<script src="d3.min.js"></script>  TREE -->
+        <script src="newick.js"></script>
+        <script src="../d3-hierarchy.min.js"></script>
+        <script src="../d3-context-menu.js"></script>
+    </head>
 
     <body>
 		<div id= "container", class="svg-container">
@@ -46,13 +50,9 @@
 		<!-- JS Libraries -->
 		<!--<script src="d3.js" charset="utf-8"></script>-->
   
-        <!--<script src="d3.min.js"></script>  TREE -->
-        <script src="newick.js"></script>
-        <script src="../d3-hierarchy.min.js"></script>
         <!-- Custom JS code -->
         <script src="cells_3d.js"></script><!-- -->
 		<script src="cell_lineage_v4.js"></script>
-        <script src="../d3-context-menu.js"></script>
         <script src="brush.js"></script>
         <!-- Run functions to initialise the visualisation -->
         <script>
