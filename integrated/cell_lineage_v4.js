@@ -126,6 +126,8 @@ d3.json("json-celllineage_DEATH.js", function(error, p0) {
     get_height();
     
     my_slider();
+    
+    MAKE_HMscale();
    
     //console.log(depths);
     // collapse all   
@@ -196,12 +198,18 @@ function update(source) {
         })
       .attr("death", function(d) 
         {return d.data.deathDistance || d.data._deathDistance ? "yes" : "no";})
-      .on("mouseout", function(d) {		
-            div.transition()		
-                .duration(100)		
-                .style("opacity", 0);})
-      .on('contextmenu', d3.contextMenu(menu))
-      .on('click', click);
+      .on('click', click)
+//      .on("mouseover.c",count_leaves2)
+      .on("mouseout.c",reset_cell_cols)
+      .on("mouseover.t", function(d) {		
+            div.style("opacity", .9)
+                .text(d.data.did + " "+count_leaves2(d) +" daughters")
+                .style("left", (d3.event.pageX + 10 ) + "px")	
+                .style("top", (d3.event.pageY - 28) + "px");})
+      .on("mouseout.t", function(d) {
+            div.style("opacity", 0)
+                .text('');})
+        .on('contextmenu', d3.contextMenu(menu));
 
   // Add Circle for the nodes
   nodeEnter.append('circle')
@@ -393,9 +401,10 @@ function count_leaves(d){
             }
         }
  //   d.children.forEach(collapse);
-//    update(root);
+    update(root);
 
     return(count);
+    count=0;
     }        
 
 function count_subleaves(d){;
@@ -419,8 +428,109 @@ function count_subleaves(d){;
            //      console.log(count + " " + xx.toUpperCase())
                 }
             }
+    }
+
+//###################################################################################
+
+function count_leaves2(d){
+    count = 0;
+    if(d.children){   //go through all its children
+        for(var ii = 0; ii<d.children.length; ii++){
+            //expand(d.children[ii])
+
+            //if the current child in the for loop has children of its own
+            //call recurse again on it to decend the whole tree
+            if (d.children[ii].children){
+                count_subleaves2(d.children[ii]);
+                }
+            else if (d.children[ii]._children){
+                count_subleaves2h(d.children[ii]);
+                } 
+            //if not then it is a leaf so we count it
+            else{
+                count++;
+                 var xx = "#"+d.children[ii].data.id;
+                d3.selectAll("#area2").select(xx.toUpperCase())
+                    .attr('opacity', 10).attr('fill-opacity', 0.6).attr("fill", "blue");
+                d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
+                  //     console.log(count + " " + xx.toUpperCase())
+                }
+            }
+        }
+    if(d._children){   //go through all its children
+        for(var ii = 0; ii<d._children.length; ii++){
+            //expand(d._children[ii])
+            if (d._children[ii]._children){
+                count_subleaves2h(d._children[ii]);
+                //console.log(d._children[ii])
+                }
+            else if (d._children[ii].children){
+                count_subleaves2(d._children[ii]);
+                //console.log(d._children[ii])
+                }
+
+            //if not then it is a leaf so we count it
+            else{count++;
+                var xx = "#"+d._children[ii].data.id;
+                d3.selectAll("#area2").select(xx.toUpperCase())
+                  .attr('opacity', 10).attr('fill-opacity', 0.6).attr("fill", "blue");
+                d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
+                console.log(count + " " + xx.toUpperCase())
+                }
+            }
+        }
+ //   d.children.forEach(collapse);
+    count2=count; count=0;
+    return(count2);
     }        
-    
+
+function count_subleaves2(d){;
+        for(var jj = 0; jj<d.children.length; jj++){
+                var xx = "#"+d.children[jj].data.id;
+                d3.selectAll("#area2").select(xx.toUpperCase())
+                    .attr('opacity', 10).attr('fill-opacity', 0.6).attr("fill", "blue");
+                d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
+            //if the current child in the for loop has children of its own
+            //call recurse again on it to decend the whole tree
+            if (d.children[jj].children){
+                count_subleaves2(d.children[jj]);
+                }
+            else if (d.children[jj]._children){
+                count_subleaves2h(d.children[jj]);
+                }
+            //if not then it is a leaf so we count it
+            else{count++;
+                 //console.log(count + " " + xx.toUpperCase())
+                }
+            }
+    }
+
+function count_subleaves2h(d){;
+        for(var jj = 0; jj<d._children.length; jj++){
+               var xx = "#"+d._children[jj].data.id;
+                d3.selectAll("#area2").select(xx.toUpperCase())
+                    .attr('opacity', 10).attr('fill-opacity', 0.6).attr("fill", "blue");
+                d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
+            //if the current child in the for loop has children of its own
+            //call recurse again on it to decend the whole tree
+            if (d._children[jj]._children){
+                count_subleaves2h(d._children[jj]);
+                }
+            else if (d._children[jj].children){
+                count_subleaves2(d._children[jj]);
+                }
+            
+            //if not then it is a leaf so we count it
+            else{count++;
+//                 console.log(count + " " + xx.toUpperCase())
+                }
+            }
+    }
+
+
+
+//###################################################################################
+
 var findCommonElements= function(arrs) {
     var resArr = [];
     for (var i = arrs[0].length - 1; i > 0; i--) {
@@ -475,3 +585,11 @@ function get_heightID(){
     return depths;    
     console.log(depths);
 }
+
+function reset_cell_cols() {
+    d3.selectAll("#area2")
+        .selectAll("circle")
+         //.attr('opacity', 10)
+        .attr('fill-opacity', 0.3)
+        .attr("fill", "grey");
+    }

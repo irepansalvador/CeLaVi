@@ -16,6 +16,9 @@
         <script src="newick.js"></script>
         <script src="../d3-hierarchy.min.js"></script>
         <script src="../d3-context-menu.js"></script>
+        <script src="https://d3js.org/d3-color.v1.min.js"></script>
+        <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     </head>
 
     <body>
@@ -28,6 +31,7 @@
             <button id="CollapseAll" onclick="collapseAll()">Collapse All</button>
 	        <button id="ExpandAll" onclick="expandAll()">Expand All</button>	
             <button id="Update" onclick="reset_cell_cols()">Reset cells</button>
+            <button id="Disparity" onclick="disparity()">Show disparity</button>
             
             <div class="status">Click on a cell</div>
             
@@ -44,6 +48,10 @@
         <div id="slider">
            <h2>Tree depth</h2>
         </div>
+        <div id="HM_scale">
+           <h2>Disparity (mean lineage distance of 10 closest neighbours)</h2>
+        </div>
+        
 		<div id="footer">
 			<strong>Source</strong> : www.my_github_account.com
 		</div>
@@ -54,12 +62,14 @@
         <script src="cells_3d.js"></script><!-- -->
 		<script src="cell_lineage_v4.js"></script>
         <script src="brush.js"></script>
+        <script src="HM_scale.js"></script>
+        
         <!-- Run functions to initialise the visualisation -->
         <script>
             init();
             processData(data,0);
             reset_cell_cols();
-            console.log("here?");
+          //  console.log("here?");
         </script>
         
 	</body>

@@ -262,7 +262,6 @@ d3.csv("div9.csv", function(data) {
 
 });// end of d3.csv(---------*/
 
-
 // DO the stuff
 /* ---------- INITIAL CONDITIONS -------- */
 
@@ -563,6 +562,49 @@ function reset_cell_cols() {
         .attr('fill-opacity', 0.3)
         .attr("fill", "grey");
     }
+
+
+
+// Get the disparity vals
+
+function disparity(){
+    var myIDs;
+    d3.csv("./disparity.csv", function(disp2) {
+        
+        var myDisp = d3.map(disp2,  function(d){return d.disparity;}).keys()
+        // transform the values to floating numbers
+        var res = myDisp.map(function(v) {return parseFloat(v, 10);});
+        console.log(res);
+        // store Max and min in vars
+        var dispMax = d3.max(res); var dispMin = d3.min(res);
+        
+        var sequentialScale = d3.scaleSequential()
+	       .domain([dispMin, dispMax])
+	       .interpolator(d3.interpolateYlOrBr);
+        
+        d3.map(disp2, function(d){
+            //console.log(d.disparity);
+            d3.selectAll("#area2").select("#"+d.ID)
+            .attr("fill-opacity",1)
+            .attr('fill', function(d2) {
+                return sequentialScale(d.disparity);
+                });
+        })
+        //console.log(disp2);
+    });
+
+}
+
+
+d3.csv("./disparity.csv", function(disp) {
+    return {
+        //myID : disp.ID,
+        myDisp : +disp["disparity"]
+        };
+}, function(error, rows) {
+    console.log(d3.values(rows));
+});
+
 
 /*init();
 processData(data,0);
