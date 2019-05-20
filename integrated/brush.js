@@ -116,13 +116,13 @@ function onlyUnique(value, index, self) {
         .select("circle").data()
         .filter(function(dd) {return dd.depth == d});
     var yyy = [];
-    xxx.filter(function(dd) {yyy.push(dd.data.id)});
+    xxx.filter(function(dd) {yyy.push(dd.data.did)});
     var depths2 = yyy.filter( onlyUnique );
-
+     console.log(depths2)
     depths2.forEach(function(d,i) 
         {
         ci = i;
-        var D = d.toUpperCase();
+        var D = d.toUpperCase(); console.log(D);
         var nn = d3.selectAll("#area1")
             .select("#"+D)
             .each(function(d)
@@ -141,7 +141,7 @@ function depth_expand(d){
         .select("circle").data()
         .filter(function(dd) {return dd.depth == d});
     var yyy = [];
-    xxx.filter(function(dd) {yyy.push(dd.data.id)});
+    xxx.filter(function(dd) {yyy.push(dd.data.did)});
     var depths2 = yyy.filter( onlyUnique );
 
     depths2.forEach(function(d,i)
@@ -187,14 +187,14 @@ function rnd_count_leaves(d){
             //call recurse again on it to decend the whole tree
             if (d.children[ii].children){
                 rnd_count_leaves(d.children[ii]);
-                 var xx = "#"+d.children[ii].data.id;
+                 var xx = "#"+d.children[ii].data.did;
                  d3.selectAll("#area2").select(xx.toUpperCase())
                      .attr('opacity', 10).attr('fill-opacity', 1).attr("fill",color(ci));
                  d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
                 }
             //if not then it is a leaf so we count it
             else{count++;
-                 var xx = "#"+d.children[ii].data.id;
+                 var xx = "#"+d.children[ii].data.did;
                  d3.selectAll("#area2").select(xx.toUpperCase())
                     .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", color(ci));
                  d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
@@ -217,14 +217,14 @@ function rnd_count_subleaves(d){;
             //call recurse again on it to decend the whole tree
             if (d.children[jj].children){
                 rnd_count_leaves(d.children[jj]);
-                var xx = "#"+d.children[jj].data.id;
+                var xx = "#"+d.children[jj].data.did;
                 d3.selectAll("#area2").select(xx.toUpperCase())
                     .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", color(ci));
                 d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
                 }
             //if not then it is a leaf so we count it
             else{count++;
-                 var xx = "#"+d.children[jj].data.id;
+                 var xx = "#"+d.children[jj].data.did;
                  d3.selectAll("#area2").select(xx.toUpperCase())
                     .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", color(ci));
                  d3.selectAll("#area2").select(xx.toUpperCase()).attr("r", 3);
