@@ -63,6 +63,8 @@ for my $p (keys %time) {
 ## one progenitor has children, push them to the children
 ## array
 
+open(COORDS, ">3D_coords.txt") or die "cannot open outputfile\n";
+
 while ($#progenitors >= 0)
 	{
 	my $level=0; # will count the steps to go down the tree to get this
@@ -100,22 +102,36 @@ while ($#progenitors >= 0)
 	if ($n_daught==1)
 		{print(", \"children\":[\n");
  		$level++;
-		if ($orphans>0) {$orphans = $orphans-1;}
+		if ($orphans>0 && $conc>1) {$orphans = $orphans-1;}
+		$conc=1;
 		}
 	elsif ($n_daught==2)
 		{print(", \"children\":[\n");
- 		$level++;
+ 		$level++; $conc=0;
 		$orphans++;
 		}
 	
+	#else {
+	#	print("}");
+	#	if ($orphans>0) {for my $o (1..$level-$orphans) {print("]}")}} 		
+	#	$orphans = $orphans-1; ##
+	#	$level = $level-1;
+	#	print("\n");
+	#	#$level=0;
+	#	}
 	else {
 		print("}");
-		if ($orphans>0) {for my $o (1..$level-$orphans) {print("]}")}} 		
+		$conc++;			
+		if ($conc>1)
+			{for my $o (1..$level-$orphans) {print("]}");$level--;}
+			}
 		$orphans = $orphans-1; ##
-		$level = $level-1;
 		print("\n");
 		#$level=0;
 		}
+	
+	
+	
 	
 	while (@d > 0 )
 		{
@@ -146,7 +162,9 @@ while ($#progenitors >= 0)
 			}
 		if ($n_daught==1)
 			{print(", \"children\":[\n");
- 			$level++;$conc=0;
+			$level++;
+			if ($orphans>0 && $conc>1) {$orphans = $orphans-1;}
+			$conc=1;
 			}
 		elsif ($n_daught==2)
 			{print(", \"children\":[\n");
@@ -160,6 +178,8 @@ while ($#progenitors >= 0)
 			if ($conc>1)
 				{for my $o (1..$level-$orphans) {print("]}");$level--;}
 				}
+			if ($time{$d_0_last}==400)
+				{print COORDS "$did{$d_0_last}\t$X{$d_0_last}\t$Y{$d_0_last}\t$Z{$d_0_last}\n"; }
 			$orphans = $orphans-1; ##
 			print("\n");
 			#$level=0;
@@ -168,7 +188,7 @@ while ($#progenitors >= 0)
 		####################
 		#	}
 		}
-	
+
 	### need to populate an array with the daughters of a lineage and keep going until
 	### i cannot find more, then I need to go back to get the sisters left behind..
 	### need to populate @daughters with the point number and then refer to the time
@@ -180,3 +200,4 @@ while ($#progenitors >= 0)
 	splice @progenitors, 0, 1;	
 	print("-\n");
 	}
+close COORDS;
