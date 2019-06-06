@@ -65,7 +65,8 @@ for my $p (keys %time) {
 
 open(COORDS, ">3D_coords.txt") or die "cannot open outputfile\n";
 
-while ($#progenitors >= 0)
+#while ($#progenitors >= 0)
+for (1)
 	{
 	my $level=0; # will count the steps to go down the tree to get this
 	my @d; # provisional array for daughters
@@ -74,6 +75,7 @@ while ($#progenitors >= 0)
 	my $orphans = 0;
 	my $mom = $progenitors[0];
 	my $conc=0;
+	my @lineage;
 #	print("$mom\n\n");
 	print("{\"did\": \"$did{$mom}\", \"length\": $time{$mom}, \"level\": $level");
 	
@@ -100,27 +102,27 @@ while ($#progenitors >= 0)
 			{push @d, $1; $n_daught++;}
 		}
 	if ($n_daught==1)
-		{print(", \"children\":[\n");
- 		$level++;
+		{
+		push @lineage, $n_daught;
+		print(", \"children\":[\n");
+ 		
+		$level++;
 		if ($orphans>0 && $conc>1) {$orphans = $orphans-1;}
 		$conc=1;
 		}
-	elsif ($n_daught==2)
-		{print(", \"children\":[\n");
+	elsif ($n_daught>1)
+		{
+		push @lineage, $n_daught;
+		print(", \"children\":[\n");
  		$level++; $conc=0;
 		$orphans++;
 		}
 	
-	#else {
-	#	print("}");
-	#	if ($orphans>0) {for my $o (1..$level-$orphans) {print("]}")}} 		
-	#	$orphans = $orphans-1; ##
-	#	$level = $level-1;
-	#	print("\n");
-	#	#$level=0;
-	#	}
 	else {
-		print("}");
+		my $x = pop @lineage;
+		if ($x==0) {print("}")}
+		elsif ($x>0) {print("},"); push @lineage, $x-1};
+		
 		$conc++;			
 		if ($conc>1)
 			{for my $o (1..$level-$orphans) {print("]}");$level--;}
@@ -161,26 +163,33 @@ while ($#progenitors >= 0)
 				 $n_daught++}
 			}
 		if ($n_daught==1)
-			{print(", \"children\":[\n");
+			{
+			push @lineage, $n_daught;
+			print(", \"children\":[\n");
 			$level++;
 			if ($orphans>0 && $conc>1) {$orphans = $orphans-1;}
 			$conc=1;
 			}
-		elsif ($n_daught==2)
-			{print(", \"children\":[\n");
+		elsif ($n_daught>1)
+			{
+			push @lineage, $n_daught;
+			print(", \"children\":[\n");
  			$level++;$conc=0;
 			$orphans++;
 			}
 		
 		else {
-			print("}");
-			$conc++;			
-			if ($conc>1)
-				{for my $o (1..$level-$orphans) {print("]}");$level--;}
-				}
-			if ($time{$d_0_last}==400)
-				{print COORDS "$did{$d_0_last}\t$X{$d_0_last}\t$Y{$d_0_last}\t$Z{$d_0_last}\n"; }
-			$orphans = $orphans-1; ##
+			my $x = pop @lineage;
+			if ($x==1) {print("}]}")}	
+			elsif ($x>1) {print("},"); push @lineage, $x-1};
+
+			#$conc++;			
+			#if ($conc>1)
+			#	{for my $o (1..$level-$orphans) {print("]}");$level--;}
+			#	}
+			#if ($time{$d_0_last}==400)
+			#	{print COORDS "$did{$d_0_last}\t$X{$d_0_last}\t$Y{$d_0_last}\t$Z{$d_0_last}\n"; }
+			#$orphans = $orphans-1; ##
 			print("\n");
 			#$level=0;
 			}
