@@ -1,3 +1,33 @@
+ 
+// Check for the various File API support.
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+ console.log("ALL FILE API supported") // Great success! All the File APIs are supported.
+} else {
+  alert('The File APIs are not fully supported in this browser.');
+}
+
+// handle upload button
+function Coords_upload_button(el, callback) {
+  var uploader = document.getElementById(el);  
+  var reader = new FileReader();
+  console.log(uploader);
+
+  reader.onload = function(e) {
+    var contents = e.target.result;
+    callback(contents);
+  };
+
+  uploader.addEventListener("change", handleFiles, false);  
+
+  function handleFiles() {
+    //d3.select("#area2").text("loading...");
+    var file = this.files[0];
+    reader.readAsText(file);
+    console.log(file)      
+  };
+};
+
+
 //Store width, height and margin in variables
 //var wLine = 650;
 //var hLine = 1200;
@@ -279,8 +309,65 @@ var svg_3d = d3.select("#area2").selectAll('svg')
     .append('g');
 
 /* ----------- ZOOM AND PAN ----------- */
-svg_3d.call(d3.zoom().on("zoom", function () {
-svg_3d.attr("transform", d3.event.transform)}))
+
+var pan_x, pan_y, zoom_idx;
+
+d3.select("#zoom_in").on("click", function() {
+   pan_x = d3.zoomTransform(svg_3d).x;
+   pan_y = d3.zoomTransform(svg_3d).y;
+   zoom_idx = d3.zoomTransform(svg_3d).k;
+   d3.zoomTransform(svg_3d).k = zoom_idx * 1.1 ;
+   svg_3d.attr("transform", "translate(" + pan_x + "," + pan_y + ") scale("+ d3.zoomTransform(svg_3d).k + ")");
+});
+
+d3.select("#zoom_out").on("click", function() {
+   pan_x = d3.zoomTransform(svg_3d).x;
+   pan_y = d3.zoomTransform(svg_3d).y;
+   zoom_idx = d3.zoomTransform(svg_3d).k;
+   d3.zoomTransform(svg_3d).k = zoom_idx * 0.9 ;
+   svg_3d.attr("transform", "translate(" + pan_x + "," + pan_y + ") scale("+ d3.zoomTransform(svg_3d).k + ")");
+});
+ 
+d3.select("#pan_right").on("click", function() {
+   pan_x = d3.zoomTransform(svg_3d).x; pan_y = d3.zoomTransform(svg_3d).y;
+   zoom_idx = d3.zoomTransform(svg_3d).k;
+   d3.zoomTransform(svg_3d).x = pan_x + 20;
+   svg_3d.attr("transform", "translate(" +  d3.zoomTransform(svg_3d).x + "," + pan_y + ") scale("+ zoom_idx + ")");
+});
+
+d3.select("#pan_left").on("click", function() {
+    pan_x = d3.zoomTransform(svg_3d).x;
+    pan_y = d3.zoomTransform(svg_3d).y;
+    zoom_idx = d3.zoomTransform(svg_3d).k;
+    d3.zoomTransform(svg_3d).x = pan_x - 20;
+    svg_3d.attr("transform", "translate(" +  d3.zoomTransform(svg_3d).x + "," + pan_y + ") scale("+ zoom_idx + ")");
+});
+
+d3.select("#pan_up").on("click", function() {
+    pan_y = d3.zoomTransform(svg_3d).y; 
+    pan_x = d3.zoomTransform(svg_3d).x;
+    zoom_idx = d3.zoomTransform(svg_3d).k;
+    d3.zoomTransform(svg_3d).y = pan_y - 20;
+    svg_3d.attr("transform", "translate(" +  pan_x + "," + d3.zoomTransform(svg_3d).y + ") scale("+ zoom_idx + ")");
+});
+
+d3.select("#pan_down").on("click", function() {
+    pan_y = d3.zoomTransform(svg_3d).y; 
+    pan_x = d3.zoomTransform(svg_3d).x;
+    zoom_idx = d3.zoomTransform(svg_3d).k;
+    d3.zoomTransform(svg_3d).y = pan_y + 20;
+    svg_3d.attr("transform", "translate(" +  pan_x + "," + d3.zoomTransform(svg_3d).y + ") scale("+ zoom_idx + ")");
+});
+
+d3.select("#reset").on("click", function() {
+    d3.zoomTransform(svg_3d).y = 0; 
+    d3.zoomTransform(svg_3d).x = 0;
+    d3.zoomTransform(svg_3d).k = 1;
+    svg_3d.attr("transform", "translate(" +  d3.zoomTransform(svg_3d).x + "," + d3.zoomTransform(svg_3d).y + ") scale("+ d3.zoomTransform(svg_3d).k + ")");
+});
+
+
+// ----------------------------------------------
 
 var color  = d3.scaleOrdinal(d3.schemeCategory10);
 //  var color  =  [d3.color('crimson')];
@@ -316,7 +403,29 @@ var yScale3d = d3._3d()
 
 /* -------- LOAD THE POINTS ----------- */
 
-d3.csv("./paryhale/cells_3Dnorm_centroid.csv", function(file) {        
+// load dataset and create plot
+function load_dataset_2(csv) {
+  // first restart the area to remove the points
+  scatter = [];
+  d3.selectAll("#area2").select("svg").selectAll("circle").remove()
+  // parse the data set and plot it
+  var data_3d = d3.csvParse(csv);
+  console.log(data_3d);
+  data_3d.forEach(function(d) 
+            {
+            scatter.push({x: +(d.Xnorm )*2, 
+                          y: +(d.Ynorm)*2, 
+                          z: +(d.Znorm)*2,
+                          id: d.cell});
+            });
+
+init();
+reset_cell_cols();
+}
+
+
+
+/*d3.csv("./paryhale/cells_3Dnorm_centroid.csv", function(file) {        
          file.forEach(function(d) 
             {
             scatter.push({x: +(d.Xnorm )*2, 
@@ -327,6 +436,7 @@ d3.csv("./paryhale/cells_3Dnorm_centroid.csv", function(file) {
            //console.log(file[0])
          });
     console.log(scatter)
+*/
 
 function processData(data, tt){
 
