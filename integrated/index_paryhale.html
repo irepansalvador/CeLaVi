@@ -29,15 +29,15 @@
             <input type="file" id="Tree_uploader">
 
             <button id="Reset" onclick="update(root)">Reset tree</button>
-            <button id="BranchLegths" onclick="show_bl()">Show BranchLengths</button>
+            <button id="BranchLegths" onclick="show_bl()">BranchLengths</button>
             <button id="CollapseAll" onclick="collapseAll()">Collapse All</button>
 	        <button id="ExpandAll" onclick="expandAll()">Expand All</button>	
             <button id="Update" onclick="reset_cell_cols()">Reset cells</button>
-            <button id="Disparity" onclick="disparity()">Show disparity</button>
+            <button id="Disparity" onclick="disparity()">Disparity</button>
             
             <input type="file" id="3Dcoord_uploader">
             
-            <div class="status">Click on a cell</div>
+            <div class="status" align="right" > Click on a cell      </div>
             
             <!-- Separate Areas -->
 			<div id="area1"> <!-- cell lineage -->
@@ -58,6 +58,12 @@
                 <button id="reset">reset</button>
             </div>
         
+            <div  align="left" class="controls">
+                <button id="zoom_in_tree" >< ></button>
+                <button id="zoom_out_tree">> <</button>
+                <button id="pan_up_tree"  >^</button>
+                <button id="pan_down_tree">v</button>
+            </div>
 		</div> 
         <div id="slider">
            <h2>Tree depth</h2>

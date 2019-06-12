@@ -227,8 +227,6 @@ var i = 0,
     duration = 800,
     root;
 
-// declares a tree layout and assigns the size
-var treemap = d3.tree().size([h/2, w]);
 
 // Collapse the node and all it's children
 function collapse(d) {
@@ -241,7 +239,45 @@ function collapse(d) {
 
 var nodes;
 
+
+
+/* ----------- ZOOM AND PAN ----------- */
+// declares a tree layout and assigns the size
+var node_h = h/2;
+var treemap = d3.tree().size([node_h, w]);
+
 show_BL = 0;
+var nodelen  = 60;
+var nodelen2 = 1;
+
+d3.select("#zoom_in_tree").on("click", function() {
+    if (show_BL == 0)
+     {nodelen = nodelen * 1.1; update(root);}
+    if (show_BL == 1)
+     {nodelen2 = nodelen2 * 1.1; update(root);}
+
+});
+
+d3.select("#zoom_out_tree").on("click", function() {
+    if (show_BL == 0)
+     {nodelen = nodelen * 0.9; update(root);}
+    if (show_BL == 1)
+     {nodelen2 = nodelen2 * 0.9; update(root);}
+});
+
+d3.select("#pan_down_tree").on("click", function() {
+    node_h = node_h * 1.1;
+    treemap = d3.tree().size([node_h, w]);
+    update(root);
+});
+
+d3.select("#pan_up_tree").on("click", function() {
+    node_h = node_h * 0.9;
+    treemap = d3.tree().size([node_h, w]);
+    update(root);
+});
+
+// ----------------------------------------------
 
 function update(source) {
 
@@ -259,7 +295,7 @@ function update(source) {
   // Normalize for fixed-depth.
   // nodes.forEach(function(d){ d.y = d.depth * 30});
   if (show_BL == 0)
-     {nodes.forEach(function(d){ d.y = d.depth * 60});}
+     {nodes.forEach(function(d){ d.y = d.depth * nodelen});}
   if (show_BL == 1)
      {nodes.forEach(function(d){ d.y = d.blength + 20});}
     
@@ -643,7 +679,7 @@ function set_bl(){
     nodes.forEach(function(d) 
         {
         //if (d.parent !==null) {
-            d.blength = d.data.length +30
+            d.blength = (d.data.length * nodelen2) + 60;
           //  }// + d.parent.blength} 
         })
 }
