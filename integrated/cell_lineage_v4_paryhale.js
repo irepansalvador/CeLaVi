@@ -162,6 +162,7 @@ function load_dataset_1(json) {
     root.y0 = 0;
     
   update(root);
+  resetAll();
   // get all the heights
   get_height();
   my_slider();
@@ -280,7 +281,7 @@ d3.select("#pan_up_tree").on("click", function() {
 // ----------------------------------------------
 
 function update(source) {
-
+  ci =0;
   // Assigns the x and y position for the nodes
   var treeData = treemap(root);
   //console.log(treeData)
@@ -325,8 +326,8 @@ function update(source) {
       .on("mouseout.t", function(d) {
             div.style("opacity", 0)
                 .text('');})
-        .on('contextmenu', d3.contextMenu(menu));
-
+     .on('contextmenu', d3.contextMenu(menu));
+    
   // Add Circle for the nodes
   nodeEnter.append('circle')
       .attr('class', 'node')
@@ -342,16 +343,23 @@ function update(source) {
             {return d.children || d._children ? -10 : 10; })
       .attr("text-anchor", function(d) { 
             return d.children || d._children ? "end" : "start"; })
-     // HERE I CAN MODIFY TO TUNE THE SIZE AS A FUNCTION OF THE DEPTH
-//      .attr("font-size", function(d) {
-//                return d.children || d._children ? 
-//                    (9- (d.depth*0.2) + "px" ) : "9px" })
       .attr("font-size", function(d) {
-               return d.depth <= 3 ? (9- (d.depth*0.2) + "px" ) : "0px" })
+               return d.depth <= 1 ? (9- (d.depth*0.2) + "px" ) : "0px" })
       .attr("font-family", "sans serif")
       .text(function(d) 
-            {return d.data.did; })
+            {return d.data.did; });
 
+    // Text when adding nodes 
+  nodeEnter.append('text')
+      .attr("class", "textchild")
+      .attr("x", 10).attr("dy", ".35em")
+      .attr("font-size", 9)
+      .text(function(d) 
+            {if (d._children == null) {return  ""}
+             else if (d._children != null) {return  count_leaves(d) }
+            });;
+
+    
     // .style("fill-opacity", 1e-6);
     
   // UPDATE
@@ -371,13 +379,20 @@ function update(source) {
                 return (6- (d.depth/2)) })
     .style("fill", function(d) {
             return d._children ? "lightblue" : "#fff";})
-    .style('stroke-width', 2)
+    .style('stroke-width', 1.5)
+    .attr('fill-opacity', 0.9)
     .attr('cursor', 'pointer')
     .style("stroke", "blue");
 //    .style("stroke", function(d) {
-  //  return d.data.deathDistance || d.data._deathDistance ?  "red" : "blue";
-    
+  //  return d.data.deathDistance || d.data._deathDistance ?  "red" : "blue"
 
+   // Text when adding nodes 
+  nodeUpdate.select('.textchild')
+      .text(function(d) 
+            {if (d._children == null) {return  ""}
+             else if (d._children != null) {return  count_leaves(d) }
+            });
+    
   // Remove any exiting nodes
   var nodeExit = node.exit().transition()
       .duration(duration)
@@ -494,13 +509,11 @@ function resetAll(){
 //###################################################################################
 //#############FUNCTIONS TO HIGHLIGHT ALL DAUGHTERS OF A GIVEN NODE##################
 //###################################################################################
-var count;
+var count; var Tcount;
 function count_leaves2(d){
     count = 0;
     if(d.children){   //go through all its children
         for(var ii = 0; ii<d.children.length; ii++){
-            //expand(d.children[ii])
-
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
             if (d.children[ii].children){
@@ -514,7 +527,7 @@ function count_leaves2(d){
                 count++;
                  var xx = "#"+d.children[ii].data.did;
                 d3.selectAll("#area2").select(xx)
-                    .attr('opacity', 10).attr('fill-opacity', 0.6).attr("fill", "blue");
+                    .attr('opacity', 10).attr('fill-opacity', 0.8).attr("fill", "blue");
                 d3.selectAll("#area2").select(xx).attr("r", 6);
                   //     console.log(count + " " + xx)
                 }
@@ -536,7 +549,7 @@ function count_leaves2(d){
             else{count++;
                 var xx = "#"+d._children[ii].data.did;
                 d3.selectAll("#area2").select(xx)
-                  .attr('opacity', 10).attr('fill-opacity', 0.6).attr("fill", "blue");
+                  .attr('opacity', 10).attr('fill-opacity', 0.8).attr("fill", "blue");
                 d3.selectAll("#area2").select(xx).attr("r", 6);
                 console.log(count + " " + xx)
                 }
@@ -544,13 +557,18 @@ function count_leaves2(d){
         }
  //   d.children.forEach(collapse);
     count2=count; count=0;
+    Tcount = Tcount+count2;
     return(count2);
     }        
 function count_subleaves2(d){;
         for(var jj = 0; jj<d.children.length; jj++){
                 var xx = "#"+d.children[jj].data.did;
                 d3.selectAll("#area2").select(xx)
-                    .attr('opacity', 10).attr('fill-opacity', 0.6).attr("fill", "blue");
+                    .style("stroke", function(c) 
+                        { return ci <10 ? "blue" : "green"})
+                    .style('stroke-width', 1.5)
+                    .attr('opacity', 10).attr('fill-opacity', 0.8)
+                    .attr("fill", color(ci));
                 d3.selectAll("#area2").select(xx).attr("r", 6);
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
@@ -570,7 +588,11 @@ function count_subleaves2h(d){;
         for(var jj = 0; jj<d._children.length; jj++){
                var xx = "#"+d._children[jj].data.did;
                 d3.selectAll("#area2").select(xx)
-                    .attr('opacity', 10).attr('fill-opacity', 0.6).attr("fill", "blue");
+                    .style("stroke", function(c) 
+                        { return ci <10 ? "blue" : "green"})
+                    .style('stroke-width', 1.5)
+                    .attr('opacity', 10).attr('fill-opacity', 0.8)
+                    .attr("fill",color(ci));
                 d3.selectAll("#area2").select(xx).attr("r", 6);
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
@@ -587,6 +609,87 @@ function count_subleaves2h(d){;
                 }
             }
     }
+
+//#############FUNCTIONS TO COUNT ONLY ALL DAUGHTERS OF A GIVEN NODE##################
+//###################################################################################
+var count;
+function count_leaves(d){
+    count = 0;
+    if(d.children){   //go through all its children
+        for(var ii = 0; ii<d.children.length; ii++){
+            //expand(d.children[ii])
+
+            //if the current child in the for loop has children of its own
+            //call recurse again on it to decend the whole tree
+            if (d.children[ii].children){
+                count_subleaves(d.children[ii]);
+                }
+            else if (d.children[ii]._children){
+                count_subleavesh(d.children[ii]);
+                } 
+            //if not then it is a leaf so we count it
+            else{
+                count++;
+                  //     console.log(count + " " + xx)
+                }
+            }
+        }
+    if(d._children){   //go through all its children
+        for(var ii = 0; ii<d._children.length; ii++){
+            //expand(d._children[ii])
+            if (d._children[ii]._children){
+                count_subleavesh(d._children[ii]);
+                //console.log(d._children[ii])
+                }
+            else if (d._children[ii].children){
+                count_subleaves(d._children[ii]);
+                //console.log(d._children[ii])
+                }
+
+            //if not then it is a leaf so we count it
+            else{count++;
+                }
+            }
+        }
+ //   d.children.forEach(collapse);
+    count2=count; count=0;
+    return(count2);
+    }        
+function count_subleaves(d){;
+        for(var jj = 0; jj<d.children.length; jj++){
+            //if the current child in the for loop has children of its own
+            //call recurse again on it to decend the whole tree
+            if (d.children[jj].children){
+                count_subleaves(d.children[jj]);
+                }
+            else if (d.children[jj]._children){
+                count_subleavesh(d.children[jj]);
+                }
+            //if not then it is a leaf so we count it
+            else{count++;
+                 //console.log(count + " " + xx)
+                }
+            }
+    }
+function count_subleavesh(d){;
+        for(var jj = 0; jj<d._children.length; jj++){
+            //if the current child in the for loop has children of its own
+            //call recurse again on it to decend the whole tree
+            if (d._children[jj]._children){
+                count_subleavesh(d._children[jj]);
+                }
+            else if (d._children[jj].children){
+                count_subleaves(d._children[jj]);
+                }
+            //if not then it is a leaf so we count it
+            else{count++;
+//                 console.log(count + " " + xx)
+                }
+            }
+    }
+
+
+
 
 //###################################################################################
 
@@ -648,14 +751,9 @@ function get_heightID(){
 function reset_cell_cols() {
     d3.selectAll("#area2")
         .selectAll("circle")
-         //.attr('opacity', 10)
-        .attr('fill-opacity', 0.3)
-        .attr("fill", "grey");
-    }
-
-function reset_cell_cols() {
-    d3.selectAll("#area2")
-        .selectAll("circle")
+        .attr("r", 5)
+        .style("stroke", "grey")
+        .style('stroke-width', 1)
          //.attr('opacity', 10)
         .attr('fill-opacity', 0.3)
         .attr("fill", "grey");

@@ -3,28 +3,29 @@ function my_slider() {
 
     var slider_menu = [
 	{
-	title: 'Click all cells',
+	title: 'Collapse all cells',
     action: function(d, i) 
-                {depth_click(d)}
+                {depth_collapse(d)}
 	},
     {
-	title: 'Collapse at this depth',
-//    action: function(d, i) {}
+	title: 'Expand all cells',
+    action: function(d, i) 
+                {depth_expanse(d)}
 	},
     {
 	title: 'Show clones from these depth',
     action: function(d,i) 
-        {//console.log("I have clicked in level "+ d)
-        count = 0;
-        depth_expand(d);
+        {console.log("I have clicked in level "+ d)
+        Tcount = 0;
+        depth_mark(d);
         div.transition()		
                 .duration(0)		
                 .style("opacity", .9)
-                .text(count+' daughters')
+                .text(Tcount+' daughters')
                 .style("left", (d3.event.pageX - 50 ) + "px")	
                 .style("top", (d3.event.pageY - 48) + "px");
             update(d) 
-        console.log("Total cells "+ count)
+        console.log("Total cells "+ Tcount)
         }
     }
 ];
@@ -109,7 +110,7 @@ function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
     }
 
- function depth_click(d){
+ function depth_collapse(d){
     // get all the nodes (opened) and get their height
     var xxx = d3.selectAll("#area1").select("svg")
         .selectAll("g")
@@ -126,15 +127,13 @@ function onlyUnique(value, index, self) {
         var nn = d3.selectAll("#area1")
             .select("#"+D)
             .each(function(d)
-                  {click(d);
+                  {collapse(d);
                   console.log("clicked in ith element :",ci)});
-        nn.select("circle")
-            .transition()	
-            .duration(2000).style("fill", "red");
-        });
- }
 
-function depth_expand(d){
+        });
+     update(root);
+ }
+function depth_expanse(d){
     // get all the nodes (opened) and get their height
     var xxx = d3.selectAll("#area1").select("svg")
         .selectAll("g")
@@ -143,7 +142,32 @@ function depth_expand(d){
     var yyy = [];
     xxx.filter(function(dd) {yyy.push(dd.data.did)});
     var depths2 = yyy.filter( onlyUnique );
+     console.log(depths2)
+    depths2.forEach(function(d,i) 
+        {
+        ci = i;
+        var D = d; console.log(D);
+        var nn = d3.selectAll("#area1")
+            .select("#"+D)
+            .each(function(d)
+                  {expand(d);
+                  console.log("clicked in ith element :",ci)});
 
+        });
+     update(root);
+ }
+
+function depth_mark(d){
+    // get all the nodes (opened) and get their height
+    var xxx = d3.selectAll("#area1").select("svg")
+        .selectAll("g")
+        .select("circle").data()
+        .filter(function(dd) {return dd.depth == d});
+    var yyy = [];
+    xxx.filter(function(dd) {yyy.push(dd.data.did)});
+    var depths2 = yyy.filter( onlyUnique );
+    console.log(depths2);
+    
     depths2.forEach(function(d,i)
         {
         ci = i;
@@ -151,88 +175,21 @@ function depth_expand(d){
    //     console.log("looking for #"+D)
         var nn = d3.selectAll("#area1")
             .select("#"+D)
-            .each(function(d) 
-              {//click(d)
-              //expand(d)  
-                div.transition()		
-                    .duration(0)		
-                    .style("opacity", .9)
-                    .text(rnd_count_leaves(d)+' daughters')
-                    .style("left", (d3.event.pageX + 10 ) + "px")	
-                    .style("top", (d3.event.pageY - 28) + "px");
-                update(d) 
-              });
+            .each(function(d) {count_leaves2(d)})
+        
         nn.select("circle")
             .transition()	
-            .duration(2000)
+            .duration(500)
             .style("fill", color(ci))
             .style("fill-opacity", 0.8)
-            .style("stroke", color(ci))
-            .attr("r", 8);
+            .style("stroke", function(c) 
+                   { return ci <10 ? "blue" : "green"})
+            .attr("r", 6);
+    
+        
         });
-    //return depths;    
 }
 
 
 
 var color  = d3.scaleOrdinal(d3.schemeCategory10);
-
-function rnd_count_leaves(d){
-    expand(d);
-    //count = 0;
-    if(d.children){   //go through all its children
-        for(var ii = 0; ii<d.children.length; ii++){
-            expand(d.children[ii])          
-            //if the current child in the for loop has children of its own
-            //call recurse again on it to decend the whole tree
-            if (d.children[ii].children){
-                rnd_count_leaves(d.children[ii]);
-                 var xx = "#"+d.children[ii].data.did;
-                 d3.selectAll("#area2").select(xx)
-                     .attr('opacity', 10).attr('fill-opacity', 1).attr("fill",color(ci));
-                 d3.selectAll("#area2").select(xx).attr("r", 6);
-                }
-            //if not then it is a leaf so we count it
-            else{count++;
-                 var xx = "#"+d.children[ii].data.did;
-                 d3.selectAll("#area2").select(xx)
-                    .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", color(ci));
-                 d3.selectAll("#area2").select(xx).attr("r", 6);
-                 d3.selectAll("#area1").select("circle").select(xx)
-                     .style("fill", color(ci)).style("fill-opacity", 0.8).style("stroke", color(ci));
-           //      console.log(count + " " + xx)
-                }
-            }
-        }
- //   d.children.forEach(collapse);
-//    update(root);
-
-    //return(count);
-    }        
-
-function rnd_count_subleaves(d){;
-        for(var jj = 0; jj<d.children.length; jj++){
-            expand(d.children[jj])
-            //if the current child in the for loop has children of its own
-            //call recurse again on it to decend the whole tree
-            if (d.children[jj].children){
-                rnd_count_leaves(d.children[jj]);
-                var xx = "#"+d.children[jj].data.did;
-                d3.selectAll("#area2").select(xx)
-                    .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", color(ci));
-                d3.selectAll("#area2").select(xx).attr("r", 6);
-                }
-            //if not then it is a leaf so we count it
-            else{count++;
-                 var xx = "#"+d.children[jj].data.did;
-                 d3.selectAll("#area2").select(xx)
-                    .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", color(ci));
-                 d3.selectAll("#area2").select(xx).attr("r", 6);
-                 d3.selectAll("#area1").select("circle").select(xx)
-                     .style("fill", color(ci)).style("fill-opacity", 0.8).style("stroke", color(ci));
-
-                 //      console.log(count + " " + xx)
-                }
-            }
-    }        
-    

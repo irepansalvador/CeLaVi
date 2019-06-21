@@ -113,7 +113,7 @@ var menu2 = [
 //	     console.log('The data for this circle is: ' + d.data.did);
         console.log("I think i clicked in "+myid(d));
         var yy = "#"+myid(d);
-        show_anc(yy);
+        show_anc_cols(yy);
         }    
 	}, 
     
@@ -499,6 +499,25 @@ function show_anc(d) {
                   })
             }
 
+function show_anc_cols(d) {
+        console.log("I have clicked in cell "+ d)
+        var parent_level = 0;
+        d3.selectAll("#area1").select("g").select(d)
+            .each(function(d) 
+                {;
+                selections = d.ancestors().map(d => d.data.did)
+                for(var jj = 0; jj<selections.length; jj++)
+                    {
+                    console.log("Ancestor level" + jj + " is " + selections[jj])
+                    //console.log("This should be a loop"+jj)
+                    d3.selectAll("#area1").selectAll("#"+selections[jj])
+                        .select("circle").style("fill", "red")
+                    }
+              })
+        }
+
+
+
 function click2(d) {
      d3.select('.status')
         .text('You clicked on ' + myid(d)); // Logs the x and y position of the datum.
@@ -514,16 +533,6 @@ function click2(d) {
     }
 
  //   d3.selectAll('button').on('click', init);
-
-    // ----- experiments --/
-
-function reset_cell_cols() {
-    d3.selectAll("#area2")
-        .selectAll("circle")
-         //.attr('opacity', 10)
-        .attr('fill-opacity', 0.3)
-        .attr("fill", "grey");
-    }
 
 
 
@@ -548,14 +557,20 @@ function disparity(){
             //console.log(d.disparity);
             d3.selectAll("#area2").select("#"+d.ID)
             .attr("fill-opacity",1)
+            .style("stroke", function(d2) {
+                return sequentialScale(d.disparity)})
+            .style('stroke-width', 1.5)
+            .attr('opacity', 10)
             .attr('fill', function(d2) {
                 return sequentialScale(d.disparity);
                 });
+            
         })
         //console.log(disp2);
     });
-
 }
+
+
 
 
 /*init();
