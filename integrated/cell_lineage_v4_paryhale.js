@@ -28,14 +28,6 @@ function Tree_upload_button(el, callback) {
 };
 
 
-/*
-function load_dataset_1(json) {
-  // parse the data set and plot it
-  var root = JSON.parse(json);
-  console.log(root)
-}
-*/
-
 
 //Store width, height and margin in variables
 //var w = 1200;
@@ -104,12 +96,12 @@ var menu = [
 	{
 	title: 'Show/Expand descendants',
     action: function(d, i) {
-	//	console.log('The data for this circle is: ' + d.data.did);
+	console.log('The data for this circle is: ' + d.data.did);
         expand(d)  
         div.transition()		
             .duration(0)		
             .style("opacity", .9)
-            .text(count_leaves2(d)+' daughters')
+            .text(count_leaves2(d,0)+' daughters')
             .style("left", (d3.event.pageX + 10 ) + "px")	
             .style("top", (d3.event.pageY - 28) + "px");
         update(d)      
@@ -150,23 +142,35 @@ var menu = [
 //###################################################################################
 //#############         JSON OPTION                                ##################
 //###################################################################################
-
+var max_H;
+var colorScale;
+var HM_cols = [];
+var stroke_cols = [ "blue","green","red","purple","orange","black",
+                   "blue","green","red","purple","orange","black",
+                   "blue","green","red","purple","orange","black"];
+var col_scheme = 1;
 
 function load_dataset_1(json) {
   // parse the data set and plot it
   var myroot = JSON.parse(json);
-  console.log(myroot)
+  console.log(myroot);
   root = d3.hierarchy(myroot, function(d) 
         { return d.children; });
     root.x0 = h / 4;
     root.y0 = 0;
     
+  expandAll();
+
+  // get all the heights
+  max_H  = get_height();
+  console.log(max_H);
+  colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
+      .domain([1, max_H]);
+  my_slider();
+  Nested_rels_HMscale(max_H);
+  
   update(root);
   resetAll();
-  // get all the heights
-  get_height();
-  my_slider();
-  MAKE_HMscale();
 }
 
 
@@ -320,7 +324,7 @@ function update(source) {
       .on("mouseout.c",reset_cell_cols)
       .on("mouseover.t", function(d) {		
             div.style("opacity", .9)
-                .text(d.data.did + " "+count_leaves2(d) +" daughters")
+                .text(d.data.did + " "+count_leaves2(d,0) +" daughters")
                 .style("left", (d3.event.pageX + 10 ) + "px")	
                 .style("top", (d3.event.pageY - 28) + "px");})
       .on("mouseout.t", function(d) {
@@ -510,25 +514,29 @@ function resetAll(){
 //#############FUNCTIONS TO HIGHLIGHT ALL DAUGHTERS OF A GIVEN NODE##################
 //###################################################################################
 var count; var Tcount;
-function count_leaves2(d){
+function count_leaves2(d,n){
     count = 0;
     if(d.children){   //go through all its children
         for(var ii = 0; ii<d.children.length; ii++){
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
             if (d.children[ii].children){
-                count_subleaves2(d.children[ii]);
+                count_subleaves2(d.children[ii],n);
                 }
             else if (d.children[ii]._children){
-                count_subleaves2h(d.children[ii]);
+                count_subleaves2h(d.children[ii],n);
                 } 
             //if not then it is a leaf so we count it
             else{
                 count++;
                  var xx = "#"+d.children[ii].data.did;
                 d3.selectAll("#area2").select(xx)
-                    .attr('opacity', 10).attr('fill-opacity', 0.8).attr("fill", "blue");
-                d3.selectAll("#area2").select(xx).attr("r", 6);
+                    .attr('opacity', 10).attr('fill-opacity', 0.8)
+                    .attr("fill", function(f) 
+                          { return n == 0 ? color(ci) : colorScale(n)})
+                    .style("stroke", function(c) 
+                        { return n == 0 ? stroke_cols[parseInt(ci/10)] : colorScale(n)});
+                d3.selectAll("#area2").select(xx).attr("r", my_rad);
                   //     console.log(count + " " + xx)
                 }
             }
@@ -537,11 +545,11 @@ function count_leaves2(d){
         for(var ii = 0; ii<d._children.length; ii++){
             //expand(d._children[ii])
             if (d._children[ii]._children){
-                count_subleaves2h(d._children[ii]);
+                count_subleaves2h(d._children[ii],n);
                 //console.log(d._children[ii])
                 }
             else if (d._children[ii].children){
-                count_subleaves2(d._children[ii]);
+                count_subleaves2(d._children[ii],n);
                 //console.log(d._children[ii])
                 }
 
@@ -549,18 +557,28 @@ function count_leaves2(d){
             else{count++;
                 var xx = "#"+d._children[ii].data.did;
                 d3.selectAll("#area2").select(xx)
-                  .attr('opacity', 10).attr('fill-opacity', 0.8).attr("fill", "blue");
-                d3.selectAll("#area2").select(xx).attr("r", 6);
+                  .attr('opacity', 10).attr('fill-opacity', 0.8)
+                  .attr("fill", function(f) 
+                          { return n == 0 ? color(ci) : colorScale(n)})
+                    .style("stroke", function(c) 
+                        { return n == 0 ? stroke_cols[parseInt(ci/10)] : colorScale(n)});
+                d3.selectAll("#area2").select(xx).attr("r", my_rad);
                 console.log(count + " " + xx)
                 }
             }
         }
+    else {count++;
+          var xx = "#"+d.data.did;
+          d3.selectAll("#area2").select(xx)
+            .attr('opacity', 10).attr('fill-opacity', 0.8).attr("fill", "blue");
+          d3.selectAll("#area2").select(xx).attr("r", my_rad);
+            console.log(xx)}
  //   d.children.forEach(collapse);
     count2=count; count=0;
     Tcount = Tcount+count2;
     return(count2);
     }        
-function count_subleaves2(d){;
+function count_subleaves2(d,n){;
         for(var jj = 0; jj<d.children.length; jj++){
                 var xx = "#"+d.children[jj].data.did;
                 d3.selectAll("#area2").select(xx)
@@ -568,15 +586,18 @@ function count_subleaves2(d){;
                         { return ci <10 ? "blue" : "green"})
                     .style('stroke-width', 1.5)
                     .attr('opacity', 10).attr('fill-opacity', 0.8)
-                    .attr("fill", color(ci));
-                d3.selectAll("#area2").select(xx).attr("r", 6);
+                    .attr("fill", function(f) 
+                          { return n == 0 ? color(ci) : colorScale(n)})
+                    .style("stroke", function(c) 
+                        { return n == 0 ? stroke_cols[parseInt(ci/10)] : colorScale(n)});
+                d3.selectAll("#area2").select(xx).attr("r", my_rad);
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
             if (d.children[jj].children){
-                count_subleaves2(d.children[jj]);
+                count_subleaves2(d.children[jj],n);
                 }
             else if (d.children[jj]._children){
-                count_subleaves2h(d.children[jj]);
+                count_subleaves2h(d.children[jj],n);
                 }
             //if not then it is a leaf so we count it
             else{count++;
@@ -584,7 +605,7 @@ function count_subleaves2(d){;
                 }
             }
     }
-function count_subleaves2h(d){;
+function count_subleaves2h(d,n){;
         for(var jj = 0; jj<d._children.length; jj++){
                var xx = "#"+d._children[jj].data.did;
                 d3.selectAll("#area2").select(xx)
@@ -592,15 +613,18 @@ function count_subleaves2h(d){;
                         { return ci <10 ? "blue" : "green"})
                     .style('stroke-width', 1.5)
                     .attr('opacity', 10).attr('fill-opacity', 0.8)
-                    .attr("fill",color(ci));
-                d3.selectAll("#area2").select(xx).attr("r", 6);
+                    .attr("fill", function(f) 
+                          { return n == 0 ? color(ci) : colorScale(n)})
+                    .style("stroke", function(c) 
+                        { return n == 0 ? stroke_cols[parseInt(ci/10)] : colorScale(n)});
+                d3.selectAll("#area2").select(xx).attr("r", my_rad);
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
             if (d._children[jj]._children){
-                count_subleaves2h(d._children[jj]);
+                count_subleaves2h(d._children[jj],n);
                 }
             else if (d._children[jj].children){
-                count_subleaves2(d._children[jj]);
+                count_subleaves2(d._children[jj],n);
                 }
             
             //if not then it is a leaf so we count it
@@ -731,7 +755,7 @@ function get_height(){
 
     // get the unique vals for x coordinates
     depths = yyy.filter( onlyUnique );
-    return depths;    
+    return depths.length;    
     console.log(depths);
 }
 function get_heightID(){
@@ -751,12 +775,26 @@ function get_heightID(){
 function reset_cell_cols() {
     d3.selectAll("#area2")
         .selectAll("circle")
-        .attr("r", 5)
+        .attr("r", my_rad)
         .style("stroke", "grey")
         .style('stroke-width', 1)
          //.attr('opacity', 10)
         .attr('fill-opacity', 0.3)
         .attr("fill", "grey");
+    }
+
+function reset_node_cols() {
+    d3.selectAll("#area1")
+        .selectAll('circle.node')
+//    .attr('r', 4.5)
+        .attr('r', function(d) {
+                return (6- (d.depth/2)) })
+        .style("fill", function(d) {
+            return d._children ? "lightblue" : "#fff";})
+        .style('stroke-width', 1.5)
+        .attr('fill-opacity', 0.9)
+        .attr('cursor', 'pointer')
+        .style("stroke", "blue");
     }
 
 function get_branlen(){

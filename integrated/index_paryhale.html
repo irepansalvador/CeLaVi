@@ -29,11 +29,12 @@
             <input type="file" id="Tree_uploader">
 
             <button id="Reset" onclick="resetAll()">Reset tree</button>
-            <button id="BranchLegths" onclick="show_bl()">BranchLengths</button>
+            <button id="BranchLegths" onclick="show_bl()">BranchLen</button>
             <button id="CollapseAll" onclick="collapseAll()">Collapse All</button>
 	        <button id="ExpandAll" onclick="expandAll()">Expand All</button>	
-            <button id="Update" onclick="reset_cell_cols()">Reset cells</button>
-            <button id="Disparity" onclick="disparity()">Disparity</button>
+             <!--<button id="Update" onclick="showmenu2()">Reset cells</button> -->
+            <!-- <button id="Disparity" onclick="disparity()">Disparity</button> -->
+
             
             <input type="file" id="3Dcoord_uploader">
             
@@ -56,6 +57,9 @@
                 <button id="pan_right">></button>
                 <button id="pan_left"><</button>
                 <button id="reset">reset</button>
+                <input type="checkbox" id="myCheckbox"> Show Lineage rels   
+                <input type="number" id="CellSize" value=6>
+
             </div>
         
             <div  align="left" class="controls">
@@ -63,13 +67,14 @@
                 <button id="zoom_out_tree">> <</button>
                 <button id="pan_up_tree"  >^</button>
                 <button id="pan_down_tree">v</button>
+
             </div>
 		</div> 
         <div id="slider">
            <h2>Tree depth</h2>
         </div>
         <div id="HM_scale">
-           <h2>Disparity (mean lineage distance of 5 closest neighbours)</h2>
+           <h2>Lineage relationships</h2>
         </div>
         
 
@@ -83,7 +88,7 @@
         <script src="cells_3d_paryhale.js"></script><!-- -->
 		<script src="cell_lineage_v4_paryhale.js"></script>
         <script src="brush_paryhale.js"></script>
-        <script src="HM_scale.js"></script>
+        <script src="Nested_rels_scale.js"></script>
         <script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
         <script>Tree_upload_button("Tree_uploader", load_dataset_1)</script>
         <!-- Run functions to initialise the visualisation -->

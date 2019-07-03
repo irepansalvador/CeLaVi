@@ -108,20 +108,32 @@ var menu2 = [
 	{
 	title: 'Show ancestors',
     action: function(d, i) {
-        $(this).attr("r", 6);
-        $(this).attr("fill", "purple");
+        $(this).attr("r", my_rad);
+        $(this).attr("fill", "purple")
+            .attr('opacity', 10).attr('fill-opacity', 1);
+//	     console.log('The data for this circle is: ' + d.data.did);
+        console.log("I think i clicked in "+myid(d));
+        var yy = "#"+myid(d);
+        show_anc(yy);
+        }    
+	}, 
+    {
+    title: 'Show Nested rels',
+    action: function(d, i) {
+        $(this).attr("r", my_rad);
+        $(this).attr("fill", "purple")
+            .attr('opacity', 10).attr('fill-opacity', 1);
 //	     console.log('The data for this circle is: ' + d.data.did);
         console.log("I think i clicked in "+myid(d));
         var yy = "#"+myid(d);
         show_anc_cols(yy);
         }    
 	}, 
-    
     {
 	title: 'Find common ancestor',
     action: function(d, i) {
         click2(d)
-        $(this).attr("r", 6);
+        $(this).attr("r", my_rad);
         $(this).attr("fill", "purple");
         if (double_element.length == 0){
        //     console.log('The data for this circle is: ' + d.data.id);
@@ -147,8 +159,8 @@ var menu2 = [
 
 // DO the stuff
 /* ---------- INITIAL CONDITIONS -------- */
-
-var origin = [ww/2.5, hh/3], p = 10, j = 2, scale = ww/4, rad = 5,
+var my_rad = 5;
+var origin = [ww/2.5, hh/3], p = 10, j = 2, scale = ww/4, rad = my_rad,
     scatter = [], yLine = [], xGrid = [],
     beta = 0, alpha = 0, 
     key = function(d){ return d.id; },
@@ -324,7 +336,7 @@ function processData(data, tt){
         .attr('id',myid)
         .merge(points)
         .transition().duration(tt)
-        .attr('r', rad)
+        .attr('r', my_rad)
 //      .attr('stroke', function(d){ return d3.color(color(d.id)).darker(3); })
 //      .attr('fill', function(d){ return color(d.id); })
         //.attr('fill', function(d){ return "grey" })
@@ -335,6 +347,16 @@ function processData(data, tt){
 
     /* ----------- Interactions ----------- */
     points.on('click', click2);
+    points.on("mouseover", function (i) {
+        if (d3.select("#myCheckbox").property("checked"))
+            {click2(i); var yy = "#"+myid(i);
+             show_anc_cols(yy);}
+        });
+    points.on("mouseout", function (i) {
+        if (d3.select("#myCheckbox").property("checked"))
+              {reset_cell_cols();
+               reset_node_cols()}
+              });
 
     points.on("contextmenu", d3.contextMenu(menu2) );
 
@@ -477,7 +499,7 @@ function common_anc2(d) {
                         var xx = "#"+selections[jj];
                         d3.selectAll("#area2").select(xx)
                             .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "purple");
-                        d3.selectAll("#area2").select(xx).attr("r", 6);
+                        d3.selectAll("#area2").select(xx).attr("r", my_rad);
                         }
                     })
           })
@@ -494,7 +516,7 @@ function show_anc(d) {
                         {
                         //console.log("This should be a loop"+jj)
                         d3.selectAll("#area1").selectAll("#"+selections[jj])
-                            .select("circle").style("fill", "red")
+                            .select("circle").style("fill", "red").attr("r",my_rad);
                         }
                   })
             }
@@ -504,14 +526,25 @@ function show_anc_cols(d) {
         var parent_level = 0;
         d3.selectAll("#area1").select("g").select(d)
             .each(function(d) 
-                {;
+                {
                 selections = d.ancestors().map(d => d.data.did)
+                selections_rev = selections.reverse();
+                var norm_cols = (max_H/selections.length) * 0.7; // to have a normalised scale of cols
+            
                 for(var jj = 0; jj<selections.length; jj++)
-                    {
-                    console.log("Ancestor level" + jj + " is " + selections[jj])
-                    //console.log("This should be a loop"+jj)
-                    d3.selectAll("#area1").selectAll("#"+selections[jj])
+                     {var nj = jj + 1; // to call the colour variable                 
+                     console.log("Ancestor level" + nj + " is " + selections[jj]);
+                     // select the node to paint its children
+                     var node_j = xxx = d3.selectAll("#area1").selectAll("g")
+                        .select("circle").data()
+                        .filter(function(d) 
+                                {return d.data.did == selections[jj]});
+                     // call the function to paint cells from diff levels of relationships
+                     count_leaves2(node_j[0], (max_H*0.3) + (nj*norm_cols) );
+                     //console.log("This should be a loop"+jj)
+                     d3.selectAll("#area1").selectAll("#"+selections[jj])
                         .select("circle").style("fill", "red")
+                        .attr('opacity', 10).attr('fill-opacity', 1).attr("r",my_rad);
                     }
               })
         }
@@ -521,22 +554,34 @@ function show_anc_cols(d) {
 function click2(d) {
      d3.select('.status')
         .text('You clicked on ' + myid(d)); // Logs the x and y position of the datum.
-        // $(this).hide();
-    $(this).attr("r", 6);
-    $(this).attr("fill", "purple").attr('opacity', 10).attr('fill-opacity', 1);
+   // console.log(d);    // $(this).hide();
     var yy = "#"+myid(d);
     d3.selectAll("#area1").select(yy).select("circle")
         .style("stroke", "purple")
-        .transition().duration(500).style("stroke-width", 5).attr("r",13)
-        .transition().duration(800).style("stroke-width", 5).attr("r",9)
-        ;        
+        .style("stroke-width", 5).attr("r",my_rad+1);
+    
+    d3.selectAll("#area2").select(yy)
+        .attr("fill", "purple").attr('opacity', 10).attr('fill-opacity', 1)
+        .attr("r",my_rad);
+    show_anc(yy);
     }
 
  //   d3.selectAll('button').on('click', init);
 
+// Add an event listener to the button created in the html part
+d3.select("#CellSize").on("input", changeSize );
+
+// A function that update the color circle
+function changeSize() {
+    my_rad = this.value;
+    d3.selectAll("#area2")
+        .selectAll("circle")
+        .attr("r", my_rad);
+}
 
 
 // Get the disparity vals
+
 
 function disparity(){
     var myIDs;
@@ -569,9 +614,6 @@ function disparity(){
         //console.log(disp2);
     });
 }
-
-
-
 
 /*init();
 processData(data,0);

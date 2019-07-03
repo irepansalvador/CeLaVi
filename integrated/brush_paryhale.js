@@ -175,18 +175,16 @@ function depth_mark(d){
    //     console.log("looking for #"+D)
         var nn = d3.selectAll("#area1")
             .select("#"+D)
-            .each(function(d) {count_leaves2(d)})
+            .each(function(d) {count_leaves2(d,0)})
         
         nn.select("circle")
             .transition()	
             .duration(500)
             .style("fill", color(ci))
             .style("fill-opacity", 0.8)
-            .style("stroke", function(c) 
-                   { return ci <10 ? "blue" : "green"})
+            .style("stroke", stroke_cols[parseInt(ci/10)])
             .attr("r", 6);
     
-        
         });
 }
 
