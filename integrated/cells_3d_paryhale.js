@@ -224,11 +224,14 @@ d3.select("#pan_down").on("click", function() {
 });
 
 d3.select("#reset").on("click", function() {
+    reset_cell_cols();
+});
+/*d3.select("#reset").on("click", function() {
     d3.zoomTransform(svg_3d).y = 0; 
     d3.zoomTransform(svg_3d).x = 0;
     d3.zoomTransform(svg_3d).k = 1;
     svg_3d.attr("transform", "translate(" +  d3.zoomTransform(svg_3d).x + "," + d3.zoomTransform(svg_3d).y + ") scale("+ d3.zoomTransform(svg_3d).k + ")");
-});
+});*/
 
 
 // ----------------------------------------------
@@ -348,12 +351,12 @@ function processData(data, tt){
     /* ----------- Interactions ----------- */
     points.on('click', click2);
     points.on("mouseover", function (i) {
-        if (d3.select("#myCheckbox").property("checked"))
+        if (d3.select("#Cells_checkbox").property("checked"))
             {click2(i); var yy = "#"+myid(i);
              show_anc_cols(yy);}
         });
     points.on("mouseout", function (i) {
-        if (d3.select("#myCheckbox").property("checked"))
+        if (d3.select("#Cells_checkbox").property("checked"))
               {reset_cell_cols();
                reset_node_cols()}
               });

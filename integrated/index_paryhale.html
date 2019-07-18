@@ -28,7 +28,7 @@
             <!-- Custom Buttons -->
             <input type="file" id="Tree_uploader">
 
-            <button id="Reset" onclick="resetAll()">Reset tree</button>
+            <button id="Reset" onclick="resetAll()">Reset Topology</button>
             <button id="BranchLegths" onclick="show_bl()">BranchLen</button>
             <button id="CollapseAll" onclick="collapseAll()">Collapse All</button>
 	        <button id="ExpandAll" onclick="expandAll()">Expand All</button>	
@@ -49,24 +49,26 @@
             <h2> Cells in 3D</h2>
             </div>
             <!-- Pan/zoom buttons  -->
-            <div  align="right" class="controls">
+            <div id= "controls_2" align="right" class="controls">
                 <button id="zoom_in" >+</button>
                 <button id="zoom_out">-</button>
                 <button id="pan_up"  >^</button>
                 <button id="pan_down">v</button>
                 <button id="pan_right">></button>
                 <button id="pan_left"><</button>
-                <button id="reset">reset</button>
-                <input type="checkbox" id="myCheckbox"> Show Lineage rels   
+                <button id="reset">Reset cols</button>
+                <input type="checkbox" id="Cells_checkbox"> Show Lineage rels   
                 <input type="number" id="CellSize" value=6>
 
             </div>
         
-            <div  align="left" class="controls">
+            <div id= "controls_1" align="left" class="controls">
                 <button id="zoom_in_tree" >< ></button>
                 <button id="zoom_out_tree">> <</button>
                 <button id="pan_up_tree"  >^</button>
                 <button id="pan_down_tree">v</button>
+                <button id="Reset_cols_Tree">Reset cols</button>
+                <input type="checkbox" id="Tree_checkbox"> Show descendants   
 
             </div>
 		</div> 

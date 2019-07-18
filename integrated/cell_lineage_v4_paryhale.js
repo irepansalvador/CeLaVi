@@ -94,10 +94,9 @@ var double_element = [];
 
 var menu = [
 	{
-	title: 'Show/Expand descendants',
+	title: 'Show descendants',
     action: function(d, i) {
 	console.log('The data for this circle is: ' + d.data.did);
-        expand(d)  
         div.transition()		
             .duration(0)		
             .style("opacity", .9)
@@ -107,11 +106,29 @@ var menu = [
         update(d)      
         }
 	},
+    {
+	title: 'Expand descendants',
+    action: function(d, i) {
+	console.log('The data for this circle is: ' + d.data.did);
+        expand(d)  
+        update(d)      
+        }
+	},
 	{
 	title: 'Collapse all',
     action: function(d, i) {
         collapse(d)
         update(d)
+        }
+	},
+    	{
+	title: 'Save clone',
+    action: function(d, i) {
+        yy = d.data.did;
+        options = options +1;
+        console.log('Test: ' + yy)
+        dropMenu = [options + " " + yy];
+        update_dropMenu();
         }
 	},
     {
@@ -282,6 +299,11 @@ d3.select("#pan_up_tree").on("click", function() {
     update(root);
 });
 
+d3.select("#Reset_cols_Tree").on("click", function() {
+    reset_node_cols();
+});
+
+
 // ----------------------------------------------
 
 function update(source) {
@@ -321,22 +343,34 @@ function update(source) {
         return "translate(" + source.y0 + "," + source.x0 + ")";
         })
       .on('click', click)
-      .on("mouseout.c",reset_cell_cols)
-      .on("mouseover.t", function(d) {		
-            div.style("opacity", .9)
+      .on("mouseover.t", function(d) {
+          if (d3.select("#Tree_checkbox").property("checked"))
+            {
+             div.style("opacity", .9)
                 .text(d.data.did + " "+count_leaves2(d,0) +" daughters")
                 .style("left", (d3.event.pageX + 10 ) + "px")	
-                .style("top", (d3.event.pageY - 28) + "px");})
+                .style("top", (d3.event.pageY - 28) + "px");}
+        })
+      .on("mouseout.c", function (d) {
+          if (d3.select("#Tree_checkbox").property("checked"))
+            {reset_cell_cols()}
+          })
       .on("mouseout.t", function(d) {
+         //  if (d3.select("#Tree_checkbox").property("checked")) {
             div.style("opacity", 0)
-                .text('');})
+                .text('');//}
+            })
      .on('contextmenu', d3.contextMenu(menu));
+    
+    
+    
     
   // Add Circle for the nodes
   nodeEnter.append('circle')
       .attr('class', 'node')
 //      .attr("id",  function(d) {return d.data.did;})
-      .attr('r', 1e-6);
+      .attr('r', 1e-6)
+      .style("stroke", "blue");
     
 
   // Text when adding nodes 
@@ -382,11 +416,20 @@ function update(source) {
     .attr('r', function(d) {
                 return (6- (d.depth/2)) })
     .style("fill", function(d) {
-            return d._children ? "lightblue" : "#fff";})
+        if (d3.select(this).style("fill") == "lightblue" )
+            {return d._children ? "lightblue" : "#fff";}
+         else if (d3.select(this).style("fill") == "rgb(255, 255, 255)" )
+            {return d._children ? "lightblue" : "#fff";}
+         else  {return d3.select(this).style("fill");}
+        }
+      )
     .style('stroke-width', 1.5)
     .attr('fill-opacity', 0.9)
     .attr('cursor', 'pointer')
-    .style("stroke", "blue");
+    .style("stroke", function(d) {
+        return d3.select(this).style("stroke")}
+      );
+    
 //    .style("stroke", function(d) {
   //  return d.data.deathDistance || d.data._deathDistance ?  "red" : "blue"
 
@@ -513,8 +556,13 @@ function resetAll(){
 //###################################################################################
 //#############FUNCTIONS TO HIGHLIGHT ALL DAUGHTERS OF A GIVEN NODE##################
 //###################################################################################
-var count; var Tcount;
+var count; var Tcount; var orig_col; var orig_stroke;
 function count_leaves2(d,n){
+    orig_col =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
+            .select("circle").style("fill");
+    orig_stroke =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
+            .select("circle").style("stroke");
+    console.log("my orig col is " + orig_col);
     count = 0;
     if(d.children){   //go through all its children
         for(var ii = 0; ii<d.children.length; ii++){
@@ -533,9 +581,15 @@ function count_leaves2(d,n){
                 d3.selectAll("#area2").select(xx)
                     .attr('opacity', 10).attr('fill-opacity', 0.8)
                     .attr("fill", function(f) 
-                          { return n == 0 ? color(ci) : colorScale(n)})
+                        {if (orig_col == "rgb(255, 255, 255)")
+                            {return "lightblue"}
+                         else {return n <= 0 ? orig_col : colorScale(n)}
+                        })
                     .style("stroke", function(c) 
-                        { return n == 0 ? stroke_cols[parseInt(ci/10)] : colorScale(n)});
+                        {if (n<=0)  {return orig_stroke}
+                         else { return colorScale(n)}
+                        });
+                
                 d3.selectAll("#area2").select(xx).attr("r", my_rad);
                   //     console.log(count + " " + xx)
                 }
@@ -558,10 +612,15 @@ function count_leaves2(d,n){
                 var xx = "#"+d._children[ii].data.did;
                 d3.selectAll("#area2").select(xx)
                   .attr('opacity', 10).attr('fill-opacity', 0.8)
-                  .attr("fill", function(f) 
-                          { return n == 0 ? color(ci) : colorScale(n)})
+                    .attr("fill", function(f) 
+                        {if (orig_col == "rgb(255, 255, 255)")
+                            {return "lightblue"}
+                         else {return n <= 0 ? orig_col : colorScale(n)}
+                        })
                     .style("stroke", function(c) 
-                        { return n == 0 ? stroke_cols[parseInt(ci/10)] : colorScale(n)});
+                        {if (n<=0)  {return orig_stroke}
+                         else { return colorScale(n)}
+                        });
                 d3.selectAll("#area2").select(xx).attr("r", my_rad);
                 console.log(count + " " + xx)
                 }
@@ -587,9 +646,14 @@ function count_subleaves2(d,n){;
                     .style('stroke-width', 1.5)
                     .attr('opacity', 10).attr('fill-opacity', 0.8)
                     .attr("fill", function(f) 
-                          { return n == 0 ? color(ci) : colorScale(n)})
+                        {if (orig_col == "rgb(255, 255, 255)")
+                            {return "lightblue"}
+                         else {return n <= 0 ? orig_col : colorScale(n)}
+                        })
                     .style("stroke", function(c) 
-                        { return n == 0 ? stroke_cols[parseInt(ci/10)] : colorScale(n)});
+                        {if (n<=0)  {return orig_stroke}
+                         else { return colorScale(n)}
+                        });
                 d3.selectAll("#area2").select(xx).attr("r", my_rad);
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
@@ -614,9 +678,14 @@ function count_subleaves2h(d,n){;
                     .style('stroke-width', 1.5)
                     .attr('opacity', 10).attr('fill-opacity', 0.8)
                     .attr("fill", function(f) 
-                          { return n == 0 ? color(ci) : colorScale(n)})
+                        {if (orig_col == "rgb(255, 255, 255)")
+                            {return "lightblue"}
+                         else {return n <= 0 ? orig_col : colorScale(n)}
+                        })
                     .style("stroke", function(c) 
-                        { return n == 0 ? stroke_cols[parseInt(ci/10)] : colorScale(n)});
+                        {if (n<=0)  {return orig_stroke}
+                         else { return colorScale(n)}
+                        });
                 d3.selectAll("#area2").select(xx).attr("r", my_rad);
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
@@ -733,7 +802,52 @@ var findCommonElements= function(arrs) {
 }
 
 
-///  experiments
+///  ADD dropdown menu
+
+// initialise the menu
+var dropdownButton = d3.select("#controls_1").append('select')
+var dropMenu = ["Saved clones "]
+var options = 0;
+// add the options to the button
+var update_dropMenu = function() {
+dropdownButton // Add a button
+  .selectAll('myOptions') // Next 4 lines add 6 options = 6 colors
+ 	.data(dropMenu)
+  .enter()
+	.append('option')
+  .text(function (d) { return d; }) // text showed in the menu
+  .attr("value", function (d) { return d; }) // corresponding value returned by the button
+}
+
+// When the button is changed, run the updateChart function
+dropdownButton.on("change", function(d) {
+    // recover the option that has been chosen
+    var selectedOption = d3.select(this).property("value")
+    var res = selectedOption.split(" ");
+    ci = res[1];
+    
+    
+    var xxx = d3.selectAll("#area1").selectAll("g")
+            .select("circle").data()
+            .filter(function(d) {return d.data.did == res[1]});
+    
+    d3.selectAll("#area1").select("#"+xxx[0].data.did).select("circle")
+        .style("fill", color(ci))
+        .attr('fill-opacity', 0.9)
+        .style('stroke-width', 1.5)
+        .style("stroke", color(ci));
+    
+    count_leaves2(xxx[0],-1);
+    
+    console.log(selectedOption);
+})
+
+
+
+
+update_dropMenu();
+
+
 
 /*init();
 processData(data,0);

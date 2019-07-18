@@ -173,17 +173,24 @@ function depth_mark(d){
         ci = i;
         var D = d;
    //     console.log("looking for #"+D)
-        var nn = d3.selectAll("#area1")
-            .select("#"+D)
-            .each(function(d) {count_leaves2(d,0)})
-        
-        nn.select("circle")
-            .transition()	
-            .duration(500)
+
+        d3.selectAll("#area1").selectAll("g").select("#"+D)
+            .select("circle")
             .style("fill", color(ci))
             .style("fill-opacity", 0.8)
             .style("stroke", stroke_cols[parseInt(ci/10)])
             .attr("r", 6);
+        });
+
+    depths2.forEach(function(d,i)
+        {
+        var D = d;
+  //     console.log("looking for #"+D)
+        var nn = d3.selectAll("#area1")
+            .select("#"+D);
+                   // then the 
+        nn.each(function(d) {count_leaves2(d,0)});
+        console.log("looking for "+ nn)   
     
         });
 }
