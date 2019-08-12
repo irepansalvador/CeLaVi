@@ -25,7 +25,7 @@
     <body>
 		<div id= "container", class="svg-container">
 			<h3> Cell lineage interactive visualisation</h3>
-            <h4> <i> by Irepan Salvador-Martinez </i> </h4>
+            <h6> <i> by Irepan Salvador-Martinez </i> </h6>
 
       <h6 class="pl-0">INPUT FILES</h6>
       <div class="row">
@@ -63,35 +63,71 @@
 			</div>
             
 			<div id="area2"> <!-- cells in 3d -->
-            <h4> Cells in 3D</h4>
-            </div>
-            <!-- Pan/zoom buttons  -->
-            <div id= "controls_2" align="right" class="controls">
-							<button id="zoom_in" >+</button>
-              <button id="zoom_out">-</button>
-              <button id="pan_up"  >^</button>
-              <button id="pan_down">v</button>
-              <button id="pan_right">></button>
-              <button id="pan_left"><</button>
-              <button id="reset">Reset cols</button>
-              <input type="checkbox" id="Cells_checkbox"> Show Lineage rels   
-              <input type="number" id="CellSize" value=6>
-
-            </div>
-        
-            <div id= "controls_1" align="left" class="controls">
-            	<button id="Reset" onclick="resetAll()">Reset Topology</button>
-            	<button id="BranchLegths" onclick="show_bl()">BranchLen</button>
-            	<button id="CollapseAll" onclick="collapseAll()">Collapse All</button>
+				<h4> Cells in 3D</h4>
+				</div>
+        <!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
+				<div id= "controls_1a" align="left" class="controls">
+					<div class="row">
+						<div class="col-sm-8 mb-2">
+						<a href="#" data-toggle="tooltip" data-placement="left" title="Play with tree">Cell lineage tree controls:</a>
+						<div class="row">
+							<div class="col-sm-2.5" align="right">
+								<div class="btn-group">
+  								<button id="zoom_in_tree" type="button" class="btn btn-success"><></button>
+									<button id="zoom_out_tree" type="button" class="btn btn-success">><</button>
+  								<button id="pan_down_tree" type="button" class="btn btn-success">v</button>
+  								<button id="pan_up_tree" type="button" class="btn btn-success">^</button>
+								</div>
+							</div>
+							<div class="col-sm-1.5">
+								<button id="BranchLenghts" onclick="show_bl()" class="btn btn-success" >Branch Lenghts</button> 
+							</div>
+							<div class="col-sm-1.5">
+								<button id="CollapseAll" onclick="collapseAll()" class="btn btn-success" >Collapse All</button> 
+							</div>
+							<div class="col-sm-1.5">
+								<button id="Reset" onclick="resetAll()" class="btn btn-success" >Reset Topology</button> 
+							</div>
+							<div class="col-sm-1.5">
+								<button id="Reset_cols_Tree" class="btn btn-success" >Reset cols</button> 
+							</div>
+							<div class="col-sm-2">
+								<label class="checkbox"><input id="Tree_checkbox" type="checkbox" value="">Show Descendants</label>
+							</div>
+							<div class "col-sm-1" id="controls_1">
+							</div>
 						</div>
-            <div id= "controls_1a" align="left" class="controls">
-							<button id="zoom_in_tree" >< ></button>
-              <button id="zoom_out_tree">> <</button>
-              <button id="pan_up_tree"  >^</button>
-              <button id="pan_down_tree">v</button>
-              <button id="Reset_cols_Tree">Reset cols</button>
-              <input type="checkbox" id="Tree_checkbox"> Show descendants   
-            </div>
+						</div>
+					<!-- RIGHT PART OF THE CONTROLS, FOR CELLS IN 3D -->
+						<div class="col-sm-4 mb-2">
+						<a href="#" data-toggle="tooltip" data-placement="right" title="Zoom and Pan cells in 3D">3D cells controls:</a>
+						<div class="row">
+							<div class="col-sm-1.5" align="right">
+								<div class="btn-group">
+  								<button id="zoom_in" type="button" class="btn btn-info">+</button>
+									<button id="zoom_out" type="button" class="btn btn-info">-</button>
+								</div>	
+							</div>
+							<div class="col-sm-2.5">
+								<div class="btn-group">
+  								<button id="pan_right" type="button" class="btn btn-info">></button>
+  								<button id="pan_left" type="button" class="btn btn-info"><</button>
+  								<button id="pan_down" type="button" class="btn btn-info">v</button>
+  								<button id="pan_up" type="button" class="btn btn-info">^</button>
+								</div>	
+							</div>
+							<div class="col-sm-3.5">
+								<button id="reset" type="button" class="btn btn-info">Reset cols</button>
+							</div>
+							<div class="col-sm-3">
+								<input type="number" class="form-control" id="CellSize" placeholder="" value="6" min="1" step="1" title="Size for rendering cells"  required>
+							</div>
+							<div class="col-sm-2.5">
+								<input id="Cells_checkbox" type="checkbox" title="This option works better if the tree is completely expanded" value="">Show Lineage
+							</div>
+						</div>
+					</div>
+				</div>        
 		</div> 
         <div id="slider">
            <h5>Tree depth</h5>
