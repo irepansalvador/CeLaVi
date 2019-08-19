@@ -6,26 +6,62 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   alert('The File APIs are not fully supported in this browser.');
 }
 
-// handle upload button
-function Tree_upload_button(el, callback) {
-  var uploader = document.getElementById(el);  
-  var reader = new FileReader();
-  console.log(uploader);
 
-  reader.onload = function(e) {
+$(document).ready(function () 
+	{ 
+	$("#Json_TREE").click(function()
+		{console.log("you clicked json, restart file");
+		$("input[name=TREE_FILE]").val("");
+		});
+	});
+
+
+$(document).ready(function () 
+	{ 
+	$("#Newick_TREE").click(function()
+		{console.log("you clicked Newick, restart file");
+		$("input[name=TREE_FILE]").val("");
+		});
+	});
+
+
+// handle upload button
+function Tree_upload_button(el) {
+  var uploader = document.getElementById(el);  
+  uploader.addEventListener("change", handleFiles, false);  
+  console.log(uploader);
+ var json_reader = new FileReader();
+  json_reader.onload = function(e) {
     var contents = e.target.result;
-    callback(contents);
+    load_dataset_json(contents);
+  };
+ var newick_reader = new FileReader();
+  newick_reader.onload = function(e) {
+    var contents = e.target.result;
+		var newick = Newick.parse(contents);
+    load_dataset_newick(newick);
   };
 
-  uploader.addEventListener("change", handleFiles, false);  
 
   function handleFiles() {
-    //d3.select("#area2").text("loading...");
-    var file = this.files[0];
-    reader.readAsText(file);
-    console.log(file)      
-  };
-};
+    var tree_format = $("input[name='Tree_INPUT']:checked").val();
+		console.log(tree_format);
+		if (tree_format=="json")
+			{
+			//d3.select("#area2").text("loading...");
+    	var file = this.files[0];
+    	json_reader.readAsText(file);
+    	console.log(file);
+			}
+		if (tree_format=="newick")
+			{
+			//d3.select("#area2").text("loading...");
+    	var file = this.files[0];
+    	newick_reader.readAsText(file);
+    	console.log(file);
+			}
+  	};
+	};
 
 
 
@@ -167,7 +203,7 @@ var stroke_cols = [ "blue","green","red","purple","orange","black",
                    "blue","green","red","purple","orange","black"];
 var col_scheme = 1;
 
-function load_dataset_1(json) {
+function load_dataset_json(json) {
   // parse the data set and plot it
   var myroot = JSON.parse(json);
   console.log(myroot);
@@ -189,6 +225,33 @@ function load_dataset_1(json) {
   update(root);
   resetAll();
 }
+
+
+function load_dataset_newick(newick){
+	root = d3.hierarchy(newick);
+	root.x0 = h / 4;
+	root.y0 = 0;
+
+  expandAll();
+
+  // get all the heights
+  max_H  = get_height();
+  console.log(max_H);
+  colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
+      .domain([1, max_H]);
+  my_slider();
+  Nested_rels_HMscale(max_H);
+  
+  update(root);
+  resetAll();
+}
+
+
+
+
+
+
+
 
 
 /*

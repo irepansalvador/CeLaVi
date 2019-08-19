@@ -21,42 +21,47 @@
     		<!-- Bootstrap -->
     		<link href="./lib/bootstrap.min.css" rel="stylesheet">
     </head>
-
     <body>
 		<div id= "container", class="svg-container">
 			<h3> Cell lineage interactive visualisation</h3>
-            <h6> <i> by Irepan Salvador-Martinez </i> </h6>
+			<h6> <i> by Irepan Salvador-Martinez </i> </h6>
 
+			<form onsubmit="Submit_Function()" method="submit" enctype="multipart/form-data">
       <h6 class="pl-0">INPUT FILES</h6>
-      <div class="row">
+			<div class="row">
         <div class="col-sm-3 mb-2">
-          <a href="#" data-toggle="tooltip" data-placement="right" title="Input file containing a JSON tree with or without branch lengths."><label for="temp">Tree file:</label></a>
+          <a href="#" data-toggle="tooltip" data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file:</label></a>
           <div class="custom-file mb-3" id="temp">
-            <input type="file" class="custom-file-input" id="JSON_uploader" name="treefile">
-            <label class="custom-file-label" for="treefile">Input JSON tree file</label>
+            <input type="file" class="custom-file-input" id="JSON_uploader" name="TREE_FILE">
+            <label class="custom-file-label" for="JSON_uploader">Upload tree (select format)</label>
           </div>
 				</div>
-		 
-				<div class="col-sm-3 mb-2">
-          <a href="#" data-toggle="tooltip" data-placement="right" title="Input file containing a Newick tree with or without branch lengths."><label for="temp">Tree file:</label></a>
-          <div class="custom-file mb-3" id="temp">
-            <input type="file" class="custom-file-input" id="Newick_uploader" name="treefile">
-            <label class="custom-file-label" for="treefile">or Input Newick tree file</label>
+				<div class="col-sm-3 my-auto" id="INPUT_tree">
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="Newick_TREE" name="Tree_INPUT" value="newick" checked>
+            <label class="custom-control-label" for="Newick_TREE">Newick file</label>
           </div>
-				</div>
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="Json_TREE" name="Tree_INPUT" value="json">
+            <label class="custom-control-label" for="Json_TREE">JSON file</label>
+          </div>
+        </div>
 
 				<div class="col-sm-3 mb-2">
-          <a href="#" data-toggle="tooltip" data-placement="left" title="Input file containing a Cell coordinates."><label for="temp">Coords file:</label></a>
+          <a href="#" data-toggle="tooltip" data-placement="left" title="Reads a csv file with 4 columns: The first column is the cell ID (same as in the tree), and the other columns are coordinates X, Y and Z "><label for="temp">Coords file:</label></a>
           <div class="custom-file mb-3" id="temp">
-            <input type="file" class="custom-file-input" id="3Dcoord_uploader" name="coords">
-            <label class="custom-file-label" for="treefile">Input coordinates file</label>
+            <input type="file" class="custom-file-input" id="3Dcoord_uploader" name="coordsfile">
+            <label class="custom-file-label" for="3Dcoord_uploader">Input coordinates file</label>
           </div>
 				</div>
+				<div class="col-sm-3 my-auto">
+            <!-- <button type="submit" class="btn btn-primary" align="right" onclick="validateNum()">Submit</button> -->
+            <button type="submit" class="btn btn-primary" align="right">Submit</button>
+        </div>
       </div>
-
+			</form>
           
       <div class="status" align="right" > Click on a cell      </div>
-            
      	<!-- Separate Areas -->
 			<div id="area1"> <!-- cell lineage -->
             <h4>Cell lineage</h4>
@@ -80,16 +85,16 @@
 								</div>
 							</div>
 							<div class="col-sm-1.5">
-								<button id="BranchLenghts" onclick="show_bl()" class="btn btn-success" >Branch Lenghts</button> 
+								<button id="BranchLenghts" type="button" onclick="show_bl()" class="btn btn-success" >Branch Lenghts</button> 
 							</div>
 							<div class="col-sm-1.5">
-								<button id="CollapseAll" onclick="collapseAll()" class="btn btn-success" >Collapse All</button> 
+								<button id="CollapseAll" type="button" onclick="collapseAll()" class="btn btn-success" >Collapse All</button> 
 							</div>
 							<div class="col-sm-1.5">
-								<button id="Reset" onclick="resetAll()" class="btn btn-success" >Reset Topology</button> 
+								<button id="Reset"  type="button" onclick="resetAll()" class="btn btn-success" >Reset Topology</button> 
 							</div>
 							<div class="col-sm-1.5">
-								<button id="Reset_cols_Tree" class="btn btn-success" >Reset cols</button> 
+								<button id="Reset_cols_Tree"  type="button" class="btn btn-success" >Reset cols</button> 
 							</div>
 							<div class="col-sm-2">
 								<label class="checkbox"><input id="Tree_checkbox" type="checkbox" value="">Show Descendants</label>
@@ -142,15 +147,30 @@
 		</div>
 		<!-- JS Libraries -->
 		<!--<script src="d3.js" charset="utf-8"></script>-->
-  
+
+ 
         <!-- Custom JS code -->
         <script src="cells_3d_paryhale.js"></script><!-- -->
 		<script src="cell_lineage_v4_paryhale.js"></script>
         <script src="brush_paryhale.js"></script>
         <script src="Nested_rels_scale.js"></script>
-        <script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
-        <script>Tree_upload_button("JSON_uploader", load_dataset_1)</script>
-        <!-- Run functions to initialise the visualisation -->
+				<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
+				<script>Tree_upload_button("JSON_uploader"); </script>
+<!--
+		<script>
+		function Submit_Function() {
+			var uploader = document.getElementById("JSON_uploader");  
+			var file = uploader.files[0];
+
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var contents = e.target.result;
+					load_dataset_json(contents)};
+			reader.readAsText(file);
+		};
+-->
+		</script>
+       <!-- Run functions to initialise the visualisation -->
         <script>
             init();
             //tree_from_New();
