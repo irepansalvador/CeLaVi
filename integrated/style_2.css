@@ -1,0 +1,179 @@
+.container {
+	width: 1900px;
+	height: 1400px;
+	margin: 10px auto 10px auto;
+	padding: 10px 20px 20px 20px;
+	background-color: white;
+	box-shadow: 0 0 20px #ccc;
+}
+
+#footer {
+	border-top: 1px solid silver;
+	color: #888888;
+	font-size: 1.25rem;
+	text-align: center;
+	margin-top: 1rem;
+	padding: 0.5rem;
+}
+.svg-container {
+    display: inline-block;
+    position: relative;
+    width: 99%;
+    /*padding-bottom: 1%;  aspect ratio */
+    vertical-align: top;
+}
+.svg-container-inbox {
+    display: inline-block;
+    position: relative;
+    width: 49%;
+    padding-bottom: 32%; /* aspect ratio */
+    vertical-align: top;
+		overflow: scroll;
+}
+.svg-container-inbox2 {
+    display: inline-block;
+    position: relative;
+    width: 49%;
+    padding-bottom: 32%; /* aspect ratio */
+    vertical-align: top;
+}
+
+.svg-content-responsive {
+    display: inline-block;
+    position: absolute;
+    top: 50px;
+    left: 0;
+}
+.svg-content-responsive-nospace {
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.svg-content { 
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.svg-container-slider {
+    display: inline-block;
+    position: relative;
+    width: 48%;
+    padding-bottom: 5%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+}
+body {
+	background-color: #fff;
+	font-family: "adelle-1","adelle-2", constantia, cambria, Georgia, serif;
+	font-size:14px;
+	margin: 18px 0 0 30px;
+}
+
+h1 {
+	font-size: 24px;
+	margin: 0;
+	color: #5387bd;
+	font-weight: normal;
+}
+
+h2 {
+	font-weight: normal;
+	color: #808080;
+}
+
+p {
+	color: #808080;
+}
+
+#intro {
+	width: 740px;
+	line-height: 150%;
+}
+
+#area1 {
+	display: inline-block;
+/*	float: right;*/
+}
+
+#area2 {
+	display: inline-block;
+/*	float: left;*/
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 3px;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+}
+
+div.tooltip {	
+    position: absolute;			
+    text-align: center;			
+    width: 120px;					
+    height: 40px;					
+    padding: 2px;				
+    font: 18px sans-serif;		
+    background: lightsteelblue;	
+    border: 0px;		
+    border-radius: 8px;			
+    pointer-events: none;			
+}
+    
+
+
+/* Bar specific CSS */
+
+rect:hover {
+	fill: #2E2E31;
+}
+
+.barBase {	
+	fill: blue;
+}
+
+.barLight {
+	fill: #2E2E31;
+}					
+
+.axisBar text {
+	font-family: "ff-nuvo-sc-web-pro-1","ff-nuvo-sc-web-pro-2", sans-serif;
+	font-size: 11px;
+}
+
+.axisBarTitle {
+	font-family: "ff-nuvo-sc-web-pro-1","ff-nuvo-sc-web-pro-2", sans-serif;
+	font-size: 12px;
+}
+
+.y.axisBar path,
+.y.axisBar line {
+	opacity: 0;
+	cursor: auto;
+}
+
+.x.axisBar path,
+.x.axisBar line {
+	opacity: 0.2;
+	cursor: auto;
+}
+
+.barlabel {
+	font-family: "ff-nuvo-sc-web-pro-1","ff-nuvo-sc-web-pro-2", sans-serif;
+	font-size:11px;
+}
+
+
+
+
+
+

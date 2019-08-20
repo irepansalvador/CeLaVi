@@ -6,7 +6,7 @@
 		<meta charset="UTF-8">
 		<title>Cell lineage visualisation</title>
 		<!-- Custom CSS styles -->
-		<link href="style.css" rel="stylesheet" type="text/css" >
+		<link href="style_2.css" rel="stylesheet" type="text/css" > 
 		<link rel="stylesheet" href="./lib/d3-context-menu.css" />
         <script src="./lib/d3.v3.js"></script>
         <script src="./lib/d3.v4.min.js"></script> <!-- 3d cells-->
@@ -19,7 +19,10 @@
         <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
 				<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
     		<!-- Bootstrap -->
-    		<link href="./lib/bootstrap.min.css" rel="stylesheet">
+				<link href="./lib/bootstrap.min.css" rel="stylesheet">
+				<!--Plotly-->
+				<script src="./lib//plotly-latest.min.js"></script>
+
     </head>
     <body>
 		<div id= "container", class="svg-container">
@@ -67,7 +70,7 @@
             <h4>Cell lineage</h4>
 			</div>
             
-			<div id="area2"> <!-- cells in 3d -->
+			<div id="area2" class="svg-container-inbox2"> <!-- cells in 3d -->
 				<h4> Cells in 3D</h4>
 				</div>
         <!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
@@ -150,11 +153,12 @@
 
  
         <!-- Custom JS code -->
-        <script src="cells_3d_paryhale.js"></script><!-- -->
-		<script src="cell_lineage_v4_paryhale.js"></script>
-        <script src="brush_paryhale.js"></script>
+		<!--<script src="cells_3d_paryhale.js"></script> -->
+				<script src="cell_lineage_v4_paryhale.js"></script>
+ 				<script src="plotly_test.js"></script>
+	       <script src="brush_paryhale.js"></script>
         <script src="Nested_rels_scale.js"></script>
-				<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
+			<!--<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script> -->
 				<script>Tree_upload_button("JSON_uploader"); </script>
 <!--
 		<script>
@@ -168,9 +172,9 @@
 					load_dataset_json(contents)};
 			reader.readAsText(file);
 		};
--->
+
 		</script>
-       <!-- Run functions to initialise the visualisation -->
+     //   Run functions to initialise the visualisation
         <script>
             init();
             //tree_from_New();
@@ -178,5 +182,5 @@
             reset_cell_cols();
           //  console.log("here?");
         </script>
-        
+-->        
 	</body>
