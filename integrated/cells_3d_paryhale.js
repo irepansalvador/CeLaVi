@@ -570,7 +570,7 @@ function click2(d) {
     }
 
  //   d3.selectAll('button').on('click', init);
-
+/*
 // Add an event listener to the button created in the html part
 d3.select("#CellSize").on("input", changeSize );
 
@@ -581,7 +581,7 @@ function changeSize() {
         .selectAll("circle")
         .attr("r", my_rad);
 }
-
+*/
 
 // Get the disparity vals
 
