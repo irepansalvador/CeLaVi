@@ -23,6 +23,7 @@
 				<!--Plotly-->
 				<script src="./lib//plotly-latest.min.js"></script>
 
+
     </head>
     <body>
 		<div id= "container", class="svg-container">
@@ -110,25 +111,14 @@
 						<div class="col-sm-4 mb-2">
 						<a href="#" data-toggle="tooltip" data-placement="right" title="Zoom and Pan cells in 3D">3D cells controls:</a>
 						<div class="row">
-							<div class="col-sm-1.5" align="right">
-								<div class="btn-group">
-  								<button id="zoom_in" type="button" class="btn btn-info">+</button>
-									<button id="zoom_out" type="button" class="btn btn-info">-</button>
-								</div>	
-							</div>
-							<div class="col-sm-2.5">
-								<div class="btn-group">
-  								<button id="pan_right" type="button" class="btn btn-info">></button>
-  								<button id="pan_left" type="button" class="btn btn-info"><</button>
-  								<button id="pan_down" type="button" class="btn btn-info">v</button>
-  								<button id="pan_up" type="button" class="btn btn-info">^</button>
-								</div>	
-							</div>
 							<div class="col-sm-3.5">
 								<button id="reset" type="button" class="btn btn-info">Reset cols</button>
 							</div>
 							<div class="col-sm-3">
-								<input type="number" class="form-control" id="CellSize" placeholder="" value="6" min="1" step="1" title="Size for rendering cells"  required>
+								<input type="number" class="form-control" id="CellSize" placeholder="" value="19" min="1" step="1" title="Size for rendering cells"  required>
+							</div>
+								<div class="col-sm-3">
+								<input type="number" class="form-control" id="CellStroke" placeholder="" value="3" min="1" step="1" max="5" title="Stroke width"  required>
 							</div>
 							<div class="col-sm-2.5">
 								<input id="Cells_checkbox" type="checkbox" title="This option works better if the tree is completely expanded" value="">Show Lineage
