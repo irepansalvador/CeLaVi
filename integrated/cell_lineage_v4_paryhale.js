@@ -668,7 +668,7 @@ function count_leaves2(d,n){
     else {//count++;
          var xx = "#"+d.data.did;
           d3.selectAll("#area2").select(xx)
-            .attr('opacity', 10).attr('fill-opacity', 0.8).attr("fill", "blue");
+            .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "blue");
           d3.selectAll("#area2").select(xx).attr("r", my_rad);
   //          console.log(xx)
 					}

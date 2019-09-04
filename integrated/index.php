@@ -60,7 +60,7 @@
 				</div>
 				<div class="col-sm-3 my-auto">
             <!-- <button type="submit" class="btn btn-primary" align="right" onclick="validateNum()">Submit</button> -->
-            <button type="submit" class="btn btn-primary" align="right">Submit</button>
+           <!-- <button type="submit" class="btn btn-primary" align="right">Submit</button> -->
         </div>
       </div>
 			</form>
@@ -118,7 +118,7 @@
 								<input type="number" class="form-control" id="CellSize" placeholder="" value="19" min="1" step="1" title="Size for rendering cells"  required>
 							</div>
 								<div class="col-sm-3">
-								<input type="number" class="form-control" id="CellStroke" placeholder="" value="3" min="1" step="1" max="5" title="Stroke width"  required>
+								<input type="number" class="form-control" id="CellStroke" placeholder="" value="2" min="1" step="1" max="5" title="Stroke width"  required>
 							</div>
 							<div class="col-sm-2.5">
 								<input id="Cells_checkbox" type="checkbox" title="This option works better if the tree is completely expanded" value="">Show Lineage
@@ -148,7 +148,7 @@
  				<script src="plotly_test.js"></script>
 	       <script src="brush_paryhale.js"></script>
         <script src="Nested_rels_scale.js"></script>
-			<!--<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script> -->
+				<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
 				<script>Tree_upload_button("JSON_uploader"); </script>
 <!--
 		<script>

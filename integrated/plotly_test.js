@@ -15,7 +15,8 @@ var layout = {
 	margin: {l: 0,r: 0,b: 0,t: 0},
 	scene: {camera: { eye: {x:0.1, y:0.1, z:2}},
 		bgcolor: "white"
-		}
+		},
+	dragmode: "orbit"
 };
 
 var config = {
@@ -27,6 +28,7 @@ var config = {
 		scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
 		},
 	responsive: true, displayModeBar: true, displaylogo: false
+//	modeBarButtonsToRemove: ['tableRotation']
 	};
 
 var my_view;
@@ -35,50 +37,79 @@ var ID_array;
 var points_array;
 var plotly_scatter_div; // html div with the 3d obect
 
-// MAIN FUNCTION 
-Plotly.d3.csv(
-	//"./Epith_limb_last_stage_coords_centroid.csv",
-	"./cells_3Dnorm_centroid.csv",
-	function(err, rows) {
-		function unpack(rows, key) {
-			return rows.map(function(row) {return row[key];});
-		}
-		function setValue(rows, key, color) {
-			return rows.map(function(row) {return color;});
-		}
-		// Specify the name of the columns that will be read and assign to
-		// XYZ
-		var trace1 = {
-			x: unpack(rows, "Xnorm"),
-			y: unpack(rows, "Ynorm"),
-			z: unpack(rows, "Znorm"),
-			id: unpack(rows, "cell"),
+// MAIN FUNCTION
+
+// handle upload button
+function Coords_upload_button(el, callback) {
+  var uploader = document.getElementById(el);  
+  var reader = new FileReader();
+  console.log(uploader);
+
+  reader.onload = function(e) {
+    var contents = e.target.result;
+    callback(contents);
+  };
+
+  uploader.addEventListener("change", handleFiles, false);  
+
+  function handleFiles() {
+    //d3.select("#area2").text("loading...");
+    var file = this.files[0];
+    reader.readAsText(file);
+    console.log(file)      
+  };
+};
+
+var trace1=[];
+// load dataset and create plot
+function load_dataset_2(csv) {
+	var data_3d = d3.csvParse(csv);
+	console.log(data_3d);
+	x_t=[]; y_t=[]; z_t=[]; id_t=[];
+	line_col=[]; cell_col=[]; c_size=[];
+	points_array=[];
+	var i=0;
+	data_3d.forEach(function(d)
+		{
+		x_t.push(d.X);
+		y_t.push(d.Y);
+		z_t.push(d.Z);
+		id_t.push(d.cell);
+		cell_col.push("lightgrey");
+		line_col.push("darkblue");
+		c_size.push(19);
+		points_array.push(i);
+		i=i+1;
+		});
+	trace1 = {
+			x: x_t,
+			y: y_t,
+			z: z_t,
+			id: id_t,
 			// cells' values to be plotted
-			mode: "markers", marker: {
-				color: setValue(rows, "z1", "lightgrey"),
-				size: setValue(rows, "z1", 19),
+			mode: "markers",
+			marker: {
+				color: cell_col,
+				size: c_size,
 				line: {
-					color: setValue(rows, "z1", "darkblue"),
-					width: 3},
+					color: line_col,
+					width: 2},
 				opacity: 1
-			},
-			text: unpack(rows, "cell"),
+				},
+			text: id_t,
 			hoverinfo:"text",
 			type: "scatter3d"
 		};
-		Npoints = rows.length; // set global var of number of points
-		points_array=[];
-		for (var i = 0; i < Npoints; i++) {
-			points_array.push(i);}
-		ID_array= unpack(rows, "cell");
-		data = [trace1];
-		// to make the plot responsive to size changes
-		Plotly.newPlot("area2", data, layout, config)	;
-		// get the dic where the plot is going to be added to
-		plotly_scatter_div = document.getElementById("area2");
-		
-		// FUNCTION THAT DEFINE BEHAVIOUR WHEN CLICKING ON CELLS
-		plotly_scatter_div.on("plotly_click", function(dd) {
+	Npoints = x_t.length; // set global var of number of points
+	ID_array= id_t;
+	data = [trace1];
+	// to make the plot responsive to size changes
+	Plotly.newPlot("area2", data, layout, config)	;
+	// get the dic where the plot is going to be added to
+	plotly_scatter_div = document.getElementById("area2");
+	
+	// FUNCTION THAT DEFINE BEHAVIOUR WHEN CLICKING ON CELLS
+	plotly_scatter_div.on("plotly_click", function(dd) {
 		if (d3.select("#Cells_checkbox").property("checked")==false)
 			{
 			var id_txt = "\"id\"" 
@@ -103,31 +134,7 @@ Plotly.d3.csv(
 				},130);
 			}
 		});
-		/*
-		// FUNCTION THAT DEFINE BEHAVIOUR WHEN HOVERING ON CELLS
-		plotly_scatter_div.on("plotly_hover", function(dd) {
-			var id_txt = "\"id\"" 
-			// get the id of point clicked
-			var pn = dd.points[0].pointNumber;
-			var tn = dd.points[0].curveNumber;
-			console.log(pn)
-			my_test = 'data[0][\"id\"]"+"["+pn+"]';
-			//console.log("Clicked = " + data[0]["id"][pn]);
-			var yy = data[0]["id"][pn];
-			var update = {
-				["marker.color[" + pn + "]"]: "purple"};
-			// Interact with cell lineage tree
-			click2(yy);
-			//show_anc_cols(yy);
-			// trick to avoid bug feature, where after clicking we get stuck
-			// on an infinite loop
-			setTimeout(function(x) {
-				Plotly.restyle("area2", update, tn);
-				console.log(pn , tn)}, 15);
-		});
-		*/
-	});
-
+	}
 
 // FUNCTION TO SET PROPERTIES  OF CELLS BASED ON THEIR INDICES. 
 // This is to be used interactively with the cell lineage tree, 
