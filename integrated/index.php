@@ -8,8 +8,9 @@
 		<!-- Custom CSS styles -->
 		<link href="style_2.css" rel="stylesheet" type="text/css" > 
 		<link rel="stylesheet" href="./lib/d3-context-menu.css" />
-        <script src="./lib/d3.v3.js"></script>
-        <script src="./lib/d3.v4.min.js"></script> <!-- 3d cells-->
+				<script src="./lib/d3.v3.js"></script> 
+			<!--	<script src="https://d3js.org/d3.v3.min.js"></script> -->
+       <script src="./lib/d3.v4.min.js"></script>  <!--3d cells-->
         <script src="./lib/d3-3d.min.js"></script>
         <script src="./lib/jquery.min.js"></script>
         <script src="./lib/newick.js" type="text/javascript"></script>
@@ -18,6 +19,10 @@
         <script src="https://d3js.org/d3-color.v1.min.js"></script>
         <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
 				<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+				<!-- Range slider code -->
+				<script src="./lib/d3RangeSlider.js"></script>
+				<!-- Range slider style -->
+				<link href="./lib/d3RangeSlider.css" rel="stylesheet">
     		<!-- Bootstrap -->
 				<link href="./lib/bootstrap.min.css" rel="stylesheet">
 				<!--Plotly-->
@@ -48,7 +53,12 @@
           <div class="custom-control custom-radio">
             <input type="radio" class="custom-control-input" id="Json_TREE" name="Tree_INPUT" value="json">
             <label class="custom-control-label" for="Json_TREE">JSON file</label>
+					</div>
+					<div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="Json_CLONES" name="Tree_INPUT" value="clones">
+            <label class="custom-control-label" for="Json_CLONES">CLONES file(json)</label>
           </div>
+
         </div>
 
 				<div class="col-sm-3 mb-2">
@@ -65,7 +75,7 @@
       </div>
 			</form>
           
-      <div class="status" align="right" > Click on a cell      </div>
+      <div class="status" align="Center" >Click on a cell      </div>
      	<!-- Separate Areas -->
 			<div id="area1"> <!-- cell lineage -->
             <h4>Cell lineage</h4>
@@ -150,6 +160,7 @@
         <script src="Nested_rels_scale.js"></script>
 				<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
 				<script>Tree_upload_button("JSON_uploader"); </script>
+				<script src="clones_slider.js"></script>
 <!--
 		<script>
 		function Submit_Function() {

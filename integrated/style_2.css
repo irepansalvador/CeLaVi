@@ -28,7 +28,7 @@
     width: 49%;
     padding-bottom: 32%; /* aspect ratio */
     vertical-align: top;
-		overflow: scroll;
+		overflow: hidden ;
 }
 .svg-container-inbox2 {
     display: inline-block;

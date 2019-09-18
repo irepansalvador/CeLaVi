@@ -154,6 +154,22 @@ function setColours(points,new_colour) {
 	Plotly.update("area2", data, myview,0);
 	};
 
+function setRndColours(points, rnd_cols) {
+	console.log(points, rnd_cols)
+	// get current value of camera, so it can be set again
+	myview = plotly_scatter_div.layout.scene.camera;
+	// For each point change the colour value for layout
+	i = 0; 
+	points.forEach(function(d,i) 
+		{
+		data[0]["marker"]["color"][d] = rnd_cols[i];
+		//console.log("Clicked = " + data[0]["id"][d]);
+		i++;
+		});
+	// Update plot based on the new values
+	Plotly.update("area2", data, myview,0);
+	};
+
 function setSizes(points,new_size) {
 	//console.log(points)
 	// get current value of camera, so it can be set again
