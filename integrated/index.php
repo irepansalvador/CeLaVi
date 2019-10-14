@@ -99,7 +99,7 @@
 								</div>
 							</div>
 							<div class="col-sm-1.5">
-								<button id="BranchLenghts" type="button" onclick="show_bl()" class="btn btn-success" >Branch Lenghts</button> 
+								<button id="BranchLenghts" type="button" onclick="show_bl()" class="btn btn-success" >Show BL</button> 
 							</div>
 							<div class="col-sm-1.5">
 								<button id="CollapseAll" type="button" onclick="collapseAll()" class="btn btn-success" >Collapse All</button> 
@@ -113,6 +113,18 @@
 							<div class="col-sm-2">
 								<label class="checkbox"><input id="Tree_checkbox" type="checkbox" value="">Show Descendants</label>
 							</div>
+
+						<div class="col-sm-2 my-auto" id="OPTIONS_tree">
+          		<div class="custom-control custom-radio">
+            		<input type="radio" class="custom-control-input" id="Abs_BL" name="Abs_Rel" value="abs" checked>
+            		<label class="custom-control-label" for="Abs_BL">Abs BL</label>
+          		</div>
+          		<div class="custom-control custom-radio">
+            		<input type="radio" class="custom-control-input" id="Rel_BL" name="Abs_Rel" value="rel">
+            		<label class="custom-control-label" for="Rel_BL">Rel BL</label>
+          		</div>
+						</div>
+
 							<div class "col-sm-1" id="controls_1">
 							</div>
 						</div>

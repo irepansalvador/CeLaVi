@@ -14,6 +14,7 @@ cell_check_button.addEventListener( 'change', function() {
 var layout = {
 	margin: {l: 0,r: 0,b: 0,t: 0},
 	scene: {camera: { eye: {x:0.1, y:0.1, z:2}},
+		aspectmode: "data",
 		bgcolor: "white"
 		},
 	dragmode: "orbit"

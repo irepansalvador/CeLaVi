@@ -32,6 +32,23 @@ $(document).ready(function ()
 		});
 	});
 
+$(document).ready(function ()
+	{ 
+	$("#Rel_BL").click(function()
+		{console.log("you clicked for Relative Branch lenghts");
+		Abs_BL = 0;
+		update(root);
+		});
+	});
+$(document).ready(function ()
+	{ 
+	$("#Abs_BL").click(function()
+		{console.log("you clicked for Absolute Branch lenghts");
+		Abs_BL = 1;
+		update(root);
+		});
+	});
+
 
 
 // handle upload button
@@ -326,6 +343,7 @@ var node_h = h/2;
 var treemap = d3.tree().size([node_h, w]);
 
 show_BL = 0;
+//Abs_BL = 0;
 var nodelen  = 60;
 var nodelen2 = 1;
 
@@ -952,13 +970,31 @@ function get_branlen(){
 }
 
 function set_bl(){
-    nodes.forEach(function(d) 
-        {
-        //if (d.parent !==null) {
-            d.blength = (d.data.length * nodelen2) + 60;
-          //  }// + d.parent.blength} 
-        })
-}
+	if (Abs_BL == 1)
+	{
+		nodes.forEach(function(d) 
+			{
+			//if (d.parent !==null) { CORRECT HERE FOR LENGHT!!
+			d.blength = (d.data.length * nodelen2);
+			//  }// + d.parent.blength} 
+			})
+		}
+	if (Abs_BL == 0)
+		{
+		nodes.forEach(function(d) 
+			{
+			if (d.parent !==null) 
+				{d.blength = (d.data.length + d.parent.blength) * nodelen2 } 
+			})
+		}
+	}
+
+
+//function Abs_bl(){
+//	if (Abs_BL == 1) {Abs_BL = 0}
+//	else if (Abs_BL == 0 ){Abs_BL = 1}
+//	update(root);
+//}
 
 function show_bl(){
     if (show_BL == 1) {show_BL = 0}
