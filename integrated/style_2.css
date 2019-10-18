@@ -18,6 +18,7 @@
 .svg-container {
     display: inline-block;
     position: relative;
+		margin: 10px 10px 10px 10px;
     width: 99%;
     /*padding-bottom: 1%;  aspect ratio */
     vertical-align: top;
@@ -47,9 +48,10 @@
 .svg-content-responsive-nospace {
     display: inline-block;
     position: absolute;
-    top: 0px;
-    left: 0px;
-    right: 0px;
+    width:85%;
+		top: 50px;
+    left: 50px;
+    right:20px;
 }
 
 .svg-content { 

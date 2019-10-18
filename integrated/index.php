@@ -31,7 +31,7 @@
 
     </head>
     <body>
-		<div id= "container", class="svg-container">
+		<div id= "container" class="svg-container">
 			<h3> Cell lineage interactive visualisation</h3>
 			<h6> <i> by Irepan Salvador-Martinez </i> </h6>
 
@@ -81,11 +81,11 @@
             <h4>Cell lineage</h4>
 			</div>
             
-			<div id="area2" class="svg-container-inbox2"> <!-- cells in 3d -->
+			<div id="area2" class="svg-container-inbox"> <!-- cells in 3d -->
 				<h4> Cells in 3D</h4>
 				</div>
         <!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
-				<div id= "controls_1a" align="left" class="controls">
+				<div id= "controls_1a" align="left" class="svg-buttons">
 					<div class="row">
 						<div class="col-sm-8 mb-2">
 						<a href="#" data-toggle="tooltip" data-placement="left" title="Play with tree">Cell lineage tree controls:</a>

@@ -997,8 +997,19 @@ function set_bl(){
 //}
 
 function show_bl(){
-    if (show_BL == 1) {show_BL = 0}
-    else if (show_BL == 0) {show_BL = 1}
-    update(root);
+	if (show_BL == 1)
+		{show_BL = 0;
+		d3.select("#slider").selectAll("input").remove();
+		d3.select("#slider").selectAll("svg").remove();
+		// remove the previous line
+		d3.select("#area1").select("svg").selectAll("line").remove();
+		my_slider();
+		}
+	else if (show_BL == 0) 
+		{show_BL = 1;
+		d3.select("#slider").selectAll("svg").remove();
+		my_slider_2();
+		}
+	update(root);
 }
 
