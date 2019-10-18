@@ -36,7 +36,7 @@
 			<h6> <i> by Irepan Salvador-Martinez </i> </h6>
 
 			<form onsubmit="Submit_Function()" method="submit" enctype="multipart/form-data">
-      <h6 class="pl-0">INPUT FILES</h6>
+			<h6 class="pl-0">INPUT FILES</h6>
 			<div class="row">
         <div class="col-sm-3 mb-2">
           <a href="#" data-toggle="tooltip" data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file:</label></a>
@@ -74,7 +74,8 @@
         </div>
       </div>
 			</form>
-          
+			<a href="./test_data.zip" download>Download TEST files (zip folder)</a>
+	     
       <div class="status" align="Center" >Click on a cell      </div>
      	<!-- Separate Areas -->
 			<div id="area1"> <!-- cell lineage -->
