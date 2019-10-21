@@ -7,103 +7,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 }
 
 
-$(document).ready(function () 
-	{ 
-	$("#Json_TREE").click(function()
-		{console.log("you clicked json, restart file");
-		$("input[name=TREE_FILE]").val("");
-		});
-	});
-
-
-$(document).ready(function () 
-	{ 
-	$("#Newick_TREE").click(function()
-		{console.log("you clicked Newick, restart file");
-		$("input[name=TREE_FILE]").val("");
-		});
-	});
-
-$(document).ready(function ()
-	{ 
-	$("#Json_CLONES").click(function()
-		{console.log("you clicked clones, restart file");
-		$("input[name=TREE_FILE]").val("");
-		});
-	});
-
-$(document).ready(function ()
-	{ 
-	$("#Rel_BL").click(function()
-		{console.log("you clicked for Relative Branch lenghts");
-		Abs_BL = 0;
-		update(root);
-		});
-	});
-$(document).ready(function ()
-	{ 
-	$("#Abs_BL").click(function()
-		{console.log("you clicked for Absolute Branch lenghts");
-		Abs_BL = 1;
-		update(root);
-		});
-	});
-
-
-
-// handle upload button
-function Tree_upload_button(el) {
-  var uploader = document.getElementById(el);  
-  uploader.addEventListener("change", handleFiles, false);  
-  console.log(uploader);
- var json_reader = new FileReader();
-  json_reader.onload = function(e) {
-    var contents = e.target.result;
-    load_dataset_json(contents);
-  };
- var newick_reader = new FileReader();
-  newick_reader.onload = function(e) {
-    var contents = e.target.result;
-		var newick = Newick.parse(contents);
-    load_dataset_newick(newick);
-  };
- var clones_reader = new FileReader();
-  clones_reader.onload = function(e) {
-    var contents = e.target.result;
-    load_dataset_clones(contents);
-  };
-
-
-  function handleFiles() {
-    var tree_format = $("input[name='Tree_INPUT']:checked").val();
-		console.log(tree_format);
-		if (tree_format=="json")
-			{
-			//d3.select("#area2").text("loading...");
-    	var file = this.files[0];
-    	json_reader.readAsText(file);
-    	console.log(file);
-			}
-		if (tree_format=="newick")
-			{
-			//d3.select("#area2").text("loading...");
-    	var file = this.files[0];
-    	newick_reader.readAsText(file);
-    	console.log(file);
-			}
-		if (tree_format=="clones")
-			{
-			//d3.select("#area2").text("loading...");
-			var file = this.files[0];
-    	clones_reader.readAsText(file);
-    	console.log(file);
-			
-			}
-  	};
-	};
-
-
-
 //Store width, height and margin in variables
 //var w = 1200;
 //var h = 1100;
@@ -343,7 +246,7 @@ var node_h = h/2;
 var treemap = d3.tree().size([node_h, w]);
 
 show_BL = 0;
-//Abs_BL = 0;
+var Abs_BL;
 var nodelen  = 60;
 var nodelen2 = 1;
 

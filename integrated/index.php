@@ -34,9 +34,10 @@
 		<div id= "container" class="svg-container">
 			<h3> Cell lineage interactive visualisation</h3>
 			<h6> <i> by Irepan Salvador-Martinez </i> </h6>
-
-			<form onsubmit="Submit_Function()" method="submit" enctype="multipart/form-data">
-			<h6 class="pl-0">INPUT FILES</h6>
+			<!-- Button to hide INPUT -->
+			<button onclick="HideINPUT()">HIDE/SHOW Input Options</button>
+			<form action="javascript:Submit_Function();" id="input_submit"  method="submit" enctype="multipart/form-data">
+			<!--<h6 class="pl-0">INPUT FILES</h6> -->
 			<div class="row">
         <div class="col-sm-3 mb-2">
           <a href="#" data-toggle="tooltip" data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file:</label></a>
@@ -45,7 +46,7 @@
             <label class="custom-file-label" for="JSON_uploader">Upload tree (select format)</label>
           </div>
 				</div>
-				<div class="col-sm-3 my-auto" id="INPUT_tree">
+				<div class="col-sm-1.5 my-auto" id="INPUT_tree">
           <div class="custom-control custom-radio">
             <input type="radio" class="custom-control-input" id="Newick_TREE" name="Tree_INPUT" value="newick" checked>
             <label class="custom-control-label" for="Newick_TREE">Newick file</label>
@@ -56,11 +57,33 @@
 					</div>
 					<div class="custom-control custom-radio">
             <input type="radio" class="custom-control-input" id="Json_CLONES" name="Tree_INPUT" value="clones">
-            <label class="custom-control-label" for="Json_CLONES">CLONES file(json)</label>
+            <label class="custom-control-label" for="Json_CLONES">CLONES(json) </label>
           </div>
 
+				</div>
+					<div class="col-sm-1.5 my-auto" id="OPTIONS_tree">
+          	<div class="custom-control custom-radio">
+            	<input type="radio" class="custom-control-input" id="Abs_BL" name="Abs_Rel" value="abs" checked>
+            	<label class="custom-control-label" for="Abs_BL">Abs BL</label>
+          	</div>
+          	<div class="custom-control custom-radio">
+            	<input type="radio" class="custom-control-input" id="Rel_BL" name="Abs_Rel" value="rel">
+            	<label class="custom-control-label" for="Rel_BL">Rel BL</label>
+						</div>
+						<div class="custom-control custom-radio">
+            	<input type="radio" class="custom-control-input" id="No_BL" name="Abs_Rel" value="no">
+            	<label class="custom-control-label" for="No_BL">No BL</label>
+          	</div>
+
+					</div>
+
+
+				<div class="col-sm-2 my-auto">
+           <button type="submit" class="btn btn-primary" align="right" onclick="validateNum()">Submit</button> 
+           <!-- <button type="submit" class="btn btn-primary" align="right">Submit</button> -->
         </div>
 
+			</form>
 				<div class="col-sm-3 mb-2">
           <a href="#" data-toggle="tooltip" data-placement="left" title="Reads a csv file with 4 columns: The first column is the cell ID (same as in the tree), and the other columns are coordinates X, Y and Z "><label for="temp">Coords file:</label></a>
           <div class="custom-file mb-3" id="temp">
@@ -68,12 +91,10 @@
             <label class="custom-file-label" for="3Dcoord_uploader">Input coordinates file</label>
           </div>
 				</div>
-				<div class="col-sm-3 my-auto">
-            <!-- <button type="submit" class="btn btn-primary" align="right" onclick="validateNum()">Submit</button> -->
-           <!-- <button type="submit" class="btn btn-primary" align="right">Submit</button> -->
-        </div>
       </div>
-			</form>
+			<!--</form> -->
+
+
 			<a href="./test_data.zip" download>Download TEST files (zip folder)</a>
 	     
       <div class="status" align="Center" >Click on a cell      </div>
@@ -114,17 +135,6 @@
 							<div class="col-sm-2">
 								<label class="checkbox"><input id="Tree_checkbox" type="checkbox" value="">Show Descendants</label>
 							</div>
-
-						<div class="col-sm-2 my-auto" id="OPTIONS_tree">
-          		<div class="custom-control custom-radio">
-            		<input type="radio" class="custom-control-input" id="Abs_BL" name="Abs_Rel" value="abs" checked>
-            		<label class="custom-control-label" for="Abs_BL">Abs BL</label>
-          		</div>
-          		<div class="custom-control custom-radio">
-            		<input type="radio" class="custom-control-input" id="Rel_BL" name="Abs_Rel" value="rel">
-            		<label class="custom-control-label" for="Rel_BL">Rel BL</label>
-          		</div>
-						</div>
 
 							<div class "col-sm-1" id="controls_1">
 							</div>
@@ -172,29 +182,7 @@
 	       <script src="brush_paryhale.js"></script>
         <script src="Nested_rels_scale.js"></script>
 				<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
-				<script>Tree_upload_button("JSON_uploader"); </script>
+			<!--	<script>Tree_upload_button("JSON_uploader"); </script> -->
 				<script src="clones_slider.js"></script>
-<!--
-		<script>
-		function Submit_Function() {
-			var uploader = document.getElementById("JSON_uploader");  
-			var file = uploader.files[0];
-
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				var contents = e.target.result;
-					load_dataset_json(contents)};
-			reader.readAsText(file);
-		};
-
-		</script>
-     //   Run functions to initialise the visualisation
-        <script>
-            init();
-            //tree_from_New();
-            processData(data,0);
-            reset_cell_cols();
-          //  console.log("here?");
-        </script>
--->        
+				<script src="Tree_submit.js"></script>
 	</body>
