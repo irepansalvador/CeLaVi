@@ -256,6 +256,43 @@ function slided(d) {
 		.attr("stroke", "black")
 		.style("stroke-dasharray","5,5")//dashed array for line
 		.attr("y2", 0);
+	// PAINT ALL CELLS AT THAT LEVEL
+	// first reset the colours of the tree and 3D cells
+	reset_node_cols();
+	reset_cell_cols()
+	// then get all the cells that intersect with the dashed line
+	var time_cells=[];
+	d3.select("#area1").selectAll("svg")
+		.selectAll("path")
+		.each(function (d) 
+			{l_t = this.getBBox();
+			if (l_t.x < slider_scaled && l_t.x+l_t.width > slider_scaled )
+				{time_cells.push(this.__data__.parent.data.did);
+				console.log(this.__data__.parent.data.did)}
+			});
+	time_cells.forEach(function(d,i)
+		{
+		ci = i;
+		var D = d;
+	//     console.log("looking for #"+D)
+		d3.selectAll("#area1").selectAll("g").select("#"+D)
+			.select("circle")
+			.style("fill", color(ci))
+			.style("fill-opacity", 0.8)
+			.style("stroke", stroke_cols[parseInt(ci/10)])
+			.attr("r", 6);
+		});
+		
+	time_cells.forEach(function(d,i)
+		{
+		var D = d;
+		//     console.log("looking for #"+D)
+		var nn = d3.selectAll("#area1")
+			.select("#"+D);
+		// then the 
+		nn.each(function(d) {count_leaves2(d,0)});
+		console.log("looking for "+ nn)   
+		});
 	}
 
 var color  = d3.scaleOrdinal(d3.schemeCategory10);

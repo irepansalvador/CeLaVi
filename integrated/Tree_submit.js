@@ -23,7 +23,7 @@ $(document).ready(function ()
 	{ 
 	$("#Rel_BL").click(function()
 		{console.log("you clicked for Relative Branch lenghts");
-		set_bl();
+		//set_bl();
 				//		Abs_BL = 0;
 //		update(root);
 		});
@@ -32,7 +32,7 @@ $(document).ready(function ()
 	{ 
 	$("#Abs_BL").click(function()
 		{console.log("you clicked for Absolute Branch lenghts");
-		set_bl();
+		//set_bl();
 //		Abs_BL = 1;
 //		update(root);
 		});

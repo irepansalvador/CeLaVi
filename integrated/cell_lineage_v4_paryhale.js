@@ -6,10 +6,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   alert('The File APIs are not fully supported in this browser.');
 }
 
-
-//Store width, height and margin in variables
-//var w = 1200;
-//var h = 1100;
 var div = d3.select("body").append("div")	
     .attr("class", "tooltip")				
     .style("opacity", 0);
@@ -26,15 +22,6 @@ var svg_tree = d3.select("#area1")
     .classed("svg-content-responsive", true)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + 0 + ")");
-
-/*-- append svg to body
-var svg_tree = d3.select("#area1").append("svg")
-    .attr("width", w)
-    .attr("height", h+100)
-  //  .attr("id", "treeG")
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
----*/
 
 var w = d3.select("#area1").selectAll("svg")
       // get the width of div element
@@ -63,11 +50,9 @@ var xAxis = d3.svg.axis()
 var yAxis = d3.svg.axis()
               .scale(yScale)
               .orient("left");
-
 var depths;
 
 // --- Show menu with custom functions in right click
-
 var double_element = [];
 
 var menu = [
@@ -158,6 +143,10 @@ function load_dataset_json(json) {
 
   // get all the heights
   max_H  = get_height();
+	nodelen = 600/max_H;
+
+	// SET BRANCHLENGTHS
+	set_bl();
   console.log(max_H);
   colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
       .domain([1, max_H]);
@@ -168,17 +157,19 @@ function load_dataset_json(json) {
   resetAll();
 }
 
-
 function load_dataset_newick(newick){
 	root = d3.hierarchy(newick);
 	root.x0 = h / 4;
 	root.y0 = 0;
 
   expandAll();
-
   // get all the heights
   max_H  = get_height();
-  console.log(max_H);
+	nodelen = 600/max_H;
+	// SET BRANCHLENGTHS
+	set_bl();
+
+ console.log(max_H);
   colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
       .domain([1, max_H]);
   my_slider();
@@ -210,20 +201,8 @@ function load_dataset_clones(json) {
 
 d3.select(self.frameElement).style("height", "300px");
 
-/*   
-// Define the div for the tooltip
-var div = d3.select("body").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
-
-var div = d3.select("#area1").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
-*/
-
 //-- From here starts the tree part, from 
 //-- https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd
-
 
 var i = 0,
     duration = 800,
@@ -247,8 +226,9 @@ var treemap = d3.tree().size([node_h, w]);
 
 show_BL = 0;
 var Abs_BL;
-var nodelen  = 60;
-var nodelen2 = 1;
+var nodelen = 1;
+var nodelen2;
+
 
 d3.select("#zoom_in_tree").on("click", function() {
     if (show_BL == 0)
@@ -276,11 +256,8 @@ d3.select("#pan_up_tree").on("click", function() {
     treemap = d3.tree().size([node_h, w]);
     update(root);
 });
-
 d3.select("#Reset_cols_Tree").on("click", function() {
-    reset_node_cols();
-});
-
+    reset_node_cols();});
 
 // ----------------------------------------------
 
@@ -296,18 +273,15 @@ function update(source) {
       if (d.blength == undefined) {d.blength = 0};
     });
     
-    set_bl();
+  //  set_bl();
   // Normalize for fixed-depth.
   // nodes.forEach(function(d){ d.y = d.depth * 30});
   if (show_BL == 0)
      {nodes.forEach(function(d){ d.y = d.depth * nodelen});}
   if (show_BL == 1)
-     {nodes.forEach(function(d){ d.y = d.blength + 20});}
+     {nodes.forEach(function(d){ d.y = d.blength * nodelen2});}
     
-
-
   // ****************** Nodes section ***************************
-
   // Update the nodes...
   var node = svg_tree.selectAll('g.node')
       .data(nodes, function(d) 
@@ -327,7 +301,21 @@ function update(source) {
              div.style("opacity", .9)
                 .text(d.data.did + " "+count_leaves2(d,0) +" daughters")
                 .style("left", (d3.event.pageX + 10 ) + "px")	
-                .style("top", (d3.event.pageY - 28) + "px");}
+                .style("top", (d3.event.pageY - 28) + "px");
+						}
+					else if (show_BL==1) 
+						{div.style("opacity", .9)
+                .text(d.data.did + "; time="+d.blength)
+                .style("left", (d3.event.pageX + 10 ) + "px")	
+                .style("top", (d3.event.pageY - 28) + "px");
+						}
+					else if (show_BL==0) 
+						{div.style("opacity", .9)
+                .text(d.data.did + "; depth="+d.depth)
+                .style("left", (d3.event.pageX + 10 ) + "px")	
+                .style("top", (d3.event.pageY - 28) + "px");
+						}
+
         })
       .on("mouseout.c", function (d) {
           if (d3.select("#Tree_checkbox").property("checked"))
@@ -340,17 +328,12 @@ function update(source) {
             })
      .on('contextmenu', d3.contextMenu(menu));
     
-    
-    
-    
   // Add Circle for the nodes
   nodeEnter.append('circle')
       .attr('class', 'node')
 //      .attr("id",  function(d) {return d.data.did;})
       .attr('r', 1e-6)
       .style("stroke", "blue");
-    
-
   // Text when adding nodes 
   nodeEnter.append('text')
       .attr("dy", ".35em")
@@ -375,9 +358,6 @@ function update(source) {
              else if (d._children != null) {return  count_leaves(d) }
             });;
 
-    
-    // .style("fill-opacity", 1e-6);
-    
   // UPDATE
   var nodeUpdate = nodeEnter.merge(node);
 
@@ -394,10 +374,10 @@ function update(source) {
     .attr('r', function(d) {
                 return (6- (d.depth/2)) })
     .style("fill", function(d) {
-        if (d3.select(this).style("fill") == "lightblue" )
-            {return d._children ? "lightblue" : "#fff";}
+        if (d3.select(this).style("fill") == "rgb(70, 150, 180)" )
+            {return d._children ? "rgb(70, 150, 180)" : "#fff";}
          else if (d3.select(this).style("fill") == "rgb(255, 255, 255)" )
-            {return d._children ? "lightblue" : "#fff";}
+            {return d._children ? "rgb(70, 150, 180)" : "#fff";}
          else  {return d3.select(this).style("fill");}
         }
       )
@@ -407,17 +387,12 @@ function update(source) {
     .style("stroke", function(d) {
         return d3.select(this).style("stroke")}
       );
-    
-//    .style("stroke", function(d) {
-  //  return d.data.deathDistance || d.data._deathDistance ?  "red" : "blue"
-
    // Text when adding nodes 
   nodeUpdate.select('.textchild')
       .text(function(d) 
             {if (d._children == null) {return  ""}
              else if (d._children != null) {return  count_leaves(d) }
             });
-    
   // Remove any exiting nodes
   var nodeExit = node.exit().transition()
       .duration(duration)
@@ -425,11 +400,9 @@ function update(source) {
           return "translate(" + source.y + "," + source.x + ")";
       })
       .remove();
-
   // On exit reduce the node circles size to 0
   nodeExit.select('circle')
     .attr('r', 1e-6);
-
   // On exit reduce the opacity of text labels
   nodeExit.select('text')
     .style('fill-opacity', 1e-6);
@@ -447,15 +420,12 @@ function update(source) {
         var o = {x: source.x0, y: source.y0}
         return diagonal(o, o)
       });
-
   // UPDATE
   var linkUpdate = linkEnter.merge(link);
-
   // Transition back to the parent element position
   linkUpdate.transition()
       .duration(duration)
       .attr('d', function(d){ return diagonal(d, d.parent) });
-
   // Remove any exiting links
   var linkExit = link.exit().transition()
       .duration(duration)
@@ -464,7 +434,6 @@ function update(source) {
         return diagonal(o, o)
       })
       .remove();
-
   // Store the old positions for transition.
   nodes.forEach(function(d){
     d.x0 = d.x;
@@ -473,16 +442,12 @@ function update(source) {
 
   // Creates a curved (diagonal) path from parent to the child nodes
   function diagonal(s, d) {
-
     path = `M ${s.y} ${s.x}
             C ${(s.y + d.y) / 2} ${s.x},
               ${(s.y + d.y) / 2} ${d.x},
               ${d.y} ${d.x}`
-
     return path
   }
-
-
 }
 
 // my functions
@@ -529,7 +494,6 @@ function resetAll(){
 //    collapse(root);
     update(root);
 }
-
 
 //###################################################################################
 //#############FUNCTIONS TO HIGHLIGHT ALL DAUGHTERS OF A GIVEN NODE##################
@@ -598,7 +562,7 @@ function count_leaves2(d,n){
 		function newcol() {
 			if (d3.select("#Cells_checkbox").property("checked") && n>0 )
 				{return colorScale(n)}
-			else if (orig_col == "rgb(255, 255, 255)") {return "lightblue"}
+			else if (orig_col == "rgb(255, 255, 255)") {return "rgb(70, 150, 180)"}
 			else {return n <= 0 ? orig_col : colorScale(n)}
 			};
 	// change stroke colour of the 3Dcell
@@ -728,9 +692,6 @@ function count_subleavesh(d){;
             }
     }
 
-
-
-
 //###################################################################################
 
 var findCommonElements= function(arrs) {
@@ -747,7 +708,6 @@ var findCommonElements= function(arrs) {
     }
     return resArr;
 }
-
 
 ///  ADD dropdown menu
 
@@ -789,18 +749,7 @@ dropdownButton.on("change", function(d) {
     console.log(selectedOption);
 })
 
-
-
-
 update_dropMenu();
-
-
-
-/*init();
-processData(data,0);
-reset_cell_cols();
-//console.log("here?")*/
-
 
 function onlyUnique(value, index, self) { 
     return self.indexOf(value) === index;
@@ -832,18 +781,6 @@ function get_heightID(){
     return depths;    
     console.log(depths);
 }
-/*
-function reset_cell_cols() {
-    d3.selectAll("#area2")
-        .selectAll("circle")
-        .attr("r", my_rad)
-        .style("stroke", "grey")
-        .style('stroke-width', 1)
-         //.attr('opacity', 10)
-        .attr('fill-opacity', 0.3)
-        .attr("fill", "grey");
-    }
-*/
 function reset_node_cols() {
     d3.selectAll("#area1")
         .selectAll('circle.node')
@@ -851,7 +788,7 @@ function reset_node_cols() {
         .attr('r', function(d) {
                 return (6- (d.depth/2)) })
         .style("fill", function(d) {
-            return d._children ? "lightblue" : "#fff";})
+            return d._children ? "rgb(70, 150, 180)" : "#fff";})
         .style('stroke-width', 1.5)
         .attr('fill-opacity', 0.9)
         .attr('cursor', 'pointer')
@@ -872,13 +809,16 @@ function get_branlen(){
     console.log(bralen);
 }
 
+var max_BL;
 function set_bl(){
+	max_BL = 0;
 	if (Abs_BL == 1)
 	{
 		nodes.forEach(function(d) 
 			{
 			//if (d.parent !==null) { CORRECT HERE FOR LENGHT!!
-			d.blength = (d.data.length * nodelen2);
+			d.blength = (d.data.length);
+			if (max_BL < d.blength) {max_BL = d.blength} 
 			//  }// + d.parent.blength} 
 			})
 		}
@@ -887,17 +827,16 @@ function set_bl(){
 		nodes.forEach(function(d) 
 			{
 			if (d.parent !==null) 
-				{d.blength = (d.data.length + d.parent.blength) * nodelen2 } 
+				{d.blength = (d.data.length + d.parent.blength);
+				if (max_BL < d.blength) {max_BL = d.blength} 
+				}
 			})
 		}
+	console.log("my MAX BL is " + max_BL);
+	nodelen2 =600/max_BL;
+	console.log(nodelen2)
 	}
 
-
-//function Abs_bl(){
-//	if (Abs_BL == 1) {Abs_BL = 0}
-//	else if (Abs_BL == 0 ){Abs_BL = 1}
-//	update(root);
-//}
 
 function show_bl(){
 	if (show_BL == 1)
@@ -915,4 +854,47 @@ function show_bl(){
 		}
 	update(root);
 }
+function common_anc1(d) {
+	console.log("I have clicked in cell "+ d)
+	d3.selectAll("#area1").select("g").select(d)
+		.each(function(d) 
+			{
+			selections = d.ancestors().map(d => d.data.did)
+			console.log("Parents are " + selections)
+			double_element.push(selections)
+			})
+	}
+
+function common_anc2(d) {
+	console.log("I have clicked in cell "+ d)
+	d3.selectAll("#area1").select("g").select(d)
+		.each(function(d) 
+		{
+		selections = d.ancestors().map(d => d.data.did)
+		console.log("Parents are " + selections)
+		double_element.push(selections)
+		a = findCommonElements(double_element)
+		b = a[a.length-1]
+		console.log("Last common ancestor is " + b)
+		// paint common ancestor
+		d3.selectAll("#area1").selectAll("#"+b)
+			.select("circle").style("fill", "red")
+			// paint all descendants
+			.each(function(d)
+			{
+			//count_leaves(d);
+			selections = d.descendants().map(d => d.data.did)
+			for(var jj = 0; jj<selections.length; jj++)
+				{
+				console.log("daughters "+selections[jj])
+				d3.selectAll("#area1").selectAll("#"+selections[jj])
+					.select("circle").style("fill", "red")
+				var xx = "#"+selections[jj];
+				d3.selectAll("#area2").select(xx)
+					.attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "purple");
+				d3.selectAll("#area2").select(xx).attr("r", my_rad);
+				}
+			})
+		})
+	}
 
