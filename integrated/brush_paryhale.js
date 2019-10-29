@@ -37,7 +37,7 @@ function my_slider_2()
 		.data(lineData)
 		.enter()
 		.append("text");
-//Add SVG Text Element Attributes
+	//Add SVG Text Element Attributes
 	var textLabels = text
 		.attr("x", function(d) { return (d.cx*0.95); })
 		.attr("y", 6)
@@ -46,7 +46,7 @@ function my_slider_2()
 		.attr("font-size", "2px")
 		.attr("fill", "black");
 
-	/// Add the slider at the top of everithing else
+	/// Add the slider at the top of everything else
 	slider.append("input")
 		.attr("preserveAspectRatio", "xMinYMin meet")
 		.attr("viewBox", "0 0 100 4")
@@ -202,43 +202,49 @@ function depth_expanse(d){
  }
 
 function depth_mark(d){
-    // get all the nodes (opened) and get their height
-    var xxx = d3.selectAll("#area1").select("svg")
-        .selectAll("g")
-        .select("circle").data()
-        .filter(function(dd) {return dd.depth == d});
-    var yyy = [];
-    xxx.filter(function(dd) {yyy.push(dd.data.did)});
-    var depths2 = yyy.filter( onlyUnique );
-    console.log(depths2);
-    
-    depths2.forEach(function(d,i)
-        {
-        ci = i;
-        var D = d;
-   //     console.log("looking for #"+D)
+	// get all the nodes (opened) and get their height
+	var xxx = d3.selectAll("#area1").select("svg")
+		.selectAll("g")
+		.select("circle").data()
+		.filter(function(dd) {return dd.depth == d});
+		var yyy = [];
+		xxx.filter(function(dd) {yyy.push(dd.data.did)});
+		var depths2 = yyy.filter( onlyUnique );
+		console.log(depths2);
+	// first reset the colours of the tree and 3D cells
+	reset_node_cols();
+	reset_cell_cols()
+// first assign a random colour to the parent node
+	// in the tree
+	depths2.forEach(function(d,i)
+		{
+		ci = i;
+		var D = d;
+		//     console.log("looking for #"+D)
+		var rc = randomColour();
+		d3.selectAll("#area1").selectAll("g").select("#"+D)
+			.select("circle")
+			.style("fill", rc)
+			.style("fill-opacity", 0.8)
+			.style("stroke", stroke_cols[parseInt(ci/10)])
+			.attr("r", 6);
+		});
+	// then use this random colour to paint all the descendants
+	// in the 3D cells
+	depths2.forEach(function(d,i)
+		{
+		var D = d;
+		//     console.log("looking for #"+D)
+		var nn = d3.selectAll("#area1")
+			.select("#"+D);
+		// then the 
+		nn.each(function(d) {count_leaves2(d,0)});
+		console.log("looking for "+ nn)   
+		});
+	}
 
-        d3.selectAll("#area1").selectAll("g").select("#"+D)
-            .select("circle")
-            .style("fill", color(ci))
-            .style("fill-opacity", 0.8)
-            .style("stroke", stroke_cols[parseInt(ci/10)])
-            .attr("r", 6);
-        });
-
-    depths2.forEach(function(d,i)
-        {
-        var D = d;
-  //     console.log("looking for #"+D)
-        var nn = d3.selectAll("#area1")
-            .select("#"+D);
-                   // then the 
-        nn.each(function(d) {count_leaves2(d,0)});
-        console.log("looking for "+ nn)   
-    
-        });
-}
-
+var tc=0; // to store the number of clones in tim
+var time_cells=[];
 function slided(d) {
 	var container_width =  d3.select("#area1").style('width').slice(0, -2);
 	var slider_val = d3.select(this).property("value");
@@ -257,32 +263,37 @@ function slided(d) {
 		.style("stroke-dasharray","5,5")//dashed array for line
 		.attr("y2", 0);
 	// PAINT ALL CELLS AT THAT LEVEL
-	// first reset the colours of the tree and 3D cells
-	reset_node_cols();
-	reset_cell_cols()
 	// then get all the cells that intersect with the dashed line
-	var time_cells=[];
+	tc = time_cells.length;
+	time_cells=[];
 	d3.select("#area1").selectAll("svg")
 		.selectAll("path")
 		.each(function (d) 
 			{l_t = this.getBBox();
-			if (l_t.x < slider_scaled && l_t.x+l_t.width > slider_scaled )
+			if (l_t.x <= slider_scaled && l_t.x+l_t.width >= slider_scaled )
 				{time_cells.push(this.__data__.parent.data.did);
 				console.log(this.__data__.parent.data.did)}
 			});
+	if (time_cells.length == tc) {console.log("SAME NUMBER OF CLONES");return}
+	// first reset the colours of the tree and 3D cells
+	reset_node_cols();
+	reset_cell_cols()
+
+	// first define a random colour in the tree
 	time_cells.forEach(function(d,i)
 		{
 		ci = i;
+		var rc = randomColour();
 		var D = d;
 	//     console.log("looking for #"+D)
 		d3.selectAll("#area1").selectAll("g").select("#"+D)
 			.select("circle")
-			.style("fill", color(ci))
+			.style("fill", rc)
 			.style("fill-opacity", 0.8)
 			.style("stroke", stroke_cols[parseInt(ci/10)])
 			.attr("r", 6);
 		});
-		
+	//then use the random colour to paint all cells
 	time_cells.forEach(function(d,i)
 		{
 		var D = d;
