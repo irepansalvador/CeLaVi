@@ -13,15 +13,16 @@ var div = d3.select("body").append("div")
 var margin = {top: 15, right: 15, bottom:5, left: 30};
 
 var svg_tree = d3.select("#area1")
-    .classed("svg-container-inbox", true) //container class to make it responsive
-    .append("svg")
-    //class to make it responsive
-    //responsive SVG needs these 2 attributes and no width and height attr
-    .attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", "0 0 600 500")
-    .classed("svg-content-responsive", true)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + 0 + ")");
+	.style("padding-bottom", "32%")
+	.classed("svg-container-inbox2", true) //container class to make it responsive
+	.append("svg")
+	//class to make it responsive
+	//responsive SVG needs these 2 attributes and no width and height attr
+	.attr("preserveAspectRatio", "xMinYMin meet")
+	.attr("viewBox", "0 0 600 500")
+	.classed("svg-content-responsive", true)
+	.append("g")
+	.attr("transform", "translate(" + margin.left + "," + 0 + ")");
 
 var w = d3.select("#area1").selectAll("svg")
       // get the width of div element

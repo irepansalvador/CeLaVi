@@ -15,8 +15,44 @@ var layout = {
 	margin: {l: 0,r: 0,b: 0,t: 0},
 	scene: {camera: { eye: {x:0.1, y:0.1, z:2}},
 		aspectmode: "data",
-		bgcolor: "white"
-		},
+		bgcolor: "white",
+		xaxis: {
+			backgroundcolor: "rgb(245, 250, 250)",
+			gridcolor: "rgb(255, 255, 255)",
+			showbackground: true,
+			zerolinecolor: "rgb(255, 255, 255)",
+			autorange: true,
+			showgrid: false,
+			zeroline: false,
+			showline: false,
+			autotick: true,
+			ticks: '',
+			showticklabels: false}, 
+		yaxis: {
+			backgroundcolor: "rgb(250, 245,250)",
+			gridcolor: "rgb(255, 255, 255)",
+			showbackground: true,
+			zerolinecolor: "rgb(255, 255, 255)",
+			autorange: true,
+			showgrid: false,
+			zeroline: false,
+			showline: false,
+			autotick: true,
+			ticks: '',
+			showticklabels: false}, 
+		zaxis: {
+			backgroundcolor: "rgb(250, 250,245)",
+			gridcolor: "rgb(255, 255, 255)",
+			showbackground: true,
+			zerolinecolor: "rgb(255, 255, 255)",
+			autorange: true,
+			showgrid: false,
+			zeroline: false,
+			showline: false,
+			autotick: true,
+			ticks: '',
+			showticklabels: false}
+	},
 	dragmode: "orbit"
 };
 
@@ -78,7 +114,7 @@ function load_dataset_2(csv) {
 		id_t.push(d.cell);
 		cell_col.push("lightgrey");
 		line_col.push("darkblue");
-		c_size.push(19);
+		c_size.push(9);
 		points_array.push(i);
 		i=i+1;
 		});
@@ -87,6 +123,7 @@ function load_dataset_2(csv) {
 			y: y_t,
 			z: z_t,
 			id: id_t,
+			// opacity:0.3,
 			// cells' values to be plotted
 			mode: "markers",
 			marker: {

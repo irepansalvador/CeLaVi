@@ -19,6 +19,7 @@
         <script src="https://d3js.org/d3-color.v1.min.js"></script>
         <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
 				<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+				<script src="./lib/virtualscroller.js"></script>
 				<!-- Range slider code -->
 				<script src="./lib/d3RangeSlider.js"></script>
 				<!-- Range slider style -->
@@ -78,20 +79,28 @@
 					</div>
 
 
-				<div class="col-sm-2 my-auto">
+				<div class="col-sm-1 my-auto">
            <button type="submit" class="btn btn-primary" align="right" onclick="validateNum()">Submit</button> 
            <!-- <button type="submit" class="btn btn-primary" align="right">Submit</button> -->
         </div>
 
 			</form>
 				<div class="col-sm-3 mb-2">
-          <a href="#" data-toggle="tooltip" data-placement="left" title="Reads a csv file with 4 columns: The first column is the cell ID (same as in the tree), and the other columns are coordinates X, Y and Z "><label for="temp">Coords file:</label></a>
-          <div class="custom-file mb-3" id="temp">
-            <input type="file" class="custom-file-input" id="3Dcoord_uploader" name="coordsfile">
-            <label class="custom-file-label" for="3Dcoord_uploader">Input coordinates file</label>
-          </div>
+					<a href="#" data-toggle="tooltip" data-placement="left" title="Reads a csv file with 4 columns: The first column is the cell ID (same as in the tree), and the other columns are coordinates X, Y and Z "><label for="temp">Coords file:</label></a>
+					<div class="custom-file mb-3" id="temp">
+						<input type="file" class="custom-file-input" id="3Dcoord_uploader" name="coordsfile">
+						<label class="custom-file-label" for="3Dcoord_uploader">Input coordinates file</label>
+					</div>
 				</div>
-      </div>
+				<div class="col-sm-2 mb-2">
+					<a href="#" data-toggle="tooltip" data-placement="right" title="Reads a csv file with N columns: The first column is the cell ID (same as in the tree and 3D coords), and the rest of the columns contain additional info on the cells (e.g. cell type)"><label for="temp">Additional info file:</label></a>
+					<div class="custom-file mb-3" id="temp">
+						<input type="file" class="custom-file-input" id="Metadata_uploader" name="Metadata_File">
+						<label class="custom-file-label" for="Metadata_uploader">Input Additional Info file</label>
+					</div>
+				</div>
+
+		</div>
 			<!--</form> -->
 
 
@@ -148,7 +157,7 @@
 								<button id="reset" type="button" class="btn btn-info">Reset cols</button>
 							</div>
 							<div class="col-sm-3">
-								<input type="number" class="form-control" id="CellSize" placeholder="" value="19" min="1" step="1" title="Size for rendering cells"  required>
+								<input type="number" class="form-control" id="CellSize" placeholder="" value="9" min="1" step="1" title="Size for rendering cells"  required>
 							</div>
 								<div class="col-sm-3">
 								<input type="number" class="form-control" id="CellStroke" placeholder="" value="2" min="1" step="1" max="5" title="Stroke width"  required>
@@ -173,16 +182,17 @@
 		</div>
 		<!-- JS Libraries -->
 		<!--<script src="d3.js" charset="utf-8"></script>-->
-
  
         <!-- Custom JS code -->
 		<!--<script src="cells_3d_paryhale.js"></script> -->
-				<script src="cell_lineage_v4_paryhale.js"></script>
- 				<script src="plotly_test.js"></script>
-	       <script src="brush_paryhale.js"></script>
-        <script src="Nested_rels_scale.js"></script>
-				<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
-			<!--	<script>Tree_upload_button("JSON_uploader"); </script> -->
-				<script src="clones_slider.js"></script>
-				<script src="Tree_submit.js"></script>
+		<script src="cell_lineage_v4_paryhale.js"></script>
+		<script src="plotly_test.js"></script>
+		<script src="brush_paryhale.js"></script>
+		<script src="Nested_rels_scale.js"></script>
+		<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
+		<!--	<script>Tree_upload_button("JSON_uploader"); </script> -->
+		<script src="clones_slider.js"></script>
+		<script src="Tree_submit.js"></script>
+		<script src="table_scroller.js"></script>
+		<script>Metadata_upload_button("Metadata_uploader", load_dataset_3)</script>
 	</body>
