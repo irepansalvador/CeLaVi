@@ -70,7 +70,7 @@ function my_slider()
     {title: 'Expand all cells',
     action: function(d, i) {depth_expanse(d)}
 		},
-    {title: 'Show clones from these depth',
+    {title: 'Show clones from this depth',
     action: function(d,i) 
 			{console.log("I have clicked in level "+ d)
 			Tcount = 0;

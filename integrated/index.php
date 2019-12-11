@@ -28,8 +28,9 @@
 				<link href="./lib/bootstrap.min.css" rel="stylesheet">
 				<!--Plotly-->
 				<script src="./lib//plotly-latest.min.js"></script>
-
-
+				<!--CSV parser-->
+				<script src="./lib/papaparse.min.js"></script>
+	
     </head>
     <body>
 		<div id= "container" class="svg-container">

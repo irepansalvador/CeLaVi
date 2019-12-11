@@ -71,6 +71,9 @@ function Submit_Function()
 	var json_reader = new FileReader();
 	json_reader.onload = function(e) {
 		var contents = e.target.result;
+		// check if the format is correct
+		IsJsonString(contents);
+		// --------------------
 		load_dataset_json(contents);
 	};
 	var newick_reader = new FileReader();
@@ -93,21 +96,48 @@ function Submit_Function()
 			{
 			//d3.select("#area2").text("loading...");
 			var file = uploader.files[0];
-			json_reader.readAsText(file);
+			try {json_reader.readAsText(file);
+				} catch (e) {
+				alert("Error loading file\nHave you selected a file already?")
+				}
 			console.log(file);
 			}
 		if (tree_format=="newick")
 			{
 			//d3.select("#area2").text("loading...");
 			var file = uploader.files[0];
-			newick_reader.readAsText(file);
+			try {newick_reader.readAsText(file);
+					console.log("file selected");
+					// test newick ----------------------
+					var form_data = new FormData();                  
+					form_data.append('file', file);
+					//alert(form_data);                             
+					$.ajax({
+						url: 'upload.php', // point to server-side PHP script 
+						dataType: 'text',  // what to expect back from the PHP script, if anything
+						cache: false,
+						contentType: false,
+						processData: false,
+						data: form_data,                         
+						type: 'post',
+						success: function(php_script_response){
+							alert(php_script_response); // display response from the PHP script, if any
+							}
+						});
+			//-----------------------------------
+			} catch (e) { alert(e);
+			alert("Error loading file\nHave you selected a file already?")
+			}
 			console.log(file);
 			}
 		if (tree_format=="clones")
 			{
 			//d3.select("#area2").text("loading...");
 			var file = uploader.files[0];
-			clones_reader.readAsText(file);
+			try{clones_reader.readAsText(file);
+				} catch (e) {
+				alert("Error loading file\nHave you selected a file already?")
+				}
 			console.log(file);
 			}
 		};
@@ -116,3 +146,19 @@ function Submit_Function()
 	handleFiles();
 	};
 
+// FUNCTIONS TO CHECK FILE FORMATS
+function IsJsonString(str) {
+	// define function to print error
+	var printError = function(error, explicit) {
+		alert(`[${explicit ? 'JSON format error' : 
+				'INEXPLICIT'}] ${error.name}: ${error.message}`);
+		};
+	try {JSON.parse(str); 
+		} catch (e) {
+		if (e instanceof SyntaxError) {
+			printError(e, true);
+			} else {
+			printError(e, false);
+			}
+		}
+	}

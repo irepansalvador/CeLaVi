@@ -6,6 +6,15 @@ var my_cell_rad;
 var my_cell_stroke_width;
 var my_rad= 5;
 
+// Config value for parsing CSV
+var csv_config={header: true,
+	skipEmptyLines: true,
+	complete: function(results, file) {
+		console.log("Parsing complete:", results, file);
+		}
+	}
+
+
 var cell_check_button = document.querySelector("input[id=Cells_checkbox");
 cell_check_button.addEventListener( 'change', function() {
 	reset_cell_cols()});
@@ -77,15 +86,40 @@ var plotly_scatter_div; // html div with the 3d obect
 // MAIN FUNCTION
 
 // handle upload button
+var header;
+function containsAll(needles, haystack){ 
+	for(var i = 0 , len = needles.length; i < len; i++){
+		if($.inArray(needles[i], haystack) == -1) return false;
+		}
+	return true;
+	}
+
 function Coords_upload_button(el, callback) {
   var uploader = document.getElementById(el);  
   var reader = new FileReader();
   console.log(uploader);
 
   reader.onload = function(e) {
-    var contents = e.target.result;
-    callback(contents);
-  };
+		if (typeof root == 'undefined') {
+			alert("[Warning]\n"+
+						"The lineage tree has not been loaded");
+			}
+		var contents = e.target.result;
+		var parse_results = Papa.parse(contents, csv_config);
+		header = parse_results.meta.fields;
+		// check if the header has the columns with proper names.
+		// if not, throw an error
+		if (containsAll(["X","Y","Z","cell"],header))
+			{console.log("columns are named properly");
+		// IF COLUMNS FOUND, PROCEED READING THE FILE
+			callback(contents);
+			} else {
+			console.log("names are not named properly");
+		// IF COLUMS ARE NOT FOUND THROW AN ERROR
+		alert("[CSV format error]\n" +
+			"Header columns need to be \"X\",\"Y\",\"Z\" and \"cell\".");
+		}
+	};
 
   uploader.addEventListener("change", handleFiles, false);  
 
