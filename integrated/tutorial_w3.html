@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+.w3-sidebar {
+  z-index: 3;
+  width: 350px;
+  top: 70px;
+  bottom: 0;
+  height: inherit;
+}
+
+.w3-main {
+	 z-index: 3;
+	margin-left:350px;
+}
+</style>
+
+
+<body>
+
+<!-- Navbar -->
+<div class="w3-top" >
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-large" style="width: 350px" >
+    <a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+    <h1><b>CeLaVi</b> tutorial</h1>
+  </div>
+</div>
+
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5
+		w3-animate-left"  id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+    <i class="fa fa-remove"></i>
+  </a>
+  <h4 class="w3-bar-item"><b>Menu</b></h4>
+	<ol>
+		<li><a class="tocxref" href="#h-1">Opening Input files</a> 
+			<ol>
+				<li><a class="tocxref" href="#h-1.1">Cell Lineage Tree file</a></li>
+				<li><a class="tocxref" href="#h-1.2">3D coordinates file</a></li>
+			</ol>
+		</li>
+		<li><a class="tocxref" href="#h-2">Interacting with the Lineage Tree</a> 
+			<ol>
+				<li><a class="tocxref" href="#h-2.1">Collapsing/Expanding daughters of one cell</a></li>
+				<li><a class="tocxref" href="#h-2.2">Collapsing/Expanding all descendants of one cell</a></li>
+				<li><a class="tocxref" href="#h-2.3">Collapsing/Expanding all cells from a given tree depth</a></li>
+			</ol>
+		</li>
+		<li><a class="tocxref" href="#h-3">Interacting with cells in the 3D viewer</a> 
+			<ol>
+				<li><a class="tocxref" href="#h-3.1">Rotate/zoom/pan</a></li>
+				<li><a class="tocxref" href="#h-3.2">Modifying cell features</a></li>
+				<li><a class="tocxref" href="#h-3.3">Highlighting the lineage history of a cell</a></li>
+			</ol>
+		</li>
+		<li><a class="tocxref" href="#h-4">Visualising clones</a> 
+			<ol>
+				<li><a class="tocxref" href="#h-4.1">Showing a single clone</a></li>
+				<li><a class="tocxref" href="#h-4.2">Showing clones from a given tree depth</a></li>
+				<li><a class="tocxref" href="#h-4.3">Showing clones from a given time point</a></li>
+				<li><a class="tocxref" href="#h-4.4">Saving clones</a></li>
+			</ol>
+		</li>
+	</ol>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-left:350px">
+	<div class="w3-row w3-padding-64">
+		<div class="w3-half w3-container">
+			<h2 class="w3-text-teal"><a name="h-1">1.</a> Opening Input files</h2>
+			<p>To visualise a Cell Lineage in CeLaVi the user needs to upload tree in a
+			Newick or Json format.
+			The Newick format is the most common way of representing phylogenetic trees 
+			using nested parentheses and commas.
+			The Json format is a popular text-based format to represent structured data 
+			based on JavaScript object syntax. <br>
+			To upload a tree file, click in the "Upload tree (select format)" box and upload
+			a tree in one of the 2 formats mentioned. Before selecting the tree
+			file, specify if the file is in a Newick or Json format. Also, specify if
+			the tree file contains "Absolute" or "Relative" branch lengths, or no
+			branch lengths at all (to understand the difference between "Relative" and
+			"Absolute" see to the "Branch Lengths" section).
+			Finally, click on "Submit" to visualise the Cell Lineage Tree.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-1.1"></a> Cell lineage tree file</h3>
+			<p>
+			To visualise a Cell Lineage in CeLaVi the user needs to upload tree in a
+			Newick or Json format.
+			The Newick format is the most common way of representing phylogenetic trees 
+			using nested parentheses and commas.
+			The Json format is a popular text-based format to represent structured data 
+			based on JavaScript object syntax. <br>
+			To upload a tree file, click in the "Upload tree (select format)" box and upload
+			a tree in one of the 2 formats mentioned. Before selecting the tree
+			file, specify if the file is in a Newick or Json format. Also, specify if
+			the tree file contains "Absolute" or "Relative" branch lengths, or no
+			branch lengths at all (to understand the difference between "Relative" and
+			"Absolute" see to the "Branch Lengths" section).
+			Finally, click on "Submit" to visualise the Cell Lineage Tree.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-1.2"></a> 3D coordinates
+			file</h3>
+			<p>
+			The file containing the 3D coordinates of the cells must be in a comma-
+			separated-value (csv) format.
+			Each subsequent line corresponds to one cell. The columns report the
+			cell ID followed by three coordinate values. The first 
+			line is a header or descriptor line, which specifies the column’s 
+			identity as “cell”, “X”, “Y”, and “Z”.
+			</p>
+		</div>
+		<div class="w3-half w3-container">
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/Input_files.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			</p>
+		</div>
+	</div>
+	<!-- Interact with cell lineage tree  -->
+	<div class="w3-row w3-padding-64">
+		<div class="w3-half w3-container">
+			<h2 class="w3-text-teal"><a name="h-2">2.</a> Interacting with the
+			Lineage tree</h2>
+			<p>
+			The cells on the lineage tree can be "expanded" or "collapsed", to 
+			show or hide their descendants, respectively.
+			</p>
+			<p>
+			Once a cell lineage tree has been uploaded, the user can expand or collapse
+			the internal nodes on the tree.
+			By default, the tree shows only the 'daughters' or direct descendants of the
+			root node.
+			If the cell is coloured blue it means it has descendants, but that it is 
+			'collapsed', so the daughters are not shown.
+			A white coloured cell can be either an 'expanded' internal cell or a
+			terminal cell in the lineage tree, i.e. one without any daughters.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-2.1"></a>
+					Collapsing/Expanding the daughters of one cell</h3>
+			<p>
+			Any internal cell in the tree can be in one of two states, "collapsed"
+			(hiding its daughters) or "expanded" (showing its daughters).
+			As terminal cells in the tree do not have daughters, by definition they
+			are in the "expanded" state.
+			Clicking on an internal cell in the lineage tree will switch between
+			the "collapsed" and "expanded" states.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-2.2"></a>
+			Collapsing/Expanding all descendants of one cell</h3>
+			<p>
+			To expand all the descendants of one cell, it is tedious to click
+			repeatedly on the cells to show the daughters, then the 
+			grand-daughters, etc.<br>
+			In order to expand/collapse all the descendants of a given cell
+			we can use the "options menu" that is displayed when right clicking on a
+			cell of the Lineage tree.
+			To expand all descendants of a (collapsed) cell, select the option
+			"Expand descendants" in the menu.
+			To collapse all descendants of a (expanded) cell select the 
+			option "Collapse all".
+			</p>
+			<p>
+			The following video shows both functions: collapsing/expanding the daughters
+			of a cell clicking on a cell in the lineage tree and collapsing/expanding
+			all descendants recursively by right clicking and using the menu.
+			</p>
+	
+		<h3 class="w3-text-teal"><a name="h-2.3"></a>
+		Collapsing/Expanding all cells from a given tree depths</h3>
+			<p>
+			This is an option to expand/collapse daughters of many cells at once by using
+			the "Tree depth" section below the cell lineage.
+			When loading a tree, CeLaVi gets the maximum depth of the tree and
+			displays the different depths of the tree as purple circles in the "Tree
+			depth" section. <br>
+			These circles, as well as showing the number of depth levels, can
+			be used to collapse/expand all the cells at a given tree depth, by selecting
+			the appropriate function from a menu that is displayed when clicking on any
+			of the purple circles.
+			After clicking the depth level of interest, the user selects the option
+			"Collapse all cells" or "Expand all cells".
+			The tree levels are defined in an ascending order, starting with the root
+			at level 0, the daughters of the root cell as level 1, and so on. <br>
+			NOTE: This option is only available when the tree is not in the "Show
+			Branchlength (BL)" mode. For information on this see the section 
+			"Branchlength mode"</br>
+			In the following video both functions are shown.
+			</p>
+		</div>
+		<div class="w3-half w3-container">
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/Collapse_all.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			</p>
+
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/Tree_depth.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br>
+			Tree depth
+			</p>
+		</div>
+
+
+
+	
+	</div>
+
+</div>
+
+
+
+  <!-- Pagination -->
+  <div class="w3-center w3-padding-32">
+    <div class="w3-bar">
+      <a class="w3-button w3-black" href="#">1</a>
+      <a class="w3-button w3-hover-black" href="#">2</a>
+      <a class="w3-button w3-hover-black" href="#">3</a>
+      <a class="w3-button w3-hover-black" href="#">4</a>
+      <a class="w3-button w3-hover-black" href="#">5</a>
+      <a class="w3-button w3-hover-black" href="#">»</a>
+    </div>
+  </div>
+
+  <footer id="myFooter">
+    <div class="w3-container w3-theme-l2 w3-padding-32">
+      <h4>Footer</h4>
+    </div>
+
+    <div class="w3-container w3-theme-l1">
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+  </footer>
+
+<!-- END MAIN -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>
