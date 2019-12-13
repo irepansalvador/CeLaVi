@@ -35,12 +35,11 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 </div>
 
 <!-- Sidebar -->
-<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5
-		w3-animate-left"  id="mySidebar">
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
-    <i class="fa fa-remove"></i>
-  </a>
-  <h4 class="w3-bar-item"><b>Menu</b></h4>
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left"  id="mySidebar">
+	<a href="javascript:void(0)" onclick="w3_close()" class="w3-right w3-large w3-padding-large w3-hover-black w3-hide-large" title="Close Menu">
+	<i class="fa fa-remove"></i>
+	</a>
+	<h4 class="w3-bar-item"><b>Menu</b></h4>
 	<ol>
 		<li><a class="tocxref" href="#h-1">Opening Input files</a> 
 			<ol>
@@ -180,8 +179,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			all descendants recursively by right clicking and using the menu.
 			</p>
 	
-		<h3 class="w3-text-teal"><a name="h-2.3"></a>
-		Collapsing/Expanding all cells from a given tree depths</h3>
+			<h3 class="w3-text-teal"><a name="h-2.3"></a>
+			Collapsing/Expanding all cells from a given tree depths</h3>
 			<p>
 			This is an option to expand/collapse daughters of many cells at once by using
 			the "Tree depth" section below the cell lineage.
@@ -209,7 +208,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			Your browser does not support the video tag.
 			</video>
 			</p>
-
+			
 			<p class=" w3-padding-large w3-padding-32 w3-center">
 			<video style='border: 3px solid black;' width="400" controls>
 			<source src="./Videos/Tree_depth.mp4" type="video/mp4">
@@ -219,28 +218,193 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			Tree depth
 			</p>
 		</div>
-
-
-
-	
 	</div>
+	<!-- Interact with the 3D cells  -->
+	<div class="w3-row w3-padding-64">
+		<div class="w3-half w3-container">
+			<h2 class="w3-text-teal"><a name="h-3">3.</a> Interacting with
+			cells in the 3D viewer</h2>
+			<p>
+			The 3D visualisation is implemented using the 3D scatterplot function of
+			plotly.js, a visualisation library based on d3.js and stack.gl 
+			For more information on the plotly.js visualisation library visit 
+			https://plot.ly/javascript/.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-3.1">3.1</a> Rotate/zoom/pan</h3>
+			<p>
+			With a 3D file of cell locations uploaded, the positions of all cells are
+			shown on the right hand side in the 3D viewer.
+			It is possible to Zoom in/out, rotate and pan the 3D scatterplot by selecting
+			the function and dragging the mouse.
+			All options are located in a panel at the top right of the 3D viewer area.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-3.2">3.2</a> Modifying cell representation</h3>
+			<p>
+			The user can modify the some of the features of the 3D cells using the
+			"3D cell controls" panel, located in the top right of the viewer area.
+			There are 3 boxes in this section, at the right there is a "Reset cols" 
+			clickable button that resets the colour of the cells to the default
+			(light grey).
+			The box in the middle allows one to change the size of the cells in a
+			stepwise manner using the buttons on the right of
+			box or by directly typing an integer value into the box.
+			The box on the left serves to change the stroke width of the outline
+			of the cell in the same wa
+			</p>
+			<h3 class="w3-text-teal"><a name="h-3.3">3.3</a> Highlighting the lineage history of a cell</h3>
+			<p>
+			An important feature of CeLaVi is the possibility of interactively
+			interrogating the data.
+			A fundamental function is to highlight the developmental lineage of any
+			chosen cell in the 3D visualisation area.
+			Clicking on any cell in the 3D visualisation will change its colour to 
+			red and its lineage will be highlighted in red in the lineage tree.
+			More specifically, the cell that has been clicked and all its ancestors 
+			down to the root will be coloured in red.<br> 
+			<b>Note: To do this, the lineage tree (or at least the clade of the
+			cell to be highlighted) needs to be completely expanded.</b>
+			</p>
+		</div>
+		<div class="w3-half w3-container">
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/click_3D.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br>
+			Interacting with cells in the 3D viewer
+		</p>
+		</div>
+	</div>
+	<!-- Visualising clones  -->
+	<div class="w3-row w3-padding-64">
+		<div class="w3-half w3-container">
+			<h2 class="w3-text-teal"><a name="h-4">4.</a> 
+			Visualising clones</h2>
+			<h3 class="w3-text-teal"><a name="h-4.1">4.1</a> Showing a single clone</h3>
+			<p>
+			There are two ways to visualise the spatial distribution of all the
+			descendants of a given cell in the cell lineage.
+			The first is by right clicking on any cell in the Lineage tree
+			to display the options menu.
+			From the menu select the option "Show descendants". This will mark all the
+			descendant cells on the 3D visualisation section by changing their colour 
+			(the default option is changing to light blue). With this option we can 
+			mark many clones at the same time, as marking a new clone will not reset 
+			previously selected clones to the default colour.
+			</p>
+			<p>
+			Another option is to click on the "Show descendants" click box at the bottom.
+			This option automatically marks clones when passing the mouse cursor over
+			any cell in the lineage tree (without clicking).
+			In this case, when marking a new clone, the colour of the cells that do not
+			belong to that clone will change to default colour (light grey) meaning one
+			can only visualise one clone at a time with this function.
+			</p>
+			<p> The following video shows the both options to highlight a single clone
+			in the 3D cell section; how to interact with the 3D plot; and how to 
+			highlight the developmental lineage of a specific cell.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-4.2">4.2</a> 
+					Showing clones from a given tree depth</h3>
+			<p>
+			It is possible to mark all the clones at a given tree depth by interacting
+			with the "Tree depth" section below the Lineage Tree.
+			In the accompanying video this function is shown using the <i>Parhyale</i> 
+			dataset.
+			Clicking on the depth level 1 circle we can then select the option
+			"Show clones from this depth".
+			This marks the spatial distribution of the 20 clones that comprise this
+			dataset. We can also use this option to see how a clone gets divided into 
+			subclones in the subsequent cell divisions. For this we need to expand only
+			the clone(s) we are interested in following, and then select the option 
+			"Show clones from this depth" for increasing depths (see video).
+			</p>
+			<h3 class="w3-text-teal"><a name="h-4.3">4.3</a> 
+					Showing clones arising at a given time point</h3>
+			<p>
+			When the Cell Lineage file contains branch lengths (BL) information
+			essentially timing of divisions), it is also to show all the clones
+			produced at a given time point. To do this, first click the button "Show 
+			BL" to change the topology of the Lineage tree so that it shows the branch
+			lengths. The "Tree depth" section at the bottom of the 
+			Lineage Tree will change from showing the tree depths as purple circles 
+			to showing an horizontal slider.
+			The horizontal slider represents developmental time and can be clicked
+			to mark the clones at the point the pointer intersects the Lineage
+			tree. To facilitate the visualisation, a vertical dashed line is plotted 
+			on top of the Lineage Tree. As when showing the clones at a
+			given depth, it is possible to expand only those clones in the lineage tree 
+			that the user wants to visualise. 
+			</p>
+			<p>
+			The following video shows how to visualise clones at a given
+			tree depth or at a given time point.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-4.4">4.4</a> Saving clones</h3>
+			<p>
+			If the user is interested in one or several specific clones, it is possible
+			to save these to a list that can be used to visualise them later.
+			In the Lineage tree we right click on the cell of interest
+			and select the option "Save clone". This will save the identifier of this
+			cell into a list that can be displayed by clicking on the button "Saved
+			clones".
+			We can then visualise a saved clone by clicking on any element of
+			this list. This will highlight the selected clone by colouring the cells
+			within the clone with a randomly chosen colour.
+			</p>
+			<p>
+			The video below shows how to save clones and how to select them from the list
+			to display them.
+			</p>
+		</div>
+		<div class="w3-half w3-container">
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/single_clones.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br>
+			Showing a single clone
+			</p>
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/various_clones.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br>
+			Showing various clones
+			</p>
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/save_clones.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br>
+			Saving clones
+			</p>
+		</div>
+
+	</div>
+
+
 
 </div>
 
 
 
-  <!-- Pagination -->
+  <!-- Pagination 
   <div class="w3-center w3-padding-32">
     <div class="w3-bar">
-      <a class="w3-button w3-black" href="#">1</a>
-      <a class="w3-button w3-hover-black" href="#">2</a>
+      <a class="w3-button w3-black" href="#h-1">1</a>
+      <a class="w3-button w3-hover-black" href="#h-2">2</a>
       <a class="w3-button w3-hover-black" href="#">3</a>
       <a class="w3-button w3-hover-black" href="#">4</a>
       <a class="w3-button w3-hover-black" href="#">5</a>
       <a class="w3-button w3-hover-black" href="#">»</a>
     </div>
   </div>
-
+ -->
   <footer id="myFooter">
     <div class="w3-container w3-theme-l2 w3-padding-32">
       <h4>Footer</h4>
