@@ -87,11 +87,19 @@ var plotly_scatter_div; // html div with the 3d obect
 
 // handle upload button
 var header;
-function containsAll(needles, haystack){ 
-	for(var i = 0 , len = needles.length; i < len; i++){
-		if($.inArray(needles[i], haystack) == -1) return false;
+var no_there;
+function containsAll(needles, haystack){
+	no_there=[];
+	for(var i = 0 , len = needles.length; i < len; i++)
+		{
+		if($.inArray(needles[i], haystack) == -1) 
+			{no_there.push(needles[i]);
+			//return false;
+			}
 		}
-	return true;
+	if (no_there.length == 0) 
+		{return true;
+		}else{return false}
 	}
 
 function Coords_upload_button(el, callback) {
@@ -100,10 +108,6 @@ function Coords_upload_button(el, callback) {
   console.log(uploader);
 
   reader.onload = function(e) {
-		if (typeof root == 'undefined') {
-			alert("[Warning]\n"+
-						"The lineage tree has not been loaded");
-			}
 		var contents = e.target.result;
 		var parse_results = Papa.parse(contents, csv_config);
 		header = parse_results.meta.fields;
@@ -115,9 +119,26 @@ function Coords_upload_button(el, callback) {
 			callback(contents);
 			} else {
 			console.log("names are not named properly");
-		// IF COLUMS ARE NOT FOUND THROW AN ERROR
-		alert("[CSV format error]\n" +
-			"Header columns need to be \"X\",\"Y\",\"Z\" and \"cell\".");
+			// IF COLUMS ARE NOT FOUND THROW AN ERROR
+			alert("[CSV format error]\n" +
+				"Header columns need to be \"X\",\"Y\",\"Z\" and \"cell\".");
+			}
+		if (typeof root == 'undefined') {
+			alert("[Warning]\n"+
+						"The lineage tree has not been loaded.\n"+
+						"The lineage needs to be loadad to cross-check IDs.");
+			} else {
+		// --- test if cell IDs are in the lineage tree //
+		//console.log(id_t);
+		count_leaves2(root,0);
+		reset_cell_cols();
+		if (containsAll(id_t,sel_ids))
+			{console.log("all cell IDs found");
+			} else { 
+			alert(no_there.length + " of " + id_t.length + 
+							" cell IDs were not found in the lineage tree\n"+
+							"(e.g. \"" + no_there[1] + "\")");
+			}
 		}
 	};
 
