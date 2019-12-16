@@ -333,7 +333,9 @@ function update(source) {
   nodeEnter.append('circle')
       .attr('class', 'node')
 //      .attr("id",  function(d) {return d.data.did;})
-      .attr('r', 1e-6)
+     .attr('r', function(d) {
+                return (6- (d.depth/2)) })
+ //    .attr('r', 1e-6)
       .style("stroke", "blue");
   // Text when adding nodes 
   nodeEnter.append('text')
@@ -372,8 +374,8 @@ function update(source) {
   // Update the node attributes and style
   nodeUpdate.select('circle.node')
 //    .attr('r', 4.5)
-    .attr('r', function(d) {
-                return (6- (d.depth/2)) })
+//    .attr('r', function(d) {
+ //               return (6- (d.depth/2)) })
     .style("fill", function(d) {
         if (d3.select(this).style("fill") == "rgb(70, 150, 180)" )
             {return d._children ? "rgb(70, 150, 180)" : "#fff";}

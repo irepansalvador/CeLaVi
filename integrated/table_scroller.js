@@ -4,10 +4,54 @@ function Metadata_upload_button(el, callback) {
   var reader = new FileReader();
   console.log(uploader);
 
+  //reader.onload = function(e) {
+  //  var contents = e.target.result;
+  //  callback(contents);
+  //};
   reader.onload = function(e) {
-    var contents = e.target.result;
-    callback(contents);
-  };
+		var contents = e.target.result;
+		var parse_results = Papa.parse(contents, csv_config);
+		header = parse_results.meta.fields;
+		if (table_div !== undefined) {table_div.remove();}
+		// check if the header has the columns with proper names.
+		// if not, throw an error
+		if (containsAll(["cell","type"],header))
+			{console.log("columns are named properly");
+			// IF COLUMNS FOUND, PROCEED READING THE FILE
+			} else {
+			console.log("names are not named properly");
+			// IF COLUMS ARE NOT FOUND THROW AN ERROR
+			alert("[CSV format error]\n" +
+				"Header columns need to be \"cell\", and \"type\".");
+			}
+		if (typeof root == 'undefined' || typeof ID_array == 'undefined' ) {
+			alert("[Warning]\n"+
+						"The lineage tree and/or coordinates files have not been loaded.\n"+
+						"The lineage and 3D cells need to be loadad to cross-check IDs.");
+						$("input[name=Metadata_File]").val("") // reset value of uploader
+			} else {
+			// --- test if cell IDs are in the lineage tree //
+			//console.log(id_t);
+			var table_cells=[]; // var to store the cell IDs from the cell type file
+			// read the file to find the names and cross check
+			var data_tmp = d3.csvParse(contents);
+			console.log(data_tmp);
+			data_tmp.forEach(function(d) 
+				{table_cells.push(d.cell)
+				});
+			count_leaves2(root,0);
+			reset_cell_cols();
+			if (containsAll(table_cells,sel_ids))
+				{console.log("all cell IDs found");
+				} else { 
+				alert(no_there.length + " of " + table_cells.length + 
+						" cell IDs were not found in the lineage tree\n"+
+						"(e.g. \"" + no_there[1] + "\")");
+						$("input[name=Metadata_File]").val("") // reset value of uploader
+				}
+			callback(contents);
+			}
+	};
 
   uploader.addEventListener("change", handleFiles, false);  
 
@@ -44,14 +88,15 @@ function load_dataset_3(csv) {
 	load_table(data_meta);
 }
 
-
 function load_table(data_meta) {
 	console.log(data_meta);
 
 	// variable states will contain the metadata to iterate later
 	var sts = [];
 	data_meta.forEach(function(d) 
-		{sts.push(d.type)});
+		{sts.push(d.type);
+//		table_cells.push(d.cell);
+		});
 	var states = sts.filter(onlyUnique);
 	console.log(states);
 
@@ -180,7 +225,7 @@ function plotMetadata(d){
 			.style("fill", rc)
 			.style("fill-opacity", 0.8)
 			.style("stroke", "black")
-			.attr("r", 6);
+			.attr("r", 4);
 		});
 	//then use the random colour to paint all cells
 		// pts is array with point number to be changed
