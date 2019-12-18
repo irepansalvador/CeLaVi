@@ -186,7 +186,7 @@ function load_dataset_2(csv) {
 				size: c_size,
 				line: {
 					color: line_col,
-					width: 2},
+					width: 1},
 				opacity: 1
 				},
 			text: id_t,

@@ -30,14 +30,28 @@
 				<script src="./lib//plotly-latest.min.js"></script>
 				<!--CSV parser-->
 				<script src="./lib/papaparse.min.js"></script>
-	
+
     </head>
     <body>
 		<div id= "container" class="svg-container">
 			<h3> Cell lineage interactive visualisation</h3>
 			<h6> <i> by Irepan Salvador-Martinez </i> </h6>
 			<!-- Button to hide INPUT -->
-			<button onclick="HideINPUT()">HIDE/SHOW Input Options</button>
+			<div class="row">
+				<div class="col-sm-3 mb-2">
+					<button onclick="HideINPUT()">HIDE/SHOW Input Options</button>
+				</div>
+				<div class="col-sm-3 mb-2">
+					<div class="dropdown">
+						<button class="dropbtn">Load Example files</button>
+						<div class="dropdown-content">
+							<a href="#" onclick="Examples(1)">C. elegans</a>
+							<a href="#" onclick="Examples(2)">Parhyale limb</a>
+							<a href="#" onclick="Examples(3)">Organoid</a>
+						</div>
+					</div>
+				</div>
+			</div>
 			<form action="javascript:Submit_Function();" id="input_submit"  method="submit" enctype="multipart/form-data">
 			<!--<h6 class="pl-0">INPUT FILES</h6> -->
 			<div class="row">
@@ -161,7 +175,7 @@
 								<input type="number" class="form-control" id="CellSize" placeholder="" value="9" min="1" step="1" title="Size for rendering cells"  required>
 							</div>
 								<div class="col-sm-3">
-								<input type="number" class="form-control" id="CellStroke" placeholder="" value="2" min="1" step="1" max="5" title="Stroke width"  required>
+								<input type="number" class="form-control" id="CellStroke" placeholder="" value="1" min="1" step="1" max="5" title="Stroke width"  required>
 							</div>
 							<div class="col-sm-2.5">
 								<input id="Cells_checkbox" type="checkbox" title="This option works better if the tree is completely expanded" value="">Show Lineage
@@ -196,4 +210,6 @@
 		<script src="Tree_submit.js"></script>
 		<script src="table_scroller.js"></script>
 		<script>Metadata_upload_button("Metadata_uploader", load_dataset_3)</script>
-	</body>
+		<!-- Examples uploader-->
+		<script src="./examples.js"></script>
+</body>

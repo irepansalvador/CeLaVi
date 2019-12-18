@@ -71,6 +71,7 @@ function load_dataset_3(csv) {
 	console.log(data_meta);
 	// create div where the table is going to go
 	table_div = d3.select("body").append("div")	
+		.attr("id", "metadata_table")
 		.attr("class", "viewport")
 		.style("opacity",1 )
 		.style("left", (w*0.6) +"px")
