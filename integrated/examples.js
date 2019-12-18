@@ -48,7 +48,7 @@ function Examples(e)
 		Upload_example_tree();
 		var newick = Newick.parse(tree_txt);
 		load_dataset_newick(newick);
-		$("label[for=JSON_uploader").text("Parhyale.nw");
+		$("label[for=JSON_uploader").text("Parhyale_tree.nw");
 		// 3D cells file
 		cells3D_file = "test_data/Parhyale/Parhyale_3D_cells.csv";
 		Upload_example_3Dcells();

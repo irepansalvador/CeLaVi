@@ -35,7 +35,7 @@
     <body>
 		<div id= "container" class="svg-container">
 			<h3> Cell lineage interactive visualisation</h3>
-			<h6> <i> by Irepan Salvador-Martinez </i> </h6>
+			<h6> <i> by Irepan Salvador-Martinez et al.</i> </h6>
 			<!-- Button to hide INPUT -->
 			<div class="row">
 				<div class="col-sm-3 mb-2">

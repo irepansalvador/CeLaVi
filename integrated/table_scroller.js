@@ -74,18 +74,19 @@ function load_dataset_3(csv) {
 		.attr("id", "metadata_table")
 		.attr("class", "viewport")
 		.style("opacity",1 )
-		.style("left", (w*0.6) +"px")
-		.call(d3.drag()
-		.on('start.interrupt', function () {
-			table_div.interrupt();
-			console.log('stop')
-			})
-		.on('start drag', function () {
-			console.log('drag')
-			table_div.style('top', d3.event.y + 'px')
-			table_div.style('left', d3.event.x + 'px')
-			}));;
-
+		.style("top", (h*0.3) +"px")
+		.style("left",(w*0.85) +"px");
+//		.call(d3.drag()
+//		.on('start.interrupt', function () {
+//			table_div.interrupt();
+//			console.log('stop')
+//			})
+//		.on('start drag', function () {
+//			console.log('drag')
+//			table_div.style('top', d3.event.y + 'px')
+//			table_div.style('left', d3.event.x + 'px')
+//			}));;
+//
 	load_table(data_meta);
 }
 
@@ -123,9 +124,11 @@ function load_table(data_meta) {
 			.attr("width", "250")
 			.attr("height", "24")
 			.attr("fill-opacity", 0.55)
-			.on("contextmenu",function(d){
-				d3.event.preventDefault();
-				plotMetadata(d)})
+			.on("click", function(d) {
+					plotMetadata(d)})
+//			.on("contextmenu",function(d){
+//				d3.event.preventDefault();
+//				plotMetadata(d)})
 			.attr("stroke", "#999999")
 			.attr("stroke-width", "2px");
 

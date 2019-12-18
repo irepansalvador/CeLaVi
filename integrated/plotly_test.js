@@ -167,7 +167,7 @@ function load_dataset_2(csv) {
 		y_t.push(d.Y);
 		z_t.push(d.Z);
 		id_t.push(d.cell);
-		cell_col.push("lightgrey");
+		cell_col.push("white");
 		line_col.push("darkblue");
 		c_size.push(9);
 		points_array.push(i);
@@ -308,7 +308,7 @@ d3.select("#reset").on("click", function() {
 });
 
 function reset_cell_cols() {
-	setColours(points_array, "lightgrey");
+	setColours(points_array, "white");
 	setStroke(points_array, "darkblue");
 	}
 
