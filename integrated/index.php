@@ -4,7 +4,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>Cell lineage visualisation</title>
+		<title>CelaVi</title>
 		<!-- Custom CSS styles -->
 		<link href="style_2.css" rel="stylesheet" type="text/css" > 
 		<link rel="stylesheet" href="./lib/d3-context-menu.css" />
@@ -27,14 +27,14 @@
     		<!-- Bootstrap -->
 				<link href="./lib/bootstrap.min.css" rel="stylesheet">
 				<!--Plotly-->
-				<script src="./lib//plotly-latest.min.js"></script>
+				<script src="./lib/plotly-latest.min.js"></script>
 				<!--CSV parser-->
 				<script src="./lib/papaparse.min.js"></script>
 
     </head>
     <body>
 		<div id= "container" class="svg-container">
-			<h3> Cell lineage interactive visualisation</h3>
+			<h3><i>CeLaVi:</i> Cell Lineage interactive Visualisation</h3>
 			<h6> <i> by Irepan Salvador-Martinez et al.</i> </h6>
 			<!-- Button to hide INPUT -->
 			<div class="row">
@@ -78,17 +78,17 @@
 
 				</div>
 					<div class="col-sm-1.5 my-auto" id="OPTIONS_tree">
-          	<div class="custom-control custom-radio">
+          	<div class="custom-control custom-radio" title="Select this when branchlenghts represent the time of cell division relative to the root">
             	<input type="radio" class="custom-control-input" id="Abs_BL" name="Abs_Rel" value="abs" checked>
-            	<label class="custom-control-label" for="Abs_BL">Abs BL</label>
+            	<label class="custom-control-label" for="Abs_BL">Absolute Branch Lengths</label>
           	</div>
-          	<div class="custom-control custom-radio">
+          	<div class="custom-control custom-radio" title="Select this when branchlengths represent the time of cell division relative to its parent cell">
             	<input type="radio" class="custom-control-input" id="Rel_BL" name="Abs_Rel" value="rel">
-            	<label class="custom-control-label" for="Rel_BL">Rel BL</label>
+            	<label class="custom-control-label" for="Rel_BL">Relative Branch Lenghts</label>
 						</div>
 						<div class="custom-control custom-radio">
             	<input type="radio" class="custom-control-input" id="No_BL" name="Abs_Rel" value="no">
-            	<label class="custom-control-label" for="No_BL">No BL</label>
+            	<label class="custom-control-label" for="No_BL">No Branch Lenghts</label>
           	</div>
 
 					</div>
@@ -124,39 +124,41 @@
       <div class="status" align="Center" >Click on a cell      </div>
      	<!-- Separate Areas -->
 			<div id="area1"> <!-- cell lineage -->
-            <h4>Cell lineage</h4>
+            <h4>Lineage viewer</h4>
 			</div>
             
 			<div id="area2" class="svg-container-inbox"> <!-- cells in 3d -->
-				<h4> Cells in 3D</h4>
+				<h4> 3D viewer</h4>
 				</div>
         <!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
 				<div id= "controls_1a" align="left" class="svg-buttons">
 					<div class="row">
 						<div class="col-sm-8 mb-2">
-						<a href="#" data-toggle="tooltip" data-placement="left" title="Play with tree">Cell lineage tree controls:</a>
+						<a href="#" data-toggle="tooltip" data-placement="left" title="The buttons in this section control the display of the lineage tree">Cell lineage tree controls:</a>
 						<div class="row">
 							<div class="col-sm-2.5" align="right">
 								<div class="btn-group">
-  								<button id="zoom_in_tree" type="button" class="btn btn-success"><></button>
-									<button id="zoom_out_tree" type="button" class="btn btn-success">><</button>
-  								<button id="pan_down_tree" type="button" class="btn btn-success">v</button>
-  								<button id="pan_up_tree" type="button" class="btn btn-success">^</button>
+  								<button id="zoom_in_tree" title="Expand the tree horizontally" type="button" class="btn btn-success"><></button>
+									<button id="zoom_out_tree" title="Contract the tree horizontally" type="button" class="btn btn-success">><</button>
+  								<button id="pan_down_tree" title="Expand the tree vertically" type="button" class="btn btn-success">v</button>
+  								<button id="pan_up_tree" title="Contract the tree vertically" type="button" class="btn btn-success">^</button>
 								</div>
 							</div>
 							<div class="col-sm-1.5">
-								<button id="BranchLenghts" type="button" onclick="show_bl()" class="btn btn-success" >Show BL</button> 
+								<button id="BranchLenghts" title="Alternate between showing Tree depth (default) and Branch Lenghts" type="button" onclick="show_bl()" class="btn btn-success" >Show BL</button> 
 							</div>
 							<div class="col-sm-1.5">
-								<button id="CollapseAll" type="button" onclick="collapseAll()" class="btn btn-success" >Collapse All</button> 
+								<button id="CollapseAll" title= "Click to completely collapse the tree to the root" type="button" onclick="collapseAll()" class="btn btn-success" >Collapse All</button> 
 							</div>
 							<div class="col-sm-1.5">
-								<button id="Reset"  type="button" onclick="resetAll()" class="btn btn-success" >Reset Topology</button> 
+								<button id="Reset"  title= "Click to reset to the default topology 
+(only showing daughters of root)" type="button" onclick="resetAll()" class="btn btn-success" >Reset Topology</button> 
 							</div>
 							<div class="col-sm-1.5">
-								<button id="Reset_cols_Tree"  type="button" class="btn btn-success" >Reset cols</button> 
+								<button id="Reset_cols_Tree" title="Set node colour in the cell lineage to default"  type="button" class="btn btn-success" >Reset cols</button> 
 							</div>
-							<div class="col-sm-2">
+							<div class="col-sm-2"title="Hover the mouse on the cells in the lineage viewer to show
+its descendants in the 3D viewer" >
 								<label class="checkbox"><input id="Tree_checkbox" type="checkbox" value="">Show Descendants</label>
 							</div>
 
@@ -169,7 +171,7 @@
 						<a href="#" data-toggle="tooltip" data-placement="right" title="Zoom and Pan cells in 3D">3D cells controls:</a>
 						<div class="row">
 							<div class="col-sm-3.5">
-								<button id="reset" type="button" class="btn btn-info">Reset cols</button>
+								<button id="reset" title="Set the colour of the cells back to default (white)" type="button" class="btn btn-info">Reset cols</button>
 							</div>
 							<div class="col-sm-3">
 								<input type="number" class="form-control" id="CellSize" placeholder="" value="9" min="1" step="1" title="Size for rendering cells"  required>
@@ -177,17 +179,23 @@
 								<div class="col-sm-3">
 								<input type="number" class="form-control" id="CellStroke" placeholder="" value="1" min="1" step="1" max="5" title="Stroke width"  required>
 							</div>
-							<div class="col-sm-2.5">
-								<input id="Cells_checkbox" type="checkbox" title="This option works better if the tree is completely expanded" value="">Show Lineage
+							<div class="col-sm-2.5" title="This option requires that the lineage tree is completely expanded" >
+								<input id="Cells_checkbox" type="checkbox" value="">Show Lineage
 							</div>
 						</div>
 					</div>
 				</div>        
 		</div> 
-        <div id="slider">
+				<div id="slider" title="Click on the purple circles (Tree depth mode) 
+or on the slider (Branch Lenght mode) to show
+clones at a given depth/time">
            <h5>Tree depth</h5>
         </div>
-        <div id="HM_scale">
+				<div id="HM_scale" 
+title="The colour bar represents the degree of lineage relationships
+between a pair of cells. To visualise how every cell is related
+to a selected cell, click on 'Show lineage' option and then click 
+on any cell in the 3D viewer">
            <h5>Lineage relationships</h5>
         </div>
         

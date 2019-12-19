@@ -17,7 +17,13 @@ var csv_config={header: true,
 
 var cell_check_button = document.querySelector("input[id=Cells_checkbox");
 cell_check_button.addEventListener( 'change', function() {
-	reset_cell_cols()});
+	// if select the option of "show lineage" display warning
+	if (document.getElementById("Cells_checkbox").checked == true)
+		{
+		alert("[NOTE]\nThis option requires that the lineage tree is completely expanded");
+		} 
+	reset_cell_cols();
+	});
 
 // Initialise the layout of the viz
 var layout = {
