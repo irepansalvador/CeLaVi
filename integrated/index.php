@@ -51,6 +51,11 @@
 						</div>
 					</div>
 				</div>
+				<div class="col-sm-3 mb-2">
+					<a href="http://compus-mentis.org/visualisation/integrated/tutorial_w3.html">
+					<span style="display: block;"><h5><b>[See the Tutorial]</b></h5></span>
+					</a>
+				</div>
 			</div>
 			<form action="javascript:Submit_Function();" id="input_submit"  method="submit" enctype="multipart/form-data">
 			<!--<h6 class="pl-0">INPUT FILES</h6> -->
