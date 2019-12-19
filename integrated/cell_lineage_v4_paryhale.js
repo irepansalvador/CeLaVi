@@ -232,33 +232,48 @@ var nodelen2;
 
 
 d3.select("#zoom_in_tree").on("click", function() {
-    if (show_BL == 0)
+ 	if (document.getElementById("Json_CLONES").checked == false)
+		{
+   if (show_BL == 0)
      {nodelen = nodelen * 1.1; update(root);}
     if (show_BL == 1)
      {nodelen2 = nodelen2 * 1.1; update(root);}
-
+	}
 });
 
 d3.select("#zoom_out_tree").on("click", function() {
-    if (show_BL == 0)
+ 	if (document.getElementById("Json_CLONES").checked == false)
+		{
+   if (show_BL == 0)
      {nodelen = nodelen * 0.9; update(root);}
     if (show_BL == 1)
      {nodelen2 = nodelen2 * 0.9; update(root);}
-});
+		}
+	});
 
 d3.select("#pan_down_tree").on("click", function() {
-    node_h = node_h * 1.1;
+	if (document.getElementById("Json_CLONES").checked == false)
+		{
+   node_h = node_h * 1.1;
     treemap = d3.tree().size([node_h, w]);
     update(root);
-});
+		}
+	});
 
 d3.select("#pan_up_tree").on("click", function() {
-    node_h = node_h * 0.9;
+	if (document.getElementById("Json_CLONES").checked == false)
+		{
+   node_h = node_h * 0.9;
     treemap = d3.tree().size([node_h, w]);
     update(root);
-});
+		}
+	});
 d3.select("#Reset_cols_Tree").on("click", function() {
-    reset_node_cols();});
+	if (document.getElementById("Json_CLONES").checked == false)
+		{
+		reset_node_cols()
+		}
+});
 
 // ----------------------------------------------
 
@@ -486,17 +501,23 @@ function expandAll(){
 }
 
 function collapseAll(){
+	if (document.getElementById("Json_CLONES").checked == false)
+		{
     root.children.forEach(collapse);
     collapse(root);
-    update(root);
-}
+		update(root);
+		}
+	}
     
 function resetAll(){
-    expand(root); 
+	if (document.getElementById("Json_CLONES").checked == false)
+		{
+		expand(root); 
     root.children.forEach(collapse);
 //    collapse(root);
     update(root);
-}
+		}
+	}
 
 //###################################################################################
 //#############FUNCTIONS TO HIGHLIGHT ALL DAUGHTERS OF A GIVEN NODE##################
@@ -842,21 +863,24 @@ function set_bl(){
 
 
 function show_bl(){
-	if (show_BL == 1)
-		{show_BL = 0;
-		d3.select("#slider").selectAll("input").remove();
-		d3.select("#slider").selectAll("svg").remove();
-		// remove the previous line
-		d3.select("#area1").select("svg").selectAll("line").remove();
-		my_slider();
+	if (document.getElementById("Json_CLONES").checked == false)
+		{
+		if (show_BL == 1)
+			{show_BL = 0;
+			d3.select("#slider").selectAll("input").remove();
+			d3.select("#slider").selectAll("svg").remove();
+			// remove the previous line
+			d3.select("#area1").select("svg").selectAll("line").remove();
+			my_slider();
+			}
+		else if (show_BL == 0) 
+			{show_BL = 1;
+			d3.select("#slider").selectAll("svg").remove();
+			my_slider_2();
+			}
+		update(root);
 		}
-	else if (show_BL == 0) 
-		{show_BL = 1;
-		d3.select("#slider").selectAll("svg").remove();
-		my_slider_2();
-		}
-	update(root);
-}
+	}
 function common_anc1(d) {
 	console.log("I have clicked in cell "+ d)
 	d3.selectAll("#area1").select("g").select(d)

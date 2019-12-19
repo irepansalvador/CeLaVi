@@ -58,15 +58,16 @@ function Examples(e)
 	if (e == 3) {
 		document.getElementById("Json_CLONES").checked = "true";
 		document.getElementById("No_BL").checked = "true";
-		tree_file = "test_data/Organoid/organoid_15Kcells_clones.json";
-		Upload_example_tree();
-		load_dataset_clones(tree_txt);
-		$("label[for=JSON_uploader").text("organoid_15Kcells_clones.json");
 		// 3D cells file
 		cells3D_file = "test_data/Organoid/organoid_15Kcells_3D.csv";
 		Upload_example_3Dcells();
 		load_dataset_2(cells3D_txt);
 		$("label[for='3Dcoord_uploader'").text("organoid_15Kcells_3D.csv");
+		// tree file
+		tree_file = "test_data/Organoid/organoid_15Kcells_clones.json";
+		Upload_example_tree();
+		load_dataset_clones(tree_txt);
+		$("label[for=JSON_uploader").text("organoid_15Kcells_clones.json");
 	}
 	console.log(tree_file);
 

@@ -2,21 +2,21 @@ $(document).ready(function ()
 	{ 
 	$("#Json_TREE").click(function()
 		{console.log("you clicked json, restart file");
-		$("input[name=TREE_FILE]").val("");
+//		$("input[name=TREE_FILE]").val("");
 		});
 	});
 $(document).ready(function () 
 	{ 
 	$("#Newick_TREE").click(function()
 		{console.log("you clicked Newick, restart file");
-		$("input[name=TREE_FILE]").val("");
+//		$("input[name=TREE_FILE]").val("");
 		});
 	});
 $(document).ready(function ()
 	{ 
 	$("#Json_CLONES").click(function()
 		{console.log("you clicked clones, restart file");
-		$("input[name=TREE_FILE]").val("");
+//		$("input[name=TREE_FILE]").val("");
 		});
 	});
 $(document).ready(function ()
@@ -144,6 +144,10 @@ function Submit_Function()
 
 	// HERE I CALL THE READER FUNCTION
 	handleFiles();
+	// print the name of the file on the box
+	var str = $("input[name=TREE_FILE]").val()
+	var res = str.split("\\");
+	$("label[for=JSON_uploader").text(res[res.length-1]);
 	};
 
 // FUNCTIONS TO CHECK FILE FORMATS

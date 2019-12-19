@@ -154,9 +154,16 @@ function Coords_upload_button(el, callback) {
     //d3.select("#area2").text("loading...");
     var file = this.files[0];
     reader.readAsText(file);
-    console.log(file)      
+    console.log(file);
+		// print the name of the file on the box
+		var str = $("input[name=coordsfile]").val()
+		var res = str.split("\\");
+		console.log("I should see the file name" +str);
+		$("label[for=3Dcoord_uploader]").text(res[res.length-1]);
   };
 };
+
+var LAST_CLICK = null;
 
 var trace1=[];
 // load dataset and create plot
@@ -206,35 +213,48 @@ function load_dataset_2(csv) {
 	Plotly.newPlot("area2", data, layout, config)	;
 	// get the dic where the plot is going to be added to
 	plotly_scatter_div = document.getElementById("area2");
-	
+
 	// FUNCTION THAT DEFINE BEHAVIOUR WHEN CLICKING ON CELLS
 	plotly_scatter_div.on("plotly_click", function(dd) {
-		if (d3.select("#Cells_checkbox").property("checked")==false)
-			{
-			var id_txt = "\"id\"" 
-			// get the id of point clicked
-			var pn = dd.points[0].pointNumber;
-			var yy = data[0]["id"][pn];
-			// trick to avoid bug feature, where after clicking we get stuck
-			// on an infinite loop
-			setTimeout(function(x) {
-				click2(yy);
-				setColours([pn], "red");
-				setStroke([pn],"darkblue");
-				console.log(pn)
-				},130);
-			}
-		if (d3.select("#Cells_checkbox").property("checked"))
-			{
-			var pn = dd.points[0].pointNumber;
-			var yy = data[0]["id"][pn];
-			setTimeout(function(x) {
-				show_anc_cols(yy);
-				},130);
+		var CLICK_TIME = now();
+		if (LAST_CLICK == null) {LAST_CLICK = CLICK_TIME - 2000}
+		if (CLICK_TIME - LAST_CLICK > 1000) {
+			if (d3.select("#Cells_checkbox").property("checked")==false)
+				{
+				LAST_CLICK=CLICK_TIME;
+				var id_txt = "\"id\"" 
+				// get the id of point clicked
+				var pn = dd.points[0].pointNumber;
+				var yy = data[0]["id"][pn];
+				// trick to avoid bug feature, where after clicking we get stuck
+				// on an infinite loop
+				setTimeout(function(x) {
+					click2(yy);
+					setColours([pn], "red");
+					setStroke([pn],"darkblue");
+					console.log(pn)
+					},130);
+				}
+			if (d3.select("#Cells_checkbox").property("checked"))
+				{
+				LAST_CLICK=CLICK_TIME;
+				var pn = dd.points[0].pointNumber;
+				var yy = data[0]["id"][pn];
+				setTimeout(function(x) {
+					show_anc_cols(yy);
+					console.log("called function");
+					},130);
+				}
+		  } else {
+			LAST_CLICK = CLICK_TIME
 			}
 		});
+
 	}
 
+function now() {
+	return (new Date()).getTime()
+	}
 // FUNCTION TO SET PROPERTIES  OF CELLS BASED ON THEIR INDICES. 
 // This is to be used interactively with the cell lineage tree, 
 // For example when clicking/hovering on any given node of the tree.
@@ -309,7 +329,7 @@ function setStrokeWidth(new_width) {
 // ----------------- Interactions
 
 d3.select("#reset").on("click", function() {
-	console.log("CKICKED ON RESET");
+	console.log("CLICKED ON RESET");
 	reset_cell_cols();
 });
 

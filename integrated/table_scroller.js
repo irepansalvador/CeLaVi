@@ -74,7 +74,7 @@ function load_dataset_3(csv) {
 		.attr("id", "metadata_table")
 		.attr("class", "viewport")
 		.style("opacity",1 )
-		.style("top", (h*0.3) +"px")
+		.style("top", (h*0.45) +"px")
 		.style("left",(w*0.85) +"px");
 //		.call(d3.drag()
 //		.on('start.interrupt', function () {
