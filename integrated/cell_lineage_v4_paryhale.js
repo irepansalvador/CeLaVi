@@ -357,8 +357,10 @@ function update(source) {
       .attr("dy", ".35em")
      // position of label depends on children 
       .attr("x", function(d) 
-            {return d.children || d._children ? -10 : 10; })
-      .attr("text-anchor", function(d) { 
+            {return d.children || d._children ? 2 : 10; })
+      .attr("y", function(d) 
+            {return d.children || d._children ? 10 : 0; })
+     .attr("text-anchor", function(d) { 
             return d.children || d._children ? "end" : "start"; })
       .attr("font-size", function(d) {
                return d.depth <= 1 ? (9- (d.depth*0.2) + "px" ) : "0px" })
