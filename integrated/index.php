@@ -206,8 +206,8 @@ on any cell in the 3D viewer">
         
 
 		<div id="footer">
-		<h6>The development of this visualisation tool has been
-		funded by the Human Frontiers Science Program (HFSP)</h6>
+		<h6>The development of celavi.pro is funded by
+				the Human Frontiers Science Program (HFSP)</h6>
 		<img src="HFSP_logo.jpg" alt="HFSP_logo" width="80" >
 		<br>
 		<strong>Source</strong> : https://github.com/irepansalvador/
