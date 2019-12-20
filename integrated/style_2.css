@@ -109,11 +109,12 @@
 }
 #footer {
 	border-top: 1px solid silver;
-	color: #888888;
-	font-size: 1.25rem;
+	color: white;
+	font-size: 1.15rem;
 	text-align: center;
 	margin-top: 1rem;
 	padding: 0.5rem;
+	background-color: grey;
 }
 .svg-container {
     display: inline-block;
