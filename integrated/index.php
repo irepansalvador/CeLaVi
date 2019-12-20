@@ -52,7 +52,7 @@
 					</div>
 				</div>
 				<div class="col-sm-3 mb-2">
-					<a href="http://compus-mentis.org/visualisation/integrated/tutorial_w3.html">
+					<a href="http://compus-mentis.org/visualisation/integrated/tutorial.html" target="_blank">
 					<span style="display: block;"><h5><b>[See the Tutorial]</b></h5></span>
 					</a>
 				</div>
