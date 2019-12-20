@@ -69,7 +69,16 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 				<li><a class="tocxref" href="#h-4.4">Saving clones</a></li>
 			</ol>
 		</li>
-	</ol>
+		<li><a class="tocxref" href="#h-5">About test files</a> 
+			<ol>
+					<li><a class="tocxref" href="#h-5.1"><i>Caenorhabditis elegans</i></a></li>
+					<li><a class="tocxref" href="#h-5.2"><i>Parhyale</i> limb</a></li>
+					<li><a class="tocxref" href="#h-5.1">Organoid</a></li>
+			</ol>
+		</li>
+		<li><a class="tocxref" href="#h-6">References</a> 
+		</li>
+</ol>
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -82,12 +91,12 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			<h2 class="w3-text-teal"><a name="h-1">1.</a> Opening Input files</h2>
 			<p>To visualize a Cell Lineage Tree and relate it to a 3D cell map, the user needs to provide two files.
 			</p>
-			<h3 class="w3-text-teal"><a name="h-1.1"></a> Cell lineage tree file</h3>
+			<h3 class="w3-text-teal"><a name="h-1.1">1.1</a> Cell lineage tree file</h3>
 			<p>
 			The tree file needs to be uploaded either in Newick or Json format. 
 			To upload a tree file, click the "Upload tree (select format)" box and choose the file to upload. After uploading, specify if the file is in a Newick or Json format. Also, specify if the tree file contains "Absolute" or "Relative" branch lengths, or no branch lengths at all (to understand the difference between "Relative" and "Absolute" see to the "Branch Lengths" section). Finally, click on "Submit" to visualise the Cell Lineage Tree.	
 			</p>
-			<h3 class="w3-text-teal"><a name="h-1.2"></a> 3D coordinates
+			<h3 class="w3-text-teal"><a name="h-1.2">1.2</a> 3D coordinates
 			file</h3>
 			<p>
 			The file containing the 3D coordinates of the cells must be a table in comma- separated-value (csv) format. The first line is a header or descriptor line, which specifies the column’s identity as “cell”, “X”, “Y”, and “Z”. Each subsequent line corresponds to one cell. The first column contains the cell ID, and the next columns arethe three coordinate values (X,Y and Z, respectively).
@@ -113,18 +122,18 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			<p>
 			Any  cell in the tree is labeled either in blue or white, representing one of two states:a "collapsed" state (labeled in blue), in which its daughter cells are hidden, or an "expanded" state (labeled in white), in which its daughter cells are shown. Terminal cells in the tree do not have daughters, and are by definition in the "expanded" state. Clicking on an internal cell in the lineage tree will switch between the "collapsed" (blue) and "expanded" (white) states.
 			</p>
-			<h3 class="w3-text-teal"><a name="h-2.1"></a>
+			<h3 class="w3-text-teal"><a name="h-2.1">2.1</a>
 					Collapsing/Expanding the daughters of one cell</h3>
 			<p>
 			Any  cell in the tree is labeled either in blue or white, representing one of two states:a "collapsed" state (labeled in blue), in which its daughter cells are hidden, or an "expanded" state (labeled in white), in which its daughter cells are shown. Terminal cells in the tree do not have daughters, and are by definition in the "expanded" state. Clicking on an internal cell in the lineage tree will switch between the "collapsed" (blue) and "expanded" (white) states.
 			</p>
-			<h3 class="w3-text-teal"><a name="h-2.2"></a>
+			<h3 class="w3-text-teal"><a name="h-2.2">2.2</a>
 			Collapsing/Expanding all descendants of one cell</h3>
 			<p>
 			Any  cell in the tree is labeled either in blue or white, representing one of two states:a "collapsed" state (labeled in blue), in which its daughter cells are hidden, or an "expanded" state (labeled in white), in which its daughter cells are shown. Terminal cells in the tree do not have daughters, and are by definition in the "expanded" state. Clicking on an internal cell in the lineage tree will switch between the "collapsed" (blue) and "expanded" (white) states.
 			</p>
 				
-			<h3 class="w3-text-teal"><a name="h-2.3"></a>
+			<h3 class="w3-text-teal"><a name="h-2.3">2.3</a>
 			Collapsing/Expanding all cells from a given tree depths</h3>
 			<p>
 			This is an option to expand/collapse daughters of many cells at once by using the "Tree depth" section below the cell lineage. When loading a tree, CeLaVi displays the different depths of the tree as purple circles in the "Tree depth" section. 
@@ -258,11 +267,71 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			Saving clones
 			</p>
 		</div>
-
 	</div>
+	<!-- About examples  -->
+	<div class="w3-row w3-padding-64">
+		<div class="w3-half w3-container">
+			<h2 class="w3-text-teal"><a name="h-5">5.</a> 
+			About test files</h2>
+			<h3 class="w3-text-teal"><a name="h-5.1">5.1</a><i> Caenorhabditis elegans</i></h3>
+			<p>
+			The embryonic cell lineage of the nematode  <i>C. elegans</i> was described by 
+			John Sulston and collaborators in 1983<a href="#h-r1">[1]</a>.
+			The data used for the cell lineage and the cell types were extracted from a
+			json file available made available by Nikhil Bhatla at 
+			wormweb.org/celllineage<br>
+			The 3D coordinates come from the study of Fuhui Long and
+			collaborators<a href="#h-r2">[2]</a>, where they mapped 357 cells (out of the 558
+			cells) of the L1 larval stage, using confocal image stacks of 15
+			individual worms.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-5.2">5.2</a><i> Parhyale</i> limb</h3>
+			<p>
+			The cell lineage and 3D coordinates of the limb of the crustaean
+			<i>Parhyale hawaiensis</i> were obtained by Tassos Pavlopoulos and
+			collaborators<a href="#h-r3">[3]</a>. They imaged transgenic fluorescently-labeled 
+			embryos with multi-view light-sheet microscopy at high spatiotemporal
+			resolution over several days of embryogenesis.
+			The cell lineage was then reconstructed with the aid of the MaMuT software.<br>
+			</p>
+			<h3 class="w3-text-teal"><a name="h-5.2">5.2</a><i> In silico</i> Organoid</h3>
+			<p>
+			The "organoid" dataset comes from a simulation of morphogenesis
+			using the ya||a software<a href="#h-r4">[4]</a>. The organoid is
+			the product of a branching morphogenesis simulation with epithelium 
+			and mesenchyme (only the epithelium is used for the example).
+			The simulation was kindly provided by Miquel Marín-Riera,
+			coauthor of the ya||a software, and is based on the example 
+			"branching.cu" available in https://github.com/germannp/yalla.
+			</p>
+		</div>
+	<!-- References  -->
+	<div class="w3-row w3-padding-64">
+		<div class="w3-half w3-container">
+			<h2 class="w3-text-teal"><a name="h-6">6.</a> References</h2>
+			<p>
+			<a name="h-r1">[1]</a> Sulston JE, Schierenberg E, White JG, Thomson JN. The
+			embryonic cell lineage of the nematode Caenorhabditis elegans.
+			Dev Biol. 1983;100(1):64-119.
+			doi:10.1016/0012-1606(83)90201-4<br><br>
 
+			<a name="h-r2">[2]</a> Long F, Peng H, Liu X, Kim SK, Myers
+			E. A 3D digital atlas of C. elegans and its application to
+			single-cell analyses. Nat Methods. 2009;6(9):667-672.
+			doi:10.1038/nmeth.1366<br><br>
 
+			<a name="h-r3">[3]</a> Wolff C, Tinevez J-Y, Pietzsch T, et al.
+			Multi-view light-sheet imaging and tracking with the MaMuT
+			software reveals the cell lineage of a direct developing
+			arthropod limb. Elife. 2018;7. doi:10.7554/eLife.34410<br><br>
 
+			<a name="h-r4">[4]</a> Germann P, Marin-Riera M, Sharpe J.
+			ya||a: GPU-Powered Spheroid Models for Mesenchyme and
+			Epithelium. Cell Syst. 2019;8(3):261-266.e3.
+			doi:10.1016/J.CELS.2019.02.007<br><br>
+		</p>
+		</div>
+	</div>
 </div>
 
 
