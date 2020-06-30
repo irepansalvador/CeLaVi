@@ -349,7 +349,7 @@ function update(source) {
       .attr('class', 'node')
 //      .attr("id",  function(d) {return d.data.did;})
      .attr('r', function(d) {
-                return (6- (d.depth/2)) })
+                return (5- (d.depth/3)) })
  //    .attr('r', 1e-6)
       .style("stroke", "blue");
   // Text when adding nodes 
@@ -357,7 +357,7 @@ function update(source) {
       .attr("dy", ".35em")
      // position of label depends on children 
       .attr("x", function(d) 
-            {return d.children || d._children ? 2 : 10; })
+            {return d.children || d._children ? -12 : 10; })
       .attr("y", function(d) 
             {return d.children || d._children ? 10 : 0; })
      .attr("text-anchor", function(d) { 
@@ -372,7 +372,7 @@ function update(source) {
   nodeEnter.append('text')
       .attr("class", "textchild")
       .attr("x", 10).attr("dy", ".35em")
-      .attr("font-size", 9)
+      .attr("font-size", 0)
       .text(function(d) 
             {if (d._children == null) {return  ""}
              else if (d._children != null) {return  count_leaves(d) }
@@ -436,7 +436,10 @@ function update(source) {
   // Enter any new links at the parent's previous position.
   var linkEnter = link.enter().insert('path', "g")
       .attr("class", "link")
-      .attr('d', function(d){
+      .style("stroke", "darkgrey")
+			.style("opacity", 0.5)
+	    .style('stroke-width', 1.5)
+			.attr('d', function(d){
         var o = {x: source.x0, y: source.y0}
         return diagonal(o, o)
       });

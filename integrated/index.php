@@ -60,7 +60,7 @@
 			<form action="javascript:Submit_Function();" id="input_submit"  method="submit" enctype="multipart/form-data">
 			<!--<h6 class="pl-0">INPUT FILES</h6> -->
 			<div class="row">
-        <div class="col-sm-3 mb-2">
+        <div class="col-sm-2 mb-2">
           <a href="#" data-toggle="tooltip" data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file:</label></a>
           <div class="custom-file mb-3" id="temp">
             <input type="file" class="custom-file-input" id="JSON_uploader" name="TREE_FILE">
@@ -105,7 +105,7 @@
         </div>
 
 			</form>
-				<div class="col-sm-3 mb-2">
+				<div class="col-sm-2 mb-2">
 					<a href="#" data-toggle="tooltip" data-placement="left" title="Reads a csv file with 4 columns: The first column is the cell ID (same as in the tree), and the other columns are coordinates X, Y and Z "><label for="temp">Coords file:</label></a>
 					<div class="custom-file mb-3" id="temp">
 						<input type="file" class="custom-file-input" id="3Dcoord_uploader" name="coordsfile">
@@ -117,6 +117,13 @@
 					<div class="custom-file mb-3" id="temp">
 						<input type="file" class="custom-file-input" id="Metadata_uploader" name="Metadata_File">
 						<label class="custom-file-label" for="Metadata_uploader">Input Additional Info file</label>
+					</div>
+				</div>
+				<div class="col-sm-2 mb-2">
+					<a href="#" data-toggle="tooltip" data-placement="right" title="Reads Gene expression matrix"><label for="temp">Gene Expression file:</label></a>
+					<div class="custom-file mb-3" id="temp">
+						<input type="file" class="custom-file-input" id="GeneExp_uploader" name="GeneExp_File">
+						<label class="custom-file-label" for="GeneExp_uploader">Input Gene Exp file</label>
 					</div>
 				</div>
 
@@ -227,6 +234,8 @@ on any cell in the 3D viewer">
 		<script src="Tree_submit.js"></script>
 		<script src="table_scroller.js"></script>
 		<script>Metadata_upload_button("Metadata_uploader", load_dataset_3)</script>
-		<!-- Examples uploader-->
+		<script src="gene_matrix_loader.js"></script>
+		<script>GeneExp_upload_button("GeneExp_uploader", load_dataset_4)</script>
+	<!-- Examples uploader-->
 		<script src="./examples.js"></script>
 </body>
