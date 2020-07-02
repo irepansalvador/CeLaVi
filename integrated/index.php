@@ -56,6 +56,14 @@
 					<span style="display: block;"><h5><b>[See the Tutorial]</b></h5></span>
 					</a>
 				</div>
+			<div class="col-sm-2 mb-2" id="GOI_submit" style="display: none">
+				<form autocomplete="off" action="javascript:Submit_GOI();" >
+					<div class="autocomplete" >
+						<input id="GeneInput" type="text" name="myGene" placeholder="Type gene">
+					</div>
+					<input type="submit">
+				</form>
+			</div>
 			</div>
 			<form action="javascript:Submit_Function();" id="input_submit"  method="submit" enctype="multipart/form-data">
 			<!--<h6 class="pl-0">INPUT FILES</h6> -->
