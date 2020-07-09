@@ -41,7 +41,7 @@
 				<div class="col-sm-3 mb-2">
 					<button onclick="HideINPUT()">HIDE/SHOW Input Options</button>
 				</div>
-				<div class="col-sm-3 mb-2">
+				<div class="col-sm-2 mb-2">
 					<div class="dropdown">
 						<button class="dropbtn">Load Example files</button>
 						<div class="dropdown-content">
@@ -51,12 +51,15 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-3 mb-2">
+				<div class="col-sm-2 mb-2">
 					<a href="http://compus-mentis.org/visualisation/integrated/tutorial.html" target="_blank">
 					<span style="display: block;"><h5><b>[See the Tutorial]</b></h5></span>
 					</a>
 				</div>
-			<div class="col-sm-2 mb-2" id="GOI_submit" style="display: none">
+				<div class="col-sm-2 mb-2" id="Hide_metadata" style="display: none">
+					<button onclick="HideMETADATA()">Hide/show Metadata</button>
+				</div>
+		<div class="col-sm-2 mb-2" id="GOI_submit" style="display: none">
 				<form autocomplete="off" action="javascript:Submit_GOI();" >
 					<div class="autocomplete" >
 						<input id="GeneInput" type="text" name="myGene" placeholder="Type gene">
@@ -211,12 +214,8 @@ or on the slider (Branch Lenght mode) to show
 clones at a given depth/time">
            <h5>Tree depth</h5>
         </div>
-				<div id="HM_scale" 
-title="The colour bar represents the degree of lineage relationships
-between a pair of cells. To visualise how every cell is related
-to a selected cell, click on 'Show lineage' option and then click 
-on any cell in the 3D viewer">
-           <h5>Lineage relationships</h5>
+				<div id="HM_scale" title="">
+           <h5></h5>
         </div>
         
 

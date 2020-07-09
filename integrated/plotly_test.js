@@ -20,8 +20,19 @@ cell_check_button.addEventListener( 'change', function() {
 	// if select the option of "show lineage" display warning
 	if (document.getElementById("Cells_checkbox").checked == true)
 		{
+		d3.select("#HM_scale").selectAll("svg").remove();
 		alert("[NOTE]\nThis option requires that the lineage tree is completely expanded");
-		} 
+		Nested_rels_HMscale(max_H);
+		d3.select("#HM_scale").attr("title", "The colour bar represents the degree of lineage relationships between a pair of cells. To visualise how every cell is related to a selected cell, click on any cell in the 3D viewer");
+		d3.select("#HM_scale").select("h5").text("Lineage relationships");
+
+		}
+	else if (document.getElementById("Cells_checkbox").checked == false)
+		{
+		d3.select("#HM_scale").selectAll("svg").remove();
+		d3.select("#HM_scale").select("h5").text("");
+		}
+
 	reset_cell_cols();
 	});
 

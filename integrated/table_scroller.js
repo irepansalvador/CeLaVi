@@ -49,8 +49,13 @@ function Metadata_upload_button(el, callback) {
 						"(e.g. \"" + no_there[1] + "\")");
 						$("input[name=Metadata_File]").val("") // reset value of uploader
 				}
-			callback(contents);
+			// add button to hide/table
+			var x = document.getElementById("Hide_metadata");
+			 if (x.style.display === "none") {
+					x.style.display = "block";
+				}
 			}
+			callback(contents);
 	};
 
   uploader.addEventListener("change", handleFiles, false);  

@@ -174,7 +174,7 @@ function load_dataset_newick(newick){
   colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
       .domain([1, max_H]);
   my_slider();
-  Nested_rels_HMscale(max_H);
+//  Nested_rels_HMscale(max_H);
   
   update(root);
   resetAll();
@@ -795,7 +795,7 @@ function get_height(){
     // get the unique vals for x coordinates
     depths = yyy.filter( onlyUnique );
     return depths.length;    
-    console.log(depths);
+    //console.log(depths);
 }
 function get_heightID(){
     // get all the nodes (opened) and get their height
@@ -808,7 +808,7 @@ function get_heightID(){
     // get the unique vals for x coordinates
     depths = yyy.filter( onlyUnique );
     return depths;    
-    console.log(depths);
+    //console.log(depths);
 }
 function reset_node_cols() {
     d3.selectAll("#area1")
@@ -835,7 +835,7 @@ function get_branlen(){
     // get the unique vals for x coordinates
     branlen = yyy.filter( onlyUnique );
     return branlen;    
-    console.log(bralen);
+    //console.log(bralen);
 }
 
 var max_BL;

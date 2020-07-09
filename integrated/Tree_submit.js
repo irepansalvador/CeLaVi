@@ -47,6 +47,15 @@ function HideINPUT()
 	    x.style.display = "none";
 	  }
 	}
+function HideMETADATA()
+	{
+	var x = document.getElementById("metadata_table");
+  if (x.style.display === "none") {
+	    x.style.display = "block";
+	 } else {
+	    x.style.display = "none";
+	  }
+	}
 
 function Submit_Function() 
 	{

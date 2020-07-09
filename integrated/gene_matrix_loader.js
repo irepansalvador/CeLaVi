@@ -94,12 +94,27 @@ function load_dataset_4(csv) {
 
 function Submit_GOI() 
 	{
+	// remove any svg on the scale div
+	d3.select("#HM_scale").selectAll("svg").remove();
+	// reset colour of cells in 3d and in the tree
+	reset_cell_cols();
+	reset_node_cols();
+	// unclick the "Show lineage if selected
+	if (document.getElementById("Cells_checkbox").checked == true)
+		{document.getElementById("Cells_checkbox").click()}
+		d3.select("#HM_scale").attr("title", "some HM");
+		d3.select("#HM_scale").select("h5").text("Gene expression Heatmap");
+
+
+
+	
 	console.log("Submit gene here");
 	y = document.getElementById("GeneInput");
-	console.log(y.value);
 	// get the index of the gene of interest
 	var goi = GE_genes.indexOf(y.value);
-	// get the object with all GE values
+	var goi_name = y.value;
+	console.log(goi_name);
+// get the object with all GE values
 	goi = data_GE[goi];
 	// remove key "gene" to perform calculations with numbers
 	delete goi["gene"];
@@ -107,6 +122,15 @@ function Submit_GOI()
 	var goi_max = Math.max(...Object.values(goi));
 	console.log(goi);
 	console.log(goi_max);
+	GE_HMscale(goi_name,goi_max);
+
+	// paint the cells with the values of expression
+	for (const [key, value] of Object.entries(goi)) {
+		//console.log(key, value);
+		var goi_n = getPoints([key]);
+		setColours([goi_n], GE_colorScale(value));
+		}
+
 	}
 function Add_gene_menu()
 	{
@@ -118,6 +142,62 @@ function Add_gene_menu()
 		.classed("svg-content-responsive", true)
 		.append("g");
 	}
+var GE_colorScale;
+
+function GE_HMscale(goi_gene,goi_max) {
+	var slider_svg = d3.select("#HM_scale")
+		.classed("svg-container-slider", true) //container class to make it responsive
+		.append("svg")
+		.attr("preserveAspectRatio", "xMinYMin meet")
+		.attr("viewBox", "0 0 100 4")
+		.classed("svg-content-responsive", true)
+		.append("g");
+    
+	var www = d3.select("#HM_scale").selectAll("svg")
+		// get the width of div element
+		.style('width')
+		// take of 'px'
+		.slice(0, -2);
+	var hhh = d3.select("#HM_scale").selectAll("svg")
+		// get the width of div element
+		.style('height')
+		// take of 'px'
+		.slice(0, -2);
+	    
+	GE_colorScale = d3.scaleSequential(d3.interpolateYlGnBu)
+		.domain([0, goi_max]);   
+	
+	for (var ii = 1; ii <= goi_max; ii++) 
+		{HM_cols[ii] = colorScale(ii);
+		console.log(colorScale(ii))};
+	
+	var bars = slider_svg.selectAll("g")
+		.data(d3.range(10), function(d) {console.log(d) ; return d; })
+		.enter().append("rect")
+		.attr("class", "bars")
+		.attr("x", function(d, i) { return (i*5) +30; })
+		.attr("y", 2)
+		.attr("height", hhh/2)
+		.attr("width", 5)
+		.style("fill", function(d, i ) { return GE_colorScale((d+1)*(goi_max/10)  );});
+	    
+	slider_svg.selectAll("g")
+		.data(d3.range(2), function(d) {console.log(d) ; return d; })
+		.enter().append("text")
+		.attr("x", function(d, i) { return i==0 ? (50)-30 : (i*50)+30 })
+		.attr("y", 2.7)
+		.attr("dy", ".35em")
+		.attr("font-size", "3px")
+		.attr("font-family", "sans serif")
+		.text(function(d, i) { return i==0 ? "0.0" : goi_max});
+
+
+
+	}    
+
+
+
+
 
 function autocomplete(inp, arr) {
 	 /*the autocomplete function takes two arguments,
