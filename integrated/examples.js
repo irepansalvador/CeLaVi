@@ -26,6 +26,7 @@ function Examples(e)
 		Abs_BL = 0;
 		document.getElementById("Json_TREE").checked = "true";
 		document.getElementById("Rel_BL").checked = "true";
+		activate_tree_controls();
 		tree_file = "test_data/C_elegans/C_elegans_tree.json";
 		Upload_example_tree();
 		load_dataset_json(tree_txt);
@@ -35,6 +36,9 @@ function Examples(e)
 		Upload_example_3Dcells();
 		load_dataset_2(cells3D_txt);
 		$("label[for='3Dcoord_uploader'").text("C_elegans_3D_cells.csv");
+		// add button to hide/table
+		var x = document.getElementById("Hide_metadata");
+		if (x.style.display === "none") {x.style.display = "block";}
 		// metadata
 		meta_file = "test_data/C_elegans/C_elegans_cell_types.csv";
 		Upload_example_metadata();
@@ -45,6 +49,10 @@ function Examples(e)
 		document.getElementById("Newick_TREE").checked = "true";
 		document.getElementById("Abs_BL").checked = "true";
 		tree_file = "test_data/Parhyale/Parhyale_tree.nw";
+		// remove button to hide/table
+		var x = document.getElementById("Hide_metadata");
+		if (x.style.display === "block") {x.style.display = "none";}
+		activate_tree_controls();
 		Upload_example_tree();
 		var newick = Newick.parse(tree_txt);
 		load_dataset_newick(newick);
@@ -58,6 +66,10 @@ function Examples(e)
 	if (e == 3) {
 		document.getElementById("Json_CLONES").checked = "true";
 		document.getElementById("No_BL").checked = "true";
+		// remove button to hide/table
+		var x = document.getElementById("Hide_metadata");
+		if (x.style.display === "block") {x.style.display = "none";}
+		activate_tree_controls();
 		// 3D cells file
 		cells3D_file = "test_data/Organoid/organoid_15Kcells_3D.csv";
 		Upload_example_3Dcells();

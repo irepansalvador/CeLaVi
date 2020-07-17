@@ -144,7 +144,7 @@
 
 			<a href="./test_data.zip" download>Download TEST files (zip folder)</a>
 	     
-      <div class="status" align="Center" >Click on a cell      </div>
+      <div class="status" align="Center" ></div>
      	<!-- Separate Areas -->
 			<div id="area1"> <!-- cell lineage -->
             <h4>Lineage viewer</h4>
@@ -185,7 +185,9 @@ its descendants in the 3D viewer" >
 								<label class="checkbox"><input id="Tree_checkbox" type="checkbox" value="">Show Descendants</label>
 							</div>
 
-							<div class "col-sm-1" id="controls_1">
+							<div class ="col-sm-2" id="controls_1">
+								<select id="saved_clones">
+								</select> 
 							</div>
 						</div>
 						</div>

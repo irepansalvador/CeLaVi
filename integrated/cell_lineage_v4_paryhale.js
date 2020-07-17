@@ -741,7 +741,7 @@ var findCommonElements= function(arrs) {
 ///  ADD dropdown menu
 
 // initialise the menu
-var dropdownButton = d3.select("#controls_1").append('select')
+var dropdownButton = d3.select("#saved_clones")
 var dropMenu = ["Saved clones "]
 var options = 0;
 // add the options to the button

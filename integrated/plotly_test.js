@@ -1,7 +1,7 @@
 /* JAVASCRIPT CODE GOES HERE */
 
 // DEFINE GLOBAL VARIABLES TO USE FOR THE 3D OBJECT
-var data;
+var data =[];
 var my_cell_rad;
 var my_cell_stroke_width;
 var my_rad= 5;
@@ -131,31 +131,39 @@ function Coords_upload_button(el, callback) {
 		// check if the header has the columns with proper names.
 		// if not, throw an error
 		if (containsAll(["X","Y","Z","cell"],header))
-			{console.log("columns are named properly");
-		// IF COLUMNS FOUND, PROCEED READING THE FILE
+			{
+			console.log("columns are named properly");
+			// IF COLUMNS FOUND, PROCEED READING THE FILE
 			callback(contents);
-			} else {
-			console.log("names are not named properly");
-			// IF COLUMS ARE NOT FOUND THROW AN ERROR
-			alert("[CSV format error]\n" +
-				"Header columns need to be \"X\",\"Y\",\"Z\" and \"cell\".");
+			// enable 3d options if cells are not loaded 
+			document.getElementById("reset").disabled = false;
+			document.getElementById("CellSize").disabled = false;
+			document.getElementById("CellStroke").disabled = false;
+			document.getElementById("Cells_checkbox").disabled = false;
+
+			if (typeof root == 'undefined') {
+				alert("[Warning]\n"+
+							"The lineage tree has not been loaded.\n"+
+							"The lineage needs to be loaded to cross-check IDs.");
+				} else {
+			// --- test if cell IDs are in the lineage tree //
+			//console.log(id_t);
+			count_leaves2(root,0);
+			reset_cell_cols();
+			if (containsAll(id_t,sel_ids))
+				{console.log("all cell IDs found");
+				} else { 
+				alert(no_there.length + " of " + id_t.length + 
+								" cell IDs were not found in the lineage tree\n"+
+								"(e.g. \"" + no_there[1] + "\")");
+				}
 			}
-		if (typeof root == 'undefined') {
-			alert("[Warning]\n"+
-						"The lineage tree has not been loaded.\n"+
-						"The lineage needs to be loadad to cross-check IDs.");
-			} else {
-		// --- test if cell IDs are in the lineage tree //
-		//console.log(id_t);
-		count_leaves2(root,0);
-		reset_cell_cols();
-		if (containsAll(id_t,sel_ids))
-			{console.log("all cell IDs found");
-			} else { 
-			alert(no_there.length + " of " + id_t.length + 
-							" cell IDs were not found in the lineage tree\n"+
-							"(e.g. \"" + no_there[1] + "\")");
-			}
+
+		} else {
+		console.log("names are not named properly");
+		// IF COLUMS ARE NOT FOUND THROW AN ERROR
+		alert("[CSV format error]\n" +
+			"Header columns need to be \"X\",\"Y\",\"Z\" and \"cell\".");
 		}
 	};
 
@@ -224,6 +232,9 @@ function load_dataset_2(csv) {
 	Plotly.newPlot("area2", data, layout, config)	;
 	// get the dic where the plot is going to be added to
 	plotly_scatter_div = document.getElementById("area2");
+	// Display the clones to be shown at the top
+	d3.select('.status')
+		.text('Click on a cell     '); 
 
 	// FUNCTION THAT DEFINE BEHAVIOUR WHEN CLICKING ON CELLS
 	plotly_scatter_div.on("plotly_click", function(dd) {
