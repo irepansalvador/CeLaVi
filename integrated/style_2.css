@@ -1,3 +1,20 @@
+#splashscreen {
+	position:absolute;
+	top:0;
+	left:0;
+	bottom:0;
+	max-width100%;
+	z-index: 100;
+	background-color:white;
+}
+/* img formatting */ 
+img {
+	max-width: 100%;
+	height: auto;
+	width: auto\9; 
+	position: relative;
+} 
+
 /* Autocomplete menu */
 .autocomplete {
 	/*the container must be positioned relative:*/

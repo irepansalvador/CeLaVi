@@ -32,7 +32,11 @@
 				<script src="./lib/papaparse.min.js"></script>
 
     </head>
-    <body>
+		<body>
+		<!-- Splash screen -->
+		<div id="splashscreen">
+			<img src="CeLaVi_welcome.png" onclick="enter_link()" />
+		</div>	
 		<div id= "container" class="svg-container">
 			<h3><i>CeLaVi:</i> Cell Lineage interactive Visualisation</h3>
 			<h6> <i> by Irepan Salvador-Martinez et al.</i> </h6>
@@ -211,16 +215,16 @@ its descendants in the 3D viewer" >
 					</div>
 				</div>        
 		</div> 
-				<div id="slider" title="Click on the purple circles (Tree depth mode) 
+		<div class="row">
+			<div class="col-sm-6"  id="slider" title="Click on the purple circles (Tree depth mode) 
 or on the slider (Branch Lenght mode) to show
 clones at a given depth/time">
-           <h5>Tree depth</h5>
-        </div>
-				<div id="HM_scale" title="">
-           <h5></h5>
-        </div>
-        
-
+			<h5>Tree depth</h5>
+			</div>
+			<div  class="col-sm-6"  id="HM_scale" title="">
+				<h5></h5>
+			</div>
+		</div>       
 		<div id="footer">
 		<h6>The development of celavi.pro is funded by
 				the Human Frontiers Science Program (HFSP)</h6>

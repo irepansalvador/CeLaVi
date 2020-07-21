@@ -6,6 +6,10 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   alert('The File APIs are not fully supported in this browser.');
 }
 
+function enter_link() {
+	$('#splashscreen').fadeOut(500);
+};
+
 var div = d3.select("body").append("div")	
     .attr("class", "tooltip")				
     .style("opacity", 0);

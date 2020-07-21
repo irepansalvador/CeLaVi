@@ -27,11 +27,48 @@ function GeneExp_upload_button(el, callback) {
 			alert("[CSV format error]\n" +
 				"1 column needs to be \"gene\".");
 			}
-		if (typeof root == 'undefined' || typeof ID_array == 'undefined' ) {
-		alert("[Warning]\n"+
-					"The lineage tree and/or coordinates files have not been loaded.\n"+
-					"The lineage and 3D cells need to be loadad to cross-check IDs.");
+		if (typeof root == 'undefined' && typeof ID_array == 'undefined' ) {
+		alert("[Error]\n"+
+					"Neither the lineage tree nor coordinates files have been loaded.\n"+
+					"You need to upload first the lineage and/or 3D cells file first.");
 					$("input[name=Metadata_File]").val("") // reset value of uploader
+			}
+		else if (typeof root == 'undefined') {
+		alert("[Warning]\n"+
+					"The lineage tree has not been loaded.");
+					$("input[name=Metadata_File]").val("") // reset value of uploader
+		// read the file to find the names and cross check
+		var data_tmp = d3.csvParse(contents);
+		console.log(data_tmp);
+		// define the list of genes
+		GE_genes = data_tmp.map(a => a.gene);
+		console.log(GE_cells);
+		//define the names of cells
+		GE_cells = GE_header;
+		var index = GE_cells.indexOf("gene");
+		if (index > -1) {
+			GE_cells.splice(index, 1);
+			console.log(GE_cells);
+			}
+		//count_leaves2(root,0);
+		reset_cell_cols();
+		if (containsAll(GE_cells,ID_array))
+			{console.log("all cell IDs found");
+			} else { 
+			alert(no_there.length + " of " + table_cells.length + 
+					" cell IDs were not found in the lineage tree\n"+
+					"(e.g. \"" + no_there[1] + "\")");
+					$("input[name=GeneExp_File]").val("") // reset value of uploader
+			}
+		callback(contents);
+		// Display the menu for searching genes
+		autocomplete(document.getElementById("GeneInput"), GE_genes);
+		var x = document.getElementById("GOI_submit");
+		x.style.display = "block";
+
+		
+		
+		
 		} else {
 		// --- test if cell IDs are in the lineage tree //
 		//console.log(id_t);
