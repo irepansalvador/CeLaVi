@@ -135,11 +135,6 @@ function Coords_upload_button(el, callback) {
 			console.log("columns are named properly");
 			// IF COLUMNS FOUND, PROCEED READING THE FILE
 			callback(contents);
-			// enable 3d options if cells are not loaded 
-			document.getElementById("reset").disabled = false;
-			document.getElementById("CellSize").disabled = false;
-			document.getElementById("CellStroke").disabled = false;
-			document.getElementById("Cells_checkbox").disabled = false;
 
 			if (typeof root == 'undefined') {
 				alert("[Warning]\n"+
@@ -235,6 +230,11 @@ function load_dataset_2(csv) {
 	// Display the clones to be shown at the top
 	d3.select('.status')
 		.text('Click on a cell     '); 
+	// enable 3d options when 3d cells are loaded 
+	document.getElementById("reset").disabled = false;
+	document.getElementById("CellSize").disabled = false;
+	document.getElementById("CellStroke").disabled = false;
+	document.getElementById("Cells_checkbox").disabled = false;
 
 	// FUNCTION THAT DEFINE BEHAVIOUR WHEN CLICKING ON CELLS
 	plotly_scatter_div.on("plotly_click", function(dd) {

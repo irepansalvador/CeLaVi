@@ -25,7 +25,7 @@ function activate_tree_controls() {
 				{selectobject[i].remove(i);}
 		}
 		
-		//ENABLE  tree options if tree is not loaded yet
+		//ENABLE  tree options if tree is loaded yet
 	var tree_format = $("input[name='Tree_INPUT']:checked").val();
 	if (tree_format=="json" || "newick")
 		{
@@ -37,7 +37,13 @@ function activate_tree_controls() {
 		document.getElementById("Reset").disabled = false;
 		document.getElementById("Reset_cols_Tree").disabled = false;
 		document.getElementById("Tree_checkbox").disabled = false;
-		if (Abs_BL < 2) {
+		// disable 3d options if cells are not loaded 
+		document.getElementById("reset").disabled = true;
+		document.getElementById("CellSize").disabled = true;
+		document.getElementById("CellStroke").disabled = true;
+		document.getElementById("Cells_checkbox").disabled = true;
+
+	if (Abs_BL < 2) {
 			document.getElementById("BranchLenghts").disabled = false;
 			}
 		if (Abs_BL == 2) {

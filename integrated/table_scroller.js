@@ -93,8 +93,8 @@ function load_dataset_3(csv) {
 //
 	load_table(data_meta);
 }
-var colorScale = d3.scale.category20();
 
+var colorScale = d3.scale.category20();
 function load_table(data_meta) {
 	console.log(data_meta);
 
@@ -107,6 +107,7 @@ function load_table(data_meta) {
 	var states = sts.filter(onlyUnique);
 	console.log(states);
 
+	var colorScale2 = d3.scale.category20();
 	var scrollSVG = table_div.append("svg")
 		.attr("class", "scroll-svg");
 
@@ -142,7 +143,7 @@ function load_table(data_meta) {
 	var rowUpdate = function(rowSelection) {
 		rowSelection.select("rect")
 			.attr("fill", function(d) {
-				return colorScale(d);
+				return colorScale2(d);
 			});
 		rowSelection.select("text")
 			.text(function (d) {
