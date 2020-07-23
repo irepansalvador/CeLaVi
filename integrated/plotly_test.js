@@ -358,6 +358,16 @@ d3.select("#reset").on("click", function() {
 function reset_cell_cols() {
 	setColours(points_array, "white");
 	setStroke(points_array, "darkblue");
+	if (data_meta !== 'undefined')
+		{
+		// select all the rows of the table and extract the data
+		var mytypes = d3.select(".viewport").select("svg")
+			.selectAll("g.row").selectAll("rect");
+		mytypes._groups.forEach(function(dd)
+			{
+			dd[0].attributes.clicked.value = 0;
+			})
+		}
 	}
 
 // Add an event listener to the button created in the html part

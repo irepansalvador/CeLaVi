@@ -129,8 +129,10 @@ function load_table(data_meta) {
 			.attr("width", "250")
 			.attr("height", "24")
 			.attr("fill-opacity", 0.55)
+			.attr("cursor" , "pointer")
 			.on("click", function(d) {
 					plotMetadata(d)})
+			.attr("clicked", 0)
 //			.on("contextmenu",function(d){
 //				d3.event.preventDefault();
 //				plotMetadata(d)})
@@ -148,7 +150,10 @@ function load_table(data_meta) {
 		rowSelection.select("text")
 			.text(function (d) {
 				return (d);})
-		};
+			.attr("cursor" , "pointer")
+			.on("click", function(d) {
+				plotMetadata(d)})
+	};
 
 	var rowExit = function(rowSelection) {
 		};
@@ -210,6 +215,7 @@ function plotMetadata(d){
 	console.log(cells)
 	//var rc = randomColour();
 	var rc;
+	var isclicked;
 	// first get the colour from the table
 	// select all the rows of the table and extract the data
 	var mytypes = d3.select(".viewport").select("svg")
@@ -218,28 +224,56 @@ function plotMetadata(d){
 	mytypes._groups.forEach(function(dd)
 		{if (dd[0].__data__ == d)
 			{rc = dd[0].attributes.fill.value;
+			isclicked =  dd[0].attributes.clicked.value;
 			console.log(dd[0]);
 			console.log(rc);
+			console.log(isclicked);
+			if (isclicked == 1) {dd[0].attributes.clicked.value=0}
+			if (isclicked == 0) {dd[0].attributes.clicked.value=1}
 			}
 		})
 	
-	
-	cells.forEach(function(d,i)
-		{
-		ci = i;
-		var D = d;
-	//     console.log("looking for #"+D)
-		d3.selectAll("#area1").selectAll("g").select("#"+D)
-			.select("circle")
-			.style("fill", rc)
-			.style("fill-opacity", 0.8)
-			.style("stroke", "black")
+	// if the value was not clicked
+	if (isclicked == 0)
+		{cells.forEach(function(d,i)
+			{
+			ci = i;
+			var D = d;
+		//     console.log("looking for #"+D)
+			d3.selectAll("#area1").selectAll("g").select("#"+D)
+				.select("circle")
+				.style("fill", rc)
+				.style("fill-opacity", 0.8)
+				.style("stroke", "black")
 			.attr("r", 4);
-		});
-	//then use the random colour to paint all cells
-		// pts is array with point number to be changed
-		var pts = getPoints(cells);
-		// change colour of the 3Dcell 
-		setColours(pts, rc );
+			});
+		//then use the random colour to paint all cells
+			// pts is array with point number to be changed
+			var pts = getPoints(cells);
+			// change colour of the 3Dcell 
+			setColours(pts, rc );
+		}
 
+	// if the value was clicked unclick it! 
+	if (isclicked == 1)
+		{cells.forEach(function(d,i)
+			{
+			ci = i;
+			var D = d;
+		//     console.log("looking for #"+D)
+			d3.selectAll("#area1").selectAll("g").select("#"+D)
+				.select("circle")
+				.style("fill","white")
+				.style("fill-opacity", 0.8)
+				.style("stroke", "blue")
+				.attr('r', function(d) {
+					return (5- (d.depth/3)) })
+		//	.attr("r", 4);
+			});
+		//then use the random colour to paint all cells
+			// pts is array with point number to be changed
+			var pts = getPoints(cells);
+			// change colour of the 3Dcell 
+			setColours(pts,"white");
+		}
 	}
