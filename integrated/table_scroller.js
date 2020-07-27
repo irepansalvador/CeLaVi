@@ -206,6 +206,8 @@ function load_table(data_meta) {
 
 
 function plotMetadata(d){
+	if (document.getElementById("Cells_checkbox").checked == true)
+		{document.getElementById("Cells_checkbox").click()}
 	var cells=[];
 	console.log(d)
 	data_meta.forEach(function(dd)

@@ -32,7 +32,7 @@ cell_check_button.addEventListener( 'change', function() {
 		d3.select("#HM_scale").selectAll("svg").remove();
 		d3.select("#HM_scale").select("h5").text("");
 		}
-
+	reset_node_cols();
 	reset_cell_cols();
 	});
 
@@ -296,7 +296,7 @@ function setColours(points,new_colour) {
 	};
 
 function setRndColours(points, rnd_cols) {
-	console.log(points, rnd_cols)
+	//console.log(points, rnd_cols)
 	// get current value of camera, so it can be set again
 	myview = plotly_scatter_div.layout.scene.camera;
 	// For each point change the colour value for layout
@@ -394,6 +394,24 @@ function click2(d) {
         .style("stroke", "purple")
         .style("stroke-width", 5).attr("r",my_rad+1);
     show_anc(yy);
+		// if clones option selected, get all the sisters when clicking
+		var tree_format = $("input[name='Tree_INPUT']:checked").val();
+		if (tree_format=="clones") {
+			root.leaves().forEach(function(dd,i) 
+				{if (dd.data.did == d) 
+					{//console.log(dd,i);
+					pts = [];sel_ids=[];rnd_cols=[];
+					var mycol = randomColour();
+					var x = root.leaves()[i].parent.descendants();
+					x.forEach(function(ddd) {
+						sel_ids.push(ddd.data.did);
+						rnd_cols.push(mycol);
+						})
+					pts=getPoints(sel_ids);
+					setRndColours(pts, rnd_cols)
+					}
+				})
+			}
     }
 
 function show_anc(d) {
@@ -420,7 +438,7 @@ function show_anc_cols(d) {
 		selections_rev = selections.reverse();
 		console.log(selections_rev);
 		var norm_cols = (max_H/selections.length) * 0.7; // to have a normalised scale of cols
-
+		reset_node_cols();
 		for(var jj = 0; jj<selections.length; jj++)
 			{var nj = jj + 1; // to call the colour variable                 
 			// select the node to paint its children
@@ -428,11 +446,14 @@ function show_anc_cols(d) {
 				.select("circle").data()
 				.filter(function(d) 
 					{return d.data.did == selections[jj]});
-				// call the function to paint cells from diff levels of relationships
-				count_leaves2(node_j[0], (max_H*0.3) + (nj*norm_cols) );
-				console.log("This should be a loop"+jj,node_j[0], (max_H*0.3) + (nj*norm_cols)) 
+				// call the function to paint cells from diff levels of relationship
+				var mycol =  (max_H*0.3) + (nj*norm_cols); 
+				count_leaves2(node_j[0],mycol);
+				console.log("This should be a loop"+jj,node_j[0], mycol) 
 				d3.selectAll("#area1").selectAll("#"+selections[jj])
-					.select("circle").style("fill", "red")
+					.select("circle")
+					.style("fill", colorScale(mycol))
+					.style("stroke", colorScale(mycol))
 					.attr('opacity', 10).attr('fill-opacity', 1).attr("r",my_rad);
 			}
 		})

@@ -184,26 +184,6 @@ function load_dataset_newick(newick){
   resetAll();
 }
 
-function load_dataset_clones(json) {
-  // parse the data set and plot it
-  var myroot = JSON.parse(json);
-  console.log(myroot);
-  root = d3.hierarchy(myroot, function(d) 
-        { return d.children; });
-
-  // get all the Daughters of the root 
- 	var max_Clones = root.children.length;
-  console.log(max_Clones);
-
-	call_CloneSlider(max_Clones);
-
-//  console.log(max_H);
-//  colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
-//      .domain([1, max_H]);
-//  my_slider();
-//  Nested_rels_HMscale(max_H);
-}
-
 d3.select(self.frameElement).style("height", "300px");
 
 //-- From here starts the tree part, from 
