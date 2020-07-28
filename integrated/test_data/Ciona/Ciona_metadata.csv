@@ -1,0 +1,113 @@
+cell,type
+A7_1_2,Endoderm
+A7_1,Endoderm
+A7_2_2,Endoderm
+A7_2,Endoderm
+A7_5_2,Endoderm
+A7_5,Endoderm
+A8_11_2,Mesenchyme(A*)
+A8_11,Mesenchyme(A*)
+A8_12_2,Mesenchyme(A*)
+A8_12,Mesenchyme(A*)
+A8_13_2,Notochord
+A8_13,Notochord
+A8_14_2,Notochord
+A8_14,Notochord
+A8_15_2,Nervous Sytem(A)
+A8_15,Nervous Sytem(A)
+A8_16_2,Nervous Sytem(A)
+A8_16,Nervous Sytem(A)
+a8_17_2,Nervous Sytem(a)
+a8_17,Nervous Sytem(a)
+a8_18_2,Nervous Sytem(a)
+a8_18,Nervous Sytem(a)
+a8_19_2,Nervous Sytem(a)
+a8_19,Nervous Sytem(a)
+a8_20_2,Nervous Sytem(a)
+a8_20,Nervous Sytem(a)
+a8_21_2,Epidermis(a)
+a8_21,Epidermis(a)
+a8_22_2,Epidermis(a)
+a8_22,Epidermis(a)
+a8_23_2,Epidermis(a)
+a8_23,Epidermis(a)
+a8_24_2,Epidermis(a)
+a8_24,Epidermis(a)
+a8_25_2,Nervous Sytem(a)
+a8_25,Nervous Sytem(a)
+a8_26_2,Nervous Sytem(a)
+a8_26,Nervous Sytem(a)
+a8_27_2,Epidermis(a)
+a8_27,Epidermis(a)
+a8_28_2,Epidermis(a)
+a8_28,Epidermis(a)
+a8_29_2,Epidermis(a)
+a8_29,Epidermis(a)
+a8_30_2,Epidermis(a)
+a8_30,Epidermis(a)
+a8_31_2,Epidermis(a)
+a8_31,Epidermis(a)
+a8_32_2,Epidermis(a)
+a8_32,Epidermis(a)
+A8_5_2,Notochord
+A8_5,Notochord
+A8_6_2,Notochord
+A8_6,Notochord
+A8_7_2,Nervous Sytem(A)
+A8_7,Nervous Sytem(A)
+A8_8_2,Nervous Sytem(A)
+A8_8,Nervous Sytem(A)
+B7_1_2,Endoderm(B)
+B7_1,Endoderm(B)
+B7_2_2,Endoderm(B)
+B7_2,Endoderm(B)
+B7_5_2,Heart
+B7_5,Heart
+B7_6_2,Germ cells
+B7_6,Germ cells
+B7_7_2,Mesenchyme(B)
+B7_7,Mesenchyme(B)
+B8_15_2,Muscle
+B8_15,Muscle
+B8_16_2,Muscle
+B8_16,Muscle
+b8_17_2,Nervous Sytem(b)
+b8_17,Nervous Sytem(b)
+b8_18_2,Nervous Sytem(b)
+b8_18,Nervous Sytem(b)
+b8_19_2,Nervous Sytem(b)
+b8_19,Nervous Sytem(b)
+b8_20_2,Nervous Sytem(b)
+b8_20,Nervous Sytem(b)
+b8_21_2,Epidermis(b)
+b8_21,Epidermis(b)
+b8_22_2,Epidermis(b)
+b8_22,Epidermis(b)
+b8_23,Epidermis(b)
+b8_23_2,Epidermis(b)
+b8_24,Epidermis(b)
+b8_24_2,Epidermis(b)
+b8_25_2,Epidermis(b)
+b8_25,Epidermis(b)
+b8_26_2,Epidermis(b)
+b8_26,Epidermis(b)
+b8_27_2,Epidermis(b)
+b8_27,Epidermis(b)
+b8_28_2,Epidermis(b)
+b8_28,Epidermis(b)
+b8_29_2,Epidermis(b)
+b8_29,Epidermis(b)
+b8_30_2,Epidermis(b)
+b8_30,Epidermis(b)
+b8_31_2,Epidermis(b)
+b8_31,Epidermis(b)
+b8_32_2,Epidermis(b)
+b8_32,Epidermis(b)
+B8_5_2,Mesenchyme(B)
+B8_5,Mesenchyme(B)
+B8_6_2,Notochord(B)
+B8_6,Notochord(B)
+B8_7_2,Muscle
+B8_7,Muscle
+B8_8_2,Muscle
+B8_8,Muscle

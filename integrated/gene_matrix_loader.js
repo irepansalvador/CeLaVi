@@ -61,10 +61,6 @@ function GeneExp_upload_button(el, callback) {
 					$("input[name=GeneExp_File]").val("") // reset value of uploader
 			}
 		callback(contents);
-		// Display the menu for searching genes
-		autocomplete(document.getElementById("GeneInput"), GE_genes);
-		var x = document.getElementById("GOI_submit");
-		x.style.display = "block";
 
 		
 		
@@ -97,10 +93,6 @@ function GeneExp_upload_button(el, callback) {
 					$("input[name=GeneExp_File]").val("") // reset value of uploader
 			}
 		callback(contents);
-		// Display the menu for searching genes
-		autocomplete(document.getElementById("GeneInput"), GE_genes);
-		var x = document.getElementById("GOI_submit");
-		x.style.display = "block";
 		}
 //var data_tmp = d3.csvParse(contents);
 //	console.log(data_tmp);
@@ -124,9 +116,17 @@ var GE_genes;
 // load dataset and create table 
 function load_dataset_4(csv) {
 	data_GE = d3.csvParse(csv);
+	// define the list of genes
+	GE_genes = data_GE.map(a => a.gene);
 	console.log(data_GE);
 	data_GE = data_GE.map(item => { Object.keys(item).forEach(k => item[k] = isNaN(item[k])? item[k] : Number(item[k]));
   return item; })
+	// Display the menu for searching genes
+	autocomplete(document.getElementById("GeneInput"), GE_genes);
+	var x = document.getElementById("GOI_submit");
+	x.style.display = "block";
+	d3.select("#HM_scale").select("h5").text("");
+
 }
 
 function Submit_GOI() 
@@ -141,9 +141,6 @@ function Submit_GOI()
 		{document.getElementById("Cells_checkbox").click()}
 		d3.select("#HM_scale").attr("title", "some HM");
 		d3.select("#HM_scale").select("h5").text("Gene expression Heatmap");
-
-
-
 	
 	console.log("Submit gene here");
 	y = document.getElementById("GeneInput");

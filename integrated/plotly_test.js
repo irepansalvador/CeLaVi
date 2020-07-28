@@ -14,6 +14,19 @@ var csv_config={header: true,
 		}
 	}
 
+function activate_3D_controls() {
+	document.getElementById("reset").disabled = false;
+	document.getElementById("CellSize").disabled = false;
+	document.getElementById("CellStroke").disabled = false;
+	document.getElementById("Cells_checkbox").checked = false
+	//	document.getElementById("Cells_checkbox").disabled = false;
+		//ENABLE  tree options if tree is loaded yet
+	var tree_format = $("input[name='Tree_INPUT']:checked").val();
+	if (tree_format=="json" || "newick")
+		{document.getElementById("Cells_checkbox").disabled = false;}
+	if (tree_format=="clones")
+		{document.getElementById("Cells_checkbox").disabled = true;}
+	}
 
 var cell_check_button = document.querySelector("input[id=Cells_checkbox");
 cell_check_button.addEventListener( 'change', function() {
@@ -25,7 +38,9 @@ cell_check_button.addEventListener( 'change', function() {
 		Nested_rels_HMscale(max_H);
 		d3.select("#HM_scale").attr("title", "The colour bar represents the degree of lineage relationships between a pair of cells. To visualise how every cell is related to a selected cell, click on any cell in the 3D viewer");
 		d3.select("#HM_scale").select("h5").text("Lineage relationships");
-
+		// expand all cells
+		collapseAll();
+		setTimeout(function(){ expandAll(); }, 1000);
 		}
 	else if (document.getElementById("Cells_checkbox").checked == false)
 		{
@@ -229,12 +244,9 @@ function load_dataset_2(csv) {
 	plotly_scatter_div = document.getElementById("area2");
 	// Display the clones to be shown at the top
 	d3.select('.status')
-		.text('Click on a cell     '); 
+		.text('Click on a cell     ');
 	// enable 3d options when 3d cells are loaded 
-	document.getElementById("reset").disabled = false;
-	document.getElementById("CellSize").disabled = false;
-	document.getElementById("CellStroke").disabled = false;
-	document.getElementById("Cells_checkbox").disabled = false;
+	activate_3D_controls() 
 
 	// FUNCTION THAT DEFINE BEHAVIOUR WHEN CLICKING ON CELLS
 	plotly_scatter_div.on("plotly_click", function(dd) {

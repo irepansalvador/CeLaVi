@@ -136,52 +136,44 @@ var stroke_cols = [ "blue","green","red","purple","orange","black",
 var col_scheme = 1;
 
 function load_dataset_json(json) {
-  // parse the data set and plot it
-  var myroot = JSON.parse(json);
-  console.log(myroot);
-  root = d3.hierarchy(myroot, function(d) 
-        { return d.children; });
-    root.x0 = h / 4;
-    root.y0 = 0;
-    
-  expandAll();
-
-  // get all the heights
-  max_H  = get_height();
+// parse the data set and plot it
+var myroot = JSON.parse(json);
+	console.log(myroot);
+	root = d3.hierarchy(myroot, function(d) 
+		{return d.children; });
+	root.x0 = h / 4;
+	root.y0 = 0;
+	expandAll();
+	// get all the heights
+	max_H  = get_height();
 	nodelen = 600/max_H;
-
 	// SET BRANCHLENGTHS
 	set_bl();
-  console.log(max_H);
-  colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
-      .domain([1, max_H]);
-  my_slider();
-  Nested_rels_HMscale(max_H);
-  
-  update(root);
-  resetAll();
+	console.log(max_H);
+	colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
+		.domain([1, max_H]);
+	my_slider();
+	//Nested_rels_HMscale(max_H);
+	update(root);
+	resetAll();
 }
-
 function load_dataset_newick(newick){
 	root = d3.hierarchy(newick);
 	root.x0 = h / 4;
 	root.y0 = 0;
-
-  expandAll();
-  // get all the heights
-  max_H  = get_height();
+	expandAll();
+	// get all the heights
+	max_H  = get_height();
 	nodelen = 600/max_H;
 	// SET BRANCHLENGTHS
 	set_bl();
-
- console.log(max_H);
-  colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
-      .domain([1, max_H]);
-  my_slider();
-//  Nested_rels_HMscale(max_H);
-  
-  update(root);
-  resetAll();
+	console.log(max_H);
+	colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
+		.domain([1, max_H]);
+	my_slider();
+	//  Nested_rels_HMscale(max_H);
+	update(root);
+	resetAll();
 }
 
 d3.select(self.frameElement).style("height", "300px");

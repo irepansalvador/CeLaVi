@@ -3,6 +3,8 @@ console.log("here I am");
 var tree_txt = "";
 var cells3D_txt = "";
 var metadata_txt = "";
+var GEmatrix_txt = "";
+
 
 
 function Examples(e)
@@ -15,6 +17,14 @@ function Examples(e)
 	d3.select("#area1").select("div").remove();
 	// remove metadata table
 	d3.select("#metadata_table").remove();
+	// remove any svg on the scale div
+	d3.select("#HM_scale").selectAll("svg").remove();
+	// Hide the menu for searching gene
+	GE_genes=[]; data_GE=[]; 
+	autocomplete(document.getElementById("GeneInput"), GE_genes);
+	var x = document.getElementById("GOI_submit");
+	x.style.display = "none";
+	d3.select("#HM_scale").select("h5").text("");
 
 
 	console.log(e);
@@ -45,6 +55,33 @@ function Examples(e)
 		load_dataset_3(metadata_txt);
 		}
 	if (e == 2) {
+		Abs_BL =2;
+		document.getElementById("Newick_TREE").checked = "true";
+		document.getElementById("No_BL").checked = "true";
+		tree_file = "test_data/Ciona/Ciona_cell_lineage.nw";
+		activate_tree_controls();
+		Upload_example_tree();
+		var newick = Newick.parse(tree_txt);
+		load_dataset_newick(newick);
+		$("label[for=JSON_uploader").text("Ciona_cell_lineage.nw");
+		// 3D cells file
+		cells3D_file = "test_data/Ciona/Ciona_3D_coords.csv";
+		Upload_example_3Dcells();
+		load_dataset_2(cells3D_txt);
+		$("label[for='3Dcoord_uploader'").text("Ciona_3D_coords.csv");
+		// add button to hide/table
+		var x = document.getElementById("Hide_metadata");
+		if (x.style.display === "none") {x.style.display = "block";}
+		// Gene expression
+		GE_file = "test_data/Ciona/Ciona_GEmatrix_500genes.csv";
+		Upload_example_GEmatrix();
+		load_dataset_4(GEmatrix_txt);
+		// metadata
+		meta_file = "test_data/Ciona/Ciona_metadata.csv";
+		Upload_example_metadata();
+		load_dataset_3(metadata_txt);
+		}
+	if (e == 3) {
 		Abs_BL = 1;
 		document.getElementById("Newick_TREE").checked = "true";
 		document.getElementById("Abs_BL").checked = "true";
@@ -63,7 +100,7 @@ function Examples(e)
 		load_dataset_2(cells3D_txt);
 		$("label[for='3Dcoord_uploader'").text("Parhyale_3D_cells.csv");
 	}
-	if (e == 3) {
+	if (e == 4) {
 		document.getElementById("Json_CLONES").checked = "true";
 		document.getElementById("No_BL").checked = "true";
 		// remove button to hide/table
@@ -111,7 +148,8 @@ function Examples(e)
 
 	function Upload_example_metadata() {
 		// Upload 3D cells  file
-		var xmlhttp = new XMLHttpRequest();
+	console.log("where iiii am");
+	var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function(){
 			if(xmlhttp.status == 200 && xmlhttp.readyState == 4){
 				metadata_txt = xmlhttp.responseText;
@@ -121,6 +159,20 @@ function Examples(e)
 		xmlhttp.open("GET", meta_file, false);
 		xmlhttp.send();
 		}
+	function Upload_example_GEmatrix() {
+		// Upload gene expression  file
+		console.log("where i am");
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function(){
+			if(xmlhttp.status == 200 && xmlhttp.readyState == 4){
+				GEmatrix_txt = xmlhttp.responseText;
+				}
+			};
+		// force it to wait for response with false
+		xmlhttp.open("GET", GE_file, false);
+		xmlhttp.send();
+		}
+
 
 	}
 

@@ -61,6 +61,7 @@ function activate_tree_controls() {
 		document.getElementById("Reset").disabled = true;
 		document.getElementById("Reset_cols_Tree").disabled = true;
 		document.getElementById("Tree_checkbox").disabled = true;
+		document.getElementById("Cells_checkbox").disabled = true;
 		}
 	}
 

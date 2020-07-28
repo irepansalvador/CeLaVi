@@ -50,8 +50,9 @@
 						<button class="dropbtn">Load Example files</button>
 						<div class="dropdown-content">
 							<a href="#" onclick="Examples(1)">C. elegans</a>
-							<a href="#" onclick="Examples(2)">Parhyale limb</a>
-							<a href="#" onclick="Examples(3)">Organoid</a>
+							<a href="#" onclick="Examples(2)">Ciona gastrula</a>
+							<a href="#" onclick="Examples(3)">Parhyale limb</a>
+							<a href="#" onclick="Examples(4)">Organoid</a>
 						</div>
 					</div>
 				</div>
