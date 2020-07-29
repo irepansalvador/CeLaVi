@@ -446,11 +446,11 @@ function show_anc_cols(d) {
 	d3.selectAll("#area1").select("g").select("#"+d)
 		.each(function(d) 
 		{
-		selections = d.ancestors().map(d => d.data.did)
+		selections = d.ancestors().map(d => d.data.did);
 		selections_rev = selections.reverse();
-		console.log(selections_rev);
+		console.log(selections_rev)
 		var norm_cols = (max_H/selections.length) * 0.7; // to have a normalised scale of cols
-		reset_node_cols();
+		reset_node_cols();	
 		for(var jj = 0; jj<selections.length; jj++)
 			{var nj = jj + 1; // to call the colour variable                 
 			// select the node to paint its children
@@ -458,15 +458,28 @@ function show_anc_cols(d) {
 				.select("circle").data()
 				.filter(function(d) 
 					{return d.data.did == selections[jj]});
-				// call the function to paint cells from diff levels of relationship
-				var mycol =  (max_H*0.3) + (nj*norm_cols); 
-				count_leaves2(node_j[0],mycol);
-				console.log("This should be a loop"+jj,node_j[0], mycol) 
-				d3.selectAll("#area1").selectAll("#"+selections[jj])
+			// call the function to paint cells from diff levels of relationship
+			var mycol =  (max_H*0.3) + (nj*norm_cols); 
+			count_leaves2(node_j[0],mycol);
+			console.log("This should be a loop"+jj,node_j[0], mycol) 
+			d3.selectAll("#area1").selectAll("#"+selections[jj])
+				.select("circle")
+				.style("fill", colorScale(mycol))
+				.style("stroke", colorScale(mycol))
+				.attr('opacity', 10).attr('fill-opacity', 1).attr("r",my_rad + 2 );
+			// select the nested clone from an ancestor
+			var nested_clone;
+			nested_clone = node_j[0].descendants();
+			console.log(nested_clone);
+			nested_clone.forEach(function(d) 
+				{
+				d3.selectAll("#area1").selectAll("#"+d.data.did)
 					.select("circle")
 					.style("fill", colorScale(mycol))
 					.style("stroke", colorScale(mycol))
-					.attr('opacity', 10).attr('fill-opacity', 1).attr("r",my_rad);
+					.attr('opacity', 10).attr('fill-opacity', 1);
+				//	.attr("r",my_rad);
+				})
 			}
 		})
 	}
