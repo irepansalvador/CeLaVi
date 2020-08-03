@@ -130,9 +130,10 @@ var menu = [
 var max_H;
 var colorScale;
 var HM_cols = [];
-var stroke_cols = [ "blue","green","red","purple","orange","black",
-                   "blue","green","red","purple","orange","black",
-                   "blue","green","red","purple","orange","black"];
+// colors = blue, green, red, purple, orange, black...
+var stroke_cols = [ "rgb(0,0,255)","rgb(0,255,0)","rgb(255,0,0)","rgb(255,0,255)","rgb(255,165,0)","rgb(0,0,0)",
+                   "rgb(0,0,255)","rgb(0,255,0)","rgb(255,0,0)","rgb(255,0,255)","rgb(255,165,0)","rgb(0,0,0)",
+                   "rgb(0,0,255)","rgb(0,255,0)","rgb(255,0,0)","rgb(255,0,255)","rgb(255,165,0)","rgb(0,0,0)"];
 var col_scheme = 1;
 
 function load_dataset_json(json) {
@@ -290,6 +291,8 @@ function update(source) {
       .on("mouseover.t", function(d) {
           if (d3.select("#Tree_checkbox").property("checked"))
             {
+						setAlpha(points_array, 0);
+						setAlphaStroke(points_array, 0.15);
              div.style("opacity", .9)
                 .text(d.data.did + " "+count_leaves2(d,0) +" daughters")
                 .style("left", (d3.event.pageX + 10 ) + "px")	
@@ -311,7 +314,11 @@ function update(source) {
         })
       .on("mouseout.c", function (d) {
           if (d3.select("#Tree_checkbox").property("checked"))
-            {reset_cell_cols()}
+						{console.log("highlighting cells")
+						setAlphaStroke(points_array, 1);
+						setAlpha(points_array, 1);
+						}
+				//	else {reset_cell_cols()}
           })
       .on("mouseout.t", function(d) {
          //  if (d3.select("#Tree_checkbox").property("checked")) {
@@ -327,7 +334,7 @@ function update(source) {
      .attr('r', function(d) {
                 return (5- (d.depth/3)) })
  //    .attr('r', 1e-6)
-      .style("stroke", "blue");
+      .style("stroke", "rgb(0,0,255)");
   // Text when adding nodes 
   nodeEnter.append('text')
       .attr("dy", ".35em")
@@ -371,9 +378,9 @@ function update(source) {
  //               return (6- (d.depth/2)) })
     .style("fill", function(d) {
         if (d3.select(this).style("fill") == "rgb(70, 150, 180)" )
-            {return d._children ? "rgb(70, 150, 180)" : "#fff";}
+            {return d._children ? "rgb(70, 150, 180)" : "rgb(255, 255, 255)";}
          else if (d3.select(this).style("fill") == "rgb(255, 255, 255)" )
-            {return d._children ? "rgb(70, 150, 180)" : "#fff";}
+            {return d._children ? "rgb(70, 150, 180)" : "rgb(255, 255, 255)";}
          else  {return d3.select(this).style("fill");}
         }
       )
@@ -511,6 +518,12 @@ function count_leaves2(d,n){
             .select("circle").style("fill");
     orig_stroke =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
             .select("circle").style("stroke");
+		if (orig_col == "rgb(255, 255, 255)")
+			{
+			orig_col = "rgb(139, 0, 139)";
+			d3.selectAll("#area1").selectAll("g").select("#"+d.data.did).select("circle")
+        .style("fill","rgb(139, 0, 139)");
+			}
 //    console.log("my orig col is " + orig_col);
     count = 0;
     if(d.children){   //go through all its children
@@ -552,7 +565,7 @@ function count_leaves2(d,n){
     else {//count++;
          var xx = "#"+d.data.did;
           d3.selectAll("#area2").select(xx)
-            .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "blue");
+            .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "rgb(0,0,255)");
           d3.selectAll("#area2").select(xx).attr("r", my_rad);
   //          console.log(xx)
 					}
@@ -567,6 +580,11 @@ function count_leaves2(d,n){
 		function newcol() {
 			if (d3.select("#Cells_checkbox").property("checked") && n>0 )
 				{return colorScale(n)}
+			else if (d3.select("#Cells_checkbox").property("checked") && n<=0 )
+				{if (orig_col == "rgb(255, 255, 255)")
+					{return "rgb(70, 150, 180)"}
+				else {return orig_col}
+				}
 			else if (orig_col == "rgb(255, 255, 255)") {return "rgb(70, 150, 180)"}
 			else {return n <= 0 ? orig_col : colorScale(n)}
 			};
@@ -574,6 +592,8 @@ function count_leaves2(d,n){
 		function newstrokecol() {
 			if (d3.select("#Cells_checkbox").property("checked") && n>0)
 				{return colorScale(n)}
+			else if (d3.select("#Cells_checkbox").property("checked") && n<=0  && orig_col != "rgb(255, 255, 255)")
+				{return orig_stroke}
 			else if (d3.select("#Cells_checkbox").property("checked")==false)
 				{return orig_stroke}
 			};
@@ -793,11 +813,11 @@ function reset_node_cols() {
         .attr('r', function(d) {
                 return (6- (d.depth/2)) })
         .style("fill", function(d) {
-            return d._children ? "rgb(70, 150, 180)" : "#fff";})
+            return d._children ? "rgb(70, 150, 180)" : "rgb(255, 255, 255)";})
         .style('stroke-width', 1.5)
         .attr('fill-opacity', 0.9)
         .attr('cursor', 'pointer')
-        .style("stroke", "blue");
+        .style("stroke", "rgb(0,0,255)");
     }
 
 function get_branlen(){
@@ -886,7 +906,7 @@ function common_anc2(d) {
 		console.log("Last common ancestor is " + b)
 		// paint common ancestor
 		d3.selectAll("#area1").selectAll("#"+b)
-			.select("circle").style("fill", "red")
+			.select("circle").style("fill", "rgb(255,0,0)")
 			// paint all descendants
 			.each(function(d)
 			{
@@ -896,10 +916,10 @@ function common_anc2(d) {
 				{
 				console.log("daughters "+selections[jj])
 				d3.selectAll("#area1").selectAll("#"+selections[jj])
-					.select("circle").style("fill", "red")
+					.select("circle").style("fill", "rgb(255,0,0)")
 				var xx = "#"+selections[jj];
 				d3.selectAll("#area2").select(xx)
-					.attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "purple");
+					.attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "rgb(255,0,255)");
 				d3.selectAll("#area2").select(xx).attr("r", my_rad);
 				}
 			})

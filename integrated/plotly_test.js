@@ -56,7 +56,7 @@ var layout = {
 	margin: {l: 0,r: 0,b: 0,t: 0},
 	scene: {camera: { eye: {x:0.1, y:0.1, z:2}},
 		aspectmode: "data",
-		bgcolor: "white",
+		bgcolor: "rgb(255,255,255)",
 		xaxis: {
 			backgroundcolor: "rgb(245, 250, 250)",
 			gridcolor: "rgb(255, 255, 255)",
@@ -200,7 +200,7 @@ function load_dataset_2(csv) {
 	var data_3d = d3.csvParse(csv);
 	console.log(data_3d);
 	x_t=[]; y_t=[]; z_t=[]; id_t=[];
-	line_col=[]; cell_col=[]; c_size=[];
+	line_col=[]; cell_col=[]; c_size=[];cell_alpha=[];
 	points_array=[];
 	var i=0;
 	data_3d.forEach(function(d)
@@ -209,8 +209,9 @@ function load_dataset_2(csv) {
 		y_t.push(d.Y);
 		z_t.push(d.Z);
 		id_t.push(d.cell);
-		cell_col.push("white");
-		line_col.push("darkblue");
+		cell_col.push("rgb(255,255,255)");
+		line_col.push("rgb(0,0,139)");
+		cell_alpha.push(1)
 		c_size.push(9);
 		points_array.push(i);
 		i=i+1;
@@ -229,7 +230,7 @@ function load_dataset_2(csv) {
 				line: {
 					color: line_col,
 					width: 1},
-				opacity: 1
+				opacity:1 
 				},
 			text: id_t,
 			hoverinfo:"text",
@@ -264,8 +265,8 @@ function load_dataset_2(csv) {
 				// on an infinite loop
 				setTimeout(function(x) {
 					click2(yy);
-					setColours([pn], "red");
-					setStroke([pn],"darkblue");
+					setColours([pn], "rgb(255,0,0)");
+					setStroke([pn],"rgb(0,0,139)");
 					console.log(pn)
 					},130);
 				}
@@ -349,6 +350,46 @@ function setStroke(points,new_colour) {
 	Plotly.update("area2", data, myview,0);
 	};
 
+
+function setAlpha(points,new_alpha) {
+	//console.log(points)
+	// get current value of camera, so it can be set again
+	myview = plotly_scatter_div.layout.scene.camera;
+	// For each point change the colour value for layout
+	points.forEach(function(d) 
+		{
+		// define a regex to search for the first 3 channels
+		var myRe = /\d+/g;
+		var x = data[0]["marker"]["color"][d];
+		x = x.match(myRe);
+		x = "rgba("+ x[0]+ "," + x[1]+ ","  + x[2]+ "," + new_alpha + ")" ;
+		//x = x.slice(0,-1).concat(", 0.5)");
+		data[0]["marker"]["color"][d] = x;
+		//console.log("Clicked to change alpha = " + data[0]["id"][d] + x);
+		});
+	// Update plot based on the new values
+	Plotly.update("area2", data, myview,0);
+	};
+function setAlphaStroke(points,new_alpha) {
+	//console.log(points)
+	// get current value of camera, so it can be set again
+	myview = plotly_scatter_div.layout.scene.camera;
+	// For each point change the colour value for layout
+	points.forEach(function(d) 
+		{
+		// define a regex to search for the first 3 channels
+		var myRe = /\d+/g;
+		var x = data[0]["marker"]["line"]["color"][d];
+		x = x.match(myRe);
+		x = "rgba("+ x[0]+ "," + x[1]+ ","  + x[2]+ "," + new_alpha + ")" ;
+		//x = x.slice(0,-1).concat(", 0.5)");
+		data[0]["marker"]["line"]["color"][d] = x;
+		//console.log("Clicked to change alpha = " + data[0]["id"][d] + x);
+		});
+	// Update plot based on the new values
+	Plotly.update("area2", data, myview,0);
+	};
+
 function setStrokeWidth(new_width) {
 	//console.log(points)
 	// get current value of camera, so it can be set again
@@ -368,8 +409,8 @@ d3.select("#reset").on("click", function() {
 });
 
 function reset_cell_cols() {
-	setColours(points_array, "white");
-	setStroke(points_array, "darkblue");
+	setColours(points_array, "rgb(255,255,255)");
+	setStroke(points_array, "rgb(0,0,139)");
 	if (data_meta !== 'undefined')
 		{
 		// select all the rows of the table and extract the data
@@ -403,7 +444,7 @@ function changeStrokeWidth() {
 function click2(d) {
     var yy = "#"+d;
     d3.selectAll("#area1").select(yy).select("circle")
-        .style("stroke", "purple")
+        .style("stroke", "rgb(255,0,255)")
         .style("stroke-width", 5).attr("r",my_rad+1);
     show_anc(yy);
 		// if clones option selected, get all the sisters when clicking
@@ -437,7 +478,7 @@ function show_anc(d) {
 			{
 			//console.log("This should be a loop"+jj)
 			d3.selectAll("#area1").selectAll("#"+selections[jj])
-				.select("circle").style("fill", "red").attr("r",my_rad);
+				.select("circle").style("fill", "rgb(255,0,0)").attr("r",my_rad);
 			}
 		})
 	}

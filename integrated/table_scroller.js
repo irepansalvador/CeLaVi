@@ -94,6 +94,17 @@ function load_dataset_3(csv) {
 	load_table(data_meta);
 }
 
+// to convert the Hex colors of the table to RGB so they can be used
+// dinamically when exploring the lineage
+function hexToRgb(hex) {
+	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+	return result ? {
+		r: parseInt(result[1], 16),
+		g: parseInt(result[2], 16),
+		b: parseInt(result[3], 16)
+		} : null;
+	}
+
 var colorScale = d3.scale.category20();
 function load_table(data_meta) {
 	console.log(data_meta);
@@ -120,7 +131,7 @@ function load_table(data_meta) {
 		//.attr("filter", "url(#dropShadow1)"); // sometimes causes issues in chrome
 
 	chartGroup.append("rect")
-		.attr("fill", "#FFFFFF");
+		.attr("fill", "rgb(255, 255, 255)");
 
 	var rowEnter = function(rowSelection) {
 		rowSelection.append("rect")
@@ -136,7 +147,7 @@ function load_table(data_meta) {
 //			.on("contextmenu",function(d){
 //				d3.event.preventDefault();
 //				plotMetadata(d)})
-			.attr("stroke", "#999999")
+			.attr("stroke", "rgb(153, 153, 153)")
 			.attr("stroke-width", "2px");
 
 		rowSelection.append("text")
@@ -226,9 +237,12 @@ function plotMetadata(d){
 	mytypes._groups.forEach(function(dd)
 		{if (dd[0].__data__ == d)
 			{rc = dd[0].attributes.fill.value;
+			var result = hexToRgb(rc);
+			var x = "rgb("+ result.r + "," + result.g + ","  + result.b + ")" ;
 			isclicked =  dd[0].attributes.clicked.value;
 			console.log(dd[0]);
-			console.log(rc);
+			console.log(rc + " , " + x );
+			rc = x;
 			console.log(isclicked);
 			if (isclicked == 1) {dd[0].attributes.clicked.value=0}
 			if (isclicked == 0) {dd[0].attributes.clicked.value=1}
@@ -246,7 +260,7 @@ function plotMetadata(d){
 				.select("circle")
 				.style("fill", rc)
 				.style("fill-opacity", 0.8)
-				.style("stroke", "black")
+				.style("stroke", "rgb(0,0,0)")
 			.attr("r", 4);
 			});
 		//then use the random colour to paint all cells
@@ -265,9 +279,9 @@ function plotMetadata(d){
 		//     console.log("looking for #"+D)
 			d3.selectAll("#area1").selectAll("g").select("#"+D)
 				.select("circle")
-				.style("fill","white")
+				.style("fill","rgb(255, 255, 255)")
 				.style("fill-opacity", 0.8)
-				.style("stroke", "blue")
+				.style("stroke", "rgb(0,0,255)")
 				.attr('r', function(d) {
 					return (5- (d.depth/3)) })
 		//	.attr("r", 4);
@@ -276,6 +290,6 @@ function plotMetadata(d){
 			// pts is array with point number to be changed
 			var pts = getPoints(cells);
 			// change colour of the 3Dcell 
-			setColours(pts,"white");
+			setColours(pts,"rgb(255, 255, 255)");
 		}
 	}
