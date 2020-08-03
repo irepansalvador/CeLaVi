@@ -20,7 +20,7 @@ d3.VirtualScroller = function() {
 		function render(resize) {
 			if (resize) {          // re-calculate height of viewport and # of visible row
 				viewportHeight = parseInt(viewport.style("height"));
-				visibleRows = Math.ceil(viewportHeight/rowHeight);//add 1 more row for extra overlap;avoids visible add/remove at top/bottom 
+				visibleRows = Math.ceil(viewportHeight/rowHeight) - 1;//add 1 more row for extra overlap;avoids visible add/remove at top/bottom 
 				}
 			var scrollTop = viewport.node().scrollTop;
 			totalHeight = Math.max(minHeight, (totalRows * rowHeight));
@@ -52,9 +52,9 @@ d3.VirtualScroller = function() {
 					});
 				});
 			if (position1 > (data.length - visibleRows)) {     // dispatch events 
-				dispatch.pageDown({
-					delta: delta
-					});
+				//dispatch.pageDown({
+				//	delta: delta
+				//	});
 				} 
 			else if (position0 < visibleRows) {
 				dispatch.pageUp({

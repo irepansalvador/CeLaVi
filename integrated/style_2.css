@@ -72,7 +72,7 @@ img {
 	background-color: #f1f1f1;
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index: 1;
+	z-index: 11;
 	}
 
 /* Links inside the dropdown */
@@ -121,11 +121,18 @@ img {
 		padding: 0 8px;
 		border-bottom: solid #eee 1px;
 }
-.viewport {
+
+#metadata_tableheader {
+cursor: move;
+z-index: 10;
+background-color: #2196F3;
+color: #fff;
+}
+#metadata_table {
 		position: absolute;
 		bottom: 750px;
 /*		left: 50px;*/
-		z-index: 1;
+		z-index: 9;
 		overflow-y: auto;
 		width: 280px;
 		height: 400px;

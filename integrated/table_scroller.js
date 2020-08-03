@@ -80,17 +80,15 @@ function load_dataset_3(csv) {
 		.style("opacity",1 )
 		.style("top", (h*0.45) +"px")
 		.style("left",(w*0.85) +"px");
-//		.call(d3.drag()
-//		.on('start.interrupt', function () {
-//			table_div.interrupt();
-//			console.log('stop')
-//			})
-//		.on('start drag', function () {
-//			console.log('drag')
-//			table_div.style('top', d3.event.y + 'px')
-//			table_div.style('left', d3.event.x + 'px')
-//			}));;
-//
+	table_div.append("div")
+		.attr("id", "metadata_tableheader");
+
+	var theDiv = document.getElementById("metadata_tableheader");	
+	var content = document.createTextNode("Click and drag to move");
+	theDiv.appendChild(content);
+//	// Make the DIV element draggable:
+	dragElement(document.getElementById("metadata_table"));
+
 	load_table(data_meta);
 }
 
@@ -144,9 +142,6 @@ function load_table(data_meta) {
 			.on("click", function(d) {
 					plotMetadata(d)})
 			.attr("clicked", 0)
-//			.on("contextmenu",function(d){
-//				d3.event.preventDefault();
-//				plotMetadata(d)})
 			.attr("stroke", "rgb(153, 153, 153)")
 			.attr("stroke-width", "2px");
 
@@ -183,7 +178,11 @@ function load_table(data_meta) {
 		nextState.index = i;
 	});
 
-	virtualScroller.data(states, function(d) {console.log(d); return d; });
+	virtualScroller.data(states, function(d) 
+		{
+		//console.log(d);
+		return d; 
+		});
 
 	chartGroup.call(virtualScroller);
 
@@ -291,5 +290,43 @@ function plotMetadata(d){
 			var pts = getPoints(cells);
 			// change colour of the 3Dcell 
 			setColours(pts,"rgb(255, 255, 255)");
+		}
+	}
+
+
+function dragElement(elmnt) {
+	console.log("just a test");
+	var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+	//Move the DIV from anywhere inside the DIV:
+	elmnt.onmousedown = dragMouseDown;
+
+	function dragMouseDown(e) {
+		e = e || window.event;
+		e.preventDefault();
+		//get the mouse cursor position at startup:
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		document.onmouseup = closeDragElement;
+		//call a function whenever the cursor moves:
+		document.onmousemove = elementDrag;
+		}
+
+	function elementDrag(e) {
+		e = e || window.event;
+		e.preventDefault();
+		//calculate the new cursor position:
+		pos1 = pos3 - e.clientX;
+		pos2 = pos4 - e.clientY;
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		// set the element's new position:
+		elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+		elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+		}
+
+		function closeDragElement() {
+		//stop moving when mouse button is released:
+		document.onmouseup = null;
+		document.onmousemove = null;
 		}
 	}
