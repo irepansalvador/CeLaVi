@@ -5,6 +5,15 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 } else {
   alert('The File APIs are not fully supported in this browser.');
 }
+// Define the zoom function for the zoomable tree
+
+function zoom() {
+	svg_tree.attr("transform", "translate(" +
+	d3.event.translate + ")scale(" + d3.event.scale + ")");
+	}
+// define the zoomListener which calls the zoom function on the "zoom" event
+// constrained within the scaleExtents
+var zoomListener = d3.behavior.zoom().scaleExtent([0.3,1.5]).on("zoom", zoom);
 
 function enter_link() {
 	$('#splashscreen').fadeOut(500);
@@ -20,6 +29,7 @@ var svg_tree = d3.select("#area1")
 	.style("padding-bottom", "32%")
 	.classed("svg-container-inbox2", true) //container class to make it responsive
 	.append("svg")
+	.call(zoomListener)	
 	//class to make it responsive
 	//responsive SVG needs these 2 attributes and no width and height attr
 	.attr("preserveAspectRatio", "xMinYMin meet")
@@ -346,7 +356,7 @@ function update(source) {
      .attr("text-anchor", function(d) { 
             return d.children || d._children ? "end" : "start"; })
       .attr("font-size", function(d) {
-               return d.depth <= 1 ? (9- (d.depth*0.2) + "px" ) : "0px" })
+               return d.depth <= 3 ? (9- (d.depth*0.2) + "px" ) : "0px" })
       .attr("font-family", "sans serif")
       .text(function(d) 
             {return d.data.did; });

@@ -1,3 +1,27 @@
+#container2 {
+	float:left;
+	width:100%;
+	background:white;
+}
+#container_A {
+	float:left;
+	width:100%;
+	background:#bccbde;
+}
+#container_INPUT {
+	float:left;
+	width:100%;
+	background:rgb(235,245,245);
+}
+
+#container1 {
+	float:left;
+	width:100%;
+	background:white;
+	position:relative; /* added */
+	right:50%; /* added */
+}
+
 #splashscreen {
 	position:absolute;
 	top:0;
@@ -174,6 +198,9 @@ color: #fff;
 	margin-top: 1rem;
 	padding: 0.5rem;
 	background-color: grey;
+	float:left;
+	width:100%;
+
 }
 .svg-container {
     display: inline-block;
@@ -203,7 +230,7 @@ color: #fff;
 .svg-content-responsive {
     display: inline-block;
     position: absolute;
-    top: 50px;
+    /*top: 50px;*/
     left: 0;
 
 }
@@ -231,7 +258,7 @@ color: #fff;
     overflow: hidden;
 }
 body {
-	background-color: #fff;
+	background-color: #bccbde !important;
 	font-family: "adelle-1","adelle-2", constantia, cambria, Georgia, serif;
 	font-size:14px;
 	margin: 18px 0 0 30px;
@@ -260,12 +287,18 @@ p {
 
 #area1 {
 	display: inline-block;
-/*	float: right;*/
+	float: left;
+	width: 50%;
+	position:relative;
+	left:50%;
 }
 
 #area2 {
 	display: inline-block;
-/*	float: left;*/
+	float: left;
+	width: 50%;
+	position: relative;
+	left:50%;
 }
 
 .node circle {

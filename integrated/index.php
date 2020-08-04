@@ -41,73 +41,77 @@
 			<h3><i>CeLaVi:</i> Cell Lineage interactive Visualisation</h3>
 			<h6> <i> by Irepan Salvador-Martinez et al.</i> </h6>
 			<!-- Button to hide INPUT -->
-			<div class="row">
-				<div class="col-sm-3 mb-2">
-					<button onclick="HideINPUT()">HIDE/SHOW Input Options</button>
-				</div>
-				<div class="col-sm-2 mb-2">
-					<div class="dropdown">
-						<button class="dropbtn">Load Example files</button>
-						<div class="dropdown-content">
-							<a href="#" onclick="Examples(1)">C. elegans</a>
-							<a href="#" onclick="Examples(2)">Ciona gastrula</a>
-							<a href="#" onclick="Examples(3)">Parhyale limb</a>
-							<a href="#" onclick="Examples(4)">Organoid</a>
+			<div id="container_INPUT">
+				<div class="row">
+					<div class="col-sm-3 mb-2">
+						<button onclick="HideINPUT()">HIDE/SHOW Input Options</button>
+					</div>
+					<div class="col-sm-2 mb-2">
+						<div class="dropdown">
+							<button class="dropbtn">Load Example files</button>
+							<div class="dropdown-content">
+								<a href="#" onclick="Examples(1)">C. elegans</a>
+								<a href="#" onclick="Examples(2)">Ciona gastrula</a>
+								<a href="#" onclick="Examples(3)">Parhyale limb</a>
+								<a href="#" onclick="Examples(4)">Organoid</a>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-sm-2 mb-2">
-					<a href="http://compus-mentis.org/visualisation/integrated/tutorial.html" target="_blank">
-					<span style="display: block;"><h5><b>[See the Tutorial]</b></h5></span>
-					</a>
-				</div>
-				<div class="col-sm-2 mb-2" id="Hide_metadata" style="display: none">
-					<button onclick="HideMETADATA()">Hide/show Metadata</button>
-				</div>
-		<div class="col-sm-2 mb-2" id="GOI_submit" style="display: none">
-				<form autocomplete="off" action="javascript:Submit_GOI();" >
-					<div class="autocomplete" >
-						<input id="GeneInput" type="text" name="myGene" placeholder="Type gene">
+					<div class="col-sm-2 mb-2">
+						<a href="http://compus-mentis.org/visualisation/integrated/tutorial.html" target="_blank">
+						<span style="display: block;"><h5><b>[See the Tutorial]</b></h5></span>
+						</a>
 					</div>
-					<input type="submit">
-				</form>
-			</div>
-			</div>
-			<form action="javascript:Submit_Function();" id="input_submit"  method="submit" enctype="multipart/form-data">
-			<!--<h6 class="pl-0">INPUT FILES</h6> -->
-			<div class="row">
-        <div class="col-sm-2 mb-2">
-          <a href="#" data-toggle="tooltip" data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file:</label></a>
-          <div class="custom-file mb-3" id="temp">
-            <input type="file" class="custom-file-input" id="JSON_uploader" name="TREE_FILE">
-            <label class="custom-file-label" for="JSON_uploader">Upload tree (select format)</label>
-          </div>
-				</div>
-				<div class="col-sm-1.5 my-auto" id="INPUT_tree">
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="Newick_TREE" name="Tree_INPUT" value="newick" checked>
-            <label class="custom-control-label" for="Newick_TREE">Newick file</label>
-          </div>
-          <div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="Json_TREE" name="Tree_INPUT" value="json">
-            <label class="custom-control-label" for="Json_TREE">JSON file</label>
+					<div class="col-sm-2 mb-2" id="Hide_metadata" style="display: none">
+						<button onclick="HideMETADATA()">Hide/show Metadata</button>
 					</div>
-					<div class="custom-control custom-radio">
-            <input type="radio" class="custom-control-input" id="Json_CLONES" name="Tree_INPUT" value="clones">
-            <label class="custom-control-label" for="Json_CLONES">CLONES(json) </label>
-          </div>
+					<div class="col-sm-2 mb-2" id="GOI_submit" style="display: none">
+						<form autocomplete="off" action="javascript:Submit_GOI();" >
+						<div class="autocomplete" >
+							<input id="GeneInput" type="text" name="myGene" placeholder="Type gene">
+						</div>
+						<input type="submit">
+						</form>
+					</div>
+				</div>
+			</div>
+			<div id="container_INPUT">
 
-				</div>
-					<div class="col-sm-1.5 my-auto" id="OPTIONS_tree">
-          	<div class="custom-control custom-radio" title="Select this when branchlenghts represent the time of cell division relative to the root">
-            	<input type="radio" class="custom-control-input" id="Abs_BL" name="Abs_Rel" value="abs" checked>
-            	<label class="custom-control-label" for="Abs_BL">Absolute Branch Lengths</label>
-          	</div>
-          	<div class="custom-control custom-radio" title="Select this when branchlengths represent the time of cell division relative to its parent cell">
-            	<input type="radio" class="custom-control-input" id="Rel_BL" name="Abs_Rel" value="rel">
-            	<label class="custom-control-label" for="Rel_BL">Relative Branch Lenghts</label>
+				<form action="javascript:Submit_Function();" id="input_submit"  method="submit" enctype="multipart/form-data">
+				<!--<h6 class="pl-0">INPUT FILES</h6> -->
+				<div class="row">
+	        <div class="col-sm-2 mb-2">
+  	        <a href="#" data-toggle="tooltip" data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file:</label></a>
+    	      <div class="custom-file mb-3" id="temp">
+      	      <input type="file" class="custom-file-input" id="JSON_uploader" name="TREE_FILE">
+      	      <label class="custom-file-label" for="JSON_uploader">Upload tree (select format)</label>
+      	    </div>
+					</div>
+					<div class="col-sm-1.5 my-auto" id="INPUT_tree">
+      	    <div class="custom-control custom-radio">
+      	      <input type="radio" class="custom-control-input" id="Newick_TREE" name="Tree_INPUT" value="newick" checked>
+     	       <label class="custom-control-label" for="Newick_TREE">Newick file</label>
+     	     </div>
+    	      <div class="custom-control custom-radio">
+    	        <input type="radio" class="custom-control-input" id="Json_TREE" name="Tree_INPUT" value="json">
+    	        <label class="custom-control-label" for="Json_TREE">JSON file</label>
 						</div>
 						<div class="custom-control custom-radio">
+    	        <input type="radio" class="custom-control-input" id="Json_CLONES" name="Tree_INPUT" value="clones">
+    	        <label class="custom-control-label" for="Json_CLONES">CLONES(json) </label>
+    	      </div>
+
+					</div>
+						<div class="col-sm-1.5 my-auto" id="OPTIONS_tree">
+      	    	<div class="custom-control custom-radio" title="Select this when branchlenghts represent the time of cell division relative to the root">
+      	      	<input type="radio" class="custom-control-input" id="Abs_BL" name="Abs_Rel" value="abs" checked>
+      	      	<label class="custom-control-label" for="Abs_BL">Absolute Branch Lengths</label>
+      	    	</div>
+      	    	<div class="custom-control custom-radio" title="Select this when branchlengths represent the time of cell division relative to its parent cell">
+        	    	<input type="radio" class="custom-control-input" id="Rel_BL" name="Abs_Rel" value="rel">
+        	    	<label class="custom-control-label" for="Rel_BL">Relative Branch Lenghts</label>
+							</div>
+							<div class="custom-control custom-radio">
             	<input type="radio" class="custom-control-input" id="No_BL" name="Abs_Rel" value="no">
             	<label class="custom-control-label" for="No_BL">No Branch Lenghts</label>
           	</div>
@@ -142,22 +146,27 @@
 						<label class="custom-file-label" for="GeneExp_uploader">Input Gene Exp file</label>
 					</div>
 				</div>
-
+			</div>
 		</div>
 			<!--</form> -->
 
 
 			<a href="./test_data.zip" download>Download TEST files (zip folder)</a>
 	     
-      <div class="status" align="Center" ></div>
      	<!-- Separate Areas -->
-			<div id="area1"> <!-- cell lineage -->
-            <h4>Lineage viewer</h4>
-			</div>
-            
-			<div id="area2" class="svg-container-inbox"> <!-- cells in 3d -->
-				<h4> 3D viewer</h4>
+			<div id="container2"> <!-- added -->
+				<div id="container1">	
+					<div id="area1"> <!-- cell lineage -->
+						<h4>Lineage viewer</h4> 
+					</div>
+          
+					<div id="area2" class="svg-container-inbox"> <!-- cells in 3d -->
+						<h4> 3D viewer</h4>
+					</div>
 				</div>
+			</div>
+
+			<div id="container_A">
         <!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
 				<div id= "controls_1a" align="left" class="svg-buttons">
 					<div class="row">
@@ -215,17 +224,22 @@ its descendants in the 3D viewer" >
 						</div>
 					</div>
 				</div>        
+			</div>
 		</div> 
-		<div class="row">
-			<div class="col-sm-6"  id="slider" title="Click on the purple circles (Tree depth mode) 
+		
+		<div id="container_A">
+
+			<div class="row">
+				<div class="col-sm-6"  id="slider" title="Click on the purple circles (Tree depth mode) 
 or on the slider (Branch Lenght mode) to show
 clones at a given depth/time">
-			<h5>Tree depth</h5>
-			</div>
-			<div  class="col-sm-6"  id="HM_scale" title="">
-				<h5></h5>
-			</div>
-		</div>       
+				<h5>Tree depth</h5>
+				</div>
+				<div  class="col-sm-6"  id="HM_scale" title="">
+					<h5></h5>
+				</div>
+			</div>       
+		</div>
 		<div id="footer">
 		<h6>The development of celavi.pro is funded by
 				the Human Frontiers Science Program (HFSP)</h6>

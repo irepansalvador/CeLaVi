@@ -163,6 +163,8 @@ function HideMETADATA()
 
 function Submit_Function() 
 	{
+	d3.select("#area1").select("h4").remove();
+
 	// Remove the slider if exists
 	d3.select("#slider").selectAll("input").remove();
 	d3.select("#slider").selectAll("svg").remove();
