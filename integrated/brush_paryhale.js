@@ -119,10 +119,12 @@ function my_slider()
 		// Enter any new modes at the parent's previous position.
 		var slidernodeEnter = slider_node.enter()
 			.append('g')
-			.attr("id",  function(d) {return d})
+			.attr("id",  function(d) {return "depth_" + d})
 			.attr('class', 'node')
 			.attr('cursor', 'pointer')
 			.attr("transform", function(d) {return "translate(" + (x(d)+5) + "," + 2 + ")"; })
+			.on("mouseover.t", function(d) {show_depth(d)})
+			.on("mouseout.t", function(d) {show_depth2(d)})
 			.on('click', d3.contextMenu(slider_menu));
 //            .on('click', click);
     
@@ -200,6 +202,50 @@ function depth_expanse(d){
         });
      update(root);
  }
+
+function show_depth(d){
+//	console.log(d);
+	// get all the nodes (opened) and get their height
+	var xxx = d3.selectAll("#area1").select("svg")
+		.selectAll("g")
+		.select("circle").data()
+		.filter(function(dd) {return dd.depth == d});
+	var yyy = [];
+	xxx.filter(function(dd) {yyy.push(dd.data.did)});
+	var depths2 = yyy.filter( onlyUnique );
+//	console.log(yyy.length)
+	if (yyy.length >0) 
+		{d3.select("#slider").select("#depth_" + d ).select("circle").attr("r",1.7);}
+	depths2.forEach(function(d,i) 
+		{
+		ci = i;
+		var D = d;// console.log(D);
+		var nn = d3.selectAll("#area1").select("#"+D).select("circle").attr("r");
+		d3.selectAll("#area1").select("#"+D).select("circle").attr("r", nn * 1.5);
+	//	console.log("clicked in ith element :",d, ci)
+		});
+	}
+function show_depth2(d){
+	// get all the nodes (opened) and get their height
+	var xxx = d3.selectAll("#area1").select("svg")
+		.selectAll("g")
+		.select("circle").data()
+		.filter(function(dd) {return dd.depth == d});
+	var yyy = [];
+	xxx.filter(function(dd) {yyy.push(dd.data.did)});
+	var depths2 = yyy.filter( onlyUnique );
+	//console.log(depths2)
+	if (yyy.length >0) 
+		{d3.select("#slider").select("#depth_" + d ).select("circle").attr("r",1.2);}
+	depths2.forEach(function(d,i) 
+		{
+		ci = i;
+		var D = d;// console.log(D);
+		var nn = d3.selectAll("#area1").select("#"+D).select("circle").attr("r");
+		d3.selectAll("#area1").select("#"+D).select("circle").attr("r", nn / 1.5);
+		//console.log("clicked in ith element :",d, ci)
+		});
+	}
 
 function depth_mark(d){
 	// get all the nodes (opened) and get their height
