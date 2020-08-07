@@ -24,7 +24,8 @@ function activate_tree_controls() {
 			if (selectobject[i].value !== 'Saved clones')
 				{selectobject[i].remove(i);}
 		}
-		
+	d3.select("#area1").select("h6").text("");
+
 		//ENABLE  tree options if tree is loaded yet
 	var tree_format = $("input[name='Tree_INPUT']:checked").val();
 	if (tree_format=="json" || "newick")
@@ -81,7 +82,7 @@ function start_files() {
 	d3.select("#HM_scale").selectAll("svg").remove();
 	d3.select("#HM_scale").attr("title", "");
 	d3.select("#HM_scale").select("h5").text("");
-	if (document.getElementById("Cells_checkbox").checked == true)
+if (document.getElementById("Cells_checkbox").checked == true)
 		{document.getElementById("Cells_checkbox").click()}
 	}
 

@@ -152,14 +152,15 @@
 
 
 			<a href="./test_data.zip" download>Download TEST files (zip folder)</a>
-	     
+			<!-- <div class="status" align="Center" ></div> -->    
      	<!-- Separate Areas -->
 			<div id="container2"> <!-- added -->
 				<div id="container1">	
 					<div id="area1"> <!-- cell lineage -->
 						<h4>Lineage viewer</h4> 
-					</div>
-          
+	 					<h6></h6>
+				</div>
+         
 					<div id="area2" class="svg-container-inbox"> <!-- cells in 3d -->
 						<h4> 3D viewer</h4>
 					</div>

@@ -41,10 +41,10 @@ function createD3RangeSlider (rangeMin, rangeMax, containerSelector, playButton,
             .style("display", "-webkit-box")
             .style("box-orient", "horizontal")
             .style("-moz-box-orient", "horizontal")
-            .style("-webkit-box-orient", "horizontal");
+            .style("-webkit-box-orient", "horizontal")
 //						.style("margin-right", "20px")
 //						.style("margin-left", "20px")
-//						.style("margin-top", "80px");
+						.style("margin-top", "40px");
 
         var playBox = box.append("div")
             .style("width", containerHeight + "px")
@@ -53,7 +53,8 @@ function createD3RangeSlider (rangeMin, rangeMax, containerSelector, playButton,
             .style("box-flex", "0")
             .style("-moz-box-flex", "0")
             .style("-webkit-box-flex", "0")
-            .classed("play-container", true);
+ 						.style("z-index", 99)
+          .classed("play-container", true);
 
         var sliderBox = box.append("div")
             .style("position", "relative")
@@ -67,7 +68,8 @@ function createD3RangeSlider (rangeMin, rangeMax, containerSelector, playButton,
         var playSVG = playBox.append("svg")
             .attr("width", containerHeight + "px")
             .attr("height", containerHeight + "px")
-            .style("overflow", "visible");
+ //           .on("click", togglePlayButton)
+           .style("overflow", "visible");
 
         var circleSymbol = playSVG.append("circle")
             .attr("cx", containerHeight / 2)
@@ -96,7 +98,7 @@ function createD3RangeSlider (rangeMin, rangeMax, containerSelector, playButton,
             .style("fill-opacity", "0.0")
             .style("cursor", "pointer")
             .on("click", togglePlayButton)
-            .on("mouseenter", function(){
+            .on("mouseover", function(){
                 circleSymbol
                     .transition()
                     .attr("r", 1.2 * containerHeight / 2)

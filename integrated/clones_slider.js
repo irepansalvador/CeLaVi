@@ -8,9 +8,11 @@ function load_dataset_clones(json) {
   // get all the Daughters of the root 
  	var max_Clones = root.children.length;
   console.log(max_Clones);
+	d3.select("#area1")
+		.select("h6")
+		.html("Click on the play button to show all clones or select a range of clones to show in the slider.<br> By Clicking on any cell in the 3D viewer all the cells that belong to the same clone will be highlighted");
 
 	call_CloneSlider(max_Clones);
-
 //  console.log(max_H);
 //  colorScale = d3.scaleSequential(d3.interpolateYlOrBr)
 //      .domain([1, max_H]);
