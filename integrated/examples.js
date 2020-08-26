@@ -10,6 +10,7 @@ var GEmatrix_txt = "";
 function Examples(e)
 	{
 	d3.select("#area1").select("h4").remove();
+	d3.select("#area1").select("#clonesdiv").remove();
 	// Remove the slider if exists
 	d3.select("#slider").selectAll("input").remove();
 	d3.select("#slider").selectAll("svg").remove();
@@ -108,16 +109,16 @@ function Examples(e)
 		var x = document.getElementById("Hide_metadata");
 		if (x.style.display === "block") {x.style.display = "none";}
 		activate_tree_controls();
-		// 3D cells file
-		cells3D_file = "test_data/Organoid/organoid_15Kcells_3D.csv";
-		Upload_example_3Dcells();
-		load_dataset_2(cells3D_txt);
-		$("label[for='3Dcoord_uploader'").text("organoid_15Kcells_3D.csv");
 		// tree file
 		tree_file = "test_data/Organoid/organoid_15Kcells_clones.json";
 		Upload_example_tree();
 		load_dataset_clones(tree_txt);
 		$("label[for=JSON_uploader").text("organoid_15Kcells_clones.json");
+		// 3D cells file
+		cells3D_file = "test_data/Organoid/organoid_15Kcells_3D.csv";
+		Upload_example_3Dcells();
+		load_dataset_2(cells3D_txt);
+		$("label[for='3Dcoord_uploader'").text("organoid_15Kcells_3D.csv");
 	}
 	console.log(tree_file);
 

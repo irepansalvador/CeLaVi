@@ -25,7 +25,7 @@ function activate_tree_controls() {
 				{selectobject[i].remove(i);}
 		}
 	d3.select("#area1").select("h6").text("");
-
+	d3.select('.status').remove();
 		//ENABLE  tree options if tree is loaded yet
 	var tree_format = $("input[name='Tree_INPUT']:checked").val();
 	if (tree_format=="json" || "newick")
@@ -165,7 +165,7 @@ function HideMETADATA()
 function Submit_Function() 
 	{
 	d3.select("#area1").select("h4").remove();
-
+	d3.select("#area1").select("#clonesdiv").remove();
 	// Remove the slider if exists
 	d3.select("#slider").selectAll("input").remove();
 	d3.select("#slider").selectAll("svg").remove();
@@ -178,7 +178,16 @@ function Submit_Function()
 	if (data.length>0)
 		{data[0].x = data[0].y = data[0].z = data[0].id = data[0].text = [];
 		Plotly.newPlot(area2, data, layout)};
-	
+	// remove any svg on the scale div
+	d3.select("#HM_scale").selectAll("svg").remove();
+	// Hide the menu for searching gene
+	GE_genes=[]; data_GE=[]; 
+	autocomplete(document.getElementById("GeneInput"), GE_genes);
+	var x = document.getElementById("GOI_submit");
+	x.style.display = "none";
+	d3.select("#HM_scale").select("h5").text("");
+
+
 	// Get the format of the file
 	console.log("SUBMITTED!!!");
 	var uploader = document.getElementById("JSON_uploader"); 

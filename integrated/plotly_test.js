@@ -456,6 +456,17 @@ function click2(d) {
 					pts = [];sel_ids=[];rnd_cols=[];
 					var mycol = randomColour();
 					var x = root.leaves()[i].parent.descendants();
+					// display the clone index
+					var inode = root.leaves()[i].parent.data.did;
+					console.log(inode);
+					for(var ii = 0 ; ii < root.children.length; ii++) 
+						{if (root.children[ii].data.did == inode)
+							{console.log("clicked on clone " + ii)
+								d3.select('.status')
+									.text('Cell clicked belongs to clone ' + ii);
+							}
+						}
+
 					x.forEach(function(ddd) {
 						sel_ids.push(ddd.data.did);
 						rnd_cols.push(mycol);

@@ -24,7 +24,7 @@ function createD3RangeSlider (rangeMin, rangeMax, containerSelector, playButton,
 
     var minWidth = 10;
 
-    var sliderRange = {begin: rangeMin, end: rangeMin};
+    var sliderRange = {begin: rangeMin, end: delta};
     var changeListeners = [];
     var container = d3.select(containerSelector);
     var playing = false;
