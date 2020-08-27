@@ -405,7 +405,7 @@ function setStrokeWidth(new_width) {
 
 d3.select("#reset").on("click", function() {
 	console.log("CLICKED ON RESET");
-	reset_cell_cols();
+	reset_cell_cols(); reset_node_cols();
 });
 
 function reset_cell_cols() {

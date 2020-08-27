@@ -20,6 +20,9 @@
         <script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
 				<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 				<script src="./lib/virtualscroller.js"></script>
+				<!-- Libs to export tree to png -->
+				<script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
+				<script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
 				<!-- Range slider code -->
 				<script src="./lib/d3RangeSlider.js"></script>
 				<!-- Range slider style -->
@@ -171,7 +174,7 @@
         <!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
 				<div id= "controls_1a" align="left" class="svg-buttons">
 					<div class="row">
-						<div class="col-sm-8 mb-2">
+						<div class="col-sm-7 mb-2">
 						<a href="#" data-toggle="tooltip" data-placement="left" title="The buttons in this section control the display of the lineage tree">Cell lineage tree controls:</a>
 						<div class="row">
 							<div class="col-sm-2.5" align="right">
@@ -185,21 +188,29 @@
 							<div class="col-sm-1.5">
 								<button id="BranchLenghts" title="Alternate between showing Tree depth (default) and Branch Lenghts" type="button" onclick="show_bl()" class="btn btn-success" >Show BL</button> 
 							</div>
-							<div class="col-sm-1.5">
+						<!--	<div class="col-sm-1.5">
 								<button id="CollapseAll" title= "Click to completely collapse the tree to the root" type="button" onclick="collapseAll()" class="btn btn-success" >Collapse All</button> 
-							</div>
+							</div> -->
 							<div class="col-sm-1.5">
 								<button id="Reset"  title= "Click to reset to the default topology 
 (only showing daughters of root)" type="button" onclick="resetAll()" class="btn btn-success" >Reset Topology</button> 
 							</div>
-							<div class="col-sm-1.5">
-								<button id="Reset_cols_Tree" title="Set node colour in the cell lineage to default"  type="button" class="btn btn-success" >Reset cols</button> 
+							<div class="col-sm-2">
+								<div class="dropdown">
+									<button class="dropbtn">Save Image</button>
+									<div class="dropdown-content">
+										<a href="#" onclick="SaveSVG()">SVG</a>
+										<a href="#" onclick="SavePNG()">PNG</a>
+									</div>
+								</div>
 							</div>
+					<!--	<div class="col-sm-1.5">
+								<button id="Reset_cols_Tree" title="Set node colour in the cell lineage to default"  type="button" class="btn btn-success" >Reset cols</button> 
+							</div> --> 
 							<div class="col-sm-2"title="Hover the mouse on the cells in the lineage viewer to show
 its descendants in the 3D viewer" >
 								<label class="checkbox"><input id="Tree_checkbox" type="checkbox" value="">Show Descendants</label>
 							</div>
-
 							<div class ="col-sm-2" id="controls_1">
 								<select id="saved_clones">
 								</select> 
@@ -207,11 +218,11 @@ its descendants in the 3D viewer" >
 						</div>
 						</div>
 					<!-- RIGHT PART OF THE CONTROLS, FOR CELLS IN 3D -->
-						<div class="col-sm-4 mb-2">
+						<div class="col-sm-5 mb-2">
 						<a href="#" data-toggle="tooltip" data-placement="right" title="Zoom and Pan cells in 3D">3D cells controls:</a>
 						<div class="row">
-							<div class="col-sm-3.5">
-								<button id="reset" title="Set the colour of the cells back to default (white)" type="button" class="btn btn-info">Reset cols</button>
+							<div class="col-sm-3">
+								<button id="reset" title="Set the colour of the cells back to default (white)" type="button" class="btn btn-info">Reset Colors</button>
 							</div>
 							<div class="col-sm-3">
 								<input type="number" class="form-control" id="CellSize" placeholder="" value="9" min="1" step="1" title="Size for rendering cells"  required>
@@ -219,7 +230,7 @@ its descendants in the 3D viewer" >
 								<div class="col-sm-3">
 								<input type="number" class="form-control" id="CellStroke" placeholder="" value="1" min="1" step="1" max="5" title="Stroke width"  required>
 							</div>
-							<div class="col-sm-2.5" title="This option requires that the lineage tree is completely expanded" >
+							<div class="col-sm-2" title="This option requires that the lineage tree is completely expanded" >
 								<input id="Cells_checkbox" type="checkbox" value="">Show Lineage
 							</div>
 						</div>
@@ -267,4 +278,6 @@ clones at a given depth/time">
 		<script>GeneExp_upload_button("GeneExp_uploader", load_dataset_4)</script>
 	<!-- Examples uploader-->
 		<script src="./examples.js"></script>
+	<!-- export png -->
+		<script src="./tree_png_download.js"></script>
 </body>

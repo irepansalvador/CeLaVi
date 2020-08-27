@@ -6,9 +6,9 @@ document.getElementById("zoom_out_tree").disabled = true;
 document.getElementById("pan_down_tree").disabled = true;
 document.getElementById("pan_up_tree").disabled = true;
 document.getElementById("BranchLenghts").disabled = true;
-document.getElementById("CollapseAll").disabled = true;
+//document.getElementById("CollapseAll").disabled = true;
 document.getElementById("Reset").disabled = true;
-document.getElementById("Reset_cols_Tree").disabled = true;
+//document.getElementById("Reset_cols_Tree").disabled = true;
 document.getElementById("Tree_checkbox").disabled = true;
 
 // disable 3d options if cells are not loaded 
@@ -34,9 +34,9 @@ function activate_tree_controls() {
 		document.getElementById("zoom_out_tree").disabled = false;
 		document.getElementById("pan_down_tree").disabled = false;
 		document.getElementById("pan_up_tree").disabled = false;
-		document.getElementById("CollapseAll").disabled = false;
+//		document.getElementById("CollapseAll").disabled = false;
 		document.getElementById("Reset").disabled = false;
-		document.getElementById("Reset_cols_Tree").disabled = false;
+//		document.getElementById("Reset_cols_Tree").disabled = false;
 		document.getElementById("Tree_checkbox").disabled = false;
 		// disable 3d options if cells are not loaded 
 		document.getElementById("reset").disabled = true;
@@ -58,9 +58,9 @@ function activate_tree_controls() {
 		document.getElementById("pan_down_tree").disabled = true;
 		document.getElementById("pan_up_tree").disabled = true;
 		document.getElementById("BranchLenghts").disabled = true;
-		document.getElementById("CollapseAll").disabled = true;
+//		document.getElementById("CollapseAll").disabled = true;
 		document.getElementById("Reset").disabled = true;
-		document.getElementById("Reset_cols_Tree").disabled = true;
+//		document.getElementById("Reset_cols_Tree").disabled = true;
 		document.getElementById("Tree_checkbox").disabled = true;
 		document.getElementById("Cells_checkbox").disabled = true;
 		}
