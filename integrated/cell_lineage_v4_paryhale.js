@@ -217,44 +217,42 @@ var Abs_BL;
 var nodelen = 1;
 var nodelen2;
 var depth_label = 3;
+var counter;
 
-d3.select("#zoom_in_tree").on("click", function() {
- 	if (document.getElementById("Json_CLONES").checked == false)
-		{
-   if (show_BL == 0)
-     {nodelen = nodelen * 1.1; update(root);}
-    if (show_BL == 1)
-     {nodelen2 = nodelen2 * 1.1; update(root);}
+function zoom_in_start() {
+		counter = setInterval(function() {
+			if (show_BL == 0)
+				{nodelen = nodelen * 1.1; update(root);}
+			if (show_BL == 1)
+				{nodelen2 = nodelen2 * 1.1; update(root);}
+		}, 100);
 	}
-});
+function zoom_out_start() {
+		counter = setInterval(function() {
+			if (show_BL == 0)
+				{nodelen = nodelen * 0.9; update(root);}
+			if (show_BL == 1)
+				{nodelen2 = nodelen2 * 0.9; update(root);}
+		}, 100);
+	}
+function pan_down_start() {
+	counter = setInterval(function() {
+		node_h = node_h * 1.1;
+		treemap = d3.tree().size([node_h, w]);
+		update(root);
+		}, 100);
+	}
+function pan_up_start() {
+	counter = setInterval(function() {
+		node_h = node_h * 0.9;
+		treemap = d3.tree().size([node_h, w]);
+		update(root);
+		}, 100);
+	}
+function end() {
+	clearInterval(counter)
+	}
 
-d3.select("#zoom_out_tree").on("click", function() {
- 	if (document.getElementById("Json_CLONES").checked == false)
-		{
-   if (show_BL == 0)
-     {nodelen = nodelen * 0.9; update(root);}
-    if (show_BL == 1)
-     {nodelen2 = nodelen2 * 0.9; update(root);}
-		}
-	});
-
-d3.select("#pan_down_tree").on("click", function() {
-	if (document.getElementById("Json_CLONES").checked == false)
-		{
-   node_h = node_h * 1.1;
-    treemap = d3.tree().size([node_h, w]);
-    update(root);
-		}
-	});
-
-d3.select("#pan_up_tree").on("click", function() {
-	if (document.getElementById("Json_CLONES").checked == false)
-		{
-   node_h = node_h * 0.9;
-    treemap = d3.tree().size([node_h, w]);
-    update(root);
-		}
-	});
 d3.select("#Reset_cols_Tree").on("click", function() {
 	if (document.getElementById("Json_CLONES").checked == false)
 		{

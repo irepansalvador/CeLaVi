@@ -58,36 +58,36 @@ var layout = {
 		aspectmode: "data",
 		bgcolor: "rgb(255,255,255)",
 		xaxis: {
-			backgroundcolor: "rgb(245, 250, 250)",
+			backgroundcolor: "rgb(235, 200, 200)",
 			gridcolor: "rgb(255, 255, 255)",
 			showbackground: true,
 			zerolinecolor: "rgb(255, 255, 255)",
 			autorange: true,
-			showgrid: false,
+			showgrid: true,
 			zeroline: false,
 			showline: false,
 			autotick: true,
 			ticks: '',
 			showticklabels: false}, 
 		yaxis: {
-			backgroundcolor: "rgb(250, 245,250)",
+			backgroundcolor: "rgb(200, 235,200)",
 			gridcolor: "rgb(255, 255, 255)",
 			showbackground: true,
 			zerolinecolor: "rgb(255, 255, 255)",
 			autorange: true,
-			showgrid: false,
+			showgrid: true,
 			zeroline: false,
 			showline: false,
 			autotick: true,
 			ticks: '',
 			showticklabels: false}, 
 		zaxis: {
-			backgroundcolor: "rgb(250, 250,245)",
+			backgroundcolor: "rgb(200, 200,235)",
 			gridcolor: "rgb(255, 255, 255)",
 			showbackground: true,
 			zerolinecolor: "rgb(255, 255, 255)",
 			autorange: true,
-			showgrid: false,
+			showgrid: true,
 			zeroline: false,
 			showline: false,
 			autotick: true,
@@ -99,11 +99,11 @@ var layout = {
 
 var config = {
  	toImageButtonOptions: {
-		format: "jpeg", // one of png, svg, jpeg, webp
+		format: "png", // one of png, svg, jpeg, webp
 		filename: 'cell_lineage',
 		height: 600,
 		width: 900,
-		scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
+		scale: 1.5 // Multiply title/legend/axis/canvas sizes by this factor
 		},
 	responsive: true, displayModeBar: true, displaylogo: false
 //	modeBarButtonsToRemove: ['tableRotation']

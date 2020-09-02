@@ -179,10 +179,10 @@
 						<div class="row">
 							<div class="col-sm-2.5" align="right">
 								<div class="btn-group">
-  								<button id="zoom_in_tree" title="Expand the tree horizontally" type="button" class="btn btn-success"><></button>
-									<button id="zoom_out_tree" title="Contract the tree horizontally" type="button" class="btn btn-success">><</button>
-  								<button id="pan_down_tree" title="Expand the tree vertically" type="button" class="btn btn-success">v</button>
-  								<button id="pan_up_tree" title="Contract the tree vertically" type="button" class="btn btn-success">^</button>
+  								<button onmousedown="zoom_in_start()"  onmouseup="end()" id="zoom_in_tree" title="Expand the tree horizontally" type="button" class="btn btn-success"><></button>
+									<button onmousedown="zoom_out_start()" onmouseup="end()" id="zoom_out_tree" title="Contract the tree horizontally" type="button" class="btn btn-success">><</button>
+  								<button onmousedown="pan_down_start()" onmouseup="end()" id="pan_down_tree" title="Expand the tree vertically" type="button" class="btn btn-success">v</button>
+  								<button onmousedown="pan_up_start()"   onmouseup="end()" id="pan_up_tree" title="Contract the tree vertically" type="button" class="btn btn-success">^</button>
 								</div>
 							</div>
 							<div class="col-sm-1.5">
