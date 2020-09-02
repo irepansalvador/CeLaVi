@@ -216,7 +216,7 @@ show_BL = 0;
 var Abs_BL;
 var nodelen = 1;
 var nodelen2;
-
+var depth_label = 3;
 
 d3.select("#zoom_in_tree").on("click", function() {
  	if (document.getElementById("Json_CLONES").checked == false)
@@ -350,13 +350,13 @@ function update(source) {
       .attr("dy", ".35em")
      // position of label depends on children 
       .attr("x", function(d) 
-            {return d.children || d._children ? -12 : 10; })
+            {return d.children || d._children ? -10 : 10; })
       .attr("y", function(d) 
-            {return d.children || d._children ? 10 : 0; })
+            {return d.children || d._children ? 5 : 0; })
      .attr("text-anchor", function(d) { 
             return d.children || d._children ? "end" : "start"; })
       .attr("font-size", function(d) {
-               return d.depth <= 3 ? (9- (d.depth*0.2) + "px" ) : "0px" })
+               return d.depth <= depth_label  ? (9- (d.depth*0.2) + "px" ) : "0px" })
       .attr("font-family", "sans serif")
       .text(function(d) 
             {return d.data.did; });

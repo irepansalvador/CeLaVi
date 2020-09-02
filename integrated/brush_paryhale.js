@@ -84,6 +84,15 @@ function my_slider()
 			update(d) 
 			console.log("Total cells "+ Tcount)
 			}
+		},
+		{title: 'Show label until this depth',
+		action: function(d,i) 
+			{console.log("I have clicked in level "+ d)
+			depth_label = d;
+			click(root);
+			setTimeout(function(){ click(root); }, 1100);
+			console.log("I should see the labels until " + d);
+			}
 		}
 	];
 	// get the depths of the tree to plot the slider
