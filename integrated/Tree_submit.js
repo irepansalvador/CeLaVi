@@ -82,10 +82,13 @@ function start_files() {
 	d3.select("#HM_scale").selectAll("svg").remove();
 	d3.select("#HM_scale").attr("title", "");
 	d3.select("#HM_scale").select("h5").text("");
-if (document.getElementById("Cells_checkbox").checked == true)
+	if (document.getElementById("Cells_checkbox").checked == true)
 		{document.getElementById("Cells_checkbox").click()}
+	// make he div.tooltip invisible (that shows number of descendants,
+	// etc)
+	div.style("opacity", 0)
+		.text('');
 	}
-
 
 treefile.addEventListener('change', showtreeopts);
 function showtreeopts() 
@@ -146,12 +149,27 @@ $(document).ready(function ()
 function HideINPUT()
 	{
 	var x = document.getElementById("input_submit");
-  if (x.style.display === "none") {
-	    x.style.display = "block";
-	 } else {
-	    x.style.display = "none";
-	  }
+	var xx = document.getElementById("HideINPUT");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+		xx.innerHTML="HIDE Input Options";
+		} 
+	else {
+		x.style.display = "none";
+		xx.innerHTML="SHOW Input Options";
+		}
 	}
+
+function ShowINPUT()
+	{
+	var x = document.getElementById("input_submit");
+	var xx = document.getElementById("HideINPUT");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+		xx.innerHTML="HIDE Input Options";
+		}
+	}
+
 function HideMETADATA()
 	{
 	var x = document.getElementById("metadata_table");

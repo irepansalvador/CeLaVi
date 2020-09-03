@@ -27,7 +27,9 @@ function Examples(e)
 	var x = document.getElementById("GOI_submit");
 	x.style.display = "none";
 	d3.select("#HM_scale").select("h5").text("");
-
+	// make tooltip invisible
+	div.style("opacity", 0)
+		.text('');
 
 	console.log(e);
 	var tree_file;

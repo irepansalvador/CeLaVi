@@ -103,7 +103,7 @@ var config = {
 		filename: 'cell_lineage',
 		height: 600,
 		width: 900,
-		scale: 1.5 // Multiply title/legend/axis/canvas sizes by this factor
+		scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
 		},
 	responsive: true, displayModeBar: true, displaylogo: false
 //	modeBarButtonsToRemove: ['tableRotation']

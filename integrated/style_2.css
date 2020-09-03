@@ -7,6 +7,8 @@
 	float:left;
 	width:100%;
 	background:#bccbde;
+	margin-left:1%;
+	margin-right:1%;
 }
 #container_INPUT {
 	float:left;
@@ -17,7 +19,7 @@
 #container1 {
 	float:left;
 	width:100%;
-	background:white;
+/*	background:white;*/
 	position:relative; /* added */
 	right:50%; /* added */
 }
@@ -205,8 +207,8 @@ color: #fff;
 .svg-container {
     display: inline-block;
     position: relative;
-		margin: 10px 10px 10px 10px;
-    width: 99%;
+		margin: 1% 1% 1% 1%;
+    width: 97%;
     /*padding-bottom: 1%;  aspect ratio */
     vertical-align: top;
 }

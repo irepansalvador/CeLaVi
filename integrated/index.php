@@ -8,6 +8,7 @@
 		<!-- Custom CSS styles -->
 		<link href="style_2.css" rel="stylesheet" type="text/css" > 
 		<link rel="stylesheet" href="./lib/d3-context-menu.css" />
+		<link rel="stylesheet" href="./lib/introjs.css"/>
 				<script src="./lib/d3.v3.js"></script> 
 			<!--	<script src="https://d3js.org/d3.v3.min.js"></script> -->
        <script src="./lib/d3.v4.min.js"></script>  <!--3d cells-->
@@ -21,8 +22,8 @@
 				<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 				<script src="./lib/virtualscroller.js"></script>
 				<!-- Libs to export tree to png -->
-				<script src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
-				<script src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
+				<script src="./lib/canvas-toBlob.js"></script>
+				<script src="./lib/FileSaver.min.js"></script>
 				<!-- Range slider code -->
 				<script src="./lib/d3RangeSlider.js"></script>
 				<!-- Range slider style -->
@@ -38,7 +39,7 @@
 		<body>
 		<!-- Splash screen -->
 		<div id="splashscreen">
-			<img src="CeLaVi_welcome.png" onclick="enter_link()" />
+			<img src="CeLaVi_welcome.png" onclick="enter_link(); javascript:introJs().start();   " />
 		</div>	
 		<div id= "container" class="svg-container">
 			<h3><i>CeLaVi:</i> Cell Lineage interactive Visualisation</h3>
@@ -46,8 +47,8 @@
 			<!-- Button to hide INPUT -->
 			<div id="container_INPUT">
 				<div class="row">
-					<div class="col-sm-3 mb-2">
-						<button onclick="HideINPUT()">HIDE/SHOW Input Options</button>
+					<div class="col-sm-2 mb-2">
+						<button  id ="HideINPUT" onclick="HideINPUT()">HIDE Input Options</button>
 					</div>
 					<div class="col-sm-2 mb-2">
 						<div class="dropdown">
@@ -60,10 +61,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-sm-2 mb-2">
-						<a href="http://compus-mentis.org/visualisation/integrated/tutorial.html" target="_blank">
-						<span style="display: block;"><h5><b>[See the Tutorial]</b></h5></span>
+					<div data-step="10" data-intro="Please visit the tutorial to get more details. ENJOY!"  class="col-sm-2 mb-2">
+						<a class="btn btn-large btn-primary" href="http://compus-mentis.org/visualisation/integrated/tutorial.html" target="_blank">
+						<span style="display: block;">Visit Tutorial</span>
 						</a>
+					</div>
+					<div class="col-sm-2 mb-2">
+						<a class="btn btn-large btn-primary" href="javascript:void(0);" onclick="javascript:ShowINPUT(); introJs().start();">Quick Tour</a>
 					</div>
 					<div class="col-sm-2 mb-2" id="Hide_metadata" style="display: none">
 						<button onclick="HideMETADATA()">Hide/show Metadata</button>
@@ -85,13 +89,13 @@
 				<div class="row">
 	        <div class="col-sm-2 mb-2">
   	        <a href="#" data-toggle="tooltip" data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file:</label></a>
-    	      <div class="custom-file mb-3" id="temp">
+    	      <div data-step="1" data-intro="To start, select a lineage tree file (newick or json format). You can download the TEST files clicking the link under this box or clicking on Load Exammple files" class="custom-file mb-3" id="temp">
       	      <input type="file" class="custom-file-input" id="JSON_uploader" name="TREE_FILE">
       	      <label class="custom-file-label" for="JSON_uploader">Upload tree (select format)</label>
       	    </div>
 					</div>
-					<div class="col-sm-1.5 my-auto" id="INPUT_tree">
-      	    <div class="custom-control custom-radio">
+					<div data-step="2" data-intro="Specify the format of the file (newick or json)" class="col-sm-1.5 my-auto" id="INPUT_tree">
+						<div class="custom-control custom-radio">
       	      <input type="radio" class="custom-control-input" id="Newick_TREE" name="Tree_INPUT" value="newick" checked>
      	       <label class="custom-control-label" for="Newick_TREE">Newick file</label>
      	     </div>
@@ -105,7 +109,7 @@
     	      </div>
 
 					</div>
-						<div class="col-sm-1.5 my-auto" id="OPTIONS_tree">
+						<div data-step="3" data-intro="Select Branch Lenght Option (see tutorial for details)" class="col-sm-1.5 my-auto" id="OPTIONS_tree">
       	    	<div class="custom-control custom-radio" title="Select this when branchlenghts represent the time of cell division relative to the root">
       	      	<input type="radio" class="custom-control-input" id="Abs_BL" name="Abs_Rel" value="abs" checked>
       	      	<label class="custom-control-label" for="Abs_BL">Absolute Branch Lengths</label>
@@ -122,27 +126,27 @@
 					</div>
 
 
-				<div class="col-sm-1 my-auto">
+				<div data-step="4" data-intro="Click Submit to visualise the tree"  class="col-sm-1 my-auto">
            <button type="submit" class="btn btn-primary" align="right" onclick="validateNum()">Submit</button> 
            <!-- <button type="submit" class="btn btn-primary" align="right">Submit</button> -->
         </div>
 
 			</form>
-				<div class="col-sm-2 mb-2">
+				<div data-step="5" data-intro="Select a file with XYZ coordinates to start 3D visualisation"  class="col-sm-2 mb-2">
 					<a href="#" data-toggle="tooltip" data-placement="left" title="Reads a csv file with 4 columns: The first column is the cell ID (same as in the tree), and the other columns are coordinates X, Y and Z "><label for="temp">Coords file:</label></a>
 					<div class="custom-file mb-3" id="temp">
 						<input type="file" class="custom-file-input" id="3Dcoord_uploader" name="coordsfile">
 						<label class="custom-file-label" for="3Dcoord_uploader">Input coordinates file</label>
 					</div>
 				</div>
-				<div class="col-sm-2 mb-2">
+				<div data-step="6" data-intro="Optionally you can load a metadata file with a categorical feature you want to plot (e.g. cell type)" class="col-sm-2 mb-2">
 					<a href="#" data-toggle="tooltip" data-placement="right" title="Reads a csv file with N columns: The first column is the cell ID (same as in the tree and 3D coords), and the rest of the columns contain additional info on the cells (e.g. cell type)"><label for="temp">Additional info file:</label></a>
 					<div class="custom-file mb-3" id="temp">
 						<input type="file" class="custom-file-input" id="Metadata_uploader" name="Metadata_File">
 						<label class="custom-file-label" for="Metadata_uploader">Input Additional Info file</label>
 					</div>
 				</div>
-				<div class="col-sm-2 mb-2">
+				<div data-step="7" data-intro="Here you can upload a gene expression datafile to plot a virtual insitu image"  class="col-sm-2 mb-2">
 					<a href="#" data-toggle="tooltip" data-placement="right" title="Reads Gene expression matrix"><label for="temp">Gene Expression file:</label></a>
 					<div class="custom-file mb-3" id="temp">
 						<input type="file" class="custom-file-input" id="GeneExp_uploader" name="GeneExp_File">
@@ -174,7 +178,7 @@
         <!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
 				<div id= "controls_1a" align="left" class="svg-buttons">
 					<div class="row">
-						<div class="col-sm-7 mb-2">
+						<div  data-step="8" data-intro="These options allow you to control the visualisation of the lineage tree" class="col-sm-7 mb-2">
 						<a href="#" data-toggle="tooltip" data-placement="left" title="The buttons in this section control the display of the lineage tree">Cell lineage tree controls:</a>
 						<div class="row">
 							<div class="col-sm-2.5" align="right">
@@ -218,7 +222,7 @@ its descendants in the 3D viewer" >
 						</div>
 						</div>
 					<!-- RIGHT PART OF THE CONTROLS, FOR CELLS IN 3D -->
-						<div class="col-sm-5 mb-2">
+						<div data-step="9" data-intro="And these allow you to control the visualisation of the cells in 3D"  class="col-sm-5 mb-2">
 						<a href="#" data-toggle="tooltip" data-placement="right" title="Zoom and Pan cells in 3D">3D cells controls:</a>
 						<div class="row">
 							<div class="col-sm-3">
@@ -280,4 +284,6 @@ clones at a given depth/time">
 		<script src="./examples.js"></script>
 	<!-- export png -->
 		<script src="./tree_png_download.js"></script>
+		<script src="./lib/intro.js"></script>
+
 </body>
