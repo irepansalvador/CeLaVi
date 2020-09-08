@@ -82,21 +82,8 @@ var menu = [
 		click(d);
 		}
 	},
-	{
-	title: 'Show descendants',
-    action: function(d, i) {
-	console.log('The data for this circle is: ' + d.data.did);
-        div.transition()		
-            .duration(0)		
-            .style("opacity", .9)
-            .text(count_leaves2(d,0)+' daughters')
-            .style("left", (d3.event.pageX + 10 ) + "px")	
-            .style("top", (d3.event.pageY - 28) + "px");
-        update(d)      
-        }
-	},
     {
-	title: 'Expand descendants',
+	title: 'Expand all from here',
     action: function(d, i) {
 	console.log('The data for this circle is: ' + d.data.did);
         expand(d)  
@@ -104,7 +91,7 @@ var menu = [
         }
 	},
 	{
-	title: 'Collapse all',
+	title: 'Collapse all until here',
     action: function(d, i) {
         collapse(d)
         update(d)
@@ -304,27 +291,26 @@ function update(source) {
 			.on("click", function(d) {
 				d3.selectAll("#area1").selectAll("g").select("#"+d.data.did).select("circle")
 					.style("fill", randomColour() );
-				count_leaves2(d,0);
+				paint_daughters(d);
 				})
 			.on("mouseover.t", function(d) {
 				setAlpha(points_array, 0);
 				setAlphaStroke(points_array, 0.15);
+				highlight_daughters(d);
 				div.style("opacity", .9)
-					.text(d.data.did + ": "+count_leaves2(d,0) +" daughters")
+					.text(d.data.did + ": "+count2+" daughters")
 					.style("left", (d3.event.pageX + 10 ) + "px")	
 					.style("top", (d3.event.pageY - 28) + "px");
 				})
 			.on("mouseout.c", function (d) {
-				console.log("highlighting cells")
 				setAlphaStroke(points_array, 1);
 				setAlpha(points_array, 1);
-        })
-      .on("mouseout.t", function(d) {
-         //  if (d3.select("#Tree_checkbox").property("checked")) {
-            div.style("opacity", 0)
-                .text('');//}
-            })
-     .on('contextmenu', d3.contextMenu(menu));
+				})
+			.on("mouseout.t", function(d) {
+				div.style("opacity", 0)
+				.text('');//}
+				})
+			.on('contextmenu', d3.contextMenu(menu));
     
   // Add Circle for the nodes
   nodeEnter.append('circle')
@@ -357,7 +343,7 @@ function update(source) {
       .attr("font-size", 0)
       .text(function(d) 
             {if (d._children == null) {return  ""}
-             else if (d._children != null) {return  count_leaves(d) }
+             else if (d._children != null) {return  count_leaves2(d) }
             });;
 
   // UPDATE
@@ -393,7 +379,7 @@ function update(source) {
   nodeUpdate.select('.textchild')
       .text(function(d) 
             {if (d._children == null) {return  ""}
-             else if (d._children != null) {return  count_leaves(d) }
+             else if (d._children != null) {return  count_leaves2(d) }
             });
   // Remove any exiting nodes
   var nodeExit = node.exit().transition()
@@ -522,22 +508,51 @@ function save_clone(d) {
 //###################################################################################
 var count; var Tcount; var orig_col; var orig_stroke;
 var sel_ids;
-function count_leaves2(d,n){
+
+function highlight_daughters(d)
+	{
+	count_leaves2(d);
+			// pts is array with point number to be changed
+	var pts = getPoints(sel_ids);
+	// change colour of the 3Dcell 
+	setAlpha(pts, 1 );
+	setAlphaStroke(pts, 1);
+	}
+
+function paint_daughters(d,n)
+	{
+	orig_col =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
+		.select("circle").style("fill");
+	orig_stroke =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
+		.select("circle").style("stroke");
+	count_leaves2(d);
+			// pts is array with point number to be changed
+	var pts = getPoints(sel_ids);
+	// change colour of the 3Dcell 
+	setColours(pts, orig_col );
+	setStroke(pts, orig_stroke );
+	}
+
+function paint_daughters_HM(d,n)
+	{
+	count_leaves2(d);
+	var pts = getPoints(sel_ids);
+	setColours(pts,colorScale(n) );
+	setStroke(pts, colorScale(n) );
+	}
+
+function count_leaves2(d){
 		sel_ids=[];
-    orig_col =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
-            .select("circle").style("fill");
-    orig_stroke =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
-            .select("circle").style("stroke");
     count = 0;
     if(d.children){   //go through all its children
         for(var ii = 0; ii<d.children.length; ii++){
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
             if (d.children[ii].children){
-                count_subleaves2(d.children[ii],n);
+                count_subleaves2(d.children[ii]);
                 }
             else if (d.children[ii]._children){
-                count_subleaves2h(d.children[ii],n);
+                count_subleaves2h(d.children[ii]);
                 } 
             //if not then it is a leaf so we count it
             else{
@@ -547,13 +562,13 @@ function count_leaves2(d,n){
                 }
             }
         }
-    if(d._children){   //go through all its children
+		else if(d._children){   //go through all its children
         for(var ii = 0; ii<d._children.length; ii++){
             if (d._children[ii]._children){
-                count_subleaves2h(d._children[ii],n);
+                count_subleaves2h(d._children[ii]);
                 }
             else if (d._children[ii].children){
-                count_subleaves2(d._children[ii],n);
+                count_subleaves2(d._children[ii]);
                 }
             //if not then it is a leaf so we count it
             else{count++;
@@ -565,36 +580,18 @@ function count_leaves2(d,n){
     else {sel_ids.push(d.data.did);}
     count2=count; count=0;
     Tcount = Tcount+count2;
-		// pts is array with point number to be changed
-		var pts = getPoints(sel_ids);
-		// change colour of the 3Dcell 
-		function newcol() {
-			if (d3.select("#Cells_checkbox").property("checked") && n>0 )
-				{return colorScale(n)}
-			else if (orig_col == "rgb(255, 255, 255)") {return orig_col }
-			else {return n <= 0 ? orig_col : colorScale(n)}
-			};
-	// change stroke colour of the 3Dcell
-		function newstrokecol() {
-			if (d3.select("#Cells_checkbox").property("checked") && n>0)
-				{return colorScale(n)}
-			else {return orig_stroke}
-			};
-		setColours(pts, newcol() );
-		setStroke(pts, newstrokecol() );
-		// return number of descendants cells
 		return(count2);
     }        
-function count_subleaves2(d,n){;
+function count_subleaves2(d){;
         for(var jj = 0; jj<d.children.length; jj++){
                 var xx = d.children[jj].data.did;
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
             if (d.children[jj].children){
-                count_subleaves2(d.children[jj],n);
+                count_subleaves2(d.children[jj]);
                 }
             else if (d.children[jj]._children){
-                count_subleaves2h(d.children[jj],n);
+                count_subleaves2h(d.children[jj]);
                 }
             //if not then it is a leaf so we count it
             else{count++;
@@ -603,99 +600,21 @@ function count_subleaves2(d,n){;
                 }
             }
     }
-function count_subleaves2h(d,n){;
+function count_subleaves2h(d){;
         for(var jj = 0; jj<d._children.length; jj++){
                var xx = d._children[jj].data.did;
             //if the current child in the for loop has children of its own
             //call recurse again on it to decend the whole tree
             if (d._children[jj]._children){
-                count_subleaves2h(d._children[jj],n);
+                count_subleaves2h(d._children[jj]);
                 }
             else if (d._children[jj].children){
-                count_subleaves2(d._children[jj],n);
+                count_subleaves2(d._children[jj]);
                 }
             //if not then it is a leaf so we count it
             else{count++;
 								sel_ids.push(xx);
               //   console.log(count + " " + xx)
-                }
-            }
-    }
-
-//#############FUNCTIONS TO COUNT ONLY ALL DAUGHTERS OF A GIVEN NODE##################
-//###################################################################################
-var count;
-function count_leaves(d){
-    count = 0;
-    if(d.children){   //go through all its children
-        for(var ii = 0; ii<d.children.length; ii++){
-            //expand(d.children[ii])
-
-            //if the current child in the for loop has children of its own
-            //call recurse again on it to decend the whole tree
-            if (d.children[ii].children){
-                count_subleaves(d.children[ii]);
-                }
-            else if (d.children[ii]._children){
-                count_subleavesh(d.children[ii]);
-                } 
-            //if not then it is a leaf so we count it
-            else{
-                count++;
-                  //     console.log(count + " " + xx)
-                }
-            }
-        }
-    if(d._children){   //go through all its children
-        for(var ii = 0; ii<d._children.length; ii++){
-            //expand(d._children[ii])
-            if (d._children[ii]._children){
-                count_subleavesh(d._children[ii]);
-                //console.log(d._children[ii])
-                }
-            else if (d._children[ii].children){
-                count_subleaves(d._children[ii]);
-                //console.log(d._children[ii])
-                }
-
-            //if not then it is a leaf so we count it
-            else{count++;
-                }
-            }
-        }
- //   d.children.forEach(collapse);
-    count2=count; count=0;
-    return(count2);
-    }        
-function count_subleaves(d){;
-        for(var jj = 0; jj<d.children.length; jj++){
-            //if the current child in the for loop has children of its own
-            //call recurse again on it to decend the whole tree
-            if (d.children[jj].children){
-                count_subleaves(d.children[jj]);
-                }
-            else if (d.children[jj]._children){
-                count_subleavesh(d.children[jj]);
-                }
-            //if not then it is a leaf so we count it
-            else{count++;
-                 //console.log(count + " " + xx)
-                }
-            }
-    }
-function count_subleavesh(d){;
-        for(var jj = 0; jj<d._children.length; jj++){
-            //if the current child in the for loop has children of its own
-            //call recurse again on it to decend the whole tree
-            if (d._children[jj]._children){
-                count_subleavesh(d._children[jj]);
-                }
-            else if (d._children[jj].children){
-                count_subleaves(d._children[jj]);
-                }
-            //if not then it is a leaf so we count it
-            else{count++;
-//                 console.log(count + " " + xx)
                 }
             }
     }
@@ -752,7 +671,7 @@ dropdownButton.on("click", function(d) {
         .style('stroke-width', 1.5)
         .style("stroke", color(ci));
     
-    count_leaves2(xxx[0],-1);
+    paint_daughters(xxx[0]);
     
     console.log(selectedOption);
 })

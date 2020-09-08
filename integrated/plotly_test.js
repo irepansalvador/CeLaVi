@@ -158,7 +158,7 @@ function Coords_upload_button(el, callback) {
 				} else {
 			// --- test if cell IDs are in the lineage tree //
 			//console.log(id_t);
-			count_leaves2(root,0);
+			count_leaves2(root);
 			reset_cell_cols();
 			if (containsAll(id_t,sel_ids))
 				{console.log("all cell IDs found");
@@ -352,7 +352,7 @@ function setStroke(points,new_colour) {
 
 
 function setAlpha(points,new_alpha) {
-	//console.log(points)
+//	console.log(points)
 	// get current value of camera, so it can be set again
 	myview = plotly_scatter_div.layout.scene.camera;
 	// For each point change the colour value for layout
@@ -511,8 +511,8 @@ function show_anc_cols(d) {
 				.filter(function(d) 
 					{return d.data.did == selections[jj]});
 			// call the function to paint cells from diff levels of relationship
-			var mycol =  (max_H*0.3) + (nj*norm_cols); 
-			count_leaves2(node_j[0],mycol);
+			var mycol =  (max_H*0.3) + (nj*norm_cols);
+			paint_daughters_HM(node_j[0],mycol);
 			console.log("This should be a loop"+jj,node_j[0], mycol) 
 			d3.selectAll("#area1").selectAll("#"+selections[jj])
 				.select("circle")

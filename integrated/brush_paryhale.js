@@ -293,7 +293,10 @@ function depth_mark(d){
 		var nn = d3.selectAll("#area1")
 			.select("#"+D);
 		// then the 
-		nn.each(function(d) {count_leaves2(d,0)});
+		nn.each(function(d) {
+			paint_daughters(d);
+			});
+
 		console.log("looking for "+ nn)   
 		});
 	}
@@ -356,7 +359,7 @@ function slided(d) {
 		var nn = d3.selectAll("#area1")
 			.select("#"+D);
 		// then the 
-		nn.each(function(d) {count_leaves2(d,0)});
+		nn.each(function(d) {paint_daughters(d)});
 		console.log("looking for "+ nn)   
 		});
 	}

@@ -211,10 +211,6 @@
 				<!--	<div class="col-sm-1.5">
 								<button id="Reset_cols_Tree" title="Set node colour in the cell lineage to default"  type="button" class="btn btn-success" >Reset cols</button> 
 							</div> --> 
-							<div class="col-sm-2"title="Hover the mouse on the cells in the lineage viewer to show
-its descendants in the 3D viewer" >
-								<label class="checkbox"><input id="Tree_checkbox" type="checkbox" value="">Show Descendants</label>
-							</div>
 							<div class ="col-sm-2" id="controls_1">
 								<label for="saved_clones">Saved clones:</label>
 								<select id="saved_clones">
