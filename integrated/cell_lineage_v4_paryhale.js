@@ -72,6 +72,17 @@ var double_element = [];
 
 var menu = [
 	{
+	title: function(d){
+			if (d.children)  {return "Collapse node " + d.data.did}
+			if (d._children) {return "Expand node" + d.data.did}
+			else {return d.data.did + " (terminal node)"}
+		}, 
+	action: function(d, i) {
+		console.log('Trying to collapse/expand this node: ' + d.data.did);
+		click(d);
+		}
+	},
+	{
 	title: 'Show descendants',
     action: function(d, i) {
 	console.log('The data for this circle is: ' + d.data.did);
@@ -100,14 +111,8 @@ var menu = [
         }
 	},
     	{
-	title: 'Save clone',
-    action: function(d, i) {
-        yy = d.data.did;
-        options = options +1;
-        console.log('Test: ' + yy)
-        dropMenu = [options + " " + yy];
-        update_dropMenu();
-        }
+	title: function(d) {return 'Save clone ' + d.data.did},
+	action: function(d) {save_clone(d)}
 	},
     {
 	title: 'Find common ancestor',
@@ -166,7 +171,7 @@ var myroot = JSON.parse(json);
 	my_slider();
 	//Nested_rels_HMscale(max_H);
 	update(root);
-	resetAll();
+	//resetAll();
 }
 function load_dataset_newick(newick){
 	root = d3.hierarchy(newick);
@@ -184,7 +189,7 @@ function load_dataset_newick(newick){
 	my_slider();
 	//  Nested_rels_HMscale(max_H);
 	update(root);
-	resetAll();
+	//resetAll();
 }
 
 d3.select(self.frameElement).style("height", "300px");
@@ -295,39 +300,25 @@ function update(source) {
       .attr("transform", function(d) {
         return "translate(" + source.y0 + "," + source.x0 + ")";
         })
-      .on('click', click)
-      .on("mouseover.t", function(d) {
-          if (d3.select("#Tree_checkbox").property("checked"))
-            {
-						setAlpha(points_array, 0);
-						setAlphaStroke(points_array, 0.15);
-             div.style("opacity", .9)
-                .text(d.data.did + " "+count_leaves2(d,0) +" daughters")
-                .style("left", (d3.event.pageX + 10 ) + "px")	
-                .style("top", (d3.event.pageY - 28) + "px");
-						}
-					else if (show_BL==1) 
-						{div.style("opacity", .9)
-                .text(d.data.did + "; time="+d.blength)
-                .style("left", (d3.event.pageX + 10 ) + "px")	
-                .style("top", (d3.event.pageY - 28) + "px");
-						}
-					else if (show_BL==0) 
-						{div.style("opacity", .9)
-                .text(d.data.did + "; depth="+d.depth)
-                .style("left", (d3.event.pageX + 10 ) + "px")	
-                .style("top", (d3.event.pageY - 28) + "px");
-						}
-
+//      .on('click', click)
+			.on("click", function(d) {
+				d3.selectAll("#area1").selectAll("g").select("#"+d.data.did).select("circle")
+					.style("fill", randomColour() );
+				count_leaves2(d,0);
+				})
+			.on("mouseover.t", function(d) {
+				setAlpha(points_array, 0);
+				setAlphaStroke(points_array, 0.15);
+				div.style("opacity", .9)
+					.text(d.data.did + ": "+count_leaves2(d,0) +" daughters")
+					.style("left", (d3.event.pageX + 10 ) + "px")	
+					.style("top", (d3.event.pageY - 28) + "px");
+				})
+			.on("mouseout.c", function (d) {
+				console.log("highlighting cells")
+				setAlphaStroke(points_array, 1);
+				setAlpha(points_array, 1);
         })
-      .on("mouseout.c", function (d) {
-          if (d3.select("#Tree_checkbox").property("checked"))
-						{console.log("highlighting cells")
-						setAlphaStroke(points_array, 1);
-						setAlpha(points_array, 1);
-						}
-				//	else {reset_cell_cols()}
-          })
       .on("mouseout.t", function(d) {
          //  if (d3.select("#Tree_checkbox").property("checked")) {
             div.style("opacity", 0)
@@ -508,12 +499,23 @@ function collapseAll(){
 function resetAll(){
 	if (document.getElementById("Json_CLONES").checked == false)
 		{
-		expand(root); 
-    root.children.forEach(collapse);
-//    collapse(root);
-    update(root);
+		// expand all cells
+		collapseAll();
+		setTimeout(function(){ expandAll(); }, 1000);
+//		expand(root); 
+//		root.children.forEach(collapse);
+//		update(root);
 		}
 	}
+
+function save_clone(d) {
+	yy = d.data.did;
+	options = options +1;
+	console.log('Test: ' + yy)
+	dropMenu = [options + " " + yy];
+	update_dropMenu();
+	}
+
 
 //###################################################################################
 //#############FUNCTIONS TO HIGHLIGHT ALL DAUGHTERS OF A GIVEN NODE##################
@@ -526,13 +528,6 @@ function count_leaves2(d,n){
             .select("circle").style("fill");
     orig_stroke =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
             .select("circle").style("stroke");
-		if (orig_col == "rgb(255, 255, 255)")
-			{
-			orig_col = "rgb(139, 0, 139)";
-			d3.selectAll("#area1").selectAll("g").select("#"+d.data.did).select("circle")
-        .style("fill","rgb(139, 0, 139)");
-			}
-//    console.log("my orig col is " + orig_col);
     count = 0;
     if(d.children){   //go through all its children
         for(var ii = 0; ii<d.children.length; ii++){
@@ -554,14 +549,11 @@ function count_leaves2(d,n){
         }
     if(d._children){   //go through all its children
         for(var ii = 0; ii<d._children.length; ii++){
-            //expand(d._children[ii])
             if (d._children[ii]._children){
                 count_subleaves2h(d._children[ii],n);
-                //console.log(d._children[ii])
                 }
             else if (d._children[ii].children){
                 count_subleaves2(d._children[ii],n);
-                //console.log(d._children[ii])
                 }
             //if not then it is a leaf so we count it
             else{count++;
@@ -570,40 +562,23 @@ function count_leaves2(d,n){
                 }
             }
         }
-    else {//count++;
-         var xx = "#"+d.data.did;
-          d3.selectAll("#area2").select(xx)
-            .attr('opacity', 10).attr('fill-opacity', 1).attr("fill", "rgb(0,0,255)");
-          d3.selectAll("#area2").select(xx).attr("r", my_rad);
-  //          console.log(xx)
-					}
- //   d.children.forEach(collapse);
+    else {sel_ids.push(d.data.did);}
     count2=count; count=0;
     Tcount = Tcount+count2;
-    //return(count2);
-	//	console.log(count2, orig_col,n);
 		// pts is array with point number to be changed
 		var pts = getPoints(sel_ids);
 		// change colour of the 3Dcell 
 		function newcol() {
 			if (d3.select("#Cells_checkbox").property("checked") && n>0 )
 				{return colorScale(n)}
-			else if (d3.select("#Cells_checkbox").property("checked") && n<=0 )
-				{if (orig_col == "rgb(255, 255, 255)")
-					{return "rgb(70, 150, 180)"}
-				else {return orig_col}
-				}
-			else if (orig_col == "rgb(255, 255, 255)") {return "rgb(70, 150, 180)"}
+			else if (orig_col == "rgb(255, 255, 255)") {return orig_col }
 			else {return n <= 0 ? orig_col : colorScale(n)}
 			};
 	// change stroke colour of the 3Dcell
 		function newstrokecol() {
 			if (d3.select("#Cells_checkbox").property("checked") && n>0)
 				{return colorScale(n)}
-			else if (d3.select("#Cells_checkbox").property("checked") && n<=0  && orig_col != "rgb(255, 255, 255)")
-				{return orig_stroke}
-			else if (d3.select("#Cells_checkbox").property("checked")==false)
-				{return orig_stroke}
+			else {return orig_stroke}
 			};
 		setColours(pts, newcol() );
 		setStroke(pts, newstrokecol() );
@@ -746,7 +721,7 @@ var findCommonElements= function(arrs) {
 
 // initialise the menu
 var dropdownButton = d3.select("#saved_clones")
-var dropMenu = ["Saved clones "]
+var dropMenu;
 var options = 0;
 // add the options to the button
 var update_dropMenu = function() {
@@ -760,7 +735,7 @@ dropdownButton // Add a button
 }
 
 // When the button is changed, run the updateChart function
-dropdownButton.on("change", function(d) {
+dropdownButton.on("click", function(d) {
     // recover the option that has been chosen
     var selectedOption = d3.select(this).property("value")
     var res = selectedOption.split(" ");
@@ -782,7 +757,14 @@ dropdownButton.on("change", function(d) {
     console.log(selectedOption);
 })
 
-update_dropMenu();
+function resetClones() {
+	options = 0;
+	var x =  dropdownButton._groups[0][0].options.length;
+	for (var i = 0; i < x; i++)
+		{ dropdownButton._groups[0][0].options.remove(0)}
+	}
+
+//update_dropMenu();
 
 function onlyUnique(value, index, self) { 
     return self.indexOf(value) === index;

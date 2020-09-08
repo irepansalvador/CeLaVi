@@ -210,7 +210,7 @@ function load_dataset_2(csv) {
 		z_t.push(d.Z);
 		id_t.push(d.cell);
 		cell_col.push("rgb(255,255,255)");
-		line_col.push("rgb(0,0,139)");
+		line_col.push("rgb(0,0,255)");
 		cell_alpha.push(1)
 		c_size.push(9);
 		points_array.push(i);
@@ -410,7 +410,7 @@ d3.select("#reset").on("click", function() {
 
 function reset_cell_cols() {
 	setColours(points_array, "rgb(255,255,255)");
-	setStroke(points_array, "rgb(0,0,139)");
+	setStroke(points_array, "rgb(0,0,255)");
 	if (data_meta !== 'undefined')
 		{
 		// select all the rows of the table and extract the data
