@@ -165,10 +165,10 @@
 		<!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
 			<div id= "controls_1a" align="left" class="svg-buttons">
 				<div class="row">
-					<div  data-step="8" data-intro="These options allow you to control the visualisation of the lineage tree" class="col-sm-7 mb-2">
-						<a href="#" data-toggle="tooltip" data-placement="left" title="The buttons in this section control the display of the lineage tree">Cell lineage tree controls:</a>
+					<div  data-step="8" data-intro="These options allow you to control the visualisation of the lineage tree" class="col-sm-4 mb-2">
+						<h6> Cell lineage tree controls: </h6>
 						<div class="row">
-							<div class="col-sm-2.5" align="right">
+							<div align="left">
 								<div class="btn-group">
   								<button onmousedown="zoom_in_start()"  onmouseup="end()" id="zoom_in_tree" title="Expand the tree horizontally" type="button" class="btn btn-success"><></button>
 									<button onmousedown="zoom_out_start()" onmouseup="end()" id="zoom_out_tree" title="Contract the tree horizontally" type="button" class="btn btn-success">><</button>
@@ -176,10 +176,10 @@
   								<button onmousedown="pan_up_start()"   onmouseup="end()" id="pan_up_tree" title="Contract the tree vertically" type="button" class="btn btn-success">^</button>
 								</div>
 							</div>
-							<div class="col-sm-1.5">
+							<div>
 								<button id="BranchLenghts" title="Alternate between showing Tree depth (default) and Branch Lenghts" type="button" onclick="show_bl()" class="btn btn-success" >Show BL</button> 
 							</div>
-							<div class="col-sm-1.5">
+							<div>
 								<button id="Reset"  title= "Click to reset to the default topology 
 (only showing daughters of root)" type="button" onclick="resetAll()" class="btn btn-success" >Reset Topology</button> 
 							</div>
@@ -192,32 +192,55 @@
 									</div>
 								</div>
 							</div>
-							<div class ="col-sm-2" id="controls_1">
+						</div>
+					</div>
+
+					<div  data-step="9" data-intro="These options allow you to save clones" class="col-sm-3 mb-2">
+						<h6> Clones Controls: </h6>
+						<div class="row">
+							<div class ="col-sm-6" >
 								<label for="saved_clones">Saved clones:</label>
 								<select id="saved_clones">
 								</select> 
 							</div>
-							<div class="col-sm-1">
+							<div class="col-sm-3" align="left">
 								<button id="Reset_clones"  title= "Click to reset the list of saved clones" type="button" onclick="resetClones()" class="btn btn-info" >Reset Clones</button> 
+							</div>
+							<div class="col-sm-2">
+								<button id="reset" title="Set the colour of the cells back to default (white)" type="button" class="btn btn-info">Reset Colors</button>
 							</div>
 						</div>
 					</div>
+
+
 					<!-- RIGHT PART OF THE CONTROLS, FOR CELLS IN 3D -->
-					<div data-step="9" data-intro="And these allow you to control the visualisation of the cells in 3D"  class="col-sm-5 mb-2">
-						<a href="#" data-toggle="tooltip" data-placement="right" title="Zoom and Pan cells in 3D">3D cells controls:</a>
+					<div data-step="10" data-intro="And these allow you to control the visualisation of the cells in 3D"  class="col-sm-5 mb-2">
+						<h6> 3D cells controls: </h6>
 						<div class="row">
 							<div class="col-sm-3">
-								<button id="reset" title="Set the colour of the cells back to default (white)" type="button" class="btn btn-info">Reset Colors</button>
-							</div>
-							<div class="col-sm-3">
+								<a> Cell size</a>
 								<input type="number" class="form-control" id="CellSize" placeholder="" value="9" min="1" step="1" title="Size for rendering cells"  required>
 							</div>
 							<div class="col-sm-3">
+								<a> Stroke width </a>
 								<input type="number" class="form-control" id="CellStroke" placeholder="" value="1" min="1" step="1" max="5" title="Stroke width"  required>
 							</div>
 							<div class="col-sm-2" title="This option requires that the lineage tree is completely expanded" >
 								<input id="Cells_checkbox" type="checkbox" value="">Show Lineage
 							</div>
+							<div class="col-sm-2">
+								<div class="dropdown">
+									<button class="dropbtn">Save Image</button>
+									<div class="dropdown-content">
+										<a href="#" onclick="Save3DPNG()">PNG</a>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-2" title="" >
+								<input id="Show_grid" type="checkbox" value="">Show Axes
+							</div>
+
+
 						</div>
 					</div>
 				</div>        

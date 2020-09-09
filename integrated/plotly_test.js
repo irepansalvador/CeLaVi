@@ -105,9 +105,35 @@ var config = {
 		width: 900,
 		scale: 1 // Multiply title/legend/axis/canvas sizes by this factor
 		},
-	responsive: true, displayModeBar: true, displaylogo: false
+	responsive: true,
+	displayModeBar:false ,
+	displaylogo: false
 //	modeBarButtonsToRemove: ['tableRotation']
 	};
+
+function Save3DPNG () {
+	Plotly.downloadImage(plotly_scatter_div, config.toImageButtonOptions);
+	}
+
+var show_axes_button = document.querySelector("input[id=Show_grid");
+show_axes_button.addEventListener( 'change', function() {
+	// if select the option of "show lineage" display warning
+	if (document.getElementById("Show_grid").checked == true)
+		{
+		layout.scene.xaxis.showbackground = true;
+		layout.scene.yaxis.showbackground = true;
+		layout.scene.zaxis.showbackground = true;
+		Plotly.update("area2",data,layout,0)
+		}
+	else if (document.getElementById("Show_grid").checked == false)
+		{
+		layout.scene.xaxis.showbackground = false;
+		layout.scene.yaxis.showbackground = false;
+		layout.scene.zaxis.showbackground = false;
+		Plotly.update("area2",data,layout,0);
+		}
+	});
+
 
 var my_view;
 var Npoints;   // Number of cells
