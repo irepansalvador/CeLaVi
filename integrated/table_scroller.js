@@ -139,8 +139,17 @@ function load_table(data_meta) {
 			.attr("height", "24")
 			.attr("fill-opacity", 0.55)
 			.attr("cursor" , "pointer")
+			.on("mouseover.t", function(d) {
+				setAlpha(points_array, 0);
+				setAlphaStroke(points_array, 0.15);
+				highlightMetadata(d);
+				})
+			.on("mouseout.c", function (d) {
+				setAlphaStroke(points_array, 1);
+				setAlpha(points_array, 1);
+				})
 			.on("click", function(d) {
-					plotMetadata(d)})
+				plotMetadata(d)})
 			.attr("clicked", 0)
 			.attr("stroke", "rgb(153, 153, 153)")
 			.attr("stroke-width", "2px");
@@ -157,6 +166,15 @@ function load_table(data_meta) {
 			.text(function (d) {
 				return (d);})
 			.attr("cursor" , "pointer")
+			.on("mouseover.t", function(d) {
+				setAlpha(points_array, 0);
+				setAlphaStroke(points_array, 0.15);
+				highlightMetadata(d);
+				})
+			.on("mouseout.c", function (d) {
+				setAlphaStroke(points_array, 1);
+				setAlpha(points_array, 1);
+				})
 			.on("click", function(d) {
 				plotMetadata(d)})
 	};
@@ -214,6 +232,21 @@ function load_table(data_meta) {
 	}
 };
 
+function highlightMetadata(d){
+	if (document.getElementById("Cells_checkbox").checked == true)
+		{document.getElementById("Cells_checkbox").click()}
+	var cells=[];
+	console.log(d)
+	data_meta.forEach(function(dd)
+		{if (d==dd.type) 
+			{cells.push(dd.cell)}
+		})
+	console.log(cells)
+	var pts = getPoints(cells);
+	// make cells visible  
+	setAlpha(pts, 1);
+	setAlphaStroke(pts, 1);
+	}
 
 function plotMetadata(d){
 	if (document.getElementById("Cells_checkbox").checked == true)

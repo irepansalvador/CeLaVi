@@ -20,8 +20,18 @@ function enter_link() {
 };
 
 var div = d3.select("body").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
+	.attr("class", "tooltip")
+	.style("opacity", 0);
+
+var circleContainer = d3.select("body").append("div")
+	.attr("class", "circleCol")
+	.attr("opacity", 0);
+
+var circle = circleContainer.append("svg").append("circle")
+	.attr("cx", 50)
+	.attr("cy",50)
+	.attr("r",10);
+//	.style("opacity", 0);
 
 var margin = {top: 15, right: 15, bottom:5, left: 30};
 
@@ -494,18 +504,11 @@ function resetAll(){
 		}
 	}
 
-function save_clone(d) {
-	yy = d.data.did;
-	options = options +1;
-	console.log('Test: ' + yy)
-	dropMenu = [options + " " + yy];
-	update_dropMenu();
-	}
-
 
 //###################################################################################
 //#############FUNCTIONS TO HIGHLIGHT ALL DAUGHTERS OF A GIVEN NODE##################
 //###################################################################################
+
 var count; var Tcount; var orig_col; var orig_stroke;
 var sel_ids;
 
@@ -637,6 +640,32 @@ var findCommonElements= function(arrs) {
 }
 
 ///  ADD dropdown menu
+var my_clone;
+var clones_list = {
+		saved : {}
+	}
+
+function save_clone(d) {
+	my_clone = d.data.did;
+	$('#example-button').click();
+	}
+
+$('#example-button').colpick({
+	flat:false,
+	layout:'rgbhex',
+	onSubmit:function(hsb,hex,rgb,el,bySetColor) {
+		$(el).val('#'+hex);
+		$(el).colpickHide();
+		var result = hexToRgb("#"+hex);
+		var RGBcol  = "rgb("+ result.r + "," + result.g + ","  + result.b + ")" ;
+		console.log(RGBcol);
+		options = options +1;
+		console.log('Test: ' + my_clone)
+		dropMenu = [options + " " + my_clone];
+		clones_list.saved[options] = RGBcol;
+		update_dropMenu();
+		}
+	});
 
 // initialise the menu
 var dropdownButton = d3.select("#saved_clones")
@@ -649,35 +678,50 @@ dropdownButton // Add a button
  	.data(dropMenu)
   .enter()
 	.append('option')
+
   .text(function (d) { return d; }) // text showed in the menu
   .attr("value", function (d) { return d; }) // corresponding value returned by the button
 }
 
 // When the button is changed, run the updateChart function
 dropdownButton.on("click", function(d) {
-    // recover the option that has been chosen
-    var selectedOption = d3.select(this).property("value")
-    var res = selectedOption.split(" ");
-    ci = res[1];
-    
-    
-    var xxx = d3.selectAll("#area1").selectAll("g")
-            .select("circle").data()
-            .filter(function(d) {return d.data.did == res[1]});
-    
-    d3.selectAll("#area1").select("#"+xxx[0].data.did).select("circle")
-        .style("fill", color(ci))
-        .attr('fill-opacity', 0.9)
-        .style('stroke-width', 1.5)
-        .style("stroke", color(ci));
-    
-    paint_daughters(xxx[0]);
-    
-    console.log(selectedOption);
-})
+	// recover the option that has been chosen
+	var selectedOption = d3.select(this).property("value")
+	var res = selectedOption.split(" ");
+	var picked = res[1];
+	var idx = res[0];
+	var xxx = d3.selectAll("#area1").selectAll("g")
+		.select("circle").data()
+		.filter(function(d) {return d.data.did == picked});
+	d3.selectAll("#area1").select("#"+xxx[0].data.did).select("circle")
+		.style("fill", clones_list.saved[idx] )
+		.attr('fill-opacity', 0.9)
+		.style('stroke-width', 1.5);
+//		.style("stroke", clones_list.saved[idx]);
+	paint_daughters(xxx[0]);
+	console.log(selectedOption);
+	})
+
+dropdownButton.on("mouseover", function(d) {
+	// recover the option that has been chosen
+	var selectedOption = d3.select(this).property("value")
+	var res = selectedOption.split(" ");
+	var picked = res[1];
+	var idx = res[0];
+	circle.style("fill", clones_list.saved[idx]);
+	circleContainer.style("opacity", 1)
+		.style("left", (d3.event.pageX  ) + "px")   
+		.style("top", (d3.event.pageY - 40) + "px")
+	})
+	.on("mouseout", function(d) {
+		circleContainer.style("opacity", 0)
+		.style("left", (d3.event.pageX  ) + "px")   
+		.style("top", (d3.event.pageY - 40) + "px")
+	})
 
 function resetClones() {
 	options = 0;
+	clones_list.saved = {};
 	var x =  dropdownButton._groups[0][0].options.length;
 	for (var i = 0; i < x; i++)
 		{ dropdownButton._groups[0][0].options.remove(0)}

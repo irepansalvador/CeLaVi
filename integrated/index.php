@@ -8,6 +8,7 @@
 	<link href="style_2.css" rel="stylesheet" type="text/css" > 
 	<link rel="stylesheet" href="./lib/d3-context-menu.css" />
 	<link rel="stylesheet" href="./lib/introjs.css"/>
+	<link rel="stylesheet" href="./lib/colpick.css"/>
 	<script src="./lib/d3.v3.js"></script> 
 	<!--	<script src="https://d3js.org/d3.v3.min.js"></script> -->
 	<script src="./lib/d3.v4.min.js"></script>  <!--3d cells-->
@@ -19,6 +20,7 @@
 	<script src="https://d3js.org/d3-color.v1.min.js"></script>
 	<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
 	<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+	<script src="./lib/colpick.js"></script>
 	<script src="./lib/virtualscroller.js"></script>
 	<!-- Libs to export tree to png -->
 	<script src="./lib/canvas-toBlob.js"></script>
@@ -65,6 +67,10 @@
 					<span style="display: block;">Visit Tutorial</span>
 					</a>
 				</div>
+				<div class="col-sm-2 mb-2" style="display: none">
+					<button id="example-button" value="#00FF00">Color Picker</button>
+					
+				</div>
 				<div class="col-sm-2 mb-2">
 					<a class="btn btn-large btn-primary" href="javascript:void(0);" onclick="javascript:ShowINPUT(); introJs().start();">Quick Tour</a>
 				</div>
@@ -86,7 +92,7 @@
 				<div class="row">
 					<div class="col-sm-2 mb-2">
 						<a href="#" data-toggle="tooltip" data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file:</label></a>
-						<div data-step="1" data-intro="To start, select a lineage tree file (newick or json format). You can download the TEST files clicking the link under this box or clicking on Load Exammple files" class="custom-file mb-3" id="temp">
+						<div data-step="1" data-intro="To start, select a lineage tree file (newick or json format). You can download the TEST files clicking the link under this box or clicking on Load Example files. To exit click 'skip' or click outside this box" class="custom-file mb-3" id="temp">
 							<input type="file" class="custom-file-input" id="JSON_uploader" name="TREE_FILE">
 							<label class="custom-file-label" for="JSON_uploader">Upload tree (select format)</label>
 						</div>
