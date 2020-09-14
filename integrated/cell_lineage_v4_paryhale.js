@@ -15,23 +15,22 @@ function zoom() {
 // constrained within the scaleExtents
 var zoomListener = d3.behavior.zoom().scaleExtent([0.3,1.5]).on("zoom", zoom);
 
-function enter_link() {
-	$('#splashscreen').fadeOut(500);
-};
+//function enter_link() {
+//	$('#splashscreen').fadeOut(500);
+//};
 
 var div = d3.select("body").append("div")	
 	.attr("class", "tooltip")
 	.style("opacity", 0);
 
-var circleContainer = d3.select("body").append("div")
-	.attr("class", "circleCol")
-	.attr("opacity", 0);
+//var circleContainer = d3.select("body").append("div")
+//	.attr("class", "circleCol")
+//	.attr("opacity", 0);
 
-var circle = circleContainer.append("svg").append("circle")
-	.attr("cx", 50)
-	.attr("cy",50)
-	.attr("r",10);
-//	.style("opacity", 0);
+//var circle = circleContainer.append("svg").append("circle")
+//	.attr("cx", 50)
+//	.attr("cy",50)
+//	.attr("r",10);
 
 var margin = {top: 15, right: 15, bottom:5, left: 30};
 
@@ -700,24 +699,26 @@ dropdownButton.on("click", function(d) {
 //		.style("stroke", clones_list.saved[idx]);
 	paint_daughters(xxx[0]);
 	console.log(selectedOption);
+	d3.select("#square_clone").style("fill", clones_list.saved[idx])
+
 	})
 
-dropdownButton.on("mouseover", function(d) {
-	// recover the option that has been chosen
-	var selectedOption = d3.select(this).property("value")
-	var res = selectedOption.split(" ");
-	var picked = res[1];
-	var idx = res[0];
-	circle.style("fill", clones_list.saved[idx]);
-	circleContainer.style("opacity", 1)
-		.style("left", (d3.event.pageX  ) + "px")   
-		.style("top", (d3.event.pageY - 40) + "px")
-	})
-	.on("mouseout", function(d) {
-		circleContainer.style("opacity", 0)
-		.style("left", (d3.event.pageX  ) + "px")   
-		.style("top", (d3.event.pageY - 40) + "px")
-	})
+//dropdownButton.on("mouseover", function(d) {
+//	// recover the option that has been chosen
+//	var selectedOption = d3.select(this).property("value")
+//	var res = selectedOption.split(" ");
+//	var picked = res[1];
+//	var idx = res[0];
+//	circle.style("fill", clones_list.saved[idx]);
+//	circleContainer.style("opacity", 1)
+//		.style("left", (d3.event.pageX  ) + "px")   
+//		.style("top", (d3.event.pageY - 40) + "px")
+//	})
+//	.on("mouseout", function(d) {
+//		circleContainer.style("opacity", 0)
+//		.style("left", (d3.event.pageX  ) + "px")   
+//		.style("top", (d3.event.pageY - 40) + "px")
+//	})
 
 function resetClones() {
 	options = 0;
@@ -725,6 +726,7 @@ function resetClones() {
 	var x =  dropdownButton._groups[0][0].options.length;
 	for (var i = 0; i < x; i++)
 		{ dropdownButton._groups[0][0].options.remove(0)}
+	d3.select("#square_clone").style("fill", "#bccbde");
 	}
 
 //update_dropMenu();

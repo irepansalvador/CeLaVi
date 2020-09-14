@@ -24,6 +24,10 @@
 	right:50%; /* added */
 }
 
+#name {
+	text-align: center;
+	}
+
 #splashscreen {
 	position:absolute;
 	top:0;

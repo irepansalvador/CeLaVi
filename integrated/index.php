@@ -37,14 +37,26 @@
 	<script src="./lib/papaparse.min.js"></script>
 </head>
 
-<body>
-	<!-- Splash screen -->
+<body onload="introJs().start();">
+	<!-- Splash screen 
 	<div id="splashscreen">
 		<img src="CeLaVi_welcome.png" onclick="enter_link(); javascript:introJs().start();   " />
-	</div>	
+	</div> -->
 	<div id= "container" class="svg-container">
-		<h3><i>CeLaVi:</i> Cell Lineage interactive Visualisation</h3>
-		<h6> <i> by Irepan Salvador-Martinez et al.</i> </h6>
+		<div class="row">
+			<div class="col-sm-1" >
+				<img src="./lib/CeLaVi_v4.png" alt="CeLaVi_logo" width="90" style="padding-bottom: 5px;">
+			</div>
+			<div class="col-sm-10">
+				<div id="name">
+					<h2><i>CeLaVi:</i> Cell Lineage interactive Visualisation</h2>
+					<p> <i> by Irepan Salvador-Martinez et al.</i> </p>
+				</div>
+			</div>
+			<div class="col-sm-1" >
+				<img src="./lib/CeLaVi_v4.png" alt="CeLaVi_logo" width="90" style="padding-bottom: 5px;">
+			</div>
+		</div>
 		<!-- Button to hide INPUT -->
 		<div id="container_INPUT">
 			<div class="row">
@@ -206,8 +218,13 @@
 						<div class="row">
 							<div class ="col-sm-6" >
 								<label for="saved_clones">Saved clones:</label>
-								<select id="saved_clones">
-								</select> 
+								<div class "row">
+									<svg width="30" height="30">
+										<rect id="square_clone" width="25" height="25" style="fill:#bccbde;stroke-width:3;stroke:rgb(0,0,0)" />
+									</svg>  
+									<select id="saved_clones">
+									</select> 
+								</div>
 							</div>
 							<div class="col-sm-3" align="left">
 								<button id="Reset_clones"  title= "Click to reset the list of saved clones" type="button" onclick="resetClones()" class="btn btn-info" >Reset Clones</button> 

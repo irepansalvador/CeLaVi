@@ -30,7 +30,7 @@ function Examples(e)
 	// make tooltip invisible
 	div.style("opacity", 0)
 		.text('');
-
+	resetClones();
 	console.log(e);
 	var tree_file;
 	var cells3D_file;
