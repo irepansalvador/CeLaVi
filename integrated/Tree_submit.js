@@ -1,3 +1,8 @@
+var fileTypes = ['nw', 'newick', 'json'];  //acceptable file types
+var tree_format;
+var Abs_BL = 2;
+//var Abs_Rel = "no";
+
 var treefile = document.getElementById('JSON_uploader');
 start_files();
 // disable tree options if tree is not loaded yet
@@ -6,9 +11,7 @@ document.getElementById("zoom_out_tree").disabled = true;
 document.getElementById("pan_down_tree").disabled = true;
 document.getElementById("pan_up_tree").disabled = true;
 document.getElementById("BranchLenghts").disabled = true;
-//document.getElementById("CollapseAll").disabled = true;
 document.getElementById("Reset").disabled = true;
-//document.getElementById("Reset_cols_Tree").disabled = true;
 
 // disable 3d options if cells are not loaded 
 document.getElementById("reset").disabled = true;
@@ -16,9 +19,8 @@ document.getElementById("CellSize").disabled = true;
 document.getElementById("CellStroke").disabled = true;
 document.getElementById("Cells_checkbox").disabled = true;
 
-
 function activate_tree_controls() {
-		var selectobject = document.getElementById("saved_clones");
+	var selectobject = document.getElementById("saved_clones");
 		for (var i=selectobject.length-1; i>0; i--) {
 			if (selectobject[i].value !== 'Saved clones')
 				{selectobject[i].remove(i);}
@@ -26,22 +28,19 @@ function activate_tree_controls() {
 	d3.select("#area1").select("h6").text("");
 	d3.select('.status').remove();
 		//ENABLE  tree options if tree is loaded yet
-	var tree_format = $("input[name='Tree_INPUT']:checked").val();
+//	var tree_format = $("input[name='Tree_INPUT']:checked").val();
 	if (tree_format=="json" || "newick")
 		{
 		document.getElementById("zoom_in_tree").disabled = false;
 		document.getElementById("zoom_out_tree").disabled = false;
 		document.getElementById("pan_down_tree").disabled = false;
 		document.getElementById("pan_up_tree").disabled = false;
-//		document.getElementById("CollapseAll").disabled = false;
 		document.getElementById("Reset").disabled = false;
-//		document.getElementById("Reset_cols_Tree").disabled = false;
 		// disable 3d options if cells are not loaded 
 		document.getElementById("reset").disabled = true;
 		document.getElementById("CellSize").disabled = true;
 		document.getElementById("CellStroke").disabled = true;
 		document.getElementById("Cells_checkbox").disabled = true;
-
 	if (Abs_BL < 2) {
 			document.getElementById("BranchLenghts").disabled = false;
 			}
@@ -49,30 +48,12 @@ function activate_tree_controls() {
 		document.getElementById("BranchLenghts").disabled = true;
 			}
 		}
-	if (tree_format=="clones") {
-		// disable tree options if tree is not loaded yet
-		document.getElementById("zoom_in_tree").disabled = true;
-		document.getElementById("zoom_out_tree").disabled = true;
-		document.getElementById("pan_down_tree").disabled = true;
-		document.getElementById("pan_up_tree").disabled = true;
-		document.getElementById("BranchLenghts").disabled = true;
-//		document.getElementById("CollapseAll").disabled = true;
-		document.getElementById("Reset").disabled = true;
-//		document.getElementById("Reset_cols_Tree").disabled = true;
-		document.getElementById("Cells_checkbox").disabled = true;
-		}
 	}
 
 function start_files() {
 	document.getElementById('JSON_uploader').value = '';
 	document.getElementById("3Dcoord_uploader").value = "";
 	document.getElementById("3Dcoord_uploader").nextElementSibling.textContent = "Input coordinates file";
-	document.getElementById("Newick_TREE").disabled = true;
-	document.getElementById("Json_TREE").disabled = true;
-	document.getElementById("Json_CLONES").disabled = true;
-	document.getElementById("Abs_BL").disabled = true;
-	document.getElementById("Rel_BL").disabled = true;
-	document.getElementById("No_BL").disabled = true;
 	// remove button to hide/table
 	var x = document.getElementById("Hide_metadata");
 	if (x.style.display === "block") {x.style.display = "none";}
@@ -90,94 +71,27 @@ function start_files() {
 treefile.addEventListener('change', showtreeopts);
 function showtreeopts() 
 	{console.log("lets see");
-	var tmpname = document.getElementById("JSON_uploader").files[0].name;
+	var tmpname = treefile.files[0].name;
 	document.getElementById("JSON_uploader").nextElementSibling.textContent = tmpname;
-	document.getElementById("Newick_TREE").disabled = false;
-	document.getElementById("Json_TREE").disabled = false;
-	document.getElementById("Json_CLONES").disabled = false;
-	document.getElementById("Abs_BL").disabled = false;
-	document.getElementById("Rel_BL").disabled = false;
-	document.getElementById("No_BL").disabled = false;
-	}
-
-
-
-
-$(document).ready(function () 
-	{ 
-	$("#Json_TREE").click(function()
-		{console.log("you clicked json, restart file");
-//		$("input[name=TREE_FILE]").val("");
-		});
-	});
-$(document).ready(function () 
-	{ 
-	$("#Newick_TREE").click(function()
-		{console.log("you clicked Newick, restart file");
-//		$("input[name=TREE_FILE]").val("");
-		});
-	});
-$(document).ready(function ()
-	{ 
-	$("#Json_CLONES").click(function()
-		{console.log("you clicked clones, restart file");
-//		$("input[name=TREE_FILE]").val("");
-		});
-	});
-$(document).ready(function ()
-	{ 
-	$("#Rel_BL").click(function()
-		{console.log("you clicked for Relative Branch lenghts");
-		//set_bl();
-				//		Abs_BL = 0;
-//		update(root);
-		});
-	});
-$(document).ready(function ()
-	{ 
-	$("#Abs_BL").click(function()
-		{console.log("you clicked for Absolute Branch lenghts");
-		//set_bl();
-//		Abs_BL = 1;
-//		update(root);
-		});
-	});
-
-function HideINPUT()
-	{
-	var x = document.getElementById("input_submit");
-	var xx = document.getElementById("HideINPUT");
-	if (x.style.display === "none") {
-		x.style.display = "block";
-		xx.innerHTML="HIDE Input Options";
-		} 
-	else {
-		x.style.display = "none";
-		xx.innerHTML="SHOW Input Options";
+	// get the file extension
+	var extension = treefile.files[0].name.split('.').pop().toLowerCase(),
+		isSuccess = fileTypes.indexOf(extension) > -1;  //is extension in acceptable types
+	if (isSuccess) {
+		if (extension == "json") {
+			tree_format = "json"
+			Submit_Function(tree_format);
+			}
+		else if (extension == "nw" || extension == "newick") 
+			{
+			tree_format = "newick";
+			Submit_Function(tree_format);
+			}
+		console.log("file has correct extension "  + extension)
 		}
+	else {console.log("file has not correct extension")}
 	}
 
-function ShowINPUT()
-	{
-	var x = document.getElementById("input_submit");
-	var xx = document.getElementById("HideINPUT");
-	if (x.style.display === "none") {
-		x.style.display = "block";
-		xx.innerHTML="HIDE Input Options";
-		}
-	}
-
-function HideMETADATA()
-	{
-	var x = document.getElementById("metadata_table");
-  if (x.style.display === "none") {
-	    x.style.display = "block";
-	 } else {
-	    x.style.display = "none";
-	  }
-	}
-
-function Submit_Function() 
+function Submit_Function(tree_format) 
 	{
 	d3.select("#area1").select("h4").remove();
 	d3.select("#area1").select("#clonesdiv").remove();
@@ -202,17 +116,10 @@ function Submit_Function()
 	x.style.display = "none";
 	d3.select("#HM_scale").select("h5").text("");
 
-
 	// Get the format of the file
 	console.log("SUBMITTED!!!");
 	var uploader = document.getElementById("JSON_uploader"); 
 	console.log(uploader);
-
-	//Get the Branch length option
-	var BL_option = $("input[name='Abs_Rel']:checked").val(); 
-	if (BL_option == "abs") {Abs_BL = 1;}
-	if (BL_option == "rel") {Abs_BL = 0;}
-	if (BL_option == "no") {Abs_BL = 2;}
 
 	//Create a reader function depending on the format of the tree
 	var json_reader = new FileReader();
@@ -229,18 +136,9 @@ function Submit_Function()
 		var newick = Newick.parse(contents);
 		load_dataset_newick(newick);
 	};
-	var clones_reader = new FileReader();
-	clones_reader.onload = function(e) {
-		var contents = e.target.result;
-		// check if the format is correct
-		IsJsonString(contents);
-		// --------------------
-	load_dataset_clones(contents);
-	};
-
 	// function to call the reader 
 	function handleFiles() {
-		var tree_format = $("input[name='Tree_INPUT']:checked").val();
+//		var tree_format = $("input[name='Tree_INPUT']:checked").val();
 		console.log(tree_format);
 		if (tree_format=="json")
 			{
@@ -282,17 +180,6 @@ function Submit_Function()
 			console.log(file);
 			activate_tree_controls();
 		}
-		if (tree_format=="clones")
-			{
-			//d3.select("#area2").text("loading...");
-			var file = uploader.files[0];
-			try{clones_reader.readAsText(file);
-				} catch (e) {
-				alert("Error loading file\nHave you selected a file already?")
-				}
-			console.log(file);
-			activate_tree_controls();
-			}
 	};
 
 	// HERE I CALL THE READER FUNCTION
@@ -319,5 +206,42 @@ function IsJsonString(str) {
 			} else {
 			printError(e, false);
 			}
+		}
+	}
+
+function HideINPUT()
+	{
+	var x = document.getElementById("input_submit");
+	var xx = document.getElementById("HideINPUT");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+		xx.innerHTML="HIDE Input Options";
+		} 
+	else {
+		x.style.display = "none";
+		xx.innerHTML="SHOW Input Options";
+		}
+	}
+
+function ShowINPUT()
+	{
+	var x = document.getElementById("input_submit");
+	var xx = document.getElementById("HideINPUT");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+		xx.innerHTML="HIDE Input Options";
+		}
+	}
+
+function HideMETADATA()
+	{
+	var x = document.getElementById("metadata_table");
+	var xx= document.getElementById("HideMeta");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+		xx.innerHTML="Hide Cell Annotations";
+	} else {
+		x.style.display = "none";
+		xx.innerHTML="Show Cell Annotations";
 		}
 	}

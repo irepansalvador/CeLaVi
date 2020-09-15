@@ -13,7 +13,7 @@ function zoom() {
 	}
 // define the zoomListener which calls the zoom function on the "zoom" event
 // constrained within the scaleExtents
-var zoomListener = d3.behavior.zoom().scaleExtent([0.3,1.5]).on("zoom", zoom);
+var zoomListener = d3.behavior.zoom().scaleExtent([0.2,2]).on("zoom", zoom);
 
 //function enter_link() {
 //	$('#splashscreen').fadeOut(500);
@@ -214,7 +214,7 @@ var node_h = h/2;
 var treemap = d3.tree().size([node_h, w]);
 
 show_BL = 0;
-var Abs_BL;
+//var Abs_BL;
 var nodelen = 1;
 var nodelen2;
 var depth_label = 3;
@@ -255,11 +255,8 @@ function end() {
 	}
 
 d3.select("#Reset_cols_Tree").on("click", function() {
-	if (document.getElementById("Json_CLONES").checked == false)
-		{
-		reset_node_cols()
-		}
-});
+	reset_node_cols()
+	});
 
 // ----------------------------------------------
 
@@ -483,24 +480,15 @@ function expandAll(){
 }
 
 function collapseAll(){
-	if (document.getElementById("Json_CLONES").checked == false)
-		{
-    root.children.forEach(collapse);
-    collapse(root);
-		update(root);
-		}
+	root.children.forEach(collapse);
+	collapse(root);
+	update(root);
 	}
     
 function resetAll(){
-	if (document.getElementById("Json_CLONES").checked == false)
-		{
-		// expand all cells
-		collapseAll();
-		setTimeout(function(){ expandAll(); }, 1000);
-//		expand(root); 
-//		root.children.forEach(collapse);
-//		update(root);
-		}
+	// expand all cells
+	collapseAll();
+	setTimeout(function(){ expandAll(); }, 1000);
 	}
 
 
@@ -819,8 +807,8 @@ function set_bl(){
 
 
 function show_bl(){
-	if (document.getElementById("Json_CLONES").checked == false)
-		{
+//	if (document.getElementById("Json_CLONES").checked == false)
+//		{
 		if (show_BL == 1)
 			{show_BL = 0;
 			d3.select("#slider").selectAll("input").remove();
@@ -835,7 +823,7 @@ function show_bl(){
 			my_slider_2();
 			}
 		update(root);
-		}
+//		}
 	}
 function common_anc1(d) {
 	console.log("I have clicked in cell "+ d)

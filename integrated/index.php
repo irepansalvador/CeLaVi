@@ -87,7 +87,7 @@
 					<a class="btn btn-large btn-primary" href="javascript:void(0);" onclick="javascript:ShowINPUT(); introJs().start();">Quick Tour</a>
 				</div>
 				<div class="col-sm-2 mb-2" id="Hide_metadata" style="display: none">
-					<button onclick="HideMETADATA()">Hide/show Metadata</button>
+					<button id="HideMeta" onclick="HideMETADATA()">Hide Cell Annotations</button>
 				</div>
 				<div class="col-sm-2 mb-2" id="GOI_submit" style="display: none">
 					<form autocomplete="off" action="javascript:Submit_GOI();" >
@@ -100,54 +100,23 @@
 			</div>
 		</div>
 		<div id="container_INPUT">
-			<form action="javascript:Submit_Function();" id="input_submit"  method="submit" enctype="multipart/form-data">
+			<div id="input_submit">
 				<div class="row">
-					<div class="col-sm-2 mb-2">
+					<div class="col-sm-3 mb-2">
 						<a href="#" data-toggle="tooltip" data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file:</label></a>
 						<div data-step="1" data-intro="To start, select a lineage tree file (newick or json format). You can download the TEST files clicking the link under this box or clicking on Load Example files. To exit click 'skip' or click outside this box" class="custom-file mb-3" id="temp">
 							<input type="file" class="custom-file-input" id="JSON_uploader" name="TREE_FILE">
-							<label class="custom-file-label" for="JSON_uploader">Upload tree (select format)</label>
+							<label class="custom-file-label" for="JSON_uploader">Upload tree (".nw", ".newick", ".json")</label>
 						</div>
 					</div>
-					<div data-step="2" data-intro="Specify the format of the file (newick or json)" class="col-sm-1.5 my-auto" id="INPUT_tree">
-						<div class="custom-control custom-radio">
-							<input type="radio" class="custom-control-input" id="Newick_TREE" name="Tree_INPUT" value="newick" checked>
-							<label class="custom-control-label" for="Newick_TREE">Newick file</label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input type="radio" class="custom-control-input" id="Json_TREE" name="Tree_INPUT" value="json">
-							<label class="custom-control-label" for="Json_TREE">JSON file</label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input type="radio" class="custom-control-input" id="Json_CLONES" name="Tree_INPUT" value="clones">
-							<label class="custom-control-label" for="Json_CLONES">CLONES(json) </label>
-						</div>
-					</div>
-					<div data-step="3" data-intro="Select Branch Lenght Option (see tutorial for details)" class="col-sm-1.5 my-auto" id="OPTIONS_tree">
-						<div class="custom-control custom-radio" title="Select this when branchlenghts represent the time of cell division relative to the root">
-							<input type="radio" class="custom-control-input" id="Abs_BL" name="Abs_Rel" value="abs" checked>
-							<label class="custom-control-label" for="Abs_BL">Absolute Branch Lengths</label>
-						</div>
-						<div class="custom-control custom-radio" title="Select this when branchlengths represent the time of cell division relative to its parent cell">
-							<input type="radio" class="custom-control-input" id="Rel_BL" name="Abs_Rel" value="rel">
-							<label class="custom-control-label" for="Rel_BL">Relative Branch Lenghts</label>
-						</div>
-						<div class="custom-control custom-radio">
-							<input type="radio" class="custom-control-input" id="No_BL" name="Abs_Rel" value="no">
-							<label class="custom-control-label" for="No_BL">No Branch Lenghts</label>
-						</div>
-					</div>
-					<div data-step="4" data-intro="Click Submit to visualise the tree"  class="col-sm-1 my-auto">
-						<button type="submit" class="btn btn-primary" align="right" onclick="validateNum()">Submit</button> 
-						<!-- <button type="submit" class="btn btn-primary" align="right">Submit</button> -->
-					</div>
-					<!-- </form> -->
-					<div data-step="5" data-intro="Select a file with XYZ coordinates to start 3D visualisation"  class="col-sm-2 mb-2">
+					<div data-step="5" data-intro="Select a file with XYZ coordinates to start 3D visualisation"  class="col-sm-3 mb-2">
 						<a href="#" data-toggle="tooltip" data-placement="left" title="Reads a csv file with 4 columns: The first column is the cell ID (same as in the tree), and the other columns are coordinates X, Y and Z "><label for="temp">Coords file:</label></a>
 						<div class="custom-file mb-3" id="temp">
 							<input type="file" class="custom-file-input" id="3Dcoord_uploader" name="coordsfile">
 							<label class="custom-file-label" for="3Dcoord_uploader">Input coordinates file</label>
 						</div>
+					</div>
+					<div class="col-sm-1 mb-2">
 					</div>
 					<div data-step="6" data-intro="Optionally you can load a metadata file with a categorical feature you want to plot (e.g. cell type)" class="col-sm-2 mb-2">
 						<a href="#" data-toggle="tooltip" data-placement="right" title="Reads a csv file with N columns: The first column is the cell ID (same as in the tree and 3D coords), and the rest of the columns contain additional info on the cells (e.g. cell type)"><label for="temp">Additional info file:</label></a>
@@ -164,7 +133,7 @@
 						</div>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
 		<a href="./test_data.zip" download>Download TEST files (zip folder)</a>
 		<!-- <div class="status" align="Center" ></div> -->    

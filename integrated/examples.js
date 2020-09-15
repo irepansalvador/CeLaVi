@@ -38,8 +38,8 @@ function Examples(e)
 	// Select the options depending on the example chosen
 	if (e == 1) {
 		Abs_BL = 0;
-		document.getElementById("Json_TREE").checked = "true";
-		document.getElementById("Rel_BL").checked = "true";
+//		document.getElementById("Json_TREE").checked = "true";
+//		document.getElementById("Rel_BL").checked = "true";
 		activate_tree_controls();
 		tree_file = "test_data/C_elegans/C_elegans_tree.json";
 		Upload_example_tree();
@@ -60,8 +60,8 @@ function Examples(e)
 		}
 	if (e == 2) {
 		Abs_BL =2;
-		document.getElementById("Newick_TREE").checked = "true";
-		document.getElementById("No_BL").checked = "true";
+//		document.getElementById("Newick_TREE").checked = "true";
+//		document.getElementById("No_BL").checked = "true";
 		tree_file = "test_data/Ciona/Ciona_cell_lineage.nw";
 		activate_tree_controls();
 		Upload_example_tree();
@@ -87,8 +87,8 @@ function Examples(e)
 		}
 	if (e == 3) {
 		Abs_BL = 1;
-		document.getElementById("Newick_TREE").checked = "true";
-		document.getElementById("Abs_BL").checked = "true";
+//		document.getElementById("Newick_TREE").checked = "true";
+//		document.getElementById("Abs_BL").checked = "true";
 		tree_file = "test_data/Parhyale/Parhyale_tree.nw";
 		// remove button to hide/table
 		var x = document.getElementById("Hide_metadata");

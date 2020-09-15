@@ -382,35 +382,41 @@ function setAlpha(points,new_alpha) {
 	// get current value of camera, so it can be set again
 	myview = plotly_scatter_div.layout.scene.camera;
 	// For each point change the colour value for layout
+	// define a regex to search for the first 3 channels
+	var myRe = /\d+/g;
 	points.forEach(function(d) 
 		{
-		// define a regex to search for the first 3 channels
-		var myRe = /\d+/g;
-		var x = data[0]["marker"]["color"][d];
-		x = x.match(myRe);
-		x = "rgba("+ x[0]+ "," + x[1]+ ","  + x[2]+ "," + new_alpha + ")" ;
-		//x = x.slice(0,-1).concat(", 0.5)");
-		data[0]["marker"]["color"][d] = x;
-		//console.log("Clicked to change alpha = " + data[0]["id"][d] + x);
+		if (d>=0)
+			{
+			var x = data[0]["marker"]["color"][d];
+			var y = x.match(myRe);
+			x = "rgba("+ y[0]+ "," + y[1]+ ","  + y[2]+ "," + new_alpha + ")" ;
+			//x = x.slice(0,-1).concat(", 0.5)");
+			data[0]["marker"]["color"][d] = x;
+			//console.log("Clicked to change alpha = " + data[0]["id"][d] + x);
+			}	
 		});
 	// Update plot based on the new values
 	Plotly.update("area2", data, myview,0);
 	};
 function setAlphaStroke(points,new_alpha) {
 	//console.log(points)
+	// define a regex to search for the first 3 channels
+	var myRe = /\d+/g;
 	// get current value of camera, so it can be set again
 	myview = plotly_scatter_div.layout.scene.camera;
 	// For each point change the colour value for layout
 	points.forEach(function(d) 
 		{
-		// define a regex to search for the first 3 channels
-		var myRe = /\d+/g;
-		var x = data[0]["marker"]["line"]["color"][d];
-		x = x.match(myRe);
-		x = "rgba("+ x[0]+ "," + x[1]+ ","  + x[2]+ "," + new_alpha + ")" ;
-		//x = x.slice(0,-1).concat(", 0.5)");
-		data[0]["marker"]["line"]["color"][d] = x;
-		//console.log("Clicked to change alpha = " + data[0]["id"][d] + x);
+		if (d>=0)
+			{
+			var x = data[0]["marker"]["line"]["color"][d];
+			x = x.match(myRe);
+			x = "rgba("+ x[0]+ "," + x[1]+ ","  + x[2]+ "," + new_alpha + ")" ;
+			//x = x.slice(0,-1).concat(", 0.5)");
+			data[0]["marker"]["line"]["color"][d] = x;
+			//console.log("Clicked to change alpha = " + data[0]["id"][d] + x);
+			}
 		});
 	// Update plot based on the new values
 	Plotly.update("area2", data, myview,0);
