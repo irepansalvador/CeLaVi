@@ -7,13 +7,18 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 }
 // Define the zoom function for the zoomable tree
 
-function zoom() {
-	svg_tree.attr("transform", "translate(" +
-	d3.event.translate + ")scale(" + d3.event.scale + ")");
+function zoomed() {
+	svg_tree.attr("transform", d3.event.transform);
+//	console.log(d3.event.transform);
 	}
+
+var zoom = d3.zoom()
+						.scaleExtent([0.2, 2])
+						.on("zoom", zoomed);
+						
 // define the zoomListener which calls the zoom function on the "zoom" event
 // constrained within the scaleExtents
-var zoomListener = d3.behavior.zoom().scaleExtent([0.2,2]).on("zoom", zoom);
+//var zoomListener = d3.behavior.zoom().scaleExtent([0.2,2]).on("zoom", zoom);
 
 //function enter_link() {
 //	$('#splashscreen').fadeOut(500);
@@ -22,6 +27,13 @@ var zoomListener = d3.behavior.zoom().scaleExtent([0.2,2]).on("zoom", zoom);
 var div = d3.select("body").append("div")	
 	.attr("class", "tooltip")
 	.style("opacity", 0);
+
+function zoom_reset () 
+	{
+	svg_tree_base.transition()
+		.duration(750)
+		.call(zoom.transform, d3.zoomIdentity.translate(30,15).scale(0.9));
+	}
 
 //var circleContainer = d3.select("body").append("div")
 //	.attr("class", "circleCol")
@@ -34,18 +46,21 @@ var div = d3.select("body").append("div")
 
 var margin = {top: 15, right: 15, bottom:5, left: 30};
 
-var svg_tree = d3.select("#area1")
-	.style("padding-bottom", "32%")
+var svg_tree_base = d3.select("#area1")
+	.style("padding-bottom", "35%")
 	.classed("svg-container-inbox2", true) //container class to make it responsive
 	.append("svg")
-	.call(zoomListener)	
+	.call(zoom)	
 	//class to make it responsive
 	//responsive SVG needs these 2 attributes and no width and height attr
 	.attr("preserveAspectRatio", "xMinYMin meet")
 	.attr("viewBox", "0 0 600 500")
 	.classed("svg-content-responsive", true)
-	.append("g")
-	.attr("transform", "translate(" + margin.left + "," + 0 + ")");
+	.attr("transform", "translate(0,0 )");
+
+	
+var svg_tree = svg_tree_base.append("g")
+//	.call(zoom)
 
 var w = d3.select("#area1").selectAll("svg")
       // get the width of div element
@@ -148,8 +163,8 @@ var stroke_cols = [ "rgb(0,0,255)","rgb(0,255,0)","rgb(255,0,0)","rgb(255,0,255)
 var col_scheme = 1;
 
 function load_dataset_json(json) {
-// parse the data set and plot it
-var myroot = JSON.parse(json);
+	// parse the data set and plot it
+	var myroot = JSON.parse(json);
 	console.log(myroot);
 	root = d3.hierarchy(myroot, function(d) 
 		{return d.children; });
@@ -226,7 +241,7 @@ function zoom_in_start() {
 				{nodelen = nodelen * 1.1; update(root);}
 			if (show_BL == 1)
 				{nodelen2 = nodelen2 * 1.1; update(root);}
-		}, 100);
+		}, 50);
 	}
 function zoom_out_start() {
 		counter = setInterval(function() {
@@ -234,22 +249,35 @@ function zoom_out_start() {
 				{nodelen = nodelen * 0.9; update(root);}
 			if (show_BL == 1)
 				{nodelen2 = nodelen2 * 0.9; update(root);}
-		}, 100);
+		}, 50);
 	}
 function pan_down_start() {
 	counter = setInterval(function() {
 		node_h = node_h * 1.1;
 		treemap = d3.tree().size([node_h, w]);
 		update(root);
-		}, 100);
+		}, 50);
 	}
 function pan_up_start() {
 	counter = setInterval(function() {
 		node_h = node_h * 0.9;
 		treemap = d3.tree().size([node_h, w]);
 		update(root);
-		}, 100);
+		}, 50);
 	}
+    
+function resetAll(){
+	zoom_reset();
+	node_h = h/2;
+	treemap=d3.tree().size([node_h,w]);
+	nodelen  = 600/max_H;
+	nodelen2 = 600/max_BL;
+	// expand all cells
+	collapseAll();
+	setTimeout(function(){ expandAll(); }, 1000);
+	
+	}
+
 function end() {
 	clearInterval(counter)
 	}
@@ -484,13 +512,6 @@ function collapseAll(){
 	collapse(root);
 	update(root);
 	}
-    
-function resetAll(){
-	// expand all cells
-	collapseAll();
-	setTimeout(function(){ expandAll(); }, 1000);
-	}
-
 
 //###################################################################################
 //#############FUNCTIONS TO HIGHLIGHT ALL DAUGHTERS OF A GIVEN NODE##################
@@ -779,9 +800,34 @@ function get_branlen(){
 
 var max_BL;
 function set_bl(){
+	document.getElementById("BranchLenghts").disabled = true;
+	if (root.data.length != undefined)
+		{
+		var bl_prompt = prompt("Branch lenghts have been detected. \nIf these represent time to parent node enter \"relative\"\nIf they represent time from root enter \"absolute\"\nIf you want to ignore branch lengths press Cancel");
+		if (bl_prompt != null) {
+			if (bl_prompt == "relative") 
+				{
+				Abs_BL=0;
+				console.log("rel selected");
+				document.getElementById("BranchLenghts").disabled = false;
+				}
+			else if (bl_prompt == "absolute") 
+				{
+				Abs_BL=1;
+				console.log("abs selected");
+				document.getElementById("BranchLenghts").disabled = false;
+				}
+			else {console.log("you have typed something else: " + bl_prompt);}
+			}
+		}
+	else {
+			Abs_BL=2;
+			document.getElementById("BranchLenghts").disabled =true ;
+		}
+		
 	max_BL = 0;
 	if (Abs_BL == 1)
-	{
+		{
 		nodes.forEach(function(d) 
 			{
 			//if (d.parent !==null) { CORRECT HERE FOR LENGHT!!
@@ -790,12 +836,14 @@ function set_bl(){
 			//  }// + d.parent.blength} 
 			})
 		}
-	if (Abs_BL == 0)
+	else if (Abs_BL == 0)
 		{
+		console.log("I should see this after relative");
 		nodes.forEach(function(d) 
 			{
-			if (d.parent !==null) 
-				{d.blength = (d.data.length + d.parent.blength);
+			if (d.parent != null) 
+				{
+				d.blength = (d.data.length + d.parent.blength);
 				if (max_BL < d.blength) {max_BL = d.blength} 
 				}
 			})

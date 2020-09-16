@@ -9,6 +9,8 @@ var GEmatrix_txt = "";
 
 function Examples(e)
 	{
+	zoom_reset();
+	Abs_BL=undefined;
 	d3.select("#area1").select("h4").remove();
 	d3.select("#area1").select("#clonesdiv").remove();
 	// Remove the slider if exists
@@ -37,7 +39,7 @@ function Examples(e)
 	var meta_file;
 	// Select the options depending on the example chosen
 	if (e == 1) {
-		Abs_BL = 0;
+		//Abs_BL = 0;
 //		document.getElementById("Json_TREE").checked = "true";
 //		document.getElementById("Rel_BL").checked = "true";
 		activate_tree_controls();
@@ -86,7 +88,7 @@ function Examples(e)
 		load_dataset_3(metadata_txt);
 		}
 	if (e == 3) {
-		Abs_BL = 1;
+		//Abs_BL = 1;
 //		document.getElementById("Newick_TREE").checked = "true";
 //		document.getElementById("Abs_BL").checked = "true";
 		tree_file = "test_data/Parhyale/Parhyale_tree.nw";

@@ -1,6 +1,6 @@
 var fileTypes = ['nw', 'newick', 'json'];  //acceptable file types
 var tree_format;
-var Abs_BL = 2;
+var Abs_BL;
 //var Abs_Rel = "no";
 
 var treefile = document.getElementById('JSON_uploader');
@@ -51,6 +51,8 @@ function activate_tree_controls() {
 	}
 
 function start_files() {
+		zoom_reset();
+
 	document.getElementById('JSON_uploader').value = '';
 	document.getElementById("3Dcoord_uploader").value = "";
 	document.getElementById("3Dcoord_uploader").nextElementSibling.textContent = "Input coordinates file";
@@ -66,7 +68,7 @@ function start_files() {
 	// etc)
 	div.style("opacity", 0)
 		.text('');
-	}
+}
 
 treefile.addEventListener('change', showtreeopts);
 function showtreeopts() 
@@ -93,6 +95,7 @@ function showtreeopts()
 
 function Submit_Function(tree_format) 
 	{
+	Abs_rel = undefined;
 	d3.select("#area1").select("h4").remove();
 	d3.select("#area1").select("#clonesdiv").remove();
 	// Remove the slider if exists

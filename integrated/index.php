@@ -103,14 +103,14 @@
 			<div id="input_submit">
 				<div class="row">
 					<div class="col-sm-3 mb-2">
-						<a href="#" data-toggle="tooltip" data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file:</label></a>
+						<a data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file</label></a>
 						<div data-step="1" data-intro="To start, select a lineage tree file (newick or json format). You can download the TEST files clicking the link under this box or clicking on Load Example files. To exit click 'skip' or click outside this box" class="custom-file mb-3" id="temp">
 							<input type="file" class="custom-file-input" id="JSON_uploader" name="TREE_FILE">
 							<label class="custom-file-label" for="JSON_uploader">Upload tree (".nw", ".newick", ".json")</label>
 						</div>
 					</div>
 					<div data-step="5" data-intro="Select a file with XYZ coordinates to start 3D visualisation"  class="col-sm-3 mb-2">
-						<a href="#" data-toggle="tooltip" data-placement="left" title="Reads a csv file with 4 columns: The first column is the cell ID (same as in the tree), and the other columns are coordinates X, Y and Z "><label for="temp">Coords file:</label></a>
+						<a data-placement="left" title="Reads a csv file with 4 columns: The first column is the cell ID (same as in the tree), and the other columns are coordinates X, Y and Z "><label for="temp">Coords file</label></a>
 						<div class="custom-file mb-3" id="temp">
 							<input type="file" class="custom-file-input" id="3Dcoord_uploader" name="coordsfile">
 							<label class="custom-file-label" for="3Dcoord_uploader">Input coordinates file</label>
@@ -118,15 +118,15 @@
 					</div>
 					<div class="col-sm-1 mb-2">
 					</div>
-					<div data-step="6" data-intro="Optionally you can load a metadata file with a categorical feature you want to plot (e.g. cell type)" class="col-sm-2 mb-2">
-						<a href="#" data-toggle="tooltip" data-placement="right" title="Reads a csv file with N columns: The first column is the cell ID (same as in the tree and 3D coords), and the rest of the columns contain additional info on the cells (e.g. cell type)"><label for="temp">Additional info file:</label></a>
+					<div data-step="6" data-intro="Optionally you can load a Cell annotations file with a categorical feature you want to plot (e.g. cell type)" class="col-sm-2 mb-2">
+						<a data-placement="right" title="Reads a csv file with 2 columns: The first column is the cell ID (same as in the tree and 3D coords), and the second column contain additional info on the cells (e.g. cell type)"><label for="temp">Cell annotations file</label></a>
 						<div class="custom-file mb-3" id="temp">
 							<input type="file" class="custom-file-input" id="Metadata_uploader" name="Metadata_File">
-							<label class="custom-file-label" for="Metadata_uploader">Input Additional Info file</label>
+							<label class="custom-file-label" for="Metadata_uploader">Cell annotations file</label>
 						</div>
 					</div>
 					<div data-step="7" data-intro="Here you can upload a gene expression datafile to plot a virtual insitu image"  class="col-sm-2 mb-2">
-						<a href="#" data-toggle="tooltip" data-placement="right" title="Reads Gene expression matrix"><label for="temp">Gene Expression file:</label></a>
+						<a data-placement="right" title="Reads Gene expression matrix"><label for="temp">Gene Expression file</label></a>
 						<div class="custom-file mb-3" id="temp">
 							<input type="file" class="custom-file-input" id="GeneExp_uploader" name="GeneExp_File">
 							<label class="custom-file-label" for="GeneExp_uploader">Input Gene Exp file</label>
