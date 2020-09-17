@@ -84,7 +84,7 @@
 					
 				</div>
 				<div class="col-sm-2 mb-2">
-					<a class="btn btn-large btn-primary" href="javascript:void(0);" onclick="javascript:ShowINPUT(); introJs().start();">Quick Tour</a>
+					<a class="btn btn-large btn-primary" href="javascript:void(0);" onclick="javascript: introJs().start();">Quick Tour</a>
 				</div>
 			<!--	<div class="col-sm-2 mb-2" id="Hide_metadata" style="display: none">
 					<button id="HideMeta" onclick="HideMETADATA()">Hide Cell Annotations</button>
