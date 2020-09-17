@@ -45,8 +45,8 @@ function Metadata_upload_button(el, callback) {
 					}
 				}
 			// add button to hide/table
-			var x = document.getElementById("Hide_metadata");
-			if (x.style.display === "none") {x.style.display = "block";}
+		//	var x = document.getElementById("Hide_metadata");
+		//	if (x.style.display === "none") {x.style.display = "block";}
 			// LOAD THE TABLE
 			callback(contents);
 		} else {
@@ -76,17 +76,51 @@ function load_dataset_3(csv) {
 	// create div where the table is going to go
 	table_div = d3.select("body").append("div")	
 		.attr("id", "metadata_table")
+		.style("height","400px")
+		.style("width", "220px")
 		.attr("class", "viewport")
 		.style("opacity",1 )
 		.style("top", (h*0.45) +"px")
 		.style("left",(w*0.85) +"px");
-	table_div.append("div")
-		.attr("id", "metadata_tableheader");
 
-	var theDiv = document.getElementById("metadata_tableheader");	
-	var content = document.createTextNode("Click and drag to move");
-	theDiv.appendChild(content);
-//	// Make the DIV element draggable:
+var table_min = table_div.append("div")
+	.attr("id", "metadata_tableheader");
+
+var theDiv = document.getElementById("metadata_tableheader");	
+var content = document.createTextNode("Click and drag to move");
+theDiv.appendChild(content);
+
+// Create min/max button to display the table
+table_min.append("button")
+	.attr("class", "btn btn-light")
+	.attr("id","min_button")
+
+$("#min_button").text("-")
+var min_click = true;
+
+// function to minimise/maximise
+$(document).ready(function(){
+	$('#min_button').click(function() {
+		if (min_click) {
+			$("#min_button").text('+');
+			min_click = false;
+			$(".scroll-svg").slideToggle();
+			table_div.transition()
+				.duration(600)
+				.style("height","31px")
+		}else {
+			$("#min_button").text('-');
+			min_click = true;
+			table_div.transition()
+				.duration(600)
+				.style("height","400px")
+			$(".scroll-svg").slideToggle()
+			}
+		})
+	});
+
+
+	//	// Make the DIV element draggable:
 	dragElement(document.getElementById("metadata_table"));
 
 	load_table(data_meta);
@@ -135,7 +169,7 @@ function load_table(data_meta) {
 		rowSelection.append("rect")
 			.attr("rx", 3)
 			.attr("ry", 3)
-			.attr("width", "250")
+			.attr("width", "200")
 			.attr("height", "24")
 			.attr("fill-opacity", 0.55)
 			.attr("cursor" , "pointer")

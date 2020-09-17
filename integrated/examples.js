@@ -53,8 +53,8 @@ function Examples(e)
 		load_dataset_2(cells3D_txt);
 		$("label[for='3Dcoord_uploader'").text("C_elegans_3D_cells.csv");
 		// add button to hide/table
-		var x = document.getElementById("Hide_metadata");
-		if (x.style.display === "none") {x.style.display = "block";}
+	//	var x = document.getElementById("Hide_metadata");
+	//	if (x.style.display === "none") {x.style.display = "block";}
 		// metadata
 		meta_file = "test_data/C_elegans/C_elegans_cell_types.csv";
 		Upload_example_metadata();
@@ -76,8 +76,8 @@ function Examples(e)
 		load_dataset_2(cells3D_txt);
 		$("label[for='3Dcoord_uploader'").text("Ciona_3D_coords.csv");
 		// add button to hide/table
-		var x = document.getElementById("Hide_metadata");
-		if (x.style.display === "none") {x.style.display = "block";}
+	//	var x = document.getElementById("Hide_metadata");
+	//	if (x.style.display === "none") {x.style.display = "block";}
 		// Gene expression
 		GE_file = "test_data/Ciona/Ciona_GEmatrix_500genes.csv";
 		Upload_example_GEmatrix();
@@ -110,8 +110,8 @@ function Examples(e)
 		document.getElementById("Json_CLONES").checked = "true";
 		document.getElementById("No_BL").checked = "true";
 		// remove button to hide/table
-		var x = document.getElementById("Hide_metadata");
-		if (x.style.display === "block") {x.style.display = "none";}
+	//	var x = document.getElementById("Hide_metadata");
+	//	if (x.style.display === "block") {x.style.display = "none";}
 		activate_tree_controls();
 		// tree file
 		tree_file = "test_data/Organoid/organoid_15Kcells_clones.json";

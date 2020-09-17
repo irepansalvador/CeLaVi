@@ -1,3 +1,12 @@
+#min_button {
+	width: 25px;
+	height: 25px;
+	margin-right: 10px;
+	vertical-align: text-bottom;
+	padding: 0px;
+	position:absolute;
+	right:0;
+}
 #container2 {
 	float:left;
 	width:100%;
@@ -164,8 +173,8 @@ color: #fff;
 /*		left: 50px;*/
 		z-index: 9;
 		overflow-y: auto;
-		width: 280px;
-		height: 400px;
+/*		width: 280px;
+		height: 400px;*/
 		background-color: #e8e8e8;
 		border: 1px solid #AAAAAA;
 		border-radius: 4px;
@@ -297,6 +306,9 @@ p {
 	width: 50%;
 	position:relative;
 	left:50%;
+	border-right-width: 6px;
+	border-right-color: #bccbde;
+	border-right-style: solid;
 }
 
 #area2 {

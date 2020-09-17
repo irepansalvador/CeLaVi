@@ -57,8 +57,8 @@ function start_files() {
 	document.getElementById("3Dcoord_uploader").value = "";
 	document.getElementById("3Dcoord_uploader").nextElementSibling.textContent = "Input coordinates file";
 	// remove button to hide/table
-	var x = document.getElementById("Hide_metadata");
-	if (x.style.display === "block") {x.style.display = "none";}
+//	var x = document.getElementById("Hide_metadata");
+//	if (x.style.display === "block") {x.style.display = "none";}
 	d3.select("#HM_scale").selectAll("svg").remove();
 	d3.select("#HM_scale").attr("title", "");
 	d3.select("#HM_scale").select("h5").text("");
@@ -212,39 +212,19 @@ function IsJsonString(str) {
 		}
 	}
 
-function HideINPUT()
-	{
-	var x = document.getElementById("input_submit");
-	var xx = document.getElementById("HideINPUT");
-	if (x.style.display === "none") {
-		x.style.display = "block";
-		xx.innerHTML="HIDE Input Options";
-		} 
-	else {
-		x.style.display = "none";
-		xx.innerHTML="SHOW Input Options";
-		}
-	}
+var input_show = true;
+// function to minimise/maximise
+$(document).ready(function(){
+	$('#HideINPUT').click(function() {
+		if (input_show) {
+			$("#HideINPUT").text('SHOW Input Options');
+			input_show = false;
+			$(".input_cont").slideToggle();
+		}else {
+			$("#HideINPUT").text('HIDE Input Options');
+			input_show = true;
+			$(".input_cont").slideToggle()
+			}
+		})
+	});
 
-function ShowINPUT()
-	{
-	var x = document.getElementById("input_submit");
-	var xx = document.getElementById("HideINPUT");
-	if (x.style.display === "none") {
-		x.style.display = "block";
-		xx.innerHTML="HIDE Input Options";
-		}
-	}
-
-function HideMETADATA()
-	{
-	var x = document.getElementById("metadata_table");
-	var xx= document.getElementById("HideMeta");
-	if (x.style.display === "none") {
-		x.style.display = "block";
-		xx.innerHTML="Hide Cell Annotations";
-	} else {
-		x.style.display = "none";
-		xx.innerHTML="Show Cell Annotations";
-		}
-	}

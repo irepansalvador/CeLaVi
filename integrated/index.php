@@ -58,11 +58,8 @@
 			</div>
 		</div>
 		<!-- Button to hide INPUT -->
-		<div id="container_INPUT">
+		<div class="input_cont" id="container_INPUT">
 			<div class="row">
-				<div class="col-sm-2 mb-2">
-					<button  id ="HideINPUT" onclick="HideINPUT()">HIDE Input Options</button>
-				</div>
 				<div class="col-sm-2 mb-2">
 					<div class="dropdown">
 						<button class="dropbtn">Load Example files</button>
@@ -74,7 +71,10 @@
 						</div>
 					</div>
 				</div>
-				<div data-step="10" data-intro="Please visit the tutorial to get more details. ENJOY!"  class="col-sm-2 mb-2">
+				<div class="col-sm-1 mb-2">
+				</div>
+
+				<div data-step="8" data-intro="Please visit the tutorial to get more details. ENJOY!"  class="col-sm-2 mb-2">
 					<a class="btn btn-large btn-primary" href="http://compus-mentis.org/visualisation/integrated/tutorial.html" target="_blank">
 					<span style="display: block;">Visit Tutorial</span>
 					</a>
@@ -86,10 +86,11 @@
 				<div class="col-sm-2 mb-2">
 					<a class="btn btn-large btn-primary" href="javascript:void(0);" onclick="javascript:ShowINPUT(); introJs().start();">Quick Tour</a>
 				</div>
-				<div class="col-sm-2 mb-2" id="Hide_metadata" style="display: none">
+			<!--	<div class="col-sm-2 mb-2" id="Hide_metadata" style="display: none">
 					<button id="HideMeta" onclick="HideMETADATA()">Hide Cell Annotations</button>
-				</div>
-				<div class="col-sm-2 mb-2" id="GOI_submit" style="display: none">
+				</div> -->
+
+				<div class="col-sm-4 mb-2" id="GOI_submit" style="display: none">
 					<form autocomplete="off" action="javascript:Submit_GOI();" >
 						<div class="autocomplete" >
 							<input id="GeneInput" type="text" name="myGene" placeholder="Type gene">
@@ -98,8 +99,6 @@
 					</form>
 				</div>
 			</div>
-		</div>
-		<div id="container_INPUT">
 			<div id="input_submit">
 				<div class="row">
 					<div class="col-sm-3 mb-2">
@@ -109,32 +108,34 @@
 							<label class="custom-file-label" for="JSON_uploader">Upload tree (".nw", ".newick", ".json")</label>
 						</div>
 					</div>
-					<div data-step="5" data-intro="Select a file with XYZ coordinates to start 3D visualisation"  class="col-sm-3 mb-2">
+					<div class="col-sm-3 mb-2">
 						<a data-placement="left" title="Reads a csv file with 4 columns: The first column is the cell ID (same as in the tree), and the other columns are coordinates X, Y and Z "><label for="temp">Coords file</label></a>
-						<div class="custom-file mb-3" id="temp">
+						<div  data-step="2" data-intro="Select a file with XYZ coordinates to start 3D visualisation" class="custom-file mb-3" id="temp">
 							<input type="file" class="custom-file-input" id="3Dcoord_uploader" name="coordsfile">
-							<label class="custom-file-label" for="3Dcoord_uploader">Input coordinates file</label>
+							<label class="custom-file-label" for="3Dcoord_uploader">Upload coordinates file</label>
 						</div>
 					</div>
 					<div class="col-sm-1 mb-2">
 					</div>
-					<div data-step="6" data-intro="Optionally you can load a Cell annotations file with a categorical feature you want to plot (e.g. cell type)" class="col-sm-2 mb-2">
+					<div class="col-sm-2 mb-2">
 						<a data-placement="right" title="Reads a csv file with 2 columns: The first column is the cell ID (same as in the tree and 3D coords), and the second column contain additional info on the cells (e.g. cell type)"><label for="temp">Cell annotations file</label></a>
-						<div class="custom-file mb-3" id="temp">
+						<div data-step="3" data-intro="Optionally you can load a Cell annotations file with a categorical feature you want to plot (e.g. cell type)" class="custom-file mb-3" id="temp">
 							<input type="file" class="custom-file-input" id="Metadata_uploader" name="Metadata_File">
-							<label class="custom-file-label" for="Metadata_uploader">Cell annotations file</label>
+							<label class="custom-file-label" for="Metadata_uploader">Upload annotations file</label>
 						</div>
 					</div>
-					<div data-step="7" data-intro="Here you can upload a gene expression datafile to plot a virtual insitu image"  class="col-sm-2 mb-2">
+					<div class="col-sm-2 mb-2">
 						<a data-placement="right" title="Reads Gene expression matrix"><label for="temp">Gene Expression file</label></a>
-						<div class="custom-file mb-3" id="temp">
+						<div data-step="4" data-intro="Here you can upload a gene expression datafile to plot a virtual insitu image"  class="custom-file mb-3" id="temp">
 							<input type="file" class="custom-file-input" id="GeneExp_uploader" name="GeneExp_File">
-							<label class="custom-file-label" for="GeneExp_uploader">Input Gene Exp file</label>
+							<label class="custom-file-label" for="GeneExp_uploader">Upload Gene Exp file</label>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<button  class="btn btn-dark" id ="HideINPUT" >HIDE Input Options</button>
+
 		<a href="./test_data.zip" download>Download TEST files (zip folder)</a>
 		<!-- <div class="status" align="Center" ></div> -->    
 		<div id="container2"> <!-- added -->
@@ -152,7 +153,7 @@
 		<!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
 			<div id= "controls_1a" align="left" class="svg-buttons">
 				<div class="row">
-					<div  data-step="8" data-intro="These options allow you to control the visualisation of the lineage tree" class="col-sm-4 mb-2">
+					<div  data-step="5" data-intro="These options allow you to control the visualisation of the lineage tree" class="col-sm-4 mb-2">
 						<h6> Cell lineage tree controls: </h6>
 						<div class="row">
 							<div align="left">
@@ -182,7 +183,7 @@
 						</div>
 					</div>
 
-					<div  data-step="9" data-intro="These options allow you to save clones" class="col-sm-3 mb-2">
+					<div  data-step="6" data-intro="These options allow you to save clones" class="col-sm-3 mb-2">
 						<h6> Clones Controls: </h6>
 						<div class="row">
 							<div class ="col-sm-6" >
@@ -206,7 +207,7 @@
 
 
 					<!-- RIGHT PART OF THE CONTROLS, FOR CELLS IN 3D -->
-					<div data-step="10" data-intro="And these allow you to control the visualisation of the cells in 3D"  class="col-sm-5 mb-2">
+					<div data-step="7" data-intro="And these allow you to control the visualisation of the cells in 3D"  class="col-sm-5 mb-2">
 						<h6> 3D cells controls: </h6>
 						<div class="row">
 							<div class="col-sm-3">
