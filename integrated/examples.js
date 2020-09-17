@@ -93,8 +93,8 @@ function Examples(e)
 //		document.getElementById("Abs_BL").checked = "true";
 		tree_file = "test_data/Parhyale/Parhyale_tree.nw";
 		// remove button to hide/table
-		var x = document.getElementById("Hide_metadata");
-		if (x.style.display === "block") {x.style.display = "none";}
+	//	var x = document.getElementById("Hide_metadata");
+	//	if (x.style.display === "block") {x.style.display = "none";}
 		activate_tree_controls();
 		Upload_example_tree();
 		var newick = Newick.parse(tree_txt);
@@ -107,8 +107,8 @@ function Examples(e)
 		$("label[for='3Dcoord_uploader'").text("Parhyale_3D_cells.csv");
 	}
 	if (e == 4) {
-		document.getElementById("Json_CLONES").checked = "true";
-		document.getElementById("No_BL").checked = "true";
+	//	document.getElementById("Json_CLONES").checked = "true";
+	//	document.getElementById("No_BL").checked = "true";
 		// remove button to hide/table
 	//	var x = document.getElementById("Hide_metadata");
 	//	if (x.style.display === "block") {x.style.display = "none";}
