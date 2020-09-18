@@ -35,6 +35,8 @@
 	<script src="./lib/plotly-latest.min.js"></script>
 	<!--CSV parser-->
 	<script src="./lib/papaparse.min.js"></script>
+	<!--Add icon library -->
+	<script src="https://kit.fontawesome.com/120a090310.js" crossorigin="anonymous"></script>
 </head>
 
 <body onload="introJs().start();">
@@ -62,7 +64,7 @@
 			<div class="row">
 				<div class="col-sm-2 mb-2">
 					<div class="dropdown">
-						<button class="dropbtn">Load Example files</button>
+						<button class="btn btn-info"> <i class="fas fa-file-upload"></i> Load Examples</button>
 						<div class="dropdown-content">
 							<a href="#" onclick="Examples(1)">C. elegans</a>
 							<a href="#" onclick="Examples(2)">Ciona gastrula</a>
@@ -134,9 +136,11 @@
 				</div>
 			</div>
 		</div>
-		<button  class="btn btn-dark" id ="HideINPUT" >HIDE Input Options</button>
 
-		<a href="./test_data.zip" download>Download TEST files (zip folder)</a>
+		<button class="btn btn-dark" id ="HideINPUT" >HIDE Input Options</button>
+		<a href="./test_data.zip" download>
+			<button class="btn btn-dark"><i class="fa fa-download"></i> Download TEST files</button>
+		</a>
 		<!-- <div class="status" align="Center" ></div> -->    
 		<div id="container2"> <!-- added -->
 			<div id="container1">	
@@ -169,11 +173,11 @@
 							</div>
 							<div>
 								<button id="Reset"  title= "Click to reset to the default topology 
-(only showing daughters of root)" type="button" onclick="resetAll()" class="btn btn-success" >Reset Topology</button> 
+(only showing daughters of root)" type="button" onclick="resetAll()" class="btn btn-success" >Reset View</button> 
 							</div>
-							<div class="col-sm-2">
+							<div class="col-sm-3">
 								<div class="dropdown">
-									<button class="dropbtn">Save Image</button>
+									<button class="btn-tiny"> <i class="fas fa-code-branch"></i> Save Plot </button>
 									<div class="dropdown-content">
 										<a href="#" onclick="SaveSVG()">SVG</a>
 										<a href="#" onclick="SavePNG()">PNG</a>
@@ -223,7 +227,7 @@
 							</div>
 							<div class="col-sm-2">
 								<div class="dropdown">
-									<button class="dropbtn">Save Image</button>
+									<button class="btn-tiny"> <i class="fas fa-spinner"></i> Save Plot </button>
 									<div class="dropdown-content">
 										<a href="#" onclick="Save3DPNG()">PNG</a>
 									</div>

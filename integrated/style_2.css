@@ -1,3 +1,18 @@
+ /* Style buttons */
+.btn-tiny {
+	background-color: #007bff;
+	border: none;
+	color: white;
+	padding: 6px 6px;
+	cursor: pointer;
+	font-size: 16px;
+	border-radius: 4px;
+}
+/* Darker background on mouse-over */
+.btn-tiny:hover {
+	background-color: RoyalBlue;
+} 
+
 #min_button {
 	width: 25px;
 	height: 25px;
