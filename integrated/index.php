@@ -41,7 +41,7 @@
 
 <body>
 	<!-- Splash screen --> 
-	<div id="splashscreen">
+	<div class= "svg-container" id="splashscreen">
 		<img src="./lib/CeLaVi_welcome_v2.svg" onclick="enter_link(); javascript:introJs().start();   " />
 	</div> 
 	<div id= "container" class="svg-container">
