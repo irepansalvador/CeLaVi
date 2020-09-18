@@ -20,9 +20,9 @@ var zoom = d3.zoom()
 // constrained within the scaleExtents
 //var zoomListener = d3.behavior.zoom().scaleExtent([0.2,2]).on("zoom", zoom);
 
-//function enter_link() {
-//	$('#splashscreen').fadeOut(500);
-//};
+function enter_link() {
+	$('#splashscreen').fadeOut(500);
+};
 
 var div = d3.select("body").append("div")	
 	.attr("class", "tooltip")
