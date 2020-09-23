@@ -5,7 +5,7 @@
 	color: white;
 	padding: 6px 6px;
 	cursor: pointer;
-	font-size: 16px;
+	font-size: 14px;
 	border-radius: 4px;
 }
 /* Darker background on mouse-over */
@@ -132,10 +132,11 @@ img {
 /* Links inside the dropdown */
 .dropdown-content a {
 	color: black;
-	padding: 12px 16px;
+	padding: 6px 12px;
 	text-decoration: none;
 	display: block;
 	z-index:1;
+	font-size: 14px
 	}
 
 /* Change color of dropdown links on hover */
@@ -350,9 +351,9 @@ div.tooltip {
     position: absolute;			
     text-align: center;			
     width: 120px;					
-    height: 40px;					
+    height: 45px;					
     padding: 2px;				
-    font: 18px sans-serif;		
+    font: 14px sans-serif;		
     background: lightsteelblue;	
     border: 0px;		
     border-radius: 8px;			

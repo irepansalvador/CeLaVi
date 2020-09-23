@@ -332,7 +332,11 @@ function update(source) {
 				setAlphaStroke(points_array, 0.15);
 				highlight_daughters(d);
 				div.style("opacity", .9)
-					.text(d.data.did + ": "+count2+" daughters")
+					.text(function() {
+						if (count2 == N_terminal)
+							{return count2+" daughters"}
+						else {return count2 + " daughters. " + N_terminal + " cells found." }
+						})
 					.style("left", (d3.event.pageX + 10 ) + "px")	
 					.style("top", (d3.event.pageY - 28) + "px");
 				})
@@ -519,12 +523,14 @@ function collapseAll(){
 
 var count; var Tcount; var orig_col; var orig_stroke;
 var sel_ids;
+var N_terminal;
 
 function highlight_daughters(d)
 	{
 	count_leaves2(d);
 			// pts is array with point number to be changed
 	var pts = getPoints(sel_ids);
+	N_terminal = pts.length;
 	// change colour of the 3Dcell 
 	setAlpha(pts, 1 );
 	setAlphaStroke(pts, 1);
@@ -539,6 +545,7 @@ function paint_daughters(d,n)
 	count_leaves2(d);
 			// pts is array with point number to be changed
 	var pts = getPoints(sel_ids);
+	N_terminal = pts.length;
 	// change colour of the 3Dcell 
 	setColours(pts, orig_col );
 	setStroke(pts, orig_stroke );

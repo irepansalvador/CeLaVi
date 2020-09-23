@@ -145,17 +145,17 @@ var plotly_scatter_div; // html div with the 3d obect
 
 // handle upload button
 var header;
-var no_there;
+var missing_3D;
 function containsAll(needles, haystack){
-	no_there=[];
+	missing_3D=[];
 	for(var i = 0 , len = needles.length; i < len; i++)
 		{
 		if($.inArray(needles[i], haystack) == -1) 
-			{no_there.push(needles[i]);
+			{missing_3D.push(needles[i]);
 			//return false;
 			}
 		}
-	if (no_there.length == 0) 
+	if (missing_3D.length == 0) 
 		{return true;
 		}else{return false}
 	}
@@ -189,9 +189,9 @@ function Coords_upload_button(el, callback) {
 			if (containsAll(id_t,sel_ids))
 				{console.log("all cell IDs found");
 				} else { 
-				alert(no_there.length + " of " + id_t.length + 
+				alert(missing_3D.length + " of " + id_t.length + 
 								" cell IDs were not found in the lineage tree\n"+
-								"(e.g. \"" + no_there[1] + "\")");
+								"(e.g. \"" + missing_3D[1] + "\")");
 				}
 			}
 
@@ -576,9 +576,12 @@ function checkID(id) {
 */
 function getPoints(ids) {
 	var pts = [];
-	ids.forEach(function(d) 
-		{pts.push(ID_array.findIndex(x => x === d));
+	ids.forEach(function(d)
+		{
+		var xx = ID_array.findIndex(x => x === d);
+		if (xx >=0) {pts.push(xx)};
 		});
+	console.log("daughters are " + ids.length  +  " .Number of points is tree " + pts.length)
 	return pts;
 	}
 

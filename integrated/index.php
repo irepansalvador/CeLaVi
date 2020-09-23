@@ -75,7 +75,6 @@
 				</div>
 				<div class="col-sm-1 mb-2">
 				</div>
-
 				<div data-step="8" data-intro="Please visit the tutorial to get more details. ENJOY!"  class="col-sm-2 mb-2">
 					<a class="btn btn-large btn-primary" href="http://compus-mentis.org/visualisation/integrated/tutorial.html" target="_blank">
 					<span style="display: block;">Visit Tutorial</span>
@@ -91,15 +90,6 @@
 			<!--	<div class="col-sm-2 mb-2" id="Hide_metadata" style="display: none">
 					<button id="HideMeta" onclick="HideMETADATA()">Hide Cell Annotations</button>
 				</div> -->
-
-				<div class="col-sm-4 mb-2" id="GOI_submit" style="display: none">
-					<form autocomplete="off" action="javascript:Submit_GOI();" >
-						<div class="autocomplete" >
-							<input id="GeneInput" type="text" name="myGene" placeholder="Type gene">
-						</div>
-						<input type="submit">
-					</form>
-				</div>
 			</div>
 			<div id="input_submit">
 				<div class="row">
@@ -136,12 +126,36 @@
 				</div>
 			</div>
 		</div>
-
-		<button class="btn btn-dark" id ="HideINPUT" >HIDE Input Options</button>
-		<a href="./test_data.zip" download>
-			<button class="btn btn-dark"><i class="fa fa-download"></i> Download TEST files</button>
-		</a>
-		<!-- <div class="status" align="Center" ></div> -->    
+		<div id="container_A" >
+			<div class= "row">
+				<div class = "col-sm-6">
+					<div class = "row">
+						<div align= "left">
+							<button class="btn btn-dark" id ="HideINPUT" >HIDE Input Options</button>
+						</div>
+						<div class = "col-sm-7">
+							<a href="./test_data.zip" download>
+							<button class="btn btn-dark"><i class="fa fa-download"></i> Download TEST files</button>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class = "col-sm-6">
+					<div class ="row">
+						<div class = "col-sm-2">
+						</div>
+						<div class="col-sm-10" id="GOI_submit" style="display: none">
+							<form autocomplete="off" action="javascript:Submit_GOI();" >
+								<div class="autocomplete" >
+									<input id="GeneInput" type="text" name="myGene" placeholder="Type gene">
+								</div>
+								<input type="submit">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div id="container2"> <!-- added -->
 			<div id="container1">	
 				<div id="area1"> <!-- cell lineage -->
@@ -157,40 +171,60 @@
 		<!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
 			<div id= "controls_1a" align="left" class="svg-buttons">
 				<div class="row">
-					<div  data-step="5" data-intro="These options allow you to control the visualisation of the lineage tree" class="col-sm-4 mb-2">
+					<div  data-step="5" data-intro="These options allow you to control the visualisation of the lineage tree" class="col-sm-3 mb-2">
 						<h6> Cell lineage tree controls: </h6>
 						<div class="row">
 							<div align="left">
 								<div class="btn-group">
-  								<button onmousedown="zoom_in_start()"  onmouseup="end()" id="zoom_in_tree" title="Expand the tree horizontally" type="button" class="btn btn-success"> <i class="fas fa-angle-double-right"></i>    </button>
-									<button onmousedown="zoom_out_start()" onmouseup="end()" id="zoom_out_tree" title="Contract the tree horizontally" type="button" class="btn btn-success"> <i class="fas fa-angle-double-left"></i></button>
-  								<button onmousedown="pan_down_start()" onmouseup="end()" id="pan_down_tree" title="Expand the tree vertically" type="button" class="btn btn-success"> <i class="fas fa-angle-double-down"></i> </button>
-  								<button onmousedown="pan_up_start()"   onmouseup="end()" id="pan_up_tree" title="Contract the tree vertically" type="button" class="btn btn-success"> <i class="fas fa-angle-double-up"></i> </button>
+									<div class="btn-group-vertical">
+									<button onmousedown="zoom_out_start()" onmouseup="end()" id="zoom_out_tree" title="Contract the tree horizontally" type="button" class="btn btn-success btn-sm"> <i class="fas fa-angle-double-left"></i></button>
+								</div>
+									<div class="btn-group-vertical">
+										<button onmousedown="pan_up_start()"   onmouseup="end()" id="pan_up_tree" title="Contract the tree vertically" type="button" class="btn btn-success btn-sm"> <i class="fas fa-angle-double-up"></i> </button>
+										<button onmousedown="pan_down_start()" onmouseup="end()" id="pan_down_tree" title="Expand the tree vertically" type="button" class="btn btn-success btn-sm"> <i class="fas fa-angle-double-down"></i> </button>
+									</div>
+									<div class="btn-group-vertical">
+									<button onmousedown="zoom_in_start()"  onmouseup="end()" id="zoom_in_tree" title="Expand the tree horizontally" type="button" class="btn btn-success btn-sm"> <i class="fas fa-angle-double-right"></i>    </button>
+									</div>
 								</div>
 							</div>
 							<div>
-								<button id="BranchLenghts" title="Alternate between showing Tree depth (default) and Branch Lenghts" type="button" onclick="show_bl()" class="btn btn-success" >Show BL</button> 
+								<div class="btn-group">
+									<div class="btn-group-vertical">
+										<div >
+											<button id="BranchLenghts" title="Alternate between showing Tree depth (default) and Branch Lenghts" type="button" onclick="show_bl()" class="btn btn-success btn-sm" >Branch Len</button> 
+										</div>
+										<div>
+											<button id="Reset"  title= "Click to reset to the default topology 
+(only showing daughters of root)" type="button" onclick="resetAll()" class="btn btn-success btn-sm" >Reset View</button> 
+										</div>
+									</div>
+								</div>
 							</div>
-							<div>
-								<button id="Reset"  title= "Click to reset to the default topology 
-(only showing daughters of root)" type="button" onclick="resetAll()" class="btn btn-success" >Reset View</button> 
-							</div>
-							<div class="col-sm-3">
-								<div class="dropdown">
-									<button class="btn-tiny"> <i class="fas fa-code-branch"></i> Save Plot </button>
-									<div class="dropdown-content">
-										<a href="#" onclick="SaveSVG()">SVG</a>
-										<a href="#" onclick="SavePNG()">PNG</a>
+							<div class="col-sm-5">
+								<div class="btn-group">
+										<div class="dropdown">
+											<button class="btn-tiny"> <i class="fas fa-code-branch"></i> Save Image </button>
+											<div class="dropdown-content">
+												<a href="#" onclick="SaveSVG()">SVG</a>
+												<a href="#" onclick="SavePNG()">PNG</a>
+											</div>
+										</div>
+										<div class="dropdown">
+											<button class="btn-tiny"> More Options </button>
+											<div class="dropdown-content">
+												<a href="#" >Collapse missing cells</a>
+												<a href="#" >SOme other fn</a>
+											</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-
 					<div  data-step="6" data-intro="These options allow you to save clones" class="col-sm-3 mb-2">
 						<h6> Clones Controls: </h6>
 						<div class="row">
-							<div class ="col-sm-6" >
+							<div class ="col-sm-7" >
 								<label for="saved_clones">Saved clones:</label>
 								<div class "row">
 									<svg width="30" height="30">
@@ -200,44 +234,63 @@
 									</select> 
 								</div>
 							</div>
-							<div class="col-sm-3" align="left">
-								<button id="Reset_clones"  title= "Click to reset the list of saved clones" type="button" onclick="resetClones()" class="btn btn-info" >Reset Clones</button> 
-							</div>
-							<div class="col-sm-2">
-								<button id="reset" title="Set the colour of the cells back to default (white)" type="button" class="btn btn-info">Reset Colors</button>
+							<div class="col-sm-5">
+								<div class="btn-group">
+										<div>
+											<button id="Reset_clones"  title= "Click to reset the list of saved clones" type="button" onclick="resetClones()" class="btn-tiny" >Reset Clones</button> 
+										</div>
+										<div>
+											<button id="reset" title="Set the colour of the cells back to default (white)" type="button" class="btn-tiny">Reset Colors</button>
+										</div>
+									</div>
 							</div>
 						</div>
 					</div>
-
-
 					<!-- RIGHT PART OF THE CONTROLS, FOR CELLS IN 3D -->
-					<div data-step="7" data-intro="And these allow you to control the visualisation of the cells in 3D"  class="col-sm-5 mb-2">
+					<div data-step="7" data-intro="And these allow you to control the visualisation of the cells in 3D"  class="col-sm-6 mb-2">
 						<h6> 3D cells controls: </h6>
 						<div class="row">
-							<div class="col-sm-3">
-								<a> Cell size</a>
-								<input type="number" class="form-control" id="CellSize" placeholder="" value="9" min="1" step="1" title="Size for rendering cells"  required>
-							</div>
-							<div class="col-sm-3">
-								<a> Stroke width </a>
-								<input type="number" class="form-control" id="CellStroke" placeholder="" value="1" min="1" step="1" max="5" title="Stroke width"  required>
-							</div>
-							<div class="col-sm-2" title="This option requires that the lineage tree is completely expanded" >
-								<input id="Cells_checkbox" type="checkbox" value="">Show Lineage
-							</div>
-							<div class="col-sm-2">
-								<div class="dropdown">
-									<button class="btn-tiny"> <i class="fas fa-spinner"></i> Save Plot </button>
-									<div class="dropdown-content">
-										<a href="#" onclick="Save3DPNG()">PNG</a>
+							<div class="col-sm-5">
+								<div class="btn-group">
+									<div>
+										<a> Cell size</a>
+										<input type="number" class="form-control" id="CellSize" placeholder="" value="9" min="1" step="1" title="Size for rendering cells"  required>
+									</div>
+									<div>
+										<a> Stroke width </a>
+										<input type="number" class="form-control" id="CellStroke" placeholder="" value="1" min="1" step="1" max="5" title="Stroke width"  required>
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-2" title="" >
-								<input id="Show_grid" type="checkbox" checked="true"  value="">Show Axes
+							<div class="col-sm-3">
+								<div class="btn-group">
+										<div class="dropdown">
+											<button class="btn-tiny"> <i class="fas fa-spinner"></i> Save Image </button>
+											<div class="dropdown-content">
+												<a href="#" onclick="Save3DPNG()">PNG</a>
+											</div>
+										</div>
+										<div class="dropdown">
+											<button class="btn-tiny"> More Options </button>
+											<div class="dropdown-content">
+												<a href="#" >Fade out missing cells</a>
+												<a href="#" >SOme other fn</a>
+											</div>
+									</div>
+								</div>
 							</div>
-
-
+							<div class="col-sm-4" align="center" >
+								<div class="btn-group">
+									<div class="btn-group-vertical">
+										<div title="" >
+											<input id="Show_grid" type="checkbox" checked="true"  value="">Show Axes
+										</div>
+										<div title="This option requires that the lineage tree is completely expanded" >
+											<input id="Cells_checkbox" type="checkbox" value="">Show Lineage
+										</div>
+									</div>
+								</div>
+							</div>        
 						</div>
 					</div>
 				</div>        
