@@ -6,6 +6,8 @@ var my_cell_rad;
 var my_cell_stroke_width;
 var my_rad= 5;
 var pts = [];
+// get the dic where the plot is going to be added to
+var plotly_scatter_div = document.getElementById("area2");
 
 // Config value for parsing CSV
 var csv_config={header: true,
@@ -54,6 +56,15 @@ cell_check_button.addEventListener( 'change', function() {
 
 // Initialise the layout of the viz
 var layout = {
+	showlegend: true,
+	legend: {
+		x: 1,
+		xanchor: "right",
+		y: 1,
+		bgcolor: "rgb(200, 200, 235)",
+		bordercolor: '#FFFFFF',
+		borderwidth: 2
+		},
 	margin: {l: 0,r: 0,b: 0,t: 0},
 	scene: {camera: { eye: {x:0.1, y:0.1, z:2}},
 		aspectmode: "data",
@@ -140,14 +151,14 @@ var my_view;
 var Npoints;   // Number of cells
 var ID_array;
 var points_array;
-var plotly_scatter_div; // html div with the 3d obect
+//var plotly_scatter_div; // html div with the 3d obect
 
 // MAIN FUNCTION
 
 // handle upload button
 var header;
 var missing;
-var missing_3D;
+var missing_3D=[];
 
 function containsAll(needles, haystack){
 	missing=[];
@@ -178,32 +189,25 @@ function Coords_upload_button(el, callback) {
 			{
 			console.log("columns are named properly");
 			// IF COLUMNS FOUND, PROCEED READING THE FILE
-			callback(contents);
-
 			if (typeof root == 'undefined') {
-		//		alert("[Warning]\n"+
+				// Here I call load_dataset2() !!!!!!
+				// --------------------------------------
+				callback(contents,0);
+			//	alert("[Warning]\n"+
 				showAlert("[Warning] "+
 								"The lineage tree has not been loaded.\n"+
 							"The lineage needs to be loaded to cross-check IDs.");
 				} else {
-			// --- test if cell IDs are in the lineage tree //
-			//console.log(id_t);
-			count_leaves2(root);
-			reset_cell_cols();
-			if (containsAll(id_t,sel_ids))
-				{console.log("all cell IDs found");
-				} else {
-				missing_3D = missing;
-				showAlert("[Warning] " + missing.length + " of " + id_t.length + 
-								" cell IDs were not found in the lineage tree\n"+
-								"(e.g. \"" + missing[1] + "\")");
+				// --- test if cell IDs are in the lineage tree //
+				count_leaves2(root);
+				// Here I call load_dataset2() !!!!!!
+				// --------------------------------------
+				callback(contents,1);
 				}
-			}
-
-		} else {
-		console.log("names are not named properly");
-		// IF COLUMS ARE NOT FOUND THROW AN ERROR
-		showAlert("[CSV format error]\n" +
+			} else {
+			console.log("names are not named properly");
+			// IF COLUMS ARE NOT FOUND THROW AN ERROR
+			showAlert("[CSV format error]\n" +
 			"Header columns need to be \"X\",\"Y\",\"Z\" and \"cell\".");
 		}
 	};
@@ -226,34 +230,74 @@ function Coords_upload_button(el, callback) {
 var LAST_CLICK = null;
 
 var trace1=[];
+var trace2=[];
+
 // load dataset and create plot
-function load_dataset_2(csv) {
+function load_dataset_2(csv,tree) {
+	missing_3D = [];
 	var data_3d = d3.csvParse(csv);
 	console.log(data_3d);
+	// If tree is loaded, check for IDs and missing cells
+	if (tree == 1) {
+		id_t=[];
+		// load everything to data_3d
+		data_3d.forEach(function(d) {id_t.push(d.cell)})
+		if (containsAll(id_t,sel_ids))
+			{console.log("all cell IDs found");
+			} else {
+			missing_3D = missing;
+			showAlert("[Warning] " + missing.length + " of " + id_t.length + 
+				" cell IDs were not found in the lineage tree\n"+
+				"(e.g. \"" + missing[1] + "\")");
+			}
+		}
 	x_t=[]; y_t=[]; z_t=[]; id_t=[];
+	x_t2=[]; y_t2=[]; z_t2=[]; id_t2=[];
+
 	line_col=[]; cell_col=[]; c_size=[];cell_alpha=[];
-	points_array=[];
+	line_col2=[]; cell_col2=[]; c_size2=[];cell_alpha2=[];
+
+	points_array=[];points_array2=[];
 	var i=0;
+	var j=0;
+	console.log("missing are " + missing_3D.length);
+
+	// load everything to data_3d
 	data_3d.forEach(function(d)
 		{
-		x_t.push(d.X);
-		y_t.push(d.Y);
-		z_t.push(d.Z);
-		id_t.push(d.cell);
-		cell_col.push("rgb(255,255,255)");
-		line_col.push("rgb(0,0,255)");
-		cell_alpha.push(1)
-		c_size.push(9);
-		points_array.push(i);
-		i=i+1;
+		 if ( containsAll([d.cell],missing_3D) )
+			{
+			x_t2.push(d.X);
+			y_t2.push(d.Y);
+			z_t2.push(d.Z);
+			id_t2.push(d.cell);
+			cell_col2.push("rgba(255,255,255,0)");
+			line_col2.push("rgba(0,0,255,1)");
+			cell_alpha2.push(1)
+			c_size2.push(9);
+			points_array2.push(j);
+			j=j+1;
+			} else {
+			x_t.push(d.X);
+			y_t.push(d.Y);
+			z_t.push(d.Z);
+			id_t.push(d.cell);
+			cell_col.push("rgb(255,255,255)");
+			line_col.push("rgb(0,0,255)");
+			cell_alpha.push(1)
+			c_size.push(9);
+			points_array.push(i);
+			i=i+1;
+			}
 		});
+	// put all the points in trace 1 except the missing cells
 	trace1 = {
 			x: x_t,
 			y: y_t,
 			z: z_t,
 			id: id_t,
-			// opacity:0.3,
-			// cells' values to be plotted
+			name: 'Cells in tree',
+			showlegend: false,
 			mode: "markers",
 			marker: {
 				color: cell_col,
@@ -267,13 +311,32 @@ function load_dataset_2(csv) {
 			hoverinfo:"text",
 			type: "scatter3d"
 		};
+	// now the missing cells
+	trace2 = {
+			x: x_t2,
+			y: y_t2,
+			z: z_t2,
+			id: id_t2,
+			name: 'Cells missing in tree',
+			showlegend: true,
+			mode: "markers",
+			marker: {
+				color: cell_col2,
+				size: c_size2,
+				line: {
+					color: line_col2,
+					width: 1},
+				opacity:1 
+				},
+			text: id_t2,
+			hoverinfo:"text",
+			type: "scatter3d"
+		};
 	Npoints = x_t.length; // set global var of number of points
 	ID_array= id_t;
-	data = [trace1];
+	data = [trace1,trace2];
 	// to make the plot responsive to size changes
 	Plotly.newPlot("area2", data, layout, config)	;
-	// get the dic where the plot is going to be added to
-	plotly_scatter_div = document.getElementById("area2");
 	// Display the clones to be shown at the top
 	d3.select('.status')
 		.text('Click on a cell     ');
@@ -287,31 +350,40 @@ function load_dataset_2(csv) {
 		if (CLICK_TIME - LAST_CLICK > 1000) {
 			if (d3.select("#Cells_checkbox").property("checked")==false)
 				{
-				LAST_CLICK=CLICK_TIME;
-				var id_txt = "\"id\"" 
-				// get the id of point clicked
-				var pn = dd.points[0].pointNumber;
-				var yy = data[0]["id"][pn];
-				// trick to avoid bug feature, where after clicking we get stuck
-				// on an infinite loop
-				setTimeout(function(x) {
-					click2(yy);
-					setColours([pn], "rgb(255,0,0)");
-					setStroke([pn],"rgb(0,0,139)");
-					console.log(pn)
-					},130);
+				if (dd.points[0].curveNumber == 0)
+					{
+					LAST_CLICK=CLICK_TIME;
+					var id_txt = "\"id\"" 
+					console.log(dd);
+					// get the id of point clicked
+					var pn = dd.points[0].pointNumber;
+					var yy = data[0]["id"][pn];
+					// trick to avoid bug feature, where after clicking we get stuck
+					// on an infinite loop
+					setTimeout(function(x) {
+						click2(yy);
+						setColours([pn], "rgb(255,0,0)");
+						setStroke([pn],"rgb(0,0,139)");
+						console.log(pn)
+						},130);
+					}
+				else {showAlert("Cell clicked is not in lineage tree.") } 
 				}
 			if (d3.select("#Cells_checkbox").property("checked"))
 				{
-				LAST_CLICK=CLICK_TIME;
-				var pn = dd.points[0].pointNumber;
-				var yy = data[0]["id"][pn];
-				setTimeout(function(x) {
-					show_anc_cols(yy);
-					console.log("called function");
-					},130);
+				if (dd.points[0].curveNumber == 0)
+					{
+					LAST_CLICK=CLICK_TIME;
+					var pn = dd.points[0].pointNumber;
+					var yy = data[0]["id"][pn];
+					setTimeout(function(x) {
+						show_anc_cols(yy);
+						console.log("called function");
+						},130);
+					}
+				else {showAlert("Cell clicked is not in lineage tree.") }
 				}
-		  } else {
+			} else {
 			LAST_CLICK = CLICK_TIME
 			}
 		});
@@ -355,15 +427,21 @@ function setRndColours(points, rnd_cols) {
 	Plotly.update("area2", data, myview,0);
 	};
 
-function setSizes(points,new_size) {
+function setSizes(new_size) {
 	//console.log(points)
 	// get current value of camera, so it can be set again
 	myview = plotly_scatter_div.layout.scene.camera;
 	// For each point change the colour value for layout
-	points.forEach(function(d) 
+	points_array.forEach(function(d) 
 		{data[0]["marker"]["size"][d] = new_size;
 		//console.log("Clicked = " + data[0]["id"][d]);
 		});
+	points_array2.forEach(function(d) 
+		{data[1]["marker"]["size"][d] = new_size;
+		//console.log("Clicked = " + data[0]["id"][d]);
+		});
+
+
 	// Update plot based on the new values
 	Plotly.update("area2", data, myview,0);
 	};
@@ -432,8 +510,10 @@ function setStrokeWidth(new_width) {
 	// get current value of camera, so it can be set again
 	myview = plotly_scatter_div.layout.scene.camera;
 	// get current colour of cells to be set again
-	var my_cells_cols = data[0]["marker"]["line"]["color"];
-	data[0]["marker"]["line"]= {color: my_cells_cols , width: new_width };
+//	var my_cells_cols = data[0]["marker"]["line"]["color"];
+	data[0]["marker"]["line"]["width"] = new_width;
+	data[1]["marker"]["line"]["width"] = new_width;
+
 	// Update plot based on the new values
 	Plotly.update("area2", data, myview,0);
 	};
@@ -465,7 +545,7 @@ d3.select("#CellSize").on("input", changeSize );
 // A function that update the color circle
 function changeSize() {
     my_cell_rad = this.value;
-    setSizes(points_array,my_cell_rad); 
+    setSizes(my_cell_rad); 
 }
 // Add an event listener to the button created in the html part
 d3.select("#CellStroke").on("input", changeStrokeWidth );

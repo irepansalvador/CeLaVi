@@ -109,6 +109,7 @@ function Submit_Function(tree_format)
 	// remove 3d plot if exists 
 	if (data.length>0)
 		{data[0].x = data[0].y = data[0].z = data[0].id = data[0].text = [];
+		data[1].x = data[1].y = data[1].z = data[1].id = data[1].text = [];
 		Plotly.newPlot(area2, data, layout)};
 	// remove any svg on the scale div
 	d3.select("#HM_scale").selectAll("svg").remove();

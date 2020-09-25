@@ -1006,7 +1006,6 @@ function collapse_missing() {
 	}
 
 function showAlert(message) {
-	console.log("alert here");
 	$(".myalert").find('.message').text(message);
 	$(".myalert").fadeIn("slow", function() {
 	setTimeout(function() {
