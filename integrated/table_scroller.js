@@ -270,12 +270,12 @@ function highlightMetadata(d){
 	if (document.getElementById("Cells_checkbox").checked == true)
 		{document.getElementById("Cells_checkbox").click()}
 	var cells=[];
-	console.log(d)
+	//console.log(d)
 	data_meta.forEach(function(dd)
 		{if (d==dd.type) 
 			{cells.push(dd.cell)}
 		})
-	console.log(cells)
+	//console.log(cells)
 	var pts = getPoints(cells);
 	// make cells visible  
 	setAlpha(pts, 1);
@@ -286,12 +286,12 @@ function plotMetadata(d){
 	if (document.getElementById("Cells_checkbox").checked == true)
 		{document.getElementById("Cells_checkbox").click()}
 	var cells=[];
-	console.log(d)
+	//console.log(d)
 	data_meta.forEach(function(dd)
 		{if (d==dd.type) 
 			{cells.push(dd.cell)}
 		})
-	console.log(cells)
+	//console.log(cells)
 	//var rc = randomColour();
 	var rc;
 	var isclicked;
@@ -306,10 +306,10 @@ function plotMetadata(d){
 			var result = hexToRgb(rc);
 			var x = "rgb("+ result.r + "," + result.g + ","  + result.b + ")" ;
 			isclicked =  dd[0].attributes.clicked.value;
-			console.log(dd[0]);
+			//console.log(dd[0]);
 			console.log(rc + " , " + x );
 			rc = x;
-			console.log(isclicked);
+			//console.log(isclicked);
 			if (isclicked == 1) {dd[0].attributes.clicked.value=0}
 			if (isclicked == 0) {dd[0].attributes.clicked.value=1}
 			}

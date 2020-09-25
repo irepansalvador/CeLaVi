@@ -5,6 +5,7 @@ var data =[];
 var my_cell_rad;
 var my_cell_stroke_width;
 var my_rad= 5;
+var pts = [];
 
 // Config value for parsing CSV
 var csv_config={header: true,
@@ -145,17 +146,17 @@ var plotly_scatter_div; // html div with the 3d obect
 
 // handle upload button
 var header;
-var missing_3D;
+var missing;
 function containsAll(needles, haystack){
-	missing_3D=[];
+	missing=[];
 	for(var i = 0 , len = needles.length; i < len; i++)
 		{
 		if($.inArray(needles[i], haystack) == -1) 
-			{missing_3D.push(needles[i]);
+			{missing.push(needles[i]);
 			//return false;
 			}
 		}
-	if (missing_3D.length == 0) 
+	if (missing.length == 0) 
 		{return true;
 		}else{return false}
 	}
@@ -189,9 +190,9 @@ function Coords_upload_button(el, callback) {
 			if (containsAll(id_t,sel_ids))
 				{console.log("all cell IDs found");
 				} else { 
-				alert(missing_3D.length + " of " + id_t.length + 
+				alert(missing.length + " of " + id_t.length + 
 								" cell IDs were not found in the lineage tree\n"+
-								"(e.g. \"" + missing_3D[1] + "\")");
+								"(e.g. \"" + missing[1] + "\")");
 				}
 			}
 
@@ -575,7 +576,7 @@ function checkID(id) {
 	}
 */
 function getPoints(ids) {
-	var pts = [];
+	pts = [];
 	ids.forEach(function(d)
 		{
 		var xx = ID_array.findIndex(x => x === d);

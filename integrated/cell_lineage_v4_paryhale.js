@@ -307,7 +307,14 @@ function update(source) {
      {nodes.forEach(function(d){ d.y = d.depth * nodelen});}
   if (show_BL == 1)
      {nodes.forEach(function(d){ d.y = d.blength * nodelen2});}
-    
+
+	// set node property
+	nodes.forEach(function(d){
+		if (d.children) {d.node = "internal"}
+		else if (d._children) {d.node = "internal"}
+		else {d.node = "terminal"}
+	})
+
   // ****************** Nodes section ***************************
   // Update the nodes...
   var node = svg_tree.selectAll('g.node')
@@ -328,21 +335,40 @@ function update(source) {
 				paint_daughters(d);
 				})
 			.on("mouseover.t", function(d) {
-				setAlpha(points_array, 0);
-				setAlphaStroke(points_array, 0.15);
-				highlight_daughters(d);
-				div.style("opacity", .9)
-					.text(function() {
-						if (count2 == N_terminal)
-							{return count2+" daughters"}
-						else {return count2 + " daughters. " + N_terminal + " cells found." }
-						})
-					.style("left", (d3.event.pageX + 10 ) + "px")	
-					.style("top", (d3.event.pageY - 28) + "px");
+				if (points_array == undefined)
+					{
+					count_leaves2(d);
+					div.style("opacity", .9)
+						.text(function() {
+							{return d.data.did + ": " +
+								count2+" daughters."}
+							})
+						.style("left", (d3.event.pageX + 10 ) + "px")	
+						.style("top", (d3.event.pageY - 28) + "px");
+					}
+				else{
+					setAlpha(points_array, 0);
+					setAlphaStroke(points_array, 0.15);
+					highlight_daughters(d);
+					div.style("opacity", .9)
+						.text(function() {
+							if (count2 == N_terminal && N_terminal > 1 )
+								{return d.data.did + ": " +
+										count2+" daughters. All cells found"}
+							else {return d.data.did + ": " + 
+									count2 + " daughters. " +
+									N_terminal + " cells found." }
+							})
+						.style("left", (d3.event.pageX + 10 ) + "px")	
+						.style("top", (d3.event.pageY - 28) + "px");
+					}
 				})
 			.on("mouseout.c", function (d) {
-				setAlphaStroke(points_array, 1);
-				setAlpha(points_array, 1);
+				if (points_array != undefined)
+					{
+					setAlphaStroke(points_array, 1);
+					setAlpha(points_array, 1);
+					}
 				})
 			.on("mouseout.t", function(d) {
 				div.style("opacity", 0)
@@ -529,7 +555,7 @@ function highlight_daughters(d)
 	{
 	count_leaves2(d);
 			// pts is array with point number to be changed
-	var pts = getPoints(sel_ids);
+	pts = getPoints(sel_ids);
 	N_terminal = pts.length;
 	// change colour of the 3Dcell 
 	setAlpha(pts, 1 );
@@ -544,7 +570,7 @@ function paint_daughters(d,n)
 		.select("circle").style("stroke");
 	count_leaves2(d);
 			// pts is array with point number to be changed
-	var pts = getPoints(sel_ids);
+	pts = getPoints(sel_ids);
 	N_terminal = pts.length;
 	// change colour of the 3Dcell 
 	setColours(pts, orig_col );
@@ -554,7 +580,7 @@ function paint_daughters(d,n)
 function paint_daughters_HM(d,n)
 	{
 	count_leaves2(d);
-	var pts = getPoints(sel_ids);
+	pts = getPoints(sel_ids);
 	setColours(pts,colorScale(n) );
 	setStroke(pts, colorScale(n) );
 	}
@@ -924,3 +950,57 @@ function common_anc2(d) {
 		})
 	}
 
+function collapse_missing() {
+	var missing_daughters=[];
+	var missing_sisters=[];
+	// get ALL open nodes
+	var x = nodes.filter(function(d) {return d.node == "terminal"})
+	for (var i=0; i<x.length; i++)
+		{
+		d = x[i];
+//		console.log(d.data.did);
+		// check if a terminal node is in the 3D array
+		if (containsAll([d.data.did],ID_array)) {}
+		// if not go to ancestors
+		else {
+			//console.log(d.data.did);
+			missing_daughters.push(d.data.did);
+			if (containsAll([d.data.did],missing_sisters))
+				{//console.log("skip " + d.data.did + " as is a missing sister");
+				continue}
+			selections = d.ancestors().map(d => d)
+			//console.log(selections)
+			for(var jj = 1; jj<selections.length; jj++)
+				{
+				//console.log("ancestor of  "+  d.data.did + " level " + jj + " = " + selections[jj].data.did);
+				count_leaves2(selections[jj]);
+				pts = getPoints(sel_ids);
+				//console.log("pts length is " +pts.length);
+				if (pts.length == 0)
+					{var joined = missing_sisters.concat(sel_ids);
+					missing_sisters = joined.filter(onlyUnique);
+					}
+				else if (pts.length > 0 && jj == 1)
+					{
+					//console.log("I should be painting this " + d.data.did);
+					d3.selectAll("#area1").selectAll("#"+ d.data.did)
+						.select("circle")
+						.style("fill", "rgb(200,200,200)")
+						.style("stroke", "rgb(200,200,200)");
+
+					break;
+					}
+				else if  (pts.length > 0 && jj > 1)
+					{//console.log("I should click this " + selections[jj-1].data.did);
+						collapse(selections[jj-1]);
+					//	update(selections[jj-1]);
+						break;
+					}
+				//else {console.log("whats this "+ selections[jj].data.did +" pts "+ pts.length) }
+				}
+			}
+		}
+	//console.log(missing_daughters);
+	//console.log(missing_sisters);
+	update(root);
+	}

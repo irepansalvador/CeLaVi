@@ -213,8 +213,8 @@
 										<div class="dropdown">
 											<button class="btn-tiny"> More Options </button>
 											<div class="dropdown-content">
-												<a href="#" >Collapse missing cells</a>
-												<a href="#" >SOme other fn</a>
+												<a href="#" onclick="collapse_missing()" >Collapse missing cells</a>
+												<a href="#" >Some other function</a>
 											</div>
 									</div>
 								</div>
@@ -274,7 +274,7 @@
 											<button class="btn-tiny"> More Options </button>
 											<div class="dropdown-content">
 												<a href="#" >Fade out missing cells</a>
-												<a href="#" >SOme other fn</a>
+												<a href="#" >Some other function</a>
 											</div>
 									</div>
 								</div>
