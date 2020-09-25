@@ -35,7 +35,7 @@ cell_check_button.addEventListener( 'change', function() {
 	if (document.getElementById("Cells_checkbox").checked == true)
 		{
 		d3.select("#HM_scale").selectAll("svg").remove();
-		alert("[NOTE]\nThis option requires that the lineage tree is completely expanded");
+		showAlert("This option requires the lineage to be completely expanded. Expanding the tree now.");
 		Nested_rels_HMscale(max_H);
 		d3.select("#HM_scale").attr("title", "The colour bar represents the degree of lineage relationships between a pair of cells. To visualise how every cell is related to a selected cell, click on any cell in the 3D viewer");
 		d3.select("#HM_scale").select("h5").text("Lineage relationships");
@@ -147,6 +147,8 @@ var plotly_scatter_div; // html div with the 3d obect
 // handle upload button
 var header;
 var missing;
+var missing_3D;
+
 function containsAll(needles, haystack){
 	missing=[];
 	for(var i = 0 , len = needles.length; i < len; i++)
@@ -179,8 +181,9 @@ function Coords_upload_button(el, callback) {
 			callback(contents);
 
 			if (typeof root == 'undefined') {
-				alert("[Warning]\n"+
-							"The lineage tree has not been loaded.\n"+
+		//		alert("[Warning]\n"+
+				showAlert("[Warning] "+
+								"The lineage tree has not been loaded.\n"+
 							"The lineage needs to be loaded to cross-check IDs.");
 				} else {
 			// --- test if cell IDs are in the lineage tree //
@@ -189,8 +192,9 @@ function Coords_upload_button(el, callback) {
 			reset_cell_cols();
 			if (containsAll(id_t,sel_ids))
 				{console.log("all cell IDs found");
-				} else { 
-				alert(missing.length + " of " + id_t.length + 
+				} else {
+				missing_3D = missing;
+				showAlert("[Warning] " + missing.length + " of " + id_t.length + 
 								" cell IDs were not found in the lineage tree\n"+
 								"(e.g. \"" + missing[1] + "\")");
 				}
@@ -199,7 +203,7 @@ function Coords_upload_button(el, callback) {
 		} else {
 		console.log("names are not named properly");
 		// IF COLUMS ARE NOT FOUND THROW AN ERROR
-		alert("[CSV format error]\n" +
+		showAlert("[CSV format error]\n" +
 			"Header columns need to be \"X\",\"Y\",\"Z\" and \"cell\".");
 		}
 	};

@@ -173,7 +173,7 @@ function Submit_Function(tree_format)
 						data: form_data,                         
 						type: 'post',
 						success: function(php_script_response){
-							alert(php_script_response); // display response from the PHP script, if any
+							showAlert(php_script_response); // display response from the PHP script, if any
 							}
 						});
 			//-----------------------------------

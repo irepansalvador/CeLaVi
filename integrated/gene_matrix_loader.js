@@ -24,17 +24,17 @@ function GeneExp_upload_button(el, callback) {
 			} else {
 			console.log("column \"gene\" not found");
 			// IF COLUMS ARE NOT FOUND THROW AN ERROR
-			alert("[CSV format error]\n" +
+			showAlert("[CSV format error]\n" +
 				"1 column needs to be \"gene\".");
 			}
 		if (typeof root == 'undefined' && typeof ID_array == 'undefined' ) {
-		alert("[Error]\n"+
+		showAlert("[Error]\n"+
 					"Neither the lineage tree nor coordinates files have been loaded.\n"+
 					"You need to upload first the lineage and/or 3D cells file first.");
 					$("input[name=Metadata_File]").val("") // reset value of uploader
 			}
 		else if (typeof root == 'undefined') {
-		alert("[Warning]\n"+
+		showAlert("[Warning]\n"+
 					"The lineage tree has not been loaded.");
 					$("input[name=Metadata_File]").val("") // reset value of uploader
 		// read the file to find the names and cross check
@@ -55,9 +55,9 @@ function GeneExp_upload_button(el, callback) {
 		if (containsAll(GE_cells,ID_array))
 			{console.log("all cell IDs found");
 			} else { 
-			alert(no_there.length + " of " + table_cells.length + 
+			showAlert(missing.length + " of " + GE_cells.length + 
 					" cell IDs were not found in the lineage tree\n"+
-					"(e.g. \"" + no_there[1] + "\")");
+					"(e.g. \"" + missing[1] + "\")");
 					$("input[name=GeneExp_File]").val("") // reset value of uploader
 			}
 		callback(contents);
@@ -87,9 +87,9 @@ function GeneExp_upload_button(el, callback) {
 		if (containsAll(GE_cells,sel_ids))
 			{console.log("all cell IDs found");
 			} else { 
-			alert(no_there.length + " of " + table_cells.length + 
+			showAlert(missing.length + " of " + GE_cells.length + 
 					" cell IDs were not found in the lineage tree\n"+
-					"(e.g. \"" + no_there[1] + "\")");
+					"(e.g. \"" + missing[1] + "\")");
 					$("input[name=GeneExp_File]").val("") // reset value of uploader
 			}
 		callback(contents);

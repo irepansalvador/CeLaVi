@@ -19,7 +19,7 @@ function Metadata_upload_button(el, callback) {
 			{console.log("columns are named properly");
 			// IF COLUMNS FOUND, PROCEED READING THE FILE
 			if (typeof root == 'undefined' || typeof ID_array == 'undefined' ) {
-				alert("[Warning]\n"+
+				showAlert("[Error] "+
 							"The lineage tree and/or coordinates files have not been loaded.\n"+
 							"The lineage and 3D cells need to be loadad to cross-check IDs.");
 							$("input[name=Metadata_File]").val("") // reset value of uploader
@@ -38,9 +38,9 @@ function Metadata_upload_button(el, callback) {
 				if (containsAll(table_cells,sel_ids))
 					{console.log("all cell IDs found");
 					} else { 
-					alert(no_there.length + " of " + table_cells.length + 
+					showAlert("[Warning] " + missing.length + " of " + table_cells.length + 
 							" cell IDs were not found in the lineage tree\n"+
-							"(e.g. \"" + no_there[1] + "\")");
+							"(e.g. \"" + missing[1] + "\")");
 							$("input[name=Metadata_File]").val("") // reset value of uploader
 					}
 				}
@@ -52,7 +52,7 @@ function Metadata_upload_button(el, callback) {
 		} else {
 			console.log("names are not named properly");
 			// IF COLUMS ARE NOT FOUND THROW AN ERROR
-			alert("[CSV format error]\n" +
+			showAlert("[CSV format error]\n" +
 				"Header columns need to be \"cell\", and \"type\".");
 			}
 	};

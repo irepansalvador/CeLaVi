@@ -1004,3 +1004,13 @@ function collapse_missing() {
 	//console.log(missing_sisters);
 	update(root);
 	}
+
+function showAlert(message) {
+	console.log("alert here");
+	$(".myalert").find('.message').text(message);
+	$(".myalert").fadeIn("slow", function() {
+	setTimeout(function() {
+	$(".myalert").fadeOut("slow");
+	}, 3000);
+	});
+}

@@ -1,4 +1,23 @@
- /* Style buttons */
+/* Alert fading box */
+.hide {
+	display: none;
+}
+.myalert {
+	background: midnightblue;
+	position: absolute;
+	top: 30%;
+	left: 40%;
+	width:300px;
+	height: 150px;
+	padding: 12px 12px;
+	border-radius: 12px;
+	z-index: 99;
+}
+.message {
+	color: white;
+	font-size: 18px;
+}
+/* Style buttons */
 .btn-tiny {
 	background-color: #007bff;
 	border: none;
