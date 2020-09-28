@@ -75,14 +75,8 @@ function my_slider()
 			{console.log("I have clicked in level "+ d)
 			Tcount = 0;
 			depth_mark(d);
-			div.transition()		
-				.duration(0)		
-				.style("opacity", .9)
-				.text(Tcount+' daughters')
-				.style("left", (d3.event.pageX - 50 ) + "px")	
-				.style("top", (d3.event.pageY - 48) + "px");
 			update(d) 
-			console.log("Total cells "+ Tcount)
+	//		console.log("Total cells "+ Tcount)
 			}
 		},
 		{title: 'Show label until this depth',
@@ -269,36 +263,42 @@ function depth_mark(d){
 	// first reset the colours of the tree and 3D cells
 	reset_node_cols();
 	reset_cell_cols()
-// first assign a random colour to the parent node
-	// in the tree
+// first assign a random colour to the parent node in the tree
+	var rnd_cols=[];
+	var pts=[]; 
+	var Allpts=[];
 	depths2.forEach(function(d,i)
 		{
+		sel_ids=[];
+		showAlert("This function only marks the 3D cells that are completely expanded in the tree");
 		ci = i;
 		var D = d;
 		//     console.log("looking for #"+D)
-		var rc = randomColour();
+		var result = hexToRgb(randomColour());
+		var RGBcol  = "rgb("+ result.r + "," + result.g + ","  + result.b + ")" ;
 		d3.selectAll("#area1").selectAll("g").select("#"+D)
 			.select("circle")
-			.style("fill", rc)
-			.style("fill-opacity", 0.8)
-			.style("stroke", stroke_cols[parseInt(ci/10)])
+			.style("fill", RGBcol)
 			.attr("r", 6);
-		});
-	// then use this random colour to paint all the descendants
-	// in the 3D cells
-	depths2.forEach(function(d,i)
-		{
-		var D = d;
-		//     console.log("looking for #"+D)
-		var nn = d3.selectAll("#area1")
-			.select("#"+D);
-		// then the 
-		nn.each(function(d) {
-			paint_daughters(d);
+			// Get the IDs of ALL the cells of a given clon
+		var clone = nodes.filter(function(d) {return d.data.did == D})
+		//console.log(clone[0])
+		var clone_cells = clone[0].descendants().filter(function(d) {return d.node == "terminal"})
+		clone_cells.forEach(function(d) {
+			// PAINT ALL CELLS
+			sel_ids.push(d.data.did);
+	//		d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
+	//			.select("circle")
+	//			.style("fill", RGBcol)
+	//			.attr("r", 5);
 			});
-
-		console.log("looking for "+ nn)   
+		pts = getPoints(sel_ids);
+		pts.forEach(function() {rnd_cols.push(RGBcol)});
+		Allpts.push.apply(Allpts,pts);
 		});
+	console.log(Allpts);
+	console.log(rnd_cols);
+	setRndColours(Allpts, rnd_cols);
 	}
 
 var tc=0; // to store the number of clones in tim

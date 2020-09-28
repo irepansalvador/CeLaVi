@@ -666,7 +666,7 @@ function getPoints(ids) {
 		var xx = ID_array.findIndex(x => x === d);
 		if (xx >=0) {pts.push(xx)};
 		});
-	console.log("daughters are " + ids.length  +  " .Number of points is tree " + pts.length)
+//	console.log("daughters are " + ids.length  +  " .Number of points is tree " + pts.length)
 	return pts;
 	}
 

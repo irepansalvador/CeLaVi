@@ -10,7 +10,9 @@ var GEmatrix_txt = "";
 function Examples(e)
 	{
 	zoom_reset();
-	Abs_BL=undefined;
+	Abs_rel = undefined;
+	Abs_BL= undefined; show_BL = 0;
+
 	d3.select("#area1").select("h4").remove();
 	d3.select("#area1").select("#clonesdiv").remove();
 	// Remove the slider if exists
@@ -39,9 +41,6 @@ function Examples(e)
 	var meta_file;
 	// Select the options depending on the example chosen
 	if (e == 1) {
-		//Abs_BL = 0;
-//		document.getElementById("Json_TREE").checked = "true";
-//		document.getElementById("Rel_BL").checked = "true";
 		activate_tree_controls();
 		tree_file = "test_data/C_elegans/C_elegans_tree.json";
 		Upload_example_tree();
@@ -52,9 +51,6 @@ function Examples(e)
 		Upload_example_3Dcells();
 		load_dataset_2(cells3D_txt);
 		$("label[for='3Dcoord_uploader'").text("C_elegans_3D_cells.csv");
-		// add button to hide/table
-	//	var x = document.getElementById("Hide_metadata");
-	//	if (x.style.display === "none") {x.style.display = "block";}
 		// metadata
 		meta_file = "test_data/C_elegans/C_elegans_cell_types.csv";
 		Upload_example_metadata();
@@ -62,8 +58,6 @@ function Examples(e)
 		}
 	if (e == 2) {
 		Abs_BL =2;
-//		document.getElementById("Newick_TREE").checked = "true";
-//		document.getElementById("No_BL").checked = "true";
 		tree_file = "test_data/Ciona/Ciona_cell_lineage.nw";
 		activate_tree_controls();
 		Upload_example_tree();
@@ -75,9 +69,6 @@ function Examples(e)
 		Upload_example_3Dcells();
 		load_dataset_2(cells3D_txt);
 		$("label[for='3Dcoord_uploader'").text("Ciona_3D_coords.csv");
-		// add button to hide/table
-	//	var x = document.getElementById("Hide_metadata");
-	//	if (x.style.display === "none") {x.style.display = "block";}
 		// Gene expression
 		GE_file = "test_data/Ciona/Ciona_GEmatrix_500genes.csv";
 		Upload_example_GEmatrix();
@@ -88,13 +79,7 @@ function Examples(e)
 		load_dataset_3(metadata_txt);
 		}
 	if (e == 3) {
-		//Abs_BL = 1;
-//		document.getElementById("Newick_TREE").checked = "true";
-//		document.getElementById("Abs_BL").checked = "true";
 		tree_file = "test_data/Parhyale/Parhyale_tree.nw";
-		// remove button to hide/table
-	//	var x = document.getElementById("Hide_metadata");
-	//	if (x.style.display === "block") {x.style.display = "none";}
 		activate_tree_controls();
 		Upload_example_tree();
 		var newick = Newick.parse(tree_txt);
@@ -107,22 +92,19 @@ function Examples(e)
 		$("label[for='3Dcoord_uploader'").text("Parhyale_3D_cells.csv");
 	}
 	if (e == 4) {
-	//	document.getElementById("Json_CLONES").checked = "true";
-	//	document.getElementById("No_BL").checked = "true";
-		// remove button to hide/table
-	//	var x = document.getElementById("Hide_metadata");
-	//	if (x.style.display === "block") {x.style.display = "none";}
 		activate_tree_controls();
+		depth_label = 1;
 		// tree file
-		tree_file = "test_data/Organoid/organoid_15Kcells_clones.json";
+		tree_file = "test_data/Organoid/organoid_10Kcells_clones.json";
 		Upload_example_tree();
-		load_dataset_clones(tree_txt);
-		$("label[for=JSON_uploader").text("organoid_15Kcells_clones.json");
+		load_dataset_json(tree_txt);
+		$("label[for=JSON_uploader").text("organoid_10Kcells_clones.json");
+	//	load_dataset_clones(tree_txt);
 		// 3D cells file
-		cells3D_file = "test_data/Organoid/organoid_15Kcells_3D.csv";
+		cells3D_file = "test_data/Organoid/organoid_10Kcells_3D.csv";
 		Upload_example_3Dcells();
 		load_dataset_2(cells3D_txt);
-		$("label[for='3Dcoord_uploader'").text("organoid_15Kcells_3D.csv");
+		$("label[for='3Dcoord_uploader'").text("organoid_10Kcells_3D.csv");
 	}
 	console.log(tree_file);
 

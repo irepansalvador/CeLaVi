@@ -381,7 +381,10 @@ function update(source) {
       .attr('class', 'node')
 //      .attr("id",  function(d) {return d.data.did;})
      .attr('r', function(d) {
-                return (5- (d.depth/3)) })
+              return d.depth < 9 ? (6 - d.depth/3) : 3 })
+     .style('stroke-width', function(d) {
+              return d.depth < 6 ? (2 - d.depth/5) : 0.8 })
+
  //    .attr('r', 1e-6)
       .style("stroke", "rgb(0,0,255)");
   // Text when adding nodes 
@@ -433,7 +436,10 @@ function update(source) {
          else  {return d3.select(this).style("fill");}
         }
       )
-    .style('stroke-width', 1.5)
+ //   .style('stroke-width', 1.5)
+    .style('stroke-width', function(d) {
+              return d.depth < 6 ? (2 - d.depth/5) : 0.8 })
+
     .attr('fill-opacity', 0.9)
     .attr('cursor', 'pointer')
     .style("stroke", function(d) {
@@ -804,18 +810,18 @@ function get_heightID(){
     //console.log(depths);
 }
 function reset_node_cols() {
-    d3.selectAll("#area1")
-        .selectAll('circle.node')
-//    .attr('r', 4.5)
-        .attr('r', function(d) {
-                return (6- (d.depth/2)) })
-        .style("fill", function(d) {
-            return d._children ? "rgb(70, 150, 180)" : "rgb(255, 255, 255)";})
-        .style('stroke-width', 1.5)
-        .attr('fill-opacity', 0.9)
-        .attr('cursor', 'pointer')
-        .style("stroke", "rgb(0,0,255)");
-    }
+	d3.selectAll("#area1")
+		.selectAll('circle.node')
+		.attr('r', function(d) {
+			return d.depth < 9 ? (6 - d.depth/3) : 3 })
+		.style('stroke-width', function(d) {
+			return d.depth < 6 ? (2 - d.depth/5) : 0.8 })
+		.style("fill", function(d) {
+			return d._children ? "rgb(70, 150, 180)" : "rgb(255, 255, 255)";})
+		.attr('fill-opacity', 0.9)
+		.attr('cursor', 'pointer')
+		.style("stroke", "rgb(0,0,255)");
+	}
 
 function get_branlen(){
     // get all the nodes (opened) and get their height
@@ -985,6 +991,7 @@ function collapse_missing() {
 					//console.log("I should be painting this " + d.data.did);
 					d3.selectAll("#area1").selectAll("#"+ d.data.did)
 						.select("circle")
+						.attr("r",1) 
 						.style("fill", "rgb(200,200,200)")
 						.style("stroke", "rgb(200,200,200)");
 
