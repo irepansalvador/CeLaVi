@@ -90,12 +90,15 @@ function showtreeopts()
 			}
 		console.log("file has correct extension "  + extension)
 		}
-	else {console.log("file has not correct extension")}
+	else {showAlert("[Error] File does not have any of the accepted extensions " +
+				"(i.e. \".nw\", \".newick\", \".json\")");
+				console.log("file has not correct extension")}
 	}
 
 function Submit_Function(tree_format) 
 	{
 	Abs_rel = undefined;
+	Abs_BL= undefined; show_BL = 0;
 	d3.select("#area1").select("h4").remove();
 	d3.select("#area1").select("#clonesdiv").remove();
 	// Remove the slider if exists
@@ -107,6 +110,7 @@ function Submit_Function(tree_format)
 	// remove metadata table
 	d3.select("#metadata_table").remove();
 	// remove 3d plot if exists 
+	ID_array=undefined; points_array= undefined;
 	if (data.length>0)
 		{data[0].x = data[0].y = data[0].z = data[0].id = data[0].text = [];
 		data[1].x = data[1].y = data[1].z = data[1].id = data[1].text = [];
