@@ -121,7 +121,13 @@ var menu = [
         update(d)
         }
 	},
-    	{
+	{
+	title: 'Delete this node',
+    action: function(d) {
+        delete_node(d);
+        }
+	},
+   	{
 	title: function(d) {return 'Save clone ' + d.data.did},
 	action: function(d) {save_clone(d)}
 	},
@@ -156,6 +162,8 @@ var menu = [
 var max_H;
 var colorScale;
 var HM_cols = [];
+var links_hide;
+
 // colors = blue, green, red, purple, orange, black...
 var stroke_cols = [ "rgb(0,0,255)","rgb(0,255,0)","rgb(255,0,0)","rgb(255,0,255)","rgb(255,165,0)","rgb(0,0,0)",
                    "rgb(0,0,255)","rgb(0,255,0)","rgb(255,0,0)","rgb(255,0,255)","rgb(255,165,0)","rgb(0,0,0)",
@@ -181,6 +189,13 @@ function load_dataset_json(json) {
 		.domain([1, max_H]);
 	my_slider();
 	//Nested_rels_HMscale(max_H);
+	console.log(nodes.length);
+	if (nodes.length < 500) {links_hide = false}
+	else {links_hide = true;
+		showAlert("[NOTE] For faster rendering, some tree branches might not show. " +
+						"Go to \"More Options\" and \"Show all branches\" " +
+						" to change this behaviour.")
+		}
 	update(root);
 	//resetAll();
 }
@@ -199,6 +214,13 @@ function load_dataset_newick(newick){
 		.domain([1, max_H]);
 	my_slider();
 	//  Nested_rels_HMscale(max_H);
+	console.log(nodes.length);
+	if (nodes.length < 500) {links_hide = false}
+	else {links_hide = true;
+		showAlert("[NOTE] For faster rendering, some tree branches might not show. " +
+						"Go to \"More Options\" and \"Show all branches\" " +
+						" to change this behaviour.")
+		}
 	update(root);
 	//resetAll();
 }
@@ -294,8 +316,15 @@ function update(source) {
   var treeData = treemap(root);
   //console.log(treeData)
   // Compute the new tree layout.
-  nodes = treeData.descendants(),
-  links = treeData.descendants().slice(1);
+  nodes = treeData.descendants();
+	if (links_hide == false) {links = treeData.descendants().slice(1);}
+	else {
+		links2 = treeData.descendants().slice(1);
+		links = links2.filter(function (d) {
+			if (d.data.did == d.parent.children[0].data.did || d.data.did == d.parent.children[d.parent.children.length-1].data.did) {
+			return d}
+			})
+		}
   nodes.forEach(function(d){
       if (d.blength == undefined) {d.blength = 0};
     });
@@ -475,12 +504,23 @@ function update(source) {
   var linkEnter = link.enter().insert('path', "g")
       .attr("class", "link")
       .style("stroke", "darkgrey")
-			.style("opacity", 0.5)
+			.style("fill","none")
+			.style("stroke-opacity", 0.5)
 	    .style('stroke-width', 1.5)
 			.attr('d', function(d){
         var o = {x: source.x0, y: source.y0}
         return diagonal(o, o)
       });
+
+  // Creates a curved (diagonal) path from parent to the child nodes
+  function diagonal(s, d) {
+    path = `M ${s.y} ${s.x}
+            C ${(s.y + d.y) / 2} ${s.x},
+              ${(s.y + d.y) / 2} ${d.x},
+              ${d.y} ${d.x}`
+    return path
+  }
+
   // UPDATE
   var linkUpdate = linkEnter.merge(link);
   // Transition back to the parent element position
@@ -501,14 +541,6 @@ function update(source) {
     d.y0 = d.y;
   });
 
-  // Creates a curved (diagonal) path from parent to the child nodes
-  function diagonal(s, d) {
-    path = `M ${s.y} ${s.x}
-            C ${(s.y + d.y) / 2} ${s.x},
-              ${(s.y + d.y) / 2} ${d.x},
-              ${d.y} ${d.x}`
-    return path
-  }
 }
 
 // my functions
@@ -1020,3 +1052,19 @@ function showAlert(message) {
 	}, 3000);
 	});
 }
+
+function delete_node(d) {
+	if (d.parent) {
+		var new_children = [];
+		var sisters = d.parent.children;
+		sisters.filter(function (s) {
+			if (s.data.did != d.data.did)
+				{new_children.push(s)} 
+			})
+		if (new_children.length > 0)
+			{d.parent.children = new_children;}
+		else {d.parent.children = null }
+		update(d);
+		}
+	}
+

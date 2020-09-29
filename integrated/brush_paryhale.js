@@ -79,7 +79,14 @@ function my_slider()
 	//		console.log("Total cells "+ Tcount)
 			}
 		},
-		{title: 'Show label until this depth',
+		{title: 'Delete nodes with less than N descendants',
+    action: function(d, i) {
+			var n = parseInt(prompt("Please enter an integer number ", ""));
+			depth_delete_node(d,n);
+			update(root);
+			}
+		},
+	{title: 'Show label until this depth',
 		action: function(d,i) 
 			{console.log("I have clicked in level "+ d)
 			depth_label = d;
@@ -160,6 +167,7 @@ function onlyUnique(value, index, self) {
     }
 
  function depth_collapse(d){
+		console.log("Collapse all from depth " + d);
     // get all the nodes (opened) and get their height
     var xxx = d3.selectAll("#area1").select("svg")
         .selectAll("g")
@@ -168,22 +176,24 @@ function onlyUnique(value, index, self) {
     var yyy = [];
     xxx.filter(function(dd) {yyy.push(dd.data.did)});
     var depths2 = yyy.filter( onlyUnique );
-     console.log(depths2)
+    // console.log(depths2)
     depths2.forEach(function(d,i) 
         {
         ci = i;
-        var D = d; console.log(D);
+        var D = d;// console.log(D);
         var nn = d3.selectAll("#area1")
             .select("#"+D)
             .each(function(d)
                   {collapse(d);
-                  console.log("clicked in ith element :",ci)});
+      //            console.log("clicked in ith element :",ci)
+			            });
 
         });
      update(root);
  }
 function depth_expanse(d){
-    // get all the nodes (opened) and get their height
+		console.log("Expand all from depth " + d);
+   // get all the nodes (opened) and get their height
     var xxx = d3.selectAll("#area1").select("svg")
         .selectAll("g")
         .select("circle").data()
@@ -195,12 +205,13 @@ function depth_expanse(d){
     depths2.forEach(function(d,i) 
         {
         ci = i;
-        var D = d; console.log(D);
+        var D = d;// console.log(D);
         var nn = d3.selectAll("#area1")
             .select("#"+D)
             .each(function(d)
                   {expand(d);
-                  console.log("clicked in ith element :",ci)});
+                 // console.log("clicked in ith element :",ci)
+								  });
 
         });
      update(root);
@@ -251,6 +262,7 @@ function show_depth2(d){
 	}
 
 function depth_mark(d){
+	showAlert("This function only marks the 3D cells that are completely expanded in the tree");
 	// get all the nodes (opened) and get their height
 	var xxx = d3.selectAll("#area1").select("svg")
 		.selectAll("g")
@@ -267,31 +279,22 @@ function depth_mark(d){
 	var rnd_cols=[];
 	var pts=[]; 
 	var Allpts=[];
-	depths2.forEach(function(d,i)
+	depths2.forEach(function(d)
 		{
 		sel_ids=[];
-		showAlert("This function only marks the 3D cells that are completely expanded in the tree");
-		ci = i;
 		var D = d;
-		//     console.log("looking for #"+D)
 		var result = hexToRgb(randomColour());
 		var RGBcol  = "rgb("+ result.r + "," + result.g + ","  + result.b + ")" ;
 		d3.selectAll("#area1").selectAll("g").select("#"+D)
 			.select("circle")
 			.style("fill", RGBcol)
 			.attr("r", 6);
-			// Get the IDs of ALL the cells of a given clon
+		// Get the IDs of ALL the cells of a given clon
 		var clone = nodes.filter(function(d) {return d.data.did == D})
 		//console.log(clone[0])
-		var clone_cells = clone[0].descendants().filter(function(d) {return d.node == "terminal"})
-		clone_cells.forEach(function(d) {
-			// PAINT ALL CELLS
-			sel_ids.push(d.data.did);
-	//		d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
-	//			.select("circle")
-	//			.style("fill", RGBcol)
-	//			.attr("r", 5);
-			});
+		var clone_cells = clone[0].descendants().filter(function(d) {
+				if (d.node == "terminal") { sel_ids.push(d.data.did)}
+			})
 		pts = getPoints(sel_ids);
 		pts.forEach(function() {rnd_cols.push(RGBcol)});
 		Allpts.push.apply(Allpts,pts);
@@ -300,6 +303,44 @@ function depth_mark(d){
 	console.log(rnd_cols);
 	setRndColours(Allpts, rnd_cols);
 	}
+
+function depth_delete_node(d,n){
+	showAlert("Removing nodes with less than " + n + 
+		" (expanded) leaves in the tree" );
+	var flagged_nodes = [];
+	var flagged_parents = [];
+	// get all the nodes (opened) and get their height
+	var xxx = d3.selectAll("#area1").select("svg")
+		.selectAll("g")
+		.select("circle").data()
+		.filter(function(dd) {return dd.depth == d});
+		var yyy = [];
+		xxx.filter(function(dd) {yyy.push(dd.data.did)});
+		var depths2 = yyy.filter( onlyUnique );
+		console.log(depths2);
+	depths2.forEach(function(d)
+		{
+		var D = d;
+		// Get the IDs of ALL the cells of a given clon
+		var clone = nodes.filter(function(d) {return d.data.did == D})
+		var clone_n = clone[0].leaves().length;
+		//console.log(clone[0].data.did + "has "+ clone_n+ "leaves " );
+		if (n > clone_n )
+			{flagged_nodes.push(clone[0]);
+			flagged_parents.push(clone[0].parent);
+			}
+		})
+	//console.log(flagged_nodes);
+	//console.log(flagged_parents.filter(onlyUnique) );
+	var unique_parents = flagged_parents.filter(onlyUnique);
+	unique_parents.forEach(function (d) {
+		var new_children = [];
+		var sisters = d.children;
+		new_children = sisters.filter( x => !flagged_nodes.includes(x) );
+		d.children = new_children;
+		})
+	}
+
 
 var tc=0; // to store the number of clones in tim
 var time_cells=[];
