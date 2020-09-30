@@ -163,6 +163,9 @@ function Submit_GOI()
 		//console.log(key, value);
 		var goi_n = getPoints([key]);
 		setColours([goi_n], GE_colorScale(value));
+		d3.selectAll("#area1").selectAll("g").select("#"+key)
+			.select("circle")
+			.style("fill", GE_colorScale(value));
 		}
 
 	}
@@ -206,7 +209,7 @@ function GE_HMscale(goi_gene,goi_max) {
 		console.log(colorScale(ii))};
 	
 	var bars = slider_svg.selectAll("g")
-		.data(d3.range(10), function(d) {console.log(d) ; return d; })
+		.data(d3.range(10), function(d) {return d; })
 		.enter().append("rect")
 		.attr("class", "bars")
 		.attr("x", function(d, i) { return (i*5) +30; })
