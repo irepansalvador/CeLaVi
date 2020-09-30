@@ -258,7 +258,7 @@
 									</div>
 									<div>
 										<a> Stroke width </a>
-										<input type="number" class="form-control" id="CellStroke" placeholder="" value="1" min="1" step="1" max="5" title="Stroke width"  required>
+										<input type="number" class="form-control" id="CellStroke" placeholder="" value="0.5" min="0.25" step="0.25" max="3" title="Stroke width"  required>
 									</div>
 								</div>
 							</div>

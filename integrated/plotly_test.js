@@ -304,7 +304,7 @@ function load_dataset_2(csv,tree) {
 				size: c_size,
 				line: {
 					color: line_col,
-					width: 1},
+					width: 0.5},
 				opacity:1 
 				},
 			text: id_t,
@@ -325,7 +325,7 @@ function load_dataset_2(csv,tree) {
 				size: c_size2,
 				line: {
 					color: line_col2,
-					width: 1},
+					width:0.5},
 				opacity:1 
 				},
 			text: id_t2,
@@ -635,7 +635,8 @@ function show_anc_cols(d) {
 				.select("circle")
 				.style("fill", colorScale(mycol))
 				.style("stroke", colorScale(mycol))
-				.attr('opacity', 10).attr('fill-opacity', 1).attr("r",my_rad + 2 );
+			//	.attr('opacity', 10)
+				.attr('fill-opacity', 1).attr("r",my_rad + 2 );
 			// select the nested clone from an ancestor
 			var nested_clone;
 			nested_clone = node_j[0].descendants();
@@ -646,7 +647,8 @@ function show_anc_cols(d) {
 					.select("circle")
 					.style("fill", colorScale(mycol))
 					.style("stroke", colorScale(mycol))
-					.attr('opacity', 10).attr('fill-opacity', 1);
+			//		.attr('opacity', 10)
+					.attr('fill-opacity', 1);
 				//	.attr("r",my_rad);
 				})
 			}

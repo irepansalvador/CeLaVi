@@ -604,15 +604,15 @@ function paint_daughters(d,n)
 	{
 	orig_col =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
 		.select("circle").style("fill");
-	orig_stroke =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
-		.select("circle").style("stroke");
+//	orig_stroke =d3.selectAll("#area1").selectAll("g").select("#"+d.data.did)
+//		.select("circle").style("stroke");
 	count_leaves2(d);
 			// pts is array with point number to be changed
 	pts = getPoints(sel_ids);
 	N_terminal = pts.length;
 	// change colour of the 3Dcell 
 	setColours(pts, orig_col );
-	setStroke(pts, orig_stroke );
+//	setStroke(pts, orig_stroke );
 	}
 
 function paint_daughters_HM(d,n)
@@ -620,7 +620,7 @@ function paint_daughters_HM(d,n)
 	count_leaves2(d);
 	pts = getPoints(sel_ids);
 	setColours(pts,colorScale(n) );
-	setStroke(pts, colorScale(n) );
+//	setStroke(pts, colorScale(n) );
 	}
 
 function count_leaves2(d){
