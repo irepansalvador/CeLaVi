@@ -79,7 +79,7 @@ function my_slider()
 	//		console.log("Total cells "+ Tcount)
 			}
 		},
-		{title: 'Delete nodes with less than N descendants',
+		{title: 'Delete nodes with fewer than N descendants',
     action: function(d, i) {
 			var n = parseInt(prompt("Please enter an integer number ", ""));
 			depth_delete_node(d,n);
@@ -305,7 +305,7 @@ function depth_mark(d){
 	}
 
 function depth_delete_node(d,n){
-	showAlert("Removing nodes with less than " + n + 
+	showAlert("Removing nodes with fewer than " + n + 
 		" (expanded) leaves in the tree" );
 	var flagged_nodes = [];
 	var flagged_parents = [];

@@ -523,6 +523,14 @@ function setStrokeWidth(new_width) {
 d3.select("#reset").on("click", function() {
 	console.log("CLICKED ON RESET");
 	reset_cell_cols(); reset_node_cols();
+	//Reset clones selection to default without deleting saved clones
+	$('#saved_clones option').prop('selected', function() {
+		return this.defaultSelected;
+		});
+	d3.select("#square_clone").style("fill", "#bccbde");
+
+
+
 });
 
 function reset_cell_cols() {

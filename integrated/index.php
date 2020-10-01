@@ -230,7 +230,8 @@
 									<svg width="30" height="30">
 										<rect id="square_clone" width="25" height="25" style="fill:#bccbde;stroke-width:3;stroke:rgb(0,0,0)" />
 									</svg>  
-									<select id="saved_clones">
+									<select name="saved_clones" id="saved_clones">
+										<option value="" selected="selected" hidden="hidden" >Choose clone</option>
 									</select> 
 								</div>
 							</div>

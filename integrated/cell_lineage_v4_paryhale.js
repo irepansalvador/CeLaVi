@@ -725,6 +725,10 @@ var clones_list = {
 	}
 
 function save_clone(d) {
+	// messages to find bug
+	console.log("##################################");
+	console.log("THIS SHOWS WHEN CLICKING IN ANY CLONE TO SAVE");
+
 	my_clone = d.data.did;
 	$('#example-button').click();
 	}
@@ -737,12 +741,21 @@ $('#example-button').colpick({
 		$(el).colpickHide();
 		var result = hexToRgb("#"+hex);
 		var RGBcol  = "rgb("+ result.r + "," + result.g + ","  + result.b + ")" ;
-		console.log(RGBcol);
-		options = options +1;
+		// messages to find bug
+		console.log("##################################");
+		console.log("THIS SHOWS WHEN CHOOSING ANY COLOUR");
+		console.log("chosen colour = " + RGBcol);
 		console.log('Test: ' + my_clone)
+		//
+		//
+		options = options +1;
 		dropMenu = [options + " " + my_clone];
 		clones_list.saved[options] = RGBcol;
 		update_dropMenu();
+
+		console.log("----------------------------------");
+		console.log("my N option is now " + options);
+	//	console.log("my clone list is : "+ clones_list);
 		}
 	});
 
@@ -752,23 +765,36 @@ var dropMenu;
 var options = 0;
 // add the options to the button
 var update_dropMenu = function() {
-dropdownButton // Add a button
-  .selectAll('myOptions') // Next 4 lines add 6 options = 6 colors
- 	.data(dropMenu)
-  .enter()
-	.append('option')
+	var res = dropMenu[0].split(" ");
+	var picked = res[1];
 
-  .text(function (d) { return d; }) // text showed in the menu
-  .attr("value", function (d) { return d; }) // corresponding value returned by the button
+	dropdownButton // Add a button
+		.selectAll('myOptions') // Next 4 lines add 6 options = 6 colors
+		.data(dropMenu)
+		.enter()
+		.append('option')
+		.text(picked) // text showed in the menu
+		.attr("value", function (d) { return d; }) // corresponding value returned by the button
+	
+	console.log("----------------------------------");
+	console.log("Adding "+ dropMenu + " to the list ");
 }
 
 // When the button is changed, run the updateChart function
-dropdownButton.on("click", function(d) {
+dropdownButton.on("change", function(d) {
+	console.log("##################################");
+	console.log("THIS SHOWS WHEN SELECTING ANY  CLONE");
 	// recover the option that has been chosen
 	var selectedOption = d3.select(this).property("value")
 	var res = selectedOption.split(" ");
 	var picked = res[1];
 	var idx = res[0];
+	// messages to bug correction
+	console.log("----------------------------------");
+	console.log("you have selected " + selectedOption);
+	console.log("clone index =  " + idx);
+	console.log("clone name  = " + picked);
+
 	var xxx = d3.selectAll("#area1").selectAll("g")
 		.select("circle").data()
 		.filter(function(d) {return d.data.did == picked});
@@ -778,27 +804,8 @@ dropdownButton.on("click", function(d) {
 		.style('stroke-width', 1.5);
 //		.style("stroke", clones_list.saved[idx]);
 	paint_daughters(xxx[0]);
-	console.log(selectedOption);
 	d3.select("#square_clone").style("fill", clones_list.saved[idx])
-
 	})
-
-//dropdownButton.on("mouseover", function(d) {
-//	// recover the option that has been chosen
-//	var selectedOption = d3.select(this).property("value")
-//	var res = selectedOption.split(" ");
-//	var picked = res[1];
-//	var idx = res[0];
-//	circle.style("fill", clones_list.saved[idx]);
-//	circleContainer.style("opacity", 1)
-//		.style("left", (d3.event.pageX  ) + "px")   
-//		.style("top", (d3.event.pageY - 40) + "px")
-//	})
-//	.on("mouseout", function(d) {
-//		circleContainer.style("opacity", 0)
-//		.style("left", (d3.event.pageX  ) + "px")   
-//		.style("top", (d3.event.pageY - 40) + "px")
-//	})
 
 function resetClones() {
 	options = 0;
@@ -807,9 +814,14 @@ function resetClones() {
 	for (var i = 0; i < x; i++)
 		{ dropdownButton._groups[0][0].options.remove(0)}
 	d3.select("#square_clone").style("fill", "#bccbde");
-	}
 
-//update_dropMenu();
+	dropdownButton // Add a button
+		.append('option')
+		.text("Choose clone") // text showed in the menu
+		.attr("value", "") // corresponding value returned by the button
+		.attr("selected", "selected")
+		.attr("hidden", "hidden")
+	}
 
 function onlyUnique(value, index, self) { 
     return self.indexOf(value) === index;
