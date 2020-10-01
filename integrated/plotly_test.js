@@ -506,6 +506,10 @@ function setAlphaStroke(points,new_alpha) {
 	};
 
 function setStrokeWidth(new_width) {
+	// bug hunt
+	console.log("###############################");
+	console.log("setting the new width to " + new_width);
+	console.log("before " +  data[0]["marker"]["line"]["width"] );
 	//console.log(points)
 	// get current value of camera, so it can be set again
 	myview = plotly_scatter_div.layout.scene.camera;
@@ -513,7 +517,8 @@ function setStrokeWidth(new_width) {
 //	var my_cells_cols = data[0]["marker"]["line"]["color"];
 	data[0]["marker"]["line"]["width"] = new_width;
 	data[1]["marker"]["line"]["width"] = new_width;
-
+	console.log("after " + data[0]["marker"]["line"]["width"] );
+	console.log(data)
 	// Update plot based on the new values
 	Plotly.update("area2", data, myview,0);
 	};
