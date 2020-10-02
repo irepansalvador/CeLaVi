@@ -171,7 +171,7 @@
 		<!-- LEFT PART OF THE CONTROLS, FOR THE TREE  -->
 			<div id= "controls_1a" align="left" class="svg-buttons">
 				<div class="row">
-					<div  data-step="5" data-intro="These options allow you to control the visualisation of the lineage tree" class="col-sm-3 mb-2">
+					<div  data-step="5" data-intro="These options allow you to control the visualisation of the lineage tree" class="col-sm-4 mb-2">
 						<h6> Cell lineage tree controls: </h6>
 						<div class="row">
 							<div align="left">
@@ -221,21 +221,21 @@
 							</div>
 						</div>
 					</div>
-					<div  data-step="6" data-intro="These options allow you to save clones" class="col-sm-3 mb-2">
+					<div  data-step="6" data-intro="These options allow you to save clones" class="col-sm-4 mb-2">
 						<h6> Clones Controls: </h6>
 						<div class="row">
-							<div class ="col-sm-7" >
+							<div class ="col-sm-6" >
 								<label for="saved_clones">Saved clones:</label>
 								<div class "row">
 									<svg width="30" height="30">
 										<rect id="square_clone" width="25" height="25" style="fill:#bccbde;stroke-width:3;stroke:rgb(0,0,0)" />
 									</svg>  
 									<select name="saved_clones" id="saved_clones">
-										<option value="" selected="selected" hidden="hidden" >Choose clone</option>
+										<option value="" selected="selected" hidden="hidden" >Choose</option>
 									</select> 
 								</div>
 							</div>
-							<div class="col-sm-5">
+							<div class="col-sm-6">
 								<div class="btn-group">
 										<div>
 											<button id="Reset_clones"  title= "Click to reset the list of saved clones" type="button" onclick="resetClones()" class="btn-tiny" >Reset Clones</button> 
@@ -248,22 +248,22 @@
 						</div>
 					</div>
 					<!-- RIGHT PART OF THE CONTROLS, FOR CELLS IN 3D -->
-					<div data-step="7" data-intro="And these allow you to control the visualisation of the cells in 3D"  class="col-sm-6 mb-2">
+					<div data-step="7" data-intro="And these allow you to control the visualisation of the cells in 3D"  class="col-sm-4 mb-2">
 						<h6> 3D cells controls: </h6>
 						<div class="row">
-							<div class="col-sm-5">
+							<div class="col-sm-4">
 								<div class="btn-group">
 									<div>
 										<a> Cell size</a>
 										<input type="number" class="form-control" id="CellSize" placeholder="" value="9" min="1" step="1" title="Size for rendering cells"  required>
 									</div>
-									<div>
+<!--							<div>
 										<a> Stroke width </a>
 										<input type="number" class="form-control" id="CellStroke" placeholder="" value="0.5" min="0.25" step="0.25" max="3" title="Stroke width"  required>
-									</div>
+									</div> -->
 								</div>
 							</div>
-							<div class="col-sm-3">
+							<div class="col-sm-4">
 								<div class="btn-group">
 										<div class="dropdown">
 											<button class="btn-tiny"> <i class="fas fa-spinner"></i> Save Image </button>

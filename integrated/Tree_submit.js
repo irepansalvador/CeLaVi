@@ -16,7 +16,7 @@ document.getElementById("Reset").disabled = true;
 // disable 3d options if cells are not loaded 
 document.getElementById("reset").disabled = true;
 document.getElementById("CellSize").disabled = true;
-document.getElementById("CellStroke").disabled = true;
+//document.getElementById("CellStroke").disabled = true;
 document.getElementById("Cells_checkbox").disabled = true;
 
 function activate_tree_controls() {
@@ -39,7 +39,7 @@ function activate_tree_controls() {
 		// disable 3d options if cells are not loaded 
 		document.getElementById("reset").disabled = true;
 		document.getElementById("CellSize").disabled = true;
-		document.getElementById("CellStroke").disabled = true;
+//		document.getElementById("CellStroke").disabled = true;
 		document.getElementById("Cells_checkbox").disabled = true;
 	if (Abs_BL < 2) {
 			document.getElementById("BranchLenghts").disabled = false;

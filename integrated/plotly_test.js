@@ -20,7 +20,7 @@ var csv_config={header: true,
 function activate_3D_controls() {
 	document.getElementById("reset").disabled = false;
 	document.getElementById("CellSize").disabled = false;
-	document.getElementById("CellStroke").disabled = false;
+//	document.getElementById("CellStroke").disabled = false;
 	document.getElementById("Cells_checkbox").checked = false
 	//	document.getElementById("Cells_checkbox").disabled = false;
 		//ENABLE  tree options if tree is loaded yet
@@ -304,7 +304,7 @@ function load_dataset_2(csv,tree) {
 				size: c_size,
 				line: {
 					color: line_col,
-					width: 0.5},
+					width: 1},
 				opacity:1 
 				},
 			text: id_t,
@@ -325,7 +325,7 @@ function load_dataset_2(csv,tree) {
 				size: c_size2,
 				line: {
 					color: line_col2,
-					width:0.5},
+					width:1},
 				opacity:1 
 				},
 			text: id_t2,

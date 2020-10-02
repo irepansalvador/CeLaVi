@@ -377,7 +377,7 @@ function update(source) {
 					}
 				else{
 					setAlpha(points_array, 0);
-					setAlphaStroke(points_array, 0.15);
+					setAlphaStroke(points_array, 0.01);
 					highlight_daughters(d);
 					div.style("opacity", .9)
 						.text(function() {
@@ -597,7 +597,7 @@ function highlight_daughters(d)
 	N_terminal = pts.length;
 	// change colour of the 3Dcell 
 	setAlpha(pts, 1 );
-	setAlphaStroke(pts, 1);
+	setAlphaStroke(pts, 0.25);
 	}
 
 function paint_daughters(d,n)
@@ -726,8 +726,8 @@ var clones_list = {
 
 function save_clone(d) {
 	// messages to find bug
-	console.log("##################################");
-	console.log("THIS SHOWS WHEN CLICKING IN ANY CLONE TO SAVE");
+	//console.log("##################################");
+	//console.log("THIS SHOWS WHEN CLICKING IN ANY CLONE TO SAVE");
 
 	my_clone = d.data.did;
 	$('#example-button').click();
@@ -742,10 +742,10 @@ $('#example-button').colpick({
 		var result = hexToRgb("#"+hex);
 		var RGBcol  = "rgb("+ result.r + "," + result.g + ","  + result.b + ")" ;
 		// messages to find bug
-		console.log("##################################");
+	//	console.log("##################################");
 		console.log("THIS SHOWS WHEN CHOOSING ANY COLOUR");
-		console.log("chosen colour = " + RGBcol);
-		console.log('Test: ' + my_clone)
+		//console.log("chosen colour = " + RGBcol);
+		//console.log('Test: ' + my_clone)
 		//
 		//
 		options = options +1;
@@ -753,8 +753,8 @@ $('#example-button').colpick({
 		clones_list.saved[options] = RGBcol;
 		update_dropMenu();
 
-		console.log("----------------------------------");
-		console.log("my N option is now " + options);
+		//console.log("----------------------------------");
+		//console.log("my N option is now " + options);
 	//	console.log("my clone list is : "+ clones_list);
 		}
 	});
@@ -782,8 +782,8 @@ var update_dropMenu = function() {
 
 // When the button is changed, run the updateChart function
 dropdownButton.on("change", function(d) {
-	console.log("##################################");
-	console.log("THIS SHOWS WHEN SELECTING ANY  CLONE");
+	//console.log("##################################");
+	//console.log("THIS SHOWS WHEN SELECTING ANY  CLONE");
 	// recover the option that has been chosen
 	var selectedOption = d3.select(this).property("value")
 	var res = selectedOption.split(" ");
@@ -792,8 +792,8 @@ dropdownButton.on("change", function(d) {
 	// messages to bug correction
 	console.log("----------------------------------");
 	console.log("you have selected " + selectedOption);
-	console.log("clone index =  " + idx);
-	console.log("clone name  = " + picked);
+	//console.log("clone index =  " + idx);
+	//console.log("clone name  = " + picked);
 
 	var xxx = d3.selectAll("#area1").selectAll("g")
 		.select("circle").data()
