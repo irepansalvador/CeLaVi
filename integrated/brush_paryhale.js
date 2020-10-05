@@ -344,16 +344,19 @@ function depth_delete_node(d,n){
 
 var tc=0; // to store the number of clones in tim
 var time_cells=[];
+var time_scale_factor = 1;
+
 function slided(d) {
 	var container_width =  d3.select("#area1").style('width').slice(0, -2);
-	var slider_val = d3.select(this).property("value");
-	var slider_scaled =( (600*0.9)*(slider_val/100));
+	var slider_val = d3.select("#slider").select("input").property("value");
+	var slider_scaled = time_scale_factor* (600*0.9)*(slider_val/100);
 	console.log(slider_scaled , slider_val);
 	// remove the previous line
 	d3.select("#area1").select("svg").selectAll("line").remove();
 
 	// draw a line 
 	var my_line = svg_tree.append("line")
+		.attr("id", "timeline")
 		.attr("x1", slider_scaled )
 		.attr("y1", 1000)
 		.attr("x2", slider_scaled)

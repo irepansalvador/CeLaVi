@@ -162,7 +162,7 @@ var menu = [
 var max_H;
 var colorScale;
 var HM_cols = [];
-var links_hide;
+var links_hide = false;
 
 // colors = blue, green, red, purple, orange, black...
 var stroke_cols = [ "rgb(0,0,255)","rgb(0,255,0)","rgb(255,0,0)","rgb(255,0,255)","rgb(255,165,0)","rgb(0,0,0)",
@@ -190,8 +190,8 @@ function load_dataset_json(json) {
 	my_slider();
 	//Nested_rels_HMscale(max_H);
 	console.log(nodes.length);
-	if (nodes.length < 500) {links_hide = false}
-	else {links_hide = true;
+	if (nodes.length < 500) {links_hide = true;Hide_branches() }
+	else {links_hide = false; Hide_branches();
 		showAlert("[NOTE] For faster rendering, some tree branches might not show. " +
 						"Go to \"More Options\" and \"Show all branches\" " +
 						" to change this behaviour.")
@@ -215,8 +215,8 @@ function load_dataset_newick(newick){
 	my_slider();
 	//  Nested_rels_HMscale(max_H);
 	console.log(nodes.length);
-	if (nodes.length < 500) {links_hide = false}
-	else {links_hide = true;
+	if (nodes.length < 500) {links_hide = true; Hide_branches() }
+	else {links_hide = false; Hide_branches();
 		showAlert("[NOTE] For faster rendering, some tree branches might not show. " +
 						"Go to \"More Options\" and \"Show all branches\" " +
 						" to change this behaviour.")
@@ -258,19 +258,31 @@ var depth_label = 3;
 var counter;
 
 function zoom_in_start() {
-		counter = setInterval(function() {
-			if (show_BL == 0)
-				{nodelen = nodelen * 1.1; update(root);}
-			if (show_BL == 1)
-				{nodelen2 = nodelen2 * 1.1; update(root);}
+	counter = setInterval(function() {
+		if (show_BL == 0)
+			{nodelen = nodelen * 1.1; update(root);}
+		if (show_BL == 1)
+			{nodelen2 = nodelen2 * 1.1; update(root);
+			time_scale_factor = time_scale_factor * 1.1;
+			var x = d3.select("#timeline").attr("x1");
+			d3.select("#timeline").attr("x1", x * 1.1);
+			d3.select("#timeline").attr("x2", x * 1.1);
+			//slided();
+			}
 		}, 50);
 	}
 function zoom_out_start() {
-		counter = setInterval(function() {
-			if (show_BL == 0)
-				{nodelen = nodelen * 0.9; update(root);}
-			if (show_BL == 1)
-				{nodelen2 = nodelen2 * 0.9; update(root);}
+	counter = setInterval(function() {
+		if (show_BL == 0)
+			{nodelen = nodelen * 0.9; update(root);}
+		if (show_BL == 1)
+			{nodelen2 = nodelen2 * 0.9; update(root);
+			time_scale_factor = time_scale_factor * 0.9;
+			//slided();
+			var x = d3.select("#timeline").attr("x1");
+			d3.select("#timeline").attr("x1", x * 0.9);
+			d3.select("#timeline").attr("x2", x * 0.9);
+			}
 		}, 50);
 	}
 function pan_down_start() {
@@ -294,6 +306,12 @@ function resetAll(){
 	treemap=d3.tree().size([node_h,w]);
 	nodelen  = 600/max_H;
 	nodelen2 = 600/max_BL;
+	time_scale_factor = 1;
+	if (show_BL == 1) {
+		d3.select("#slider").select("input").property("value", 0);
+		d3.select("#timeline").remove();
+		time_cells=[];
+		}
 	// expand all cells
 	collapseAll();
 	setTimeout(function(){ expandAll(); }, 1000);
@@ -1079,4 +1097,18 @@ function delete_node(d) {
 		update(d);
 		}
 	}
+
+function Hide_branches() {
+	if (links_hide == false) 
+		{
+		links_hide = true;
+		document.getElementById("showbranches").innerHTML = "Render all branches";
+		showAlert("This option hides N-2 branches of each polytomy (a node with > 2 daughters) of the tree.")
+		}
+	else {links_hide = false;
+		document.getElementById("showbranches").innerHTML = "Render only some branches"; 
+		}
+	update(root)
+}
+
 

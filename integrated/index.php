@@ -212,9 +212,9 @@
 										</div>
 										<div class="dropdown">
 											<button class="btn-tiny"> More Options </button>
-											<div class="dropdown-content">
+											<div id = "Tree_more" class="dropdown-content">
 												<a href="#" onclick="collapse_missing()" >Collapse missing cells</a>
-												<a href="#" >Some other function</a>
+												<a id = "showbranches" href="#" onclick="Hide_branches()">Render only some branches</a>
 											</div>
 									</div>
 								</div>
