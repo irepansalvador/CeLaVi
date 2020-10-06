@@ -10,7 +10,7 @@ document.getElementById("zoom_in_tree").disabled = true;
 document.getElementById("zoom_out_tree").disabled = true;
 document.getElementById("pan_down_tree").disabled = true;
 document.getElementById("pan_up_tree").disabled = true;
-document.getElementById("BranchLenghts").disabled = true;
+document.getElementById("BranchLenghts").style.display= "none";
 document.getElementById("Reset").disabled = true;
 
 // disable 3d options if cells are not loaded 
@@ -42,10 +42,10 @@ function activate_tree_controls() {
 //		document.getElementById("CellStroke").disabled = true;
 		document.getElementById("Cells_checkbox").disabled = true;
 	if (Abs_BL < 2) {
-			document.getElementById("BranchLenghts").disabled = false;
+			document.getElementById("BranchLenghts").style.display= "block";
 			}
 		if (Abs_BL == 2) {
-		document.getElementById("BranchLenghts").disabled = true;
+			document.getElementById("BranchLenghts").style.display = "none";
 			}
 		}
 	}

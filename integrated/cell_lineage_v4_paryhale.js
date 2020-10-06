@@ -901,7 +901,7 @@ function get_branlen(){
 
 var max_BL;
 function set_bl(){
-	document.getElementById("BranchLenghts").disabled = true;
+	document.getElementById("BranchLenghts").style.display = "none";
 	if (root.data.length != undefined)
 		{
 		var bl_prompt = prompt("Branch lenghts have been detected. \nIf these represent time to parent node enter \"relative\"\nIf they represent time from root enter \"absolute\"\nIf you want to ignore branch lengths press Cancel");
@@ -910,20 +910,20 @@ function set_bl(){
 				{
 				Abs_BL=0;
 				console.log("rel selected");
-				document.getElementById("BranchLenghts").disabled = false;
+				document.getElementById("BranchLenghts").style.display = "block";
 				}
 			else if (bl_prompt == "absolute") 
 				{
 				Abs_BL=1;
 				console.log("abs selected");
-				document.getElementById("BranchLenghts").disabled = false;
+				document.getElementById("BranchLenghts").style.display = "block";
 				}
 			else {console.log("you have typed something else: " + bl_prompt);}
 			}
 		}
 	else {
 			Abs_BL=2;
-			document.getElementById("BranchLenghts").disabled =true ;
+			document.getElementById("BranchLenghts").style.display = "none" ;
 		}
 		
 	max_BL = 0;

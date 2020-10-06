@@ -191,12 +191,12 @@
 							<div>
 								<div class="btn-group">
 									<div class="btn-group-vertical">
-										<div >
-											<button id="BranchLenghts" title="Alternate between showing Tree depth (default) and Branch Lenghts" type="button" onclick="show_bl()" class="btn btn-success btn-sm" >Branch Len</button> 
-										</div>
 										<div>
 											<button id="Reset"  title= "Click to reset to the default topology 
 (only showing daughters of root)" type="button" onclick="resetAll()" class="btn btn-success btn-sm" >Reset View</button> 
+										</div>
+										<div id="BranchLenghts" class="btn btn-success btn-sm">
+											<input title="Alternate between showing Tree depth (default) and Branch Lenghts" type="checkbox" autocomplete="off" onclick="show_bl()">Branch Len</input> 
 										</div>
 									</div>
 								</div>
