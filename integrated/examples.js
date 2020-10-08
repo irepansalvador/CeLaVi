@@ -12,7 +12,7 @@ function Examples(e)
 	zoom_reset();
 	Abs_rel = undefined;
 	Abs_BL= undefined; show_BL = 0;
-
+	document.getElementById("BL_checkbox").checked = false;
 	d3.select("#area1").select("h4").remove();
 	d3.select("#area1").select("#clonesdiv").remove();
 	// Remove the slider if exists

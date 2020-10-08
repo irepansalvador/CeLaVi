@@ -11,6 +11,7 @@ document.getElementById("zoom_out_tree").disabled = true;
 document.getElementById("pan_down_tree").disabled = true;
 document.getElementById("pan_up_tree").disabled = true;
 document.getElementById("BranchLenghts").style.display= "none";
+document.getElementById("BL_checkbox").checked = false;
 document.getElementById("Reset").disabled = true;
 
 // disable 3d options if cells are not loaded 
@@ -52,7 +53,7 @@ function activate_tree_controls() {
 
 function start_files() {
 		zoom_reset();
-
+	document.getElementById("BL_checkbox").checked = false;
 	document.getElementById('JSON_uploader').value = '';
 	document.getElementById("3Dcoord_uploader").value = "";
 	document.getElementById("3Dcoord_uploader").nextElementSibling.textContent = "Input coordinates file";

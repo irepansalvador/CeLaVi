@@ -196,7 +196,7 @@
 (only showing daughters of root)" type="button" onclick="resetAll()" class="btn btn-success btn-sm" >Reset View</button> 
 										</div>
 										<div id="BranchLenghts" class="btn btn-success btn-sm">
-											<input title="Alternate between showing Tree depth (default) and Branch Lenghts" type="checkbox" autocomplete="off" onclick="show_bl()">Branch Len</input> 
+											<input id="BL_checkbox" title="Alternate between showing Tree depth (default) and Branch Lenghts" type="checkbox" autocomplete="off" onclick="show_bl()">Branch Len</input> 
 										</div>
 									</div>
 								</div>
@@ -213,7 +213,8 @@
 										<div class="dropdown">
 											<button class="btn-tiny"> More Options </button>
 											<div id = "Tree_more" class="dropdown-content">
-												<a href="#" onclick="collapse_missing()" >Collapse missing cells</a>
+												<a href="#" onclick="collapse_missing()" >Collapse extra cells</a>
+												<a href="#" onclick="delete_missing()" >Delete extra cells</a>
 												<a id = "showbranches" href="#" onclick="Hide_branches()">Render only some branches</a>
 											</div>
 									</div>
@@ -263,22 +264,13 @@
 									</div> -->
 								</div>
 							</div>
-							<div class="col-sm-4">
-								<div class="btn-group">
+							<div class="col-sm-3">
 										<div class="dropdown">
 											<button class="btn-tiny"> <i class="fas fa-spinner"></i> Save Image </button>
 											<div class="dropdown-content">
 												<a href="#" onclick="Save3DPNG()">PNG</a>
 											</div>
 										</div>
-										<div class="dropdown">
-											<button class="btn-tiny"> More Options </button>
-											<div class="dropdown-content">
-												<a href="#" >Fade out missing cells</a>
-												<a href="#" >Some other function</a>
-											</div>
-									</div>
-								</div>
 							</div>
 							<div class="col-sm-4" align="center" >
 								<div class="btn-group">

@@ -1074,6 +1074,79 @@ function collapse_missing() {
 	update(root);
 	}
 
+
+function delete_missing() {
+	var missing_daughters=[];
+	var missing_sisters=[];
+	// get ALL open nodes
+	var x = nodes.filter(function(d) {return d.node == "terminal"})
+	for (var i=0; i<x.length; i++)
+		{
+		d = x[i];
+//		console.log(d.data.did);
+		// check if a terminal node is in the 3D array
+		if (containsAll([d.data.did],ID_array)) {}
+		// if not go to ancestors
+		else {
+			//console.log(d.data.did);
+			missing_daughters.push(d.data.did);
+			if (containsAll([d.data.did],missing_sisters))
+				{//console.log("skip " + d.data.did + " as is a missing sister");
+				continue}
+			selections = d.ancestors().map(d => d)
+			//console.log(selections)
+			for(var jj = 1; jj<selections.length; jj++)
+				{
+				//console.log("ancestor of  "+  d.data.did + " level " + jj + " = " + selections[jj].data.did);
+				count_leaves2(selections[jj]);
+				pts = getPoints(sel_ids);
+				//console.log("pts length is " +pts.length);
+				if (pts.length == 0)
+					{var joined = missing_sisters.concat(sel_ids);
+					missing_sisters = joined.filter(onlyUnique);
+					}
+				else if (pts.length > 0 && jj == 1)
+					{
+					//console.log("I should be deleting this  " + d.data.did);
+					delete_nodes(d);
+					break;
+					}
+				else if  (pts.length > 0 && jj > 1)
+					{
+					//console.log("I should delete this ancestral node " + selections[jj-1].data.did);
+					delete_nodes(selections[jj-1]);
+					//selections[jj-1].children = null;
+						//	update(selections[jj-1]);
+						break;
+					}
+				//else {console.log("whats this "+ selections[jj].data.did +" pts "+ pts.length) }
+				}
+			}
+		}
+	//console.log(missing_daughters);
+	//console.log(missing_sisters);
+	update(root);
+	}
+
+
+function delete_nodes(d) {
+	if (d.parent) {
+		var new_children = [];
+		var sisters = d.parent.children;
+		sisters.filter(function (s) {
+			if (s.data.did != d.data.did)
+				{new_children.push(s)} 
+			})
+		if (new_children.length > 0)
+			{d.parent.children = new_children;}
+		else {d.parent.children = null }
+		//update(d);
+		}
+	}
+
+
+
+
 function showAlert(message) {
 	$(".myalert").find('.message').text(message);
 	$(".myalert").fadeIn("slow", function() {
