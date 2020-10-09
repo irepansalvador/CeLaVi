@@ -159,11 +159,8 @@
 		<div id="container2"> <!-- added -->
 			<div id="container1">	
 				<div id="area1"> <!-- cell lineage -->
-					<h4>Lineage viewer</h4> 
-					<h6></h6>
 				</div>
 				<div id="area2" class="svg-container-inbox"> <!-- cells in 3d -->
-					<h4> 3D viewer</h4>
 				</div>
 			</div>
 		</div>
@@ -312,6 +309,22 @@ clones at a given depth/time">
 			<div class="message">
 			</div>
 		</div>
+		<div id="CS1" class= "cheatsheet1">
+			<h4>Lineage viewer</h4>
+			<hr>
+			<p><b>Mouse scroll:</b> Zoom in/out </p>
+			<p><b>Click and drag:</b> Move tree  </p>
+			<p><b>Click on node:</b> Paint/Show clone in 3D viz  </p>
+			<p><b>Right-click and drag:</b> Move 3D viz </p>
+		</div> 
+		<div id="CS2" class= "cheatsheet2">
+			<h4>3D viewer</h4>
+			<hr>
+			<p><b>Mouse scroll:</b> Zoom in/out </p>
+			<p><b>Click and drag:</b> Rotate 3D viz </p>
+			<p><b>Click on cell:</b> Paint/Show lineage in tree </p>
+			<p><b>Right-click on node:</b> Display otions menu </p>
+		</div> 
 	</div>
 	<!-- JS Libraries -->
 	<!--<script src="d3.js" charset="utf-8"></script>-->

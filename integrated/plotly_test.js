@@ -234,6 +234,9 @@ var trace2=[];
 
 // load dataset and create plot
 function load_dataset_2(csv,tree) {
+	var CS2 = document.getElementById("CS2")
+	if (CS2 != null) {CS2.remove();}
+
 	missing_3D = [];
 	var data_3d = d3.csvParse(csv);
 	console.log(data_3d);

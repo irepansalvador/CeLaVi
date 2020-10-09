@@ -2,6 +2,31 @@
 .hide {
 	display: none;
 }
+
+.cheatsheet1 {
+	background: rgb(250, 235, 255);
+	position: absolute;
+	top: 33%;
+	left: 8%;
+	width:350px;
+	height: 250px;
+	padding: 15px 15px;
+	border-radius: 15px;
+	z-index: 98;
+}
+
+.cheatsheet2 {
+	background:  rgb(250, 235, 255);
+	position: absolute;
+	top: 33%;
+	right: 8%;
+	width:350px;
+	height: 250px;
+	padding: 15px 15px;
+	border-radius: 15px;
+	z-index: 98;
+}
+
 .myalert {
 	background: midnightblue;
 	position: absolute;

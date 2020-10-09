@@ -100,7 +100,8 @@ function Submit_Function(tree_format)
 	{
 	Abs_rel = undefined;
 	Abs_BL= undefined; show_BL = 0;
-	d3.select("#area1").select("h4").remove();
+	var CS1 = document.getElementById("CS1")
+	if (CS1 != null) {CS1.remove();}
 	d3.select("#area1").select("#clonesdiv").remove();
 	// Remove the slider if exists
 	d3.select("#slider").selectAll("input").remove();
