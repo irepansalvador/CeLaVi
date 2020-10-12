@@ -128,7 +128,7 @@
 		</div>
 		<div id="container_A" >
 			<div class= "row">
-				<div class = "col-sm-6">
+				<div class = "col-sm-5">
 					<div class = "row">
 						<div align= "left">
 							<button class="btn btn-dark" id ="HideINPUT" >HIDE Input Options</button>
@@ -140,11 +140,18 @@
 						</div>
 					</div>
 				</div>
-				<div class = "col-sm-6">
-					<div class ="row">
-						<div class = "col-sm-2">
+				<div class = "col-sm-3">
+					<div class= "btn-group">
+						<div class = "row">
+							<button class="btn btn-dark" onclick="reduce_areas()" >-</button>
+							<div class="btn">Resize viz Area</div>
+							<button class="btn btn-dark" onclick="enlarge_areas()">+</button>
 						</div>
-						<div class="col-sm-10" id="GOI_submit" style="display: none">
+					</div>
+				</div>
+				<div class = "col-sm-4">
+					<div class ="row">
+						<div class="col-sm-12" id="GOI_submit" style="display: none">
 							<form autocomplete="off" action="javascript:Submit_GOI();" >
 								<div class="autocomplete" >
 									<input id="GeneInput" type="text" name="myGene" placeholder="Type gene">
@@ -158,9 +165,9 @@
 		</div>
 		<div id="container2"> <!-- added -->
 			<div id="container1">	
-				<div id="area1"> <!-- cell lineage -->
+				<div id="area1" style="padding-bottom: 32%" class="svg-container-inbox"> <!-- cell lineage -->
 				</div>
-				<div id="area2" class="svg-container-inbox"> <!-- cells in 3d -->
+				<div id="area2" style="padding-bottom: 32%" class="svg-container-inbox"> <!-- cells in 3d -->
 				</div>
 			</div>
 		</div>

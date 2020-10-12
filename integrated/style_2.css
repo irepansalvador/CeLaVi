@@ -289,24 +289,26 @@ color: #fff;
     display: inline-block;
     position: relative;
     width: 49%;
-    padding-bottom: 32%; /* aspect ratio */
+/*    padding-bottom: 32%; /* aspect ratio */
     vertical-align: top;
 		overflow: hidden ;
 }
-.svg-container-inbox2 {
+/*.svg-container-inbox2 {
     display: inline-block;
     position: relative;
     width: 49%;
-    padding-bottom: 32%; /* aspect ratio */
+    padding-bottom: 32%;
     vertical-align: top;
 		overflow: hidden ;
 }
-
+*/
 .svg-content-responsive {
     display: inline-block;
     position: absolute;
     /*top: 50px;*/
     left: 0;
+		width: 100%;
+		height: 100%;
 
 }
 .svg-content-responsive-nospace {
@@ -361,6 +363,7 @@ p {
 }
 
 #area1 {
+/*	padding-bottom: 35%;*/
 	display: inline-block;
 	float: left;
 	width: 50%;

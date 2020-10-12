@@ -1,17 +1,52 @@
- 
 // Check for the various File API support.
 if (window.File && window.FileReader && window.FileList && window.Blob) {
  console.log("ALL FILE API supported") // Great success! All the File APIs are supported.
 } else {
   alert('The File APIs are not fully supported in this browser.');
 }
-// Define the zoom function for the zoomable tree
 
+// Function to change the size of the viewer areas
+function enlarge_areas()
+	{
+	var numberPattern = /\d+/g;
+	var areas = document.querySelectorAll(".svg-container-inbox")
+	for(var i=0; i<areas.length; i++)
+		{
+		var oldsize = parseInt(areas[i].style.paddingBottom.match( numberPattern ));
+		var newsize = oldsize + 5;
+		console.log("my old size is " + oldsize + "%")
+		areas[i].style.paddingBottom = newsize + "%";
+		}
+	h = d3.select("#area1").selectAll("svg")
+		// get the width of div elemen and take pixels
+		.style('height').slice(0, -2);
+	window.dispatchEvent(new Event('resize'));
+	Plotly.update("area2");
+	}
+
+function reduce_areas()
+	{
+	var numberPattern = /\d+/g;
+	var areas = document.querySelectorAll(".svg-container-inbox")
+	for(var i=0; i<areas.length; i++)
+		{
+		var oldsize = parseInt(areas[i].style.paddingBottom.match( numberPattern ));
+		var newsize = oldsize - 5;
+		console.log("my old size is " + oldsize + "%")
+		areas[i].style.paddingBottom = newsize + "%";
+		}
+	h = d3.select("#area1").selectAll("svg")
+		// get the width of div elemen and take pixels
+		.style('height').slice(0, -2);
+window.dispatchEvent(new Event('resize'));
+	Plotly.update("area2");
+	}
+
+// Define the zoom function for the zoomable tree
 function zoomed() {
 	svg_tree.attr("transform", d3.event.transform);
 //	console.log(d3.event.transform);
 	}
-
 var zoom = d3.zoom()
 						.scaleExtent([0.2, 2])
 						.on("zoom", zoomed);
@@ -47,8 +82,8 @@ function zoom_reset ()
 var margin = {top: 15, right: 15, bottom:5, left: 30};
 
 var svg_tree_base = d3.select("#area1")
-	.style("padding-bottom", "35%")
-	.classed("svg-container-inbox2", true) //container class to make it responsive
+//	.style("padding-bottom", "35%")
+//	.classed("svg-container-inbox2", true) //container class to make it responsive
 	.append("svg")
 	.call(zoom)	
 	//class to make it responsive
@@ -74,21 +109,6 @@ var h = d3.select("#area1").selectAll("svg")
       .slice(0, -2);
 
 
-// Scale the width and height
-var xScale = d3.scale.linear()
-                .range([0,w - margin.right - margin.left]);
-
-var yScale = d3.scale.ordinal()
-                .rangeRoundBands([margin.top, h - margin.bottom],0.2);
-
-// Creat Axes i.e. xAxis and yAxis
-var xAxis = d3.svg.axis()
-              .scale(xScale)
-              .orient("bottom");
-
-var yAxis = d3.svg.axis()
-              .scale(yScale)
-              .orient("left");
 var depths;
 
 // --- Show menu with custom functions in right click
@@ -247,7 +267,7 @@ var nodes;
 
 /* ----------- ZOOM AND PAN ----------- */
 // declares a tree layout and assigns the size
-var node_h = h/2;
+var node_h = h;
 var treemap = d3.tree().size([node_h, w]);
 
 show_BL = 0;
@@ -302,7 +322,7 @@ function pan_up_start() {
     
 function resetAll(){
 	zoom_reset();
-	node_h = h/2;
+	node_h = h;
 	treemap=d3.tree().size([node_h,w]);
 	nodelen  = 600/max_H;
 	nodelen2 = 600/max_BL;
