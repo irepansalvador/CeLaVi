@@ -10,7 +10,7 @@ function Nested_rels_HMscale(max_height) {
 		.append("svg")
 		.attr("preserveAspectRatio", "xMinYMin meet")
 		.attr("viewBox", "0 0 100 4")
-		.classed("svg-content-responsive", true)
+		.classed("svg-content-responsive-nospace", true)
 		.append("g");
 		    
 	var www = d3.select("#HM_scale").selectAll("svg")
@@ -36,7 +36,7 @@ function Nested_rels_HMscale(max_height) {
 		.enter().append("rect")
 		.attr("class", "bars")
 		.attr("x", function(d, i) { return (i*5) +30; })
-		.attr("y", 2)
+		.attr("y", 1)
 		.attr("height", hhh/2)
 		.attr("width", 5)
 		.style("fill", function(d, i ) { return colorScale(d);});

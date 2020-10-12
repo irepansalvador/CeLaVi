@@ -107,7 +107,7 @@ function my_slider()
 		.append("svg")
 		.attr("preserveAspectRatio", "xMinYMin meet")
 		.attr("viewBox", "0 0 100 4")
-		.classed("svg-content-responsive", true)
+		.classed("svg-content-responsive-nospace", true)
 		.append("g");
 	var www = d3.select("#slider").selectAll("svg")
 		// get the width of div element
@@ -144,13 +144,13 @@ function my_slider()
 		.style("fill", "purple")
 		.style('stroke-width', 0.1)
 		.style("stroke", "purple")
-		.attr('r', 1.2);
+		.attr('r', 1.5);
     
 // Text when adding nodes 
 	slidernodeEnter.append('text')
 		.attr("dy", ".4em").attr("dx",".5em")
 		.attr("text-anchor", "end")
-		.attr("font-size", "1.2px")
+		.attr("font-size", "1.5px")
 		.attr('fill', 'white')
 		.attr("font-family", "sans serif")
 		.text(function(d) {return d});
@@ -229,7 +229,7 @@ function show_depth(d){
 	var depths2 = yyy.filter( onlyUnique );
 //	console.log(yyy.length)
 	if (yyy.length >0) 
-		{d3.select("#slider").select("#depth_" + d ).select("circle").attr("r",1.7);}
+		{d3.select("#slider").select("#depth_" + d ).select("circle").attr("r",2);}
 	depths2.forEach(function(d,i) 
 		{
 		ci = i;
@@ -250,7 +250,7 @@ function show_depth2(d){
 	var depths2 = yyy.filter( onlyUnique );
 	//console.log(depths2)
 	if (yyy.length >0) 
-		{d3.select("#slider").select("#depth_" + d ).select("circle").attr("r",1.2);}
+		{d3.select("#slider").select("#depth_" + d ).select("circle").attr("r",1.5);}
 	depths2.forEach(function(d,i) 
 		{
 		ci = i;

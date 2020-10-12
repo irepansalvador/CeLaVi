@@ -176,7 +176,7 @@ function Add_gene_menu()
 		.append("svg")
 		.attr("preserveAspectRatio", "xMinYMin meet")
 		.attr("viewBox", "0 0 100 4")
-		.classed("svg-content-responsive", true)
+		.classed("svg-content-responsive-nospace", true)
 		.append("g");
 	}
 var GE_colorScale;
@@ -187,7 +187,7 @@ function GE_HMscale(goi_gene,goi_max) {
 		.append("svg")
 		.attr("preserveAspectRatio", "xMinYMin meet")
 		.attr("viewBox", "0 0 100 4")
-		.classed("svg-content-responsive", true)
+		.classed("svg-content-responsive-nospace", true)
 		.append("g");
     
 	var www = d3.select("#HM_scale").selectAll("svg")
@@ -213,7 +213,7 @@ function GE_HMscale(goi_gene,goi_max) {
 		.enter().append("rect")
 		.attr("class", "bars")
 		.attr("x", function(d, i) { return (i*5) +30; })
-		.attr("y", 2)
+		.attr("y", 1)
 		.attr("height", hhh/2)
 		.attr("width", 5)
 		.style("fill", function(d, i ) { return GE_colorScale((d+1)*(goi_max/10)  );});
