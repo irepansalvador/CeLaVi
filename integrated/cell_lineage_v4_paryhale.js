@@ -759,14 +759,14 @@ var findCommonElements= function(arrs) {
 ///  ADD dropdown menu
 var my_clone;
 var clones_list = {
-		saved : {}
+	cols : {},
+	IDs : {}
 	}
 
 function save_clone(d) {
 	// messages to find bug
 	//console.log("##################################");
 	//console.log("THIS SHOWS WHEN CLICKING IN ANY CLONE TO SAVE");
-
 	my_clone = d.data.did;
 	$('#example-button').click();
 	}
@@ -788,7 +788,8 @@ $('#example-button').colpick({
 		//
 		options = options +1;
 		dropMenu = [options + " " + my_clone];
-		clones_list.saved[options] = RGBcol;
+		clones_list.cols[options] = RGBcol;
+		clones_list.IDs[options] = my_clone;
 		update_dropMenu();
 
 		//console.log("----------------------------------");
@@ -837,17 +838,18 @@ dropdownButton.on("change", function(d) {
 		.select("circle").data()
 		.filter(function(d) {return d.data.did == picked});
 	d3.selectAll("#area1").select("#"+xxx[0].data.did).select("circle")
-		.style("fill", clones_list.saved[idx] )
+		.style("fill", clones_list.cols[idx] )
 		.attr('fill-opacity', 0.9)
 		.style('stroke-width', 1.5);
 //		.style("stroke", clones_list.saved[idx]);
 	paint_daughters(xxx[0]);
-	d3.select("#square_clone").style("fill", clones_list.saved[idx])
+	d3.select("#square_clone").style("fill", clones_list.cols[idx])
 	})
 
 function resetClones() {
 	options = 0;
-	clones_list.saved = {};
+	clones_list.cols = {};
+	clones_list.IDs = {};
 	var x =  dropdownButton._groups[0][0].options.length;
 	for (var i = 0; i < x; i++)
 		{ dropdownButton._groups[0][0].options.remove(0)}
@@ -860,6 +862,69 @@ function resetClones() {
 		.attr("selected", "selected")
 		.attr("hidden", "hidden")
 	}
+
+function clonesToCsv(filename, rows) {
+	var processRow = function (row) {
+		var finalVal = '';
+		for (var j = 0; j < row.length; j++) {
+			var innerValue = row[j] === null ? '' : row[j].toString();
+			if (row[j] instanceof Date) {
+				innerValue = row[j].toLocaleString();
+				};
+			var result = innerValue.replace(/"/g, '""');
+			if (result.search(/("|,|\n)/g) >= 0) result = '"' + result + '"';
+			if (j > 0) finalVal += ',';
+			finalVal += result;
+			}
+		return finalVal + '\n';
+		};
+	var csvFile = '';
+	for (var i = 0; i < rows.length; i++) {
+		csvFile += processRow(rows[i]);
+		}
+	var blob = new Blob([csvFile], { type: 'text/csv;charset=utf-8;' });
+	if (navigator.msSaveBlob) { // IE 10+
+		navigator.msSaveBlob(blob, filename);
+	} else {
+		var link = document.createElement("a");
+		if (link.download !== undefined) { // feature detection
+			// Browsers that support HTML5 download attribute
+			var url = URL.createObjectURL(blob);
+			link.setAttribute("href", url);
+			link.setAttribute("download", filename);
+			link.style.visibility = 'hidden';
+			document.body.appendChild(link);
+			link.click();
+			document.body.removeChild(link);
+			}
+		}
+	}
+
+function exportClones() 
+	{
+	if (Object.entries(clones_list.IDs).length > 0 )
+		{
+		var array2export = [];
+		array2export.push(['cell','type'])
+		// iterate through the saved list
+		for (const [key, value] of Object.entries(clones_list.IDs))
+			{
+			console.log(value);
+			var xxx = d3.selectAll("#area1").selectAll("g").select("circle")
+				.data().filter(function(d) {return d.data.did == value});
+			count_leaves2(xxx[0]);
+			console.log(sel_ids);
+			for (var i=0; i < sel_ids.length; i++)
+				{
+				array2export.push([sel_ids[i],xxx[0].data.did])
+				}
+			}
+		console.log(array2export);
+		clonesToCsv("exported_clones.csv", array2export);
+		}
+	else {showAlert("List of clones is empty. Please save some clones first")}
+	}
+
 
 function onlyUnique(value, index, self) { 
     return self.indexOf(value) === index;

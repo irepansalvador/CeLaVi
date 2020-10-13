@@ -229,19 +229,31 @@
 					<div  data-step="6" data-intro="These options allow you to save clones" class="col-sm-4 mb-2">
 						<h6> Clones Controls: </h6>
 						<div class="row">
-							<div class ="col-sm-6" >
-								<label for="saved_clones">Saved clones:</label>
-								<div class "row">
-									<svg width="30" height="30">
-										<rect id="square_clone" width="25" height="25" style="fill:#bccbde;stroke-width:3;stroke:rgb(0,0,0)" />
-									</svg>  
-									<select name="saved_clones" id="saved_clones">
-										<option value="" selected="selected" hidden="hidden" >Choose</option>
-									</select> 
+							<div class ="col-sm-8" >
+								<div class = "row">
+									<div class ="col-sm-3" >
+										<button id="exportclones" class="btn-tiny" onclick="exportClones()" > <i class="fas fa-download"></i>Export Clones</button>
+									</div>
+									<div class ="col-sm-9" >
+										<div class="btn-group">
+											<div class="btn-group-vertical">
+												<label for="saved_clones">Saved clones:</label>
+												<div class "row">
+													<svg width="30" height="30">
+														<rect id="square_clone" width="25" height="25" style="fill:#bccbde;stroke-width:3;stroke:rgb(0,0,0)" />
+													</svg>  
+													<select name="saved_clones" id="saved_clones">
+														<option value="" selected="selected" hidden="hidden" >Choose</option>
+													</select> 
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-4">
 								<div class="btn-group">
+									<div class="btn-group-vertical">
 										<div>
 											<button id="Reset_clones"  title= "Click to reset the list of saved clones" type="button" onclick="resetClones()" class="btn-tiny" >Reset Clones</button> 
 										</div>
@@ -249,6 +261,7 @@
 											<button id="reset" title="Set the colour of the cells back to default (white)" type="button" class="btn-tiny">Reset Colors</button>
 										</div>
 									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -343,7 +356,7 @@ clones at a given depth/time">
 	<script src="Nested_rels_scale.js"></script>
 	<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
 	<!--	<script>Tree_upload_button("JSON_uploader"); </script> -->
-	<script src="clones_slider.js"></script>
+	<!-- <script src="clones_slider.js"></script> -->
 	<script src="Tree_submit.js"></script>
 	<script src="table_scroller.js"></script>
 	<script>Metadata_upload_button("Metadata_uploader", load_dataset_3)</script>
