@@ -70,15 +70,6 @@ function zoom_reset ()
 		.call(zoom.transform, d3.zoomIdentity.translate(30,15).scale(0.9));
 	}
 
-//var circleContainer = d3.select("body").append("div")
-//	.attr("class", "circleCol")
-//	.attr("opacity", 0);
-
-//var circle = circleContainer.append("svg").append("circle")
-//	.attr("cx", 50)
-//	.attr("cy",50)
-//	.attr("r",10);
-
 var margin = {top: 15, right: 15, bottom:5, left: 30};
 
 var svg_tree_base = d3.select("#area1")
@@ -108,9 +99,7 @@ var h = d3.select("#area1").selectAll("svg")
       // take of 'px'
       .slice(0, -2);
 
-
 var depths;
-
 // --- Show menu with custom functions in right click
 var double_element = [];
 
@@ -760,7 +749,8 @@ var findCommonElements= function(arrs) {
 var my_clone;
 var clones_list = {
 	cols : {},
-	IDs : {}
+	IDs : {},
+	names: {}
 	}
 
 function save_clone(d) {
@@ -785,11 +775,13 @@ $('#example-button').colpick({
 		//console.log("chosen colour = " + RGBcol);
 		//console.log('Test: ' + my_clone)
 		//
-		//
+		var t = prompt("Please enter the name for the clone ", my_clone );
+		
 		options = options +1;
-		dropMenu = [options + " " + my_clone];
+		dropMenu = [options + " " + my_clone + " " + t];
 		clones_list.cols[options] = RGBcol;
 		clones_list.IDs[options] = my_clone;
+		clones_list.names[options] = [my_clone, t];
 		update_dropMenu();
 
 		//console.log("----------------------------------");
@@ -806,13 +798,13 @@ var options = 0;
 var update_dropMenu = function() {
 	var res = dropMenu[0].split(" ");
 	var picked = res[1];
-
+	var t = res[2];
 	dropdownButton // Add a button
 		.selectAll('myOptions') // Next 4 lines add 6 options = 6 colors
 		.data(dropMenu)
 		.enter()
 		.append('option')
-		.text(picked) // text showed in the menu
+		.text(t) // text showed in the menu
 		.attr("value", function (d) { return d; }) // corresponding value returned by the button
 	
 	console.log("----------------------------------");
@@ -828,6 +820,7 @@ dropdownButton.on("change", function(d) {
 	var res = selectedOption.split(" ");
 	var picked = res[1];
 	var idx = res[0];
+	var t = res[2];
 	// messages to bug correction
 	console.log("----------------------------------");
 	console.log("you have selected " + selectedOption);
@@ -850,6 +843,7 @@ function resetClones() {
 	options = 0;
 	clones_list.cols = {};
 	clones_list.IDs = {};
+	clones_list.names = {};
 	var x =  dropdownButton._groups[0][0].options.length;
 	for (var i = 0; i < x; i++)
 		{ dropdownButton._groups[0][0].options.remove(0)}
@@ -902,21 +896,21 @@ function clonesToCsv(filename, rows) {
 
 function exportClones() 
 	{
-	if (Object.entries(clones_list.IDs).length > 0 )
+	if (Object.entries(clones_list.names).length > 0 )
 		{
 		var array2export = [];
 		array2export.push(['cell','type'])
 		// iterate through the saved list
-		for (const [key, value] of Object.entries(clones_list.IDs))
+		for (const [key, value] of Object.entries(clones_list.names))
 			{
 			console.log(value);
 			var xxx = d3.selectAll("#area1").selectAll("g").select("circle")
-				.data().filter(function(d) {return d.data.did == value});
+				.data().filter(function(d) {return d.data.did == value[0]});
 			count_leaves2(xxx[0]);
 			console.log(sel_ids);
 			for (var i=0; i < sel_ids.length; i++)
 				{
-				array2export.push([sel_ids[i],xxx[0].data.did])
+				array2export.push([sel_ids[i],value[1]])
 				}
 			}
 		console.log(array2export);
@@ -1269,4 +1263,34 @@ function Hide_branches() {
 	update(root)
 }
 
-
+var randomColour = (function(){
+	var golden_ratio_conjugate = 0.618033988749895;
+	var h = Math.random();
+	var hslToRgb = function (h, s, l){
+		var r, g, b
+		if(s == 0){
+			r = g = b = l; // achromatic
+			}
+		else{
+			function hue2rgb(p, q, t){
+				if(t < 0) t += 1;
+				if(t > 1) t -= 1;
+				if(t < 1/6) return p + (q - p) * 6 * t;
+				if(t < 1/2) return q;
+				if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+				return p;
+			}
+			var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+			var p = 2 * l - q;
+			r = hue2rgb(p, q, h + 1/3);
+			g = hue2rgb(p, q, h);
+			b = hue2rgb(p, q, h - 1/3);
+		}
+		return '#'+Math.round(r * 255).toString(16)+Math.round(g * 255).toString(16)+Math.round(b * 255).toString(16);
+	};
+	return function(){
+		h += golden_ratio_conjugate;
+		h %= 1;
+		return hslToRgb(h, 0.5, 0.60);
+		};
+	})();
