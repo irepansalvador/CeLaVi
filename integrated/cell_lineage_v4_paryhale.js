@@ -257,7 +257,15 @@ var nodes;
 /* ----------- ZOOM AND PAN ----------- */
 // declares a tree layout and assigns the size
 var node_h = h;
-var treemap = d3.tree().size([node_h, w]);
+var treemap = d3.tree()
+		.separation(function(a, b) 
+			{ if (a.children == null && b.children != null)
+					{return (b.leaves().length * 2.5)  }
+				else if (b.children === null && a.children != null)
+					{return (a.leaves().length * 2.5)  }
+				else {return (a.leaves().length + b.leaves().length) }
+			})
+		.size([node_h, w]);
 
 show_BL = 0;
 //var Abs_BL;
@@ -297,14 +305,28 @@ function zoom_out_start() {
 function pan_down_start() {
 	counter = setInterval(function() {
 		node_h = node_h * 1.1;
-		treemap = d3.tree().size([node_h, w]);
+		treemap = d3.tree().separation(function(a, b) 
+			{ if (a.children == null && b.children != null)
+					{return (b.leaves().length * 2.5)  }
+				else if (b.children === null && a.children != null)
+					{return (a.leaves().length * 2.5)  }
+				else {return (a.leaves().length + b.leaves().length) }
+			})
+		.size([node_h, w]);
 		update(root);
 		}, 50);
 	}
 function pan_up_start() {
 	counter = setInterval(function() {
 		node_h = node_h * 0.9;
-		treemap = d3.tree().size([node_h, w]);
+		treemap = d3.tree().separation(function(a, b) 
+			{ if (a.children == null && b.children != null)
+					{return (b.leaves().length * 2.5)  }
+				else if (b.children === null && a.children != null)
+					{return (a.leaves().length * 2.5)  }
+				else {return (a.leaves().length + b.leaves().length) }
+			})
+.size([node_h, w]);
 		update(root);
 		}, 50);
 	}
@@ -312,7 +334,14 @@ function pan_up_start() {
 function resetAll(){
 	zoom_reset();
 	node_h = h;
-	treemap=d3.tree().size([node_h,w]);
+	treemap=d3.tree().separation(function(a, b) 
+			{ if (a.children == null && b.children != null)
+					{return (b.leaves().length * 2.5)  }
+				else if (b.children === null && a.children != null)
+					{return (a.leaves().length * 2.5)  }
+				else {return (a.leaves().length + b.leaves().length) }
+			})
+	.size([node_h,w]);
 	nodelen  = 600/max_H;
 	nodelen2 = 600/max_BL;
 	time_scale_factor = 1;

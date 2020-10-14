@@ -15,7 +15,7 @@
 	<script src="./lib/d3-3d.min.js"></script>
 	<script src="./lib/jquery.min.js"></script>
 	<script src="./lib/newick.js" type="text/javascript"></script>
-	<script src="./lib/d3-hierarchy.min.js"></script>
+	<script src="./lib/d3-hierarchy_latest.js"></script>
 	<script src="./lib/d3-context-menu.js"></script>
 	<script src="https://d3js.org/d3-color.v1.min.js"></script>
 	<script src="https://d3js.org/d3-interpolate.v1.min.js"></script>
