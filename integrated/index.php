@@ -336,6 +336,10 @@ clones at a given depth/time">
 			<p><b>Click and drag:</b> Move tree  </p>
 			<p><b>Click on node:</b> Paint/Show clone in 3D viz  </p>
 			<p><b>Right-click and drag:</b> Move 3D viz </p>
+			<hr>
+			<p><b>NOTE: Cell IDs must start with a letter [a-z, A-Z] for functions to work properly</b> </p>
+
+
 		</div> 
 		<div id="CS2" class= "cheatsheet2">
 			<h4>3D viewer</h4>
@@ -344,7 +348,9 @@ clones at a given depth/time">
 			<p><b>Click and drag:</b> Rotate 3D viz </p>
 			<p><b>Click on cell:</b> Paint/Show lineage in tree </p>
 			<p><b>Right-click on node:</b> Display otions menu </p>
-		</div> 
+			<hr>
+			<p><b>NOTE: Cell IDs must start with a letter [a-z, A-Z] for functions to work properly</b> </p>
+	</div> 
 	</div>
 	<!-- JS Libraries -->
 	<!--<script src="d3.js" charset="utf-8"></script>-->
