@@ -40,45 +40,90 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 	<i class="fa fa-remove"></i>
 	</a>
 	<h4 class="w3-bar-item"><b>Menu</b></h4>
-	<ol>
-		<li><a class="tocxref" href="#h-1">Opening Input files</a> 
-			<ol>
-				<li><a class="tocxref" href="#h-1.1">Cell Lineage Tree file</a></li>
-				<li><a class="tocxref" href="#h-1.2">3D coordinates file</a></li>
-			</ol>
-		</li>
-		<li><a class="tocxref" href="#h-2">Interacting with the Lineage Tree</a> 
-			<ol>
-				<li><a class="tocxref" href="#h-2.1">Collapsing/Expanding daughters of one cell</a></li>
-				<li><a class="tocxref" href="#h-2.2">Collapsing/Expanding all descendants of one cell</a></li>
-				<li><a class="tocxref" href="#h-2.3">Collapsing/Expanding all cells from a given tree depth</a></li>
-			</ol>
-		</li>
-		<li><a class="tocxref" href="#h-3">Interacting with cells in the 3D viewer</a> 
-			<ol>
-				<li><a class="tocxref" href="#h-3.1">Rotate/zoom/pan</a></li>
-				<li><a class="tocxref" href="#h-3.2">Modifying cell features</a></li>
-				<li><a class="tocxref" href="#h-3.3">Highlighting the lineage history of a cell</a></li>
-			</ol>
-		</li>
-		<li><a class="tocxref" href="#h-4">Visualising clones</a> 
-			<ol>
-				<li><a class="tocxref" href="#h-4.1">Showing a single clone</a></li>
-				<li><a class="tocxref" href="#h-4.2">Showing clones from a given tree depth</a></li>
-				<li><a class="tocxref" href="#h-4.3">Showing clones from a given time point</a></li>
-				<li><a class="tocxref" href="#h-4.4">Saving clones</a></li>
-			</ol>
-		</li>
-		<li><a class="tocxref" href="#h-5">About test files</a> 
-			<ol>
-					<li><a class="tocxref" href="#h-5.1"><i>Caenorhabditis elegans</i></a></li>
-					<li><a class="tocxref" href="#h-5.2"><i>Parhyale</i> limb</a></li>
-					<li><a class="tocxref" href="#h-5.1">Organoid</a></li>
-			</ol>
-		</li>
-		<li><a class="tocxref" href="#h-6">References</a> 
-		</li>
-</ol>
+		<a class="w3-button w3-block w3-left-align" href="#h-0" >
+		Welcome<i ></i>
+		</a>
+
+		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(1)">
+		1. Opening Input Files <i class="fa fa-caret-down"></i>
+		</button>
+		<div id="MainOption1" class="w3-hide w3-white w3-card">
+			<a href="#h-1.1" class="w3-bar-item w3-button w3-medium"> 1.1 Cell Lineage Tree file</a>
+			<a href="#h-1.2" class="w3-bar-item w3-button w3-medium"> 1.2 3D coordinates file</a>
+		</div>
+		<!------------>
+		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(2)">
+		2. Interacting with the Lineage Tree <i class="fa fa-caret-down"></i>
+		</button>
+		<div id="MainOption2" class="w3-hide w3-white w3-card">
+			<a href="#h-2.1" class="w3-bar-item w3-button w3-medium"> 2.1 Collapsing/Expanding daughters of one cell</a>
+			<a href="#h-2.2" class="w3-bar-item w3-button w3-medium"> 2.2 Collapsing/Expanding all descendants of one cell</a>
+			<a href="#h-2.3" class="w3-bar-item w3-button w3-medium"> 2.3 Collapsing/Expanding all cells from a given tree depth</a>
+			<a href="#h-2.4" class="w3-bar-item w3-button w3-medium"> 2.4 Delete nodes (prune tree)</a>
+			<a href="#h-2.5" class="w3-bar-item w3-button w3-medium"> 2.5 Collapse extra cells</a>
+			<a href="#h-2.6" class="w3-bar-item w3-button w3-medium"> 2.6 Delete extra cells</a>
+			<a href="#h-2.7" class="w3-bar-item w3-button w3-medium"> 2.7 Reset view</a>
+			<a href="#h-2.8" class="w3-bar-item w3-button w3-medium"> 2.8 Render all/only some branches</a>
+		</div>
+		<!------------>
+		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(3)">
+		3. Interacting with cells in the 3D viewer<i class="fa fa-caret-down"></i>
+		</button>
+		<div id="MainOption3" class="w3-hide w3-white w3-card">
+			<a href="#h-3.1" class="w3-bar-item w3-button w3-medium "> 3.1 Rotate/zoom/pan</a>
+			<a href="#h-3.2" class="w3-bar-item w3-button w3-medium"> 3.2 Modifying the representations of cells</a>
+			<a href="#h-3.3" class="w3-bar-item w3-button w3-medium"> 3.3 Highlighting the lineage history of a cell</a>
+			<a href="#h-3.4" class="w3-bar-item w3-button w3-medium"> 3.4 Hide 3D cells missing in Lineage tree</a>
+		</div>
+		<!------------>
+		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(4)">
+		4. Visualising clones<i class="fa fa-caret-down"></i>
+		</button>
+		<div id="MainOption4" class="w3-hide w3-white w3-card">
+			<a href="#h-4.1" class="w3-bar-item w3-button w3-medium "> 4.1 Showing a single clone</a>
+			<a href="#h-4.2" class="w3-bar-item w3-button w3-medium "> 4.2 Showing clones from a given tree depth</a>
+			<a href="#h-4.3" class="w3-bar-item w3-button w3-medium "> 4.3 Showing clones from a given time point</a>
+			<a href="#h-4.4" class="w3-bar-item w3-button w3-medium "> 4.4 Saving clones</a>
+			<a href="#h-4.5" class="w3-bar-item w3-button w3-medium "> 4.5 Export clones as a cell annotations file</a>
+		</div>
+		<!------------>
+		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(5)">
+		5. Cell annotations<i class="fa fa-caret-down"></i>
+		</button>
+		<div id="MainOption5" class="w3-hide w3-white w3-card">
+			<a href="#h-5.1" class="w3-bar-item w3-button w3-medium "> 5.1 Uploading a cell annotations file</a>
+			<a href="#h-5.2" class="w3-bar-item w3-button w3-medium "> 5.2 Visualising cell annotations</a>
+		</div>
+		<!------------>
+		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(6)">
+		6. Visualising gene expression<i class="fa fa-caret-down"></i>
+		</button>
+		<div id="MainOption6" class="w3-hide w3-white w3-card">
+			<a href="#h-6.1" class="w3-bar-item w3-button w3-medium "> 6.1 Uploading a gene expression file</a>
+			<a href="#h-6.2" class="w3-bar-item w3-button w3-medium "> 6.2 Plotting gene expression </a>
+		</div>
+		<!------------>
+		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(7)">
+		7. Exporting visualisations as images<i class="fa fa-caret-down"></i>
+		</button>
+		<div id="MainOption7" class="w3-hide w3-white w3-card">
+			<a href="#h-7.1" class="w3-bar-item w3-button w3-medium "> 7.1 Exporting the lineage tree as an image</a>
+			<a href="#h-7.2" class="w3-bar-item w3-button w3-medium "> 7.2 Exporting 3D cells as an image</a>
+		</div>
+		<!------------>
+		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(8)">
+		8. About test files<i class="fa fa-caret-down"></i>
+		</button>
+		<div id="MainOption8" class="w3-hide w3-white w3-card">
+			<a href="#h-8.1" class="w3-bar-item w3-button w3-medium "> 8.1 <i>Caenorhabditis elegans</i></a>
+			<a href="#h-8.2" class="w3-bar-item w3-button w3-medium "> 8.2 <i>Ciona </i>gastrula</a>
+			<a href="#h-8.3" class="w3-bar-item w3-button w3-medium "> 8.3 <i>Parhyale </i>limb</a>
+			<a href="#h-8.4" class="w3-bar-item w3-button w3-medium "> 8.4 <i>In silico </i>organoid</a>
+		</div>
+		<!------------>
+		<a class="w3-button w3-block w3-left-align" href="#h-9" >
+		9. References<i ></i>
+		</a>
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
@@ -88,9 +133,10 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 <div class="w3-main" style="margin-left:350px">
 	<div class="w3-row w3-padding-64">
 		<div class="w3-half w3-container">
-			<h2 class="w3-text-teal"><a name="h-1"></a> Wecome to the CeLaVi tutorial!</h2>
+			<h1 class="w3-text-teal"><a name="h-0"></a> Wecome to the CeLaVi tutorial</h1>
 			<p>
-			CeLaVi is a web-server based visualisation tool 
+			CeLaVi (after <b>Ce</b>ll <b>L</b>ine<b>a</b>ge <b>Vi</b>sualisation
+			tool), is a web-server based visualisation tool 
 			that allows any user to interrogate interactively the cell 
 			lineage of an organism or population of cells whilst visualising
 			its spatial context and identity of the cells.<br>
@@ -131,78 +177,210 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 							</tr>
 					</tbody>
 			</table>
-
-					</p>
-					<h2 class="w3-text-teal"><a name="h-1">1.</a> Opening Input files</h2>
-			<p>To visualize a Cell Lineage Tree and relate it to a 3D cell map, the user needs to provide two files.
+			</p>
+		</div>
+	</div>
+	<!--Open input files   -->
+	<div class="w3-row w3-padding-64">
+		<div class="w3-half w3-container">
+			<h2 class="w3-text-teal"><a name="h-1">1.</a> Opening Input files</h2>
+			<p>To visualize a Cell Lineage Tree and relate it to a 3D cell
+			map, the user needs to provide two files:
 			</p>
 			<h3 class="w3-text-teal"><a name="h-1.1">1.1</a> Cell lineage tree file</h3>
 			<p>
-			The tree file needs to be uploaded either in Newick or Json format. 
-			To upload a tree file, click the "Upload tree (select format)" box and choose the file to upload. After uploading, specify if the file is in a Newick or Json format. Also, specify if the tree file contains "Absolute" or "Relative" branch lengths, or no branch lengths at all (to understand the difference between "Relative" and "Absolute" see to the "Branch Lengths" section). Finally, click on "Submit" to visualise the Cell Lineage Tree.	
+				The tree file needs to be uploaded either in Newick or Json format.
+				To upload a tree file, click the "Upload tree (select format)" box and
+				choose the file to upload. If the selected file has a correct
+				extension, i.e. “.nw” or “.newick” for newick or “.json” for json
+				files, the tree will automatically be shown.<br>
+				For lineage tree files containing branch length information (timing of
+				cell divisions) a dialog box will appear allowing the user to specify
+				how branch lengths should be plotted: if branch lengths represent time
+				to the parent node the user should write "relative" in the dialog box
+				and then click on “OK”. If they represent time from the root, then the
+				user needs to write "absolute" and then click “OK”. If the user clicks
+				on “Cancel” instead, branch lengths will be ignored.
+				For more details on the structure of the input files please download
+				the Test Files.
 			</p>
 			<h3 class="w3-text-teal"><a name="h-1.2">1.2</a> 3D coordinates
 			file</h3>
 			<p>
-			The file containing the 3D coordinates of the cells must be a table in comma- separated-value (csv) format. The first line is a header or descriptor line, which specifies the column’s identity as “cell”, “X”, “Y”, and “Z”. Each subsequent line corresponds to one cell. The first column contains the cell ID, and the next columns arethe three coordinate values (X,Y and Z, respectively).
+				The file containing the 3D coordinates of the cells must contain a
+				table in comma- separated-value (csv) format. The first line is a
+				header or descriptor line, which specifies the column’s identity as
+				“cell”, “X”, “Y”, and “Z”. Each subsequent line corresponds to one
+				cell. The first column contains the cell ID, and the next columns are
+				the three coordinate values (X,Y and Z, respectively).
 			</p>
 		</div>
 		<div class="w3-half w3-container">
 			<p class=" w3-padding-large w3-padding-32 w3-center">
 			<video style='border: 3px solid black;' width="400" controls>
-			<source src="./Videos/Input_files_new.mp4" type="video/mp4">
+			<source src="./Videos/Input_files_2020_v1.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 			</video>
+			<br>
+			Open input files
 			</p>
 		</div>
 	</div>
-	<!-- Interact with cell lineage tree  -->
+	<!-- Interacting with the lineage tree  -->
 	<div class="w3-row w3-padding-64">
 		<div class="w3-half w3-container">
 			<h2 class="w3-text-teal"><a name="h-2">2.</a> Interacting with the
 			Lineage tree</h2>
 			<p>
-			Once a cell lineage tree has been uploaded, by default the tree shows only the first generation of  descendants of the root, visualising a “collapsed” tree.
-			</p>
-			<p>
-			Any  cell in the tree is labeled either in blue or white, representing one of two states:a "collapsed" state (labeled in blue), in which its daughter cells are hidden, or an "expanded" state (labeled in white), in which its daughter cells are shown. Terminal cells in the tree do not have daughters, and are by definition in the "expanded" state. Clicking on an internal cell in the lineage tree will switch between the "collapsed" (blue) and "expanded" (white) states.
+				By default, any cell in the tree is labeled either in blue or white,
+				representing one of two states: a "collapsed" state (labeled in blue),
+				in which its daughter cells are hidden, or an "expanded" state
+				(labeled in white), in which its daughter cells are shown. Terminal
+				cells in the tree do not have daughters, and are by definition in the
+				"expanded" state. When a cell lineage tree is uploaded, by default the
+				tree is shown as completely expanded.
 			</p>
 			<h3 class="w3-text-teal"><a name="h-2.1">2.1</a>
-					Collapsing/Expanding the daughters of one cell</h3>
+				Collapsing/Expanding the daughters of one cell</h3>
 			<p>
-			Any  cell in the tree is labeled either in blue or white, representing one of two states:a "collapsed" state (labeled in blue), in which its daughter cells are hidden, or an "expanded" state (labeled in white), in which its daughter cells are shown. Terminal cells in the tree do not have daughters, and are by definition in the "expanded" state. Clicking on an internal cell in the lineage tree will switch between the "collapsed" (blue) and "expanded" (white) states.
+				In order to switch between the "collapsed" (blue) and "expanded"
+				(white) states of an internal node, right-click on the node and
+				select “Collapse node [node ID]”/ “Expand node [node ID]”. This
+				will expand just the daughters of the node in question.
 			</p>
 			<h3 class="w3-text-teal"><a name="h-2.2">2.2</a>
 			Collapsing/Expanding all descendants of one cell</h3>
 			<p>
-			Any  cell in the tree is labeled either in blue or white, representing one of two states:a "collapsed" state (labeled in blue), in which its daughter cells are hidden, or an "expanded" state (labeled in white), in which its daughter cells are shown. Terminal cells in the tree do not have daughters, and are by definition in the "expanded" state. Clicking on an internal cell in the lineage tree will switch between the "collapsed" (blue) and "expanded" (white) states.
+				To collapse or expand all the descendants of a node (daughters,
+				granddaughters etc.), right-click on the node and select
+				“Collapse all until here”/ “Expand all from here”.
 			</p>
 				
 			<h3 class="w3-text-teal"><a name="h-2.3">2.3</a>
-			Collapsing/Expanding all cells from a given tree depths</h3>
+			Collapsing/Expanding all cells from a given tree depth</h3>
 			<p>
-			This is an option to expand/collapse daughters of many cells at once by using the "Tree depth" section below the cell lineage. When loading a tree, CeLaVi displays the different depths of the tree as purple circles in the "Tree depth" section. 
-			These circles, as well as showing the number of depth levels, can be used to collapse/expand all the cells at a given tree depth:click the depth level of interest, select the option "Collapse all cells" or "Expand all cells". 
-			Please note that the tree levels are defined in ascending order, starting with the root at level 0, the daughters of the root cell as level 1, and so on. 
-			NOTE: This option is only available when the tree is not in the "Show Branchlength (BL)" mode. For information on this see the section "Branchlength mode"
-			In the following video both functions are shown.
+				This is an option to expand/collapse daughters of many cells at once
+				by using the "Tree depth" section below the cell lineage. When loading
+				a tree, CeLaVi displays the different depths of the tree as purple
+				circles in the "Tree depth" section. These circles, as well as showing
+				the number of depth levels, can be used to collapse/expand all the
+				cells at a given tree depth: click the depth level of interest, select
+				the option "Collapse all cells" or "Expand all cells".<br>
+				Please note that the tree levels are defined in ascending order,
+				starting with the root at level 0, the daughters of the root as level
+				1, and so on.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-2.4">2.4</a>
+			Delete nodes (prune tree)</h3>
+			<p>
+				It is possible to delete nodes in the Lineage tree, which can be
+				useful when dealing with lineage trees with thousands of cells or when
+				the user wants to focus on a specific clone.
+				If the user wants to delete a specific node, it can be done by right
+				clicking on that node and select the option “Delete this node” from
+				the menu.<br> 
+				There is also the option to delete multiple nodes, from a given tree
+				depth, that have fewer descendants than a desired threshold. For this,
+				click on the desired tree depth (in the Tree depth section at the
+				bottom of the lineage viewer) and select the option “Delete nodes with
+				fewer than N descendants”. This will prompt an input box where the
+				user needs to enter an integer number and to click “OK” for
+				confirmation. The entered number will specify the number of
+				descendants to be used as a threshold.<br>
+				Importantly, the pruning of the tree does not affect the original
+				input file, so the user can restart by loading again the lineage file.
+			</p>
+
+			<h3 class="w3-text-teal"><a name="h-2.5">2.5</a>
+			Collapse extra cells</h3>
+			<p>
+				It is possible that, when loading a dataset, the user finds there are
+				more terminal cells in the Lineage tree than cells in the 3D viewer,
+				producing a mismatch between both visualisations. To account for this,
+				the user can collapse all the cells that are not found in the 3D
+				viewer by clicking on “Collapse extra cells” in the “Other options”
+				dropdown menu. This function collapses all internal nodes whose
+				terminal leaves are not found in the 3D viewer area. Terminal cells in
+				the lineage tree that are not found and cannot be collapsed are
+				painted gray.<br>
+			</p>
+
+			<h3 class="w3-text-teal"><a name="h-2.6">2.6</a>
+			Delete extra cells</h3>
+			<p>
+				If the user wants to delete the extra cells from the tree completely
+				(and not just collapsing them like above) the “Delete extra cells
+				option” can be used. This function deletes all the both the internal
+				nodes whose terminal cells are not found in the 3D viewer area and
+				terminal cells that cannot be found in the 3D viewer. The pruning of
+				the tree does not affect the original input file, so the user can
+				restart by loading again the lineage file.
+			</p>
+
+			<h3 class="w3-text-teal"><a name="h-2.7">2.7</a>
+			Reset view</h3>
+			<p>
+				The button “Reset view” at the bottom of the Lineage viewer resets the
+				Lineage tree to the initial visualisation, i.e. all nodes expanded and
+				with the tree centered in the lineage viewer). This function does not
+				recover the deleted nodes on the tree. If some nodes have been deleted
+				from the tree by the user, the lineage tree needs to be loaded again
+				(selecting it again as input file) to recover the deleted nodes.
+			</p>
+
+			<h3 class="w3-text-teal"><a name="h-2.8">2.8</a>
+			Render all/only some branches</h3>
+			<p>
+				Rendering a lineage tree with thousands of cells can be
+				computationally intensive on the client side (user’s computer). In
+				order to reduce the computational burden of dealing with such trees,
+				CeLaVi has an option to plot only some of the branches of the tree,
+				which is automatically selected when the number of cells is greater
+				than 500. This function is only relevant, however, when the lineage
+				tree is not completely resolved, i.e. some internal nodes have more
+				than 2 daughters (polytomies). This is a common case in clonal
+				analyses, where cells are grouped in clones but the inter-clonal
+				relationships are not resolved.<br>
+				When the “Render only some branches” is selected, only the first and
+				last branches are plotted in each polytomy, potentially reducing
+				massively the amount of lines that need to be plotted (see
+				video of this function with the organoid example). This
+				option can be changed by the user by clicking on “Render all
+				branches”.
 			</p>
 		</div>
 		<div class="w3-half w3-container">
 			<p class=" w3-padding-large w3-padding-32 w3-center">
 			<video style='border: 3px solid black;' width="400" controls>
-			<source src="./Videos/Collapse_all_new.mp4" type="video/mp4">
+			<source src="./Videos/Collapse_all_2020_v1.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 			</video>
+			<br>
+			Collapse/Expand tree
 			</p>
-			
 			<p class=" w3-padding-large w3-padding-32 w3-center">
 			<video style='border: 3px solid black;' width="400" controls>
-			<source src="./Videos/Tree_depth_new.mp4" type="video/mp4">
+			<source src="./Videos/Tree_depth_2020_v1.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 			</video>
 			<br>
 			Tree depth
+			</p>
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/delete_missing_2020_v1.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br>
+			Delete extra cells
+			</p>
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/render_branches_2020_v1.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br>
+			Render all/some branches
 			</p>
 		</div>
 	</div>
@@ -212,28 +390,68 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			<h2 class="w3-text-teal"><a name="h-3">3.</a> Interacting with
 			cells in the 3D viewer</h2>
 			<p>
-			The 3D visualisation is implemented using the 3D scatterplot function of plotly.js, a visualisation library based on d3.js and stack.gl
-			For more information on the plotly.js visualisation library visit https://plot.ly/javascript/.
-
+				The 3D visualisation is implemented using the 3D scatterplot function
+				of plotly.js, a visualisation library based on d3.js and stack.gl For
+				more information on the plotly.js visualisation library visit
+				https://plot.ly/javascript/.
 			</p>
 			<h3 class="w3-text-teal"><a name="h-3.1">3.1</a> Rotate/zoom/pan</h3>
 			<p>
-			With a 3D file of cell locations uploaded, the positions of all cells are shown on the right hand side in the 3D viewer. It is possible to Zoom in/out, rotate and pan the 3D scatterplot by selecting the function and dragging the mouse. All options are located in a panel at the top right of the 3D viewer area.
+				When a file of 3D cell locations has been uploaded, the positions of
+				all cells are shown in the 3D viewer on the right hand side of the
+				screen. It is possible to Zoom in/out by using the scroll wheel of the
+				mouse, to rotate by left-clicking and dragging, and to pan the 3D
+				scatterplot by right-clicking and dragging the mouse.
 			</p>
-			<h3 class="w3-text-teal"><a name="h-3.2">3.2</a> Modifying cell representation</h3>
+			<h3 class="w3-text-teal"><a name="h-3.2">3.2</a> Modifying the representation of cells </h3>
 			<p>
-			The user can modify some of the features of the 3D cells using the "3D cell controls" panel, located in the top right of the viewer area. There are 3 boxes in this section: 1) the box on the left  ("Reset cols" clickable button) resets the colour of the cells to the default (light grey). 2) The box in the middle allows one to change the size of the cells in a stepwise manner using the arrow buttons or by directly typing an integer value. The box on the right allows to change the stroke width of the outline of the cell.
+				The user can modify some features of the 3D viewer area using the "3D
+				cell controls" panel, located in the bottom right of the 3D viewer
+				area.<br>
+				On the left, the "Reset colors" button resets the colour of the cells
+				in both the lineage and 3D viewer to the default (light grey).  The
+				“Reset clones” button deletes the saved list of clones.
+				The size of the cells can be modified using the “Cell size” input box
+				either by changing the size of the cells in a stepwise manner using
+				the arrow buttons or by typing an integer value.<br>
+				There are also 2 checkboxes in this section: 1) The “Show Axes”
+				checkbox allows the user to show or hide the 3D axes plotted in the
+				background. 2) The “Show lineage” option allows the user to visualise
+				the degree of lineage relationship for each of the cells relative to a
+				selected cell. Every cell is coloured using a heatmap that shows how
+				closely related each cell is to the selected cell. To do this, select
+				the “show lineage” option by clicking on the checkbox and then click
+				on any cell in the 3D viewer area.
 			</p>
 			<h3 class="w3-text-teal"><a name="h-3.3">3.3</a> Highlighting the lineage history of a cell</h3>
 			<p>
-			An important feature of CeLaVi is the possibility of interactively interrogating the data. A fundamental function is to highlight the developmental lineage of any chosen cell in the 3D visualisation area. Clicking on any cell in the 3D visualisation will change its colour to red and its lineage will be highlighted in red in the lineage tree. More specifically, the cell that has been clicked and all its ancestors down to the root will be coloured in red.
-			<b>		Note: To do this, the lineage tree (or at least the clade of the cell to be highlighted) needs to be completely expanded..<br> </b>
+				An important feature of CeLaVi is the possibility of interactively
+				interrogating the data. One useful function is to highlight the
+				developmental lineage of any cell chosen in the 3D visualisation area.
+				Clicking on any cell in the 3D visualisation will change its colour to
+				red and its lineage will be highlighted in red on the lineage tree.
+				More specifically, the cell that has been clicked will be coloured in
+				red as will all its ancestors down to the root. Note: To do this, the
+				lineage tree (or at least the clade of the cell to be highlighted)
+				needs to be completely expanded.<br>
+				<b>Note: To do this, the lineage tree (or at least the clade of the cell
+				to be highlighted) needs to be completely expanded.</b>
+			</p>
+			<h3 class="w3-text-teal"><a name="h-3.4">3.4</a> Hide 3D cells missing in Lineage tree</h3>
+			<p>
+				In the case a 3D cells file is loaded and it contains more cells than
+				found in the Lineage tree, a warning message will be shown specifying
+				the number of cells that were not found in the tree. The “missing”
+				cells will be plotted on the 3D viewer but without a fill colour,
+				making them easily identifiable. The user can then hide/show these
+				cells on the 3D viewer by clicking on the “Cells missing in tree”
+				legend at the top right of the 3D viewer (see video).
 			</p>
 		</div>
 		<div class="w3-half w3-container">
 			<p class=" w3-padding-large w3-padding-32 w3-center">
 			<video style='border: 3px solid black;' width="400" controls>
-			<source src="./Videos/click_3D_new.mp4" type="video/mp4">
+			<source src="./Videos/click_3D_2020_v1.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 			</video>
 			<br>
@@ -248,48 +466,83 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			Visualising clones</h2>
 			<h3 class="w3-text-teal"><a name="h-4.1">4.1</a> Showing a single clone</h3>
 			<p>
-			There are two ways to visualise the spatial distribution of all the descendants of a given cell in the cell lineage. The first is by right clicking on any cell in the Lineage tree to display the options menu. From the menu select the option "Show descendants". This will mark all the descendant cells on the 3D visualisation section by changing their colour (the default option is changing to light blue). With this option we can mark many clones at the same time (the  newly marked clones will have different default colours). 
-			Another option is to click on the "Show descendants" click box at the bottom. This option automatically marks clones when hovering the mouse cursor over any cell in the lineage tree. In this case, the colour of the cells that do not belong to the visualised clone will change to default colour (light grey), meaning that this function only allows to visualise one clone at a time.The following video shows the both options to highlight a single clone in the 3D cell section; how to interact with the 3D plot; and how to highlight the developmental lineage of a specific cell.
-
-			</p>
-			<p>
-			Another option is to click on the "Show descendants" click box at the bottom. This option automatically marks clones when hovering the mouse cursor over any cell in the lineage tree. In this case, the colour of the cells that do not belong to the visualised clone will change to default colour (light grey), meaning that this function only allows to visualise one clone at a time.The following video shows the both options to highlight a single clone in the 3D cell section; how to interact with the 3D plot; and how to highlight the developmental lineage of a specific cell.
-			</p>
-			<p> The following video shows the both options to highlight a single clone
-			in the 3D cell section; how to interact with the 3D plot; and how to 
-			highlight the developmental lineage of a specific cell.
+				There are two ways to visualise the spatial distribution of all the
+				descendants of a given cell in the cell lineage. The first is simply
+				by clicking on any cell in the Lineage tree. This will mark all the
+				descendant cells on the 3D visualisation section by assigning them a
+				random colour. With this option we can mark multiple clones at the
+				same time.<br> 
+				Another option is to hover the cursor over any cell in the lineage
+				tree. In this case, all cells that do not belong to the selected clone
+				will be faded out in the 3D viewer whilst the mouse cursor is on the
+				ancestral cell of interest. This function only allows visualisation of
+				one clone at a time.<br>
+				The accompanying video shows both options for highlighting a single clone
+				in the 3D cell section and how to interact with the 3D plot.
 			</p>
 			<h3 class="w3-text-teal"><a name="h-4.2">4.2</a> 
 					Showing clones from a given tree depth</h3>
 			<p>
-			It is possible to mark all the clones at a given tree depth by interacting with the "Tree depth" section below the Lineage Tree. In the accompanying video this function is shown using the Parhyale dataset. Clicking on the depth level 1 circle we can then select the option "Show clones from this depth". This marks the spatial distribution of the 20 clones that comprise this dataset. We can also use this option to see how a clone gets divided into subclones in the subsequent cell divisions. For this we need to expand only the clone(s) we are interested in following, and then select the option "Show clones from this depth" for increasing depths (see video).
+				It is possible to mark all the clones at a given tree depth by
+				interacting with the "Tree depth" section below the Lineage Tree. In
+				the accompanying video this function is shown using the Parhyale
+				dataset. Clicking on the depth level 1 circle we can then select the
+				option "Show clones from this depth". This marks the spatial
+				distribution of the 20 clones that comprise this dataset. We can also
+				use this option to see how a clone gets divided into subclones in the
+				subsequent cell divisions. For this we need to expand only the
+				clone(s) we are interested in following, and then select the option
+				"Show clones from this depth" for increasing depths.
 			</p>
 			<h3 class="w3-text-teal"><a name="h-4.3">4.3</a> 
 					Showing clones arising at a given time point</h3>
 			<p>
-			When the Cell Lineage file contains branch lengths (BL) information (which essentially  represents the timing of cell divisions), it is also possible to show all the clones produced at a given time point. To do this, first click the button "Show BL" to change the shape of the Lineage tree so that it shows the branch lengths. The "Tree depth" section at the bottom of the Lineage Tree will change from showing the tree depths (purple circles) to showing an horizontal slider. The horizontal slider represents developmental time and can be clicked to show the clones originated at different time points. To facilitate the visualisation, a vertical dashed line is plotted on top of the Lineage Tree. As when showing the clones at a given depth, it is possible to expand only those clones in the lineage tree that the user wants to visualise. 
-			The following video shows how to visualise clones at a given tree depth or at a given time point. 
- 
-			</p>
-			<p>
-			The following video shows how to visualise clones at a given
-			tree depth or at a given time point.
+				When the Cell Lineage file contains branch length information (which
+				essentially represents the timing of cell divisions), it is also
+				possible to show all the clones originating at a given time point. To
+				do this, first click the box "Branch Len" to change the representation
+				of the Lineage tree so that it shows branch lengths. The "Tree depth"
+				section at the bottom of the Lineage Tree will change from showing the
+				tree depths (purple circles) to showing an horizontal slider. The
+				horizontal slider represents developmental time (from 0 to 100%) and
+				can be clicked to show the clones originating at different time
+				points. A vertical dashed line is plotted on top of the Lineage Tree
+				showing the selected level. It is also possible to expand only those
+				clones in the lineage tree that the user wants to visualise. The
+				following video shows how to visualise clones at a given tree depth or
+				at a given time point.
 			</p>
 			<h3 class="w3-text-teal"><a name="h-4.4">4.4</a> Saving clones</h3>
 			<p>
-			If the user is interested in one or several specific clones, it is possible to save these to a list that can be used to visualise them later. In the Lineage tree we right-click on the tree node (parent cell) of interest and select the option "Save clone". This will save the identifier of this parent cell into a list that can be displayed by clicking on the button "Saved clones". We can then recall a saved clone by clicking on any element of this list. This will highlight the selected clone by colouring the cells within the clone with a randomly chosen colour. 
-			The video below shows how to save clones and how to select them from the list to display them.
-
+				If the user is interested in one or several specific clones, it is
+				possible to save these as a list that can be used to visualise them
+				later. In the Lineage tree we right-click on the tree node (parent
+				cell) of interest and select the option "Save clone [cell ID]".  A
+				colour picker will be displayed allowing the user to choose the colour
+				of the cells of this clone when selected. After choosing the colour
+				and clicking “OK” in the colour picker box, the ID of the cell will be
+				saved into a list that can be displayed by clicking on the button
+				"Saved clones". We can recall a saved clone by clicking on its
+				identity in this list. The cells of the selected clone will then be
+				highlighted by its chosen colour. It is possible to delete the saved
+				list of clones by clicking on the “Reset Clones” button.
 			</p>
+			<h3 class="w3-text-teal"><a name="h-4.5">4.5</a> Export clones as a cell annotations file</h3>
 			<p>
-			The video below shows how to save clones and how to select them from the list
-			to display them.
+				It is possible to export the saved list of clones as a csv file. This
+				csv file can be loaded as a “cell annotations file” to visualise the
+				clones in another CeLaVi session, or to share the clones' list with
+				other people.<br>
+				For more information on cell annotations file see the section below.
+				The video shows how to save clones, how to select them from the
+				list to display them and how to export them as a cell annotations
+				file.
 			</p>
 		</div>
 		<div class="w3-half w3-container">
 			<p class=" w3-padding-large w3-padding-32 w3-center">
 			<video style='border: 3px solid black;' width="400" controls>
-			<source src="./Videos/single_clones_new.mp4" type="video/mp4">
+			<source src="./Videos/single_clones_2020_v1.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 			</video>
 			<br>
@@ -297,7 +550,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			</p>
 			<p class=" w3-padding-large w3-padding-32 w3-center">
 			<video style='border: 3px solid black;' width="400" controls>
-			<source src="./Videos/various_clones_new.mp4" type="video/mp4">
+			<source src="./Videos/various_clones_2020_v1.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 			</video>
 			<br>
@@ -305,7 +558,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			</p>
 			<p class=" w3-padding-large w3-padding-32 w3-center">
 			<video style='border: 3px solid black;' width="400" controls>
-			<source src="./Videos/save_clones_new.mp4" type="video/mp4">
+			<source src="./Videos/save_clones_2020_v1.mp4" type="video/mp4">
 			Your browser does not support the video tag.
 			</video>
 			<br>
@@ -313,36 +566,172 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			</p>
 		</div>
 	</div>
+	<!--Cell annotations   -->
+	<div class="w3-row w3-padding-64">
+		<div class="w3-half w3-container">
+			<h2 class="w3-text-teal"><a name="h-5">5.</a> Cell annotations</h2>
+			<p>
+				Apart from the cell lineage and spatial distribution of the cells, it
+				is possible to visualise additional information, e.g. cell type.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-5.1">5.1</a> Uploading a cell annotation file </h3>
+			<p>
+				To upload a file, click on the “Cell annotations file” input box and
+				select the file from your computer. The file needs to be a csv file
+				with 2 columns. The first column should have the cell ID (which must
+				be identical to its entry in the 3D coordinates file), and the second
+				column will show the cell annotation the user wants to visualise, as
+				cell type (e.g. neuron). If the file format is correct, a table will
+				display containing all cell type annotations as coloured rows.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-5.2">5.2</a> Visualising cell annotations</h3>
+			<p>
+				The cell annotations table serves for interactively visualising the
+				different sets of annotated cells in the 3D viewer and the lineage
+				tree. The video shows how it works with the <i>Ciona</i> gastrula
+				dataset example. Here, the cell annotations correspond to the
+				different cell types (or fates) in the gastrula. When hovering over a
+				table row, the cells that belong to that cell type are highlighted by
+				fading out the rest of the cells. If the row is clicked, the cells in
+				both the 3D viewer and the lineage viewer are painted with the colour
+				matching the background colour of the row that has been clicked.
+			</p>
+		</div>
+		<div class="w3-half w3-container">
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/cell_annotations_2020_v1.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br>
+			Cell annotations
+			</p>
+		</div>
+	</div>
+	<!-- Gene expression  -->
+	<div class="w3-row w3-padding-64">
+		<div class="w3-half w3-container">
+			<h2 class="w3-text-teal"><a name="h-6">6.</a> Visualising gene expression</h2>
+			<p>
+				An additional feature of CeLaVi is the possibility of visualising
+				gene expression information. Such information can have been generated
+				by different technologies, like single cell sequencing or in situ
+				sequencing.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-6.1">6.1</a> Uploading a gene expression file</h3>
+			<p>
+				The gene expression file needs to be a csv file with genes as rows and
+				cells as columns and it needs to contain a header with the format
+				“gene,cell_01,cell_02,cell_03”. <br>
+				As with the cell annotations file, the
+				cell ID must be identical to the cell IDs used in both the 3D cells
+				and lineage tree files.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-6.2">6.2</a> Plotting gene expression</h3>
+			<p>
+				After successful loading of the gene expression file, a gene search
+				box will appear above the 3D viewer. To plot the expression of a gene
+				of interest, type its name in the search box and click on the “submit”
+				button. The search box has an autofill function, so a list of genes
+				starting with the letter(s) initially entered will display when typing
+				the name of a gene of interest. The gene expression values will be
+				represented on the 3D and lineage viewers using a heatmap. The heatmap
+				scale (level of expression) will be plotted at the bottom of the 3D
+				viewer area.
+				The accompanying video shows how to upload and visualise gene expression
+				data using the <i>Ciona</i> gastrula example dataset.
+			</p>
+		</div>
+		<div class="w3-half w3-container">
+			<p class=" w3-padding-large w3-padding-32 w3-center">
+			<video style='border: 3px solid black;' width="400" controls>
+			<source src="./Videos/gene_expression_2020_v1.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<br>
+			Gene expression
+			</p>
+		</div>
+	</div>
+	<!-- Export as image   -->
+	<div class="w3-row w3-padding-64">
+		<div class="w3-half w3-container">
+			<h2 class="w3-text-teal"><a name="h-7">7.</a> Exporting visualisations as images</h2>
+			<h3 class="w3-text-teal"><a name="h-7.1">7.1</a> Exporting the Lineage tree as an image </h3>
+			<p>
+				At any point, the lineage tree displayed in the lineage viewer can be
+				exported as an image in SVG or PNG format. To do this, select the
+				desired image format from the dropdown menu shown when hovering on the
+				button “Save Image” at the bottom of the lineage viewer.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-7.2">7.2</a> Exporting 3D cells as an image </h3>
+			<p>
+				As with the lineage tree, the 3D cells can be exported at any time as
+				a PNG image. To do this, select the PNG option from the dropdown menu
+				shown when hovering over the button “Save Image” at the bottom of the
+				3D viewer.
+			</p>
+		</div>
+	</div>
 	<!-- About examples  -->
 	<div class="w3-row w3-padding-64">
 		<div class="w3-half w3-container">
-			<h2 class="w3-text-teal"><a name="h-5">5.</a> 
+			<h2 class="w3-text-teal"><a name="h-8">8.</a> 
 			About test files</h2>
-			<h3 class="w3-text-teal"><a name="h-5.1">5.1</a><i> Caenorhabditis elegans</i></h3>
+			<h3 class="w3-text-teal"><a name="h-8.1">8.1</a><i> Caenorhabditis elegans</i></h3>
 			<p>
-			The embryonic cell lineage of the nematode  <i>C. elegans</i> was described by 
-			John Sulston and collaborators in 1983<a href="#h-r1">[1]</a>.
-			The data used for the cell lineage and the cell types were extracted from a
-			json file available made available by Nikhil Bhatla at 
-			wormweb.org/celllineage<br>
-			The 3D coordinates come from the study of Fuhui Long and
-			collaborators<a href="#h-r2">[2]</a>, where they mapped 357 cells (out of the 558
-			cells) of the L1 larval stage, using confocal image stacks of 15
-			individual worms.
+				The embryonic cell lineage of the nematode  <i>C. elegans</i> was described by 
+				John Sulston and collaborators in 1983<a href="#h-r1">[1]</a>.
+				The data used for the cell lineage and the cell types were extracted from a
+				json file available made available by Nikhil Bhatla at 
+				wormweb.org/celllineage<br>
+				The 3D coordinates come from the study of Fuhui Long and
+				collaborators<a href="#h-r2">[2]</a>, where they mapped 357 cells (out of the 558
+				cells) of the L1 larval stage, using confocal image stacks of 15
+				individual worms.
 			</p>
-			<h3 class="w3-text-teal"><a name="h-5.2">5.2</a><i> Parhyale</i> limb</h3>
+			<h3 class="w3-text-teal"><a name="h-8.1">8.1</a><i> Caenorhabditis elegans</i></h3>
+			<p>
+				The cell lineage of the ascidian Ciona intestinalis was described by
+				Edward Conklin in 1905<a href="#h-r3">[3]</a>. The cell lineage file (in
+				newick format) was created using Conklin's nomenclature, from the
+				zygote to the 110-cells stage.<br> 
+				The 3D coordinates of the Ciona gastrula were obtained from a
+				reconstructed 3D embryo model<a href="#h-r4">[4]</a> available in the
+				Aniseed database<a href="#h-r5">[5]</a>.The 3D embryo model contains, for each
+				cell, a set of data points in space (point cloud) representing the
+				shape in 3D. To represent each cell as a single point in the 3D space
+				we used the calculated centroid of the point cloud of each
+				cell.<br>
+				The gene expression dataset was obtained from the single cell
+				sequencing dataset by Michael Levine and collaborators<a href="#h-r6">[6]</a>.
+				We used the "expression_matrix_C110.1.tsv" raw expression data
+				matrix (expression levels of 15,307 genes in 1,731 cells) together
+				with the metadata associated file. <br>
+				"C110.1.clusters.upload.rename.1.txt" that contains the cell type
+				identity of each cell at the early gastrula stage. We used the R
+				software version 3.6.3<a href="#h-r7">[7]</a> with the Seurat 
+				package version 3.1.4<a href="#h-r8">[8]</a>
+				to calculate the 500 most variable genes and to
+				obtain their average expression values per cell. The gene names
+				correspond to human gene IDs, derived from the Ciona intestinalis
+				genome assembly KH2012 with NCBI Gene Model to Best Blast Hit mapping,
+				available in the Aniseed database. Only the gene ID with the highest
+				Blast e-value is shown.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-8.3">8.3</a><i> Parhyale</i> limb</h3>
 			<p>
 			The cell lineage and 3D coordinates of the limb of the crustaean
 			<i>Parhyale hawaiensis</i> were obtained by Tassos Pavlopoulos and
-			collaborators<a href="#h-r3">[3]</a>. They imaged transgenic fluorescently-labeled 
+			collaborators<a href="#h-r9">[9]</a>. They imaged transgenic fluorescently-labeled 
 			embryos with multi-view light-sheet microscopy at high spatiotemporal
 			resolution over several days of embryogenesis.
 			The cell lineage was then reconstructed with the aid of the MaMuT software.<br>
 			</p>
-			<h3 class="w3-text-teal"><a name="h-5.2">5.2</a><i> In silico</i> Organoid</h3>
+			<h3 class="w3-text-teal"><a name="h-8.4">8.4</a><i> In silico</i> Organoid</h3>
 			<p>
 			The "organoid" dataset comes from a simulation of morphogenesis
-			using the ya||a software<a href="#h-r4">[4]</a>. The organoid is
+			using the ya||a software<a href="#h-r10">[10]</a>. The organoid is
 			the product of a branching morphogenesis simulation with epithelium 
 			and mesenchyme (only the epithelium is used for the example).
 			The simulation was kindly provided by Miquel Marín-Riera,
@@ -353,7 +742,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 	<!-- References  -->
 	<div class="w3-row w3-padding-64">
 		<div class="w3-half w3-container">
-			<h2 class="w3-text-teal"><a name="h-6">6.</a> References</h2>
+			<h2 class="w3-text-teal"><a name="h-9">9.</a> References</h2>
 			<p>
 			<a name="h-r1">[1]</a> Sulston JE, Schierenberg E, White JG, Thomson JN. The
 			embryonic cell lineage of the nematode Caenorhabditis elegans.
@@ -365,12 +754,41 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			single-cell analyses. Nat Methods. 2009;6(9):667-672.
 			doi:10.1038/nmeth.1366<br><br>
 
-			<a name="h-r3">[3]</a> Wolff C, Tinevez J-Y, Pietzsch T, et al.
+			<a name="h-r3">[3]</a> Conklin EG. The organization and
+			cell-lineage of the ascidian egg. J Acad Nat Sci Philadelphia.
+			1905;13:1-119.<br><br>
+
+			<a name="h-r4">[4]</a>Tassy O, Daian F, Hudson C, Bertrand V,
+			Lemaire P. A quantitative approach to the study of cell shapes
+			and interactions during early chordate embryogenesis. Curr Biol.
+			2006;16(4):345-358. doi:10.1016/j.cub.2005.12.044<br><br>
+
+			<a name="h-r5">[5]</a> Brozovic M, Martin C, Dantec C, et al.
+			ANISEED 2015: a digital framework for the comparative
+			developmental biology of ascidians. Nucleic Acids Res.
+			2016;44(D1):D808-D818. doi:10.1093/nar/gkv966<br><br>
+
+			<a name="h-r6">[6]</a> Cao C, Lemaire LA, Wang W, et al.
+			Comprehensive single-cell transcriptome lineages of a
+			proto-vertebrate. Nature. 2019;571(7765):349-354.
+			doi:10.1038/s41586-019-1385-y<br><br>
+
+			<a name="h-r7">[7]</a> R Core Team (2020). R: A language and
+			environment for statistical computing. R Foundation for
+			Statistical Computing, Vienna, Austria. URL
+			https://www.R-project.org/.<br><br>
+
+			<a name="h-8">[8]</a> Stuart T, Butler A, Hoffman P, et al.
+			Comprehensive Integration of Single-Cell Data. Cell.
+			2019;177(7):1888-1902.e21. doi:10.1016/j.cell.2019.05.031
+			<br><br>
+
+			<a name="h-r9">[9]</a> Wolff C, Tinevez J-Y, Pietzsch T, et al.
 			Multi-view light-sheet imaging and tracking with the MaMuT
 			software reveals the cell lineage of a direct developing
 			arthropod limb. Elife. 2018;7. doi:10.7554/eLife.34410<br><br>
 
-			<a name="h-r4">[4]</a> Germann P, Marin-Riera M, Sharpe J.
+			<a name="h-r10">[10]</a> Germann P, Marin-Riera M, Sharpe J.
 			ya||a: GPU-Powered Spheroid Models for Mesenchyme and
 			Epithelium. Cell Syst. 2019;8(3):261-266.e3.
 			doi:10.1016/J.CELS.2019.02.007<br><br>
@@ -431,6 +849,20 @@ function w3_close() {
   mySidebar.style.display = "none";
   overlayBg.style.display = "none";
 }
+
+function myAccFunc(n) {
+	var x = document.getElementById("MainOption" + n);
+	if (x.className.indexOf("w3-show") == -1) {
+		x.className += " w3-show";
+		x.previousElementSibling.className += " w3-green";
+		} else { 
+		x.className = x.className.replace("w3-show", "");
+		x.previousElementSibling.className = x.previousElementSibling.className.replace("w3-green", "");
+		}
+	}
+
+
+
 </script>
 
 </body>
