@@ -76,7 +76,7 @@
 				<div class="col-sm-1 mb-2">
 				</div>
 				<div data-step="8" data-intro="Please visit the tutorial to get more details. ENJOY!"  class="col-sm-2 mb-2">
-					<a class="btn btn-large btn-primary" href="http://compus-mentis.org/visualisation/integrated/tutorial.html" target="_blank">
+					<a class="btn btn-large btn-primary" href="http://www.celavi.pro/tutorial.html" target="_blank">
 					<span style="display: block;">Visit Tutorial</span>
 					</a>
 				</div>
@@ -323,7 +323,9 @@ clones at a given depth/time">
 				the Human Frontiers Science Program (HFSP)</h6>
 			<img src="HFSP_logo.jpg" alt="HFSP_logo" width="80" >
 			<br>
-			<strong>Source</strong> : https://github.com/irepansalvador/
+			<strong>Source</strong> : <a href="https://github.com/irepansalvador/" style= "color: white;" target="_blank" >https://github.com/irepansalvador/</a>
+			<br>
+			<strong>Contact</strong> : <a href="mailto:irepan_salvador@hotmail.com" style="color: white;">irepan_salvador@hotmail.com</a>
 		</div>
 		<div class="myalert hide">
 			<div class="message">
@@ -338,8 +340,6 @@ clones at a given depth/time">
 			<p><b>Right-click and drag:</b> Move 3D viz </p>
 			<hr>
 			<p><b>NOTE: Cell IDs must start with a letter [a-z, A-Z] for functions to work properly</b> </p>
-
-
 		</div> 
 		<div id="CS2" class= "cheatsheet2">
 			<h4>3D viewer</h4>
