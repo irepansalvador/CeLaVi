@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title>CelaVi</title>
 	<!-- Custom CSS styles -->
-	<link href="style_2.css" rel="stylesheet" type="text/css" > 
+	<link href="./lib/style_2.css" rel="stylesheet" type="text/css" > 
 	<link rel="stylesheet" href="./lib/d3-context-menu.css" />
 	<link rel="stylesheet" href="./lib/introjs.css"/>
 	<link rel="stylesheet" href="./lib/colpick.css"/>
@@ -91,7 +91,7 @@
 					<button id="HideMeta" onclick="HideMETADATA()">Hide Cell Annotations</button>
 				</div> -->
 			</div>
-			<div id="input_submit">bsolute
+			<div id="input_submit">
 				<div class="row">
 					<div class="col-sm-3 mb-2">
 						<a data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file</label></a>
@@ -356,21 +356,21 @@ clones at a given depth/time">
 	<!--<script src="d3.js" charset="utf-8"></script>-->
 	<!-- Custom JS code -->
 	<!--<script src="cells_3d_paryhale.js"></script> -->
-	<script src="cell_lineage_v4_paryhale.js"></script>
-	<script src="plotly_test.js"></script>
-	<script src="brush_paryhale.js"></script>
-	<script src="Nested_rels_scale.js"></script>
+	<script src="./js/cell_lineage_v4_paryhale.js"></script>
+	<script src="./js/plotly_test.js"></script>
+	<script src="./js/brush_paryhale.js"></script>
+	<script src="./js/Nested_rels_scale.js"></script>
 	<script>Coords_upload_button("3Dcoord_uploader", load_dataset_2)</script>
 	<!--	<script>Tree_upload_button("JSON_uploader"); </script> -->
 	<!-- <script src="clones_slider.js"></script> -->
-	<script src="Tree_submit.js"></script>
-	<script src="table_scroller.js"></script>
+	<script src="./js/Tree_submit.js"></script>
+	<script src="./js/table_scroller.js"></script>
 	<script>Metadata_upload_button("Metadata_uploader", load_dataset_3)</script>
-	<script src="gene_matrix_loader.js"></script>
+	<script src="./js/gene_matrix_loader.js"></script>
 	<script>GeneExp_upload_button("GeneExp_uploader", load_dataset_4)</script>
 	<!-- Examples uploader-->
-	<script src="./examples.js"></script>
+	<script src="./js/examples.js"></script>
 	<!-- export png -->
-	<script src="./tree_png_download.js"></script>
+	<script src="./js/tree_png_download.js"></script>
 	<script src="./lib/intro.js"></script>
 </body>

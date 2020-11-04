@@ -1,5 +1,5 @@
 # CeLaVi 
-<img src="https://github.com/irepansalvador/CeLaVi/blob/main/lib/CeLaVi_v4.png" width="90">
+<img src="https://github.com/irepansalvador/CeLaVi/blob/main/Images/CeLaVi_v4.png" width="90">
 
 CeLaVi (after Cell Lineage Visualisation tool) is a web-based visualisation tool that allows to use data derived from multiple technologies to interrogate the cell lineage whilst visualising the spatial context, the identity and the properties of the cells.
 
