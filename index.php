@@ -134,7 +134,7 @@
 							<button class="btn btn-dark" id ="HideINPUT" >HIDE Input Options</button>
 						</div>
 						<div class = "col-sm-7">
-							<a href="./test_data.zip" download>
+							<a href="./test_data/test_data.zip" download>
 							<button class="btn btn-dark"><i class="fa fa-download"></i> Download TEST files</button>
 							</a>
 						</div>
