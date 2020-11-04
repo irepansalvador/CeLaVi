@@ -321,7 +321,7 @@ clones at a given depth/time">
 		<div id="footer">
 			<h6>The development of celavi.pro is funded by
 				the Human Frontiers Science Program (HFSP)</h6>
-			<img src="HFSP_logo.jpg" alt="HFSP_logo" width="80" >
+			<img src="./Images/HFSP_logo.jpg" alt="HFSP_logo" width="80" >
 			<br>
 			<strong>Source</strong> : <a href="https://github.com/irepansalvador/celavi" style= "color: white;" target="_blank" >https://github.com/irepansalvador/celavi</a>
 			<br>
