@@ -13,5 +13,12 @@ A tutorial showing CeLaVi's main functions is available at  http://www.celavi.pr
 
 ## User's interface
 
+<img src="https://github.com/irepansalvador/CeLaVi/blob/main/Images/Fig1.png">
+
+CeLaVi’s user interface is shown with the Ciona gastrula example
+loaded. The main areas are annotated: A-D) Input Area. E) Lineage
+Viewer F) 3D viewer H) Cell Lineage tree controls. I) Clones controls
+J) 3D cells controls. K) Tree depth area.
+
 
 

@@ -42,12 +42,12 @@
 <body>
 	<!-- Splash screen --> 
 	<div class= "svg-container" id="splashscreen">
-		<img src="./lib/CeLaVi_welcome_v2.svg" onclick="enter_link(); javascript:introJs().start();   " />
+		<img src="./Images/CeLaVi_welcome_v2.svg" onclick="enter_link(); javascript:introJs().start();   " />
 	</div> 
 	<div id= "container" class="svg-container">
 		<div class="row">
 			<div class="col-sm-1" >
-				<img src="./lib/CeLaVi_v4.svg" alt="CeLaVi_logo" width="90" style="padding-bottom: 5px;">
+				<img src="./Images/CeLaVi_v4.svg" alt="CeLaVi_logo" width="90" style="padding-bottom: 5px;">
 			</div>
 			<div class="col-sm-10">
 				<div id="name">
@@ -56,7 +56,7 @@
 				</div>
 			</div>
 			<div class="col-sm-1" >
-				<img src="./lib/CeLaVi_v4.svg" alt="CeLaVi_logo" width="90" style="padding-bottom: 5px;">
+				<img src="./Images/CeLaVi_v4.svg" alt="CeLaVi_logo" width="90" style="padding-bottom: 5px;">
 			</div>
 		</div>
 		<!-- Button to hide INPUT -->
@@ -91,7 +91,7 @@
 					<button id="HideMeta" onclick="HideMETADATA()">Hide Cell Annotations</button>
 				</div> -->
 			</div>
-			<div id="input_submit">
+			<div id="input_submit">bsolute
 				<div class="row">
 					<div class="col-sm-3 mb-2">
 						<a data-placement="right" title="Input file cell lineage tree with or without branch lengths."><label for="temp">Tree file</label></a>
@@ -323,7 +323,7 @@ clones at a given depth/time">
 				the Human Frontiers Science Program (HFSP)</h6>
 			<img src="HFSP_logo.jpg" alt="HFSP_logo" width="80" >
 			<br>
-			<strong>Source</strong> : <a href="https://github.com/irepansalvador/" style= "color: white;" target="_blank" >https://github.com/irepansalvador/</a>
+			<strong>Source</strong> : <a href="https://github.com/irepansalvador/celavi" style= "color: white;" target="_blank" >https://github.com/irepansalvador/celavi</a>
 			<br>
 			<strong>Contact</strong> : <a href="mailto:irepan_salvador@hotmail.com" style="color: white;">irepan_salvador@hotmail.com</a>
 		</div>
