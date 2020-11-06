@@ -42,7 +42,7 @@
 <body>
 	<!-- Splash screen --> 
 	<div class= "svg-container" id="splashscreen">
-		<img src="./Images/CeLaVi_welcome_v2.svg" onclick="enter_link(); javascript:introJs().start();   " />
+		<img src="./Images/CeLaVi_welcome_v3.svg" onclick="enter_link(); javascript:introJs().start();   " />
 	</div> 
 	<div id= "container" class="svg-container">
 		<div class="row">
@@ -51,7 +51,7 @@
 			</div>
 			<div class="col-sm-10">
 				<div id="name">
-					<h2><i>CeLaVi:</i> Cell Lineage interactive Visualisation</h2>
+					<h2><i>CeLaVi:</i> An Interactive Cell Lineage Visualisation tool</h2>
 					<p> <i> by Irepan Salvador-Martinez et al.</i> </p>
 				</div>
 			</div>
