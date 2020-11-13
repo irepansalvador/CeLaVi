@@ -1012,7 +1012,7 @@ function set_bl(){
 	document.getElementById("BranchLenghts").style.display = "none";
 	if (root.data.length != undefined)
 		{
-		var bl_prompt = prompt("Branch lenghts have been detected. \nIf these represent time to parent node enter \"relative\"\nIf they represent time from root enter \"absolute\"\nIf you want to ignore branch lengths press Cancel");
+		var bl_prompt = prompt("Branch lenghts have been detected. \nIf these represent time to parent node (C. elegans example) enter \"relative\"\nIf they represent time from root (Parhyale example) enter \"absolute\"\nIf you want to ignore branch lengths press Cancel");
 		if (bl_prompt != null) {
 			if (bl_prompt == "relative") 
 				{
