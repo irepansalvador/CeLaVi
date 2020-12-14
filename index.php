@@ -64,29 +64,31 @@
 			<div class="row">
 				<div class="col-sm-2 mb-2">
 					<div class="dropdown">
-						<button class="btn btn-info"> <i class="fas fa-file-upload"></i> Load Examples</button>
+						<button class="btn btn-danger"> <i class="fas fa-file-upload"></i> <b>&nbsp LOAD EXAMPLES</b> </button>
 						<div class="dropdown-content">
-							<a href="#" onclick="Examples(1)">C. elegans</a>
-							<a href="#" onclick="Examples(2)">Ciona gastrula</a>
-							<a href="#" onclick="Examples(3)">Parhyale limb</a>
-							<a href="#" onclick="Examples(4)">Organoid</a>
+							<a href="#" onclick="Examples(1)"><i>C. elegans</i> L1 larva</a>
+							<a href="#" onclick="Examples(2)"><i>Ciona</i> gastrula</a>
+							<a href="#" onclick="Examples(3)"></i>Parhyale</i> limb</a>
+							<a href="#" onclick="Examples(4)"><i>In silico</i> organoid</a>
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-1 mb-2">
-				</div>
+<!--				<div class="col-sm-1 mb-2">
+				</div> -->
 				<div data-step="8" data-intro="Please visit the tutorial to get more details. ENJOY!"  class="col-sm-2 mb-2">
 					<a class="btn btn-large btn-primary" href="http://www.celavi.pro/tutorial.html" target="_blank">
-					<span style="display: block;">Visit Tutorial</span>
+					<span style="display: block;">Visit <b>TUTORIAL</b></span>
 					</a>
-				</div>
-				<div class="col-sm-2 mb-2" style="display: none">
-					<button id="example-button" value="#00FF00">Color Picker</button>
-					
 				</div>
 				<div class="col-sm-2 mb-2">
 					<a class="btn btn-large btn-primary" href="javascript:void(0);" onclick="javascript: introJs().start();">Quick Tour</a>
 				</div>
+
+				<div class="col-sm-2 mb-2" style="display: none">
+					<button id="example-button" value="#00FF00">Color Picker</button>
+					
+				</div>
+
 			<!--	<div class="col-sm-2 mb-2" id="Hide_metadata" style="display: none">
 					<button id="HideMeta" onclick="HideMETADATA()">Hide Cell Annotations</button>
 				</div> -->
@@ -135,7 +137,7 @@
 						</div>
 						<div class = "col-sm-7">
 							<a href="./test_data/test_data.zip" download>
-							<button class="btn btn-dark"><i class="fa fa-download"></i> Download TEST files</button>
+							<button class="btn btn-dark"><i class="fa fa-download"></i> Download Example datasets</button>
 							</a>
 						</div>
 					</div>
@@ -273,7 +275,7 @@
 								<div class="btn-group">
 									<div>
 										<a> Cell size</a>
-										<input type="number" class="form-control" id="CellSize" placeholder="" value="9" min="1" step="1" title="Size for rendering cells"  required>
+										<input type="number" class="form-control" id="CellSize" placeholder="" value="22" min="1" step="1" title="Size for rendering cells"  required>
 									</div>
 <!--							<div>
 										<a> Stroke width </a>

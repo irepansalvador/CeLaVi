@@ -277,7 +277,7 @@ function load_dataset_2(csv,tree) {
 			cell_col2.push("rgba(255,255,255,0)");
 			line_col2.push("rgba(0,0,255,1)");
 			cell_alpha2.push(1)
-			c_size2.push(9);
+			c_size2.push(22);
 			points_array2.push(j);
 			j=j+1;
 			} else {
@@ -288,7 +288,7 @@ function load_dataset_2(csv,tree) {
 			cell_col.push("rgb(255,255,255)");
 			line_col.push("rgb(0,0,255)");
 			cell_alpha.push(1)
-			c_size.push(9);
+			c_size.push(22);
 			points_array.push(i);
 			i=i+1;
 			}

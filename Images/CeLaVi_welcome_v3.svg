@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="24.597641in"
-   height="14.066407in"
-   viewBox="0 0 2213.7877 1265.9766"
+   width="24.609564in"
+   height="14.809488in"
+   viewBox="0 0 2214.8607 1332.8539"
    id="svg2"
    version="1.1"
    inkscape:version="0.92.5 (0.92.5+68)"
@@ -130,9 +130,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="1438.007"
-     inkscape:cy="625.52689"
+     inkscape:zoom="0.25"
+     inkscape:cx="1594.9937"
+     inkscape:cy="915.38202"
      inkscape:document-units="px"
      inkscape:current-layer="g10538"
      showgrid="true"
@@ -151,8 +151,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid8190"
-       originx="-544.51277"
-       originy="-607.2466" />
+       originx="-543.97616"
+       originy="-540.90595" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -162,7 +162,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -170,16 +170,16 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(1161.2015,456.57545)">
+     transform="translate(1161.7381,457.11208)">
     <g
        id="g10538">
       <rect
-         style="opacity:1;fill:#bccbde;fill-opacity:1;fill-rule:evenodd;stroke:#bccbde;stroke-width:3.30311418;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         style="opacity:1;fill:#bccbde;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:4.39420605;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
          id="rect4893"
-         width="2210.4844"
-         height="1262.6735"
-         x="-1159.5499"
-         y="-454.92389"
+         width="2210.4666"
+         height="1328.4597"
+         x="-1159.541"
+         y="-454.91498"
          ry="0" />
       <g
          style="display:inline;opacity:0.95999995"
@@ -538,22 +538,6 @@
              inkscape:connector-curvature="0" />
         </g>
       </g>
-      <rect
-         style="opacity:1;fill:#007bff;fill-opacity:1;fill-rule:evenodd;stroke:#007bff;stroke-width:3.09538245;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-         id="rect5426"
-         width="216.0018"
-         height="44.594185"
-         x="-111.35545"
-         y="302.38016"
-         ry="11.000016" />
-      <rect
-         style="opacity:1;fill:#007bff;fill-opacity:1;fill-rule:evenodd;stroke:#007bff;stroke-width:2.94514179;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-         id="rect5426-3"
-         width="195.65269"
-         height="44.569077"
-         x="174.20088"
-         y="301.77042"
-         ry="10.99382" />
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:45.81597519px;font-family:Arial;-inkscape-font-specification:'Arial, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.76359957px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -576,10 +560,10 @@
    style="stroke:none"
    id="tspan4906">  An Interactive </tspan></tspan>Cell Lineage Visualisation tool </tspan><tspan
            sodipodi:role="line"
-           x="-65.068199"
+           x="-65.068222"
            y="-293.18195"
            style="font-size:36.65277863px;line-height:1;text-align:center;text-anchor:middle;stroke-width:0.76359957px"
-           id="tspan5574">Click on the logo to proceed to the web.</tspan><tspan
+           id="tspan5574">Click anywhere to proceed to the web.</tspan><tspan
            sodipodi:role="line"
            x="-65.068214"
            y="-235.91197"
@@ -631,14 +615,25 @@
            style="font-size:36.65277863px;line-height:1;text-align:center;text-anchor:middle;stroke-width:0.76359957px"
            id="tspan5594" /><tspan
            sodipodi:role="line"
-           x="-65.06823"
+           x="-59.985512"
            y="336.78772"
            style="font-size:36.65277863px;line-height:1;text-align:center;text-anchor:middle;stroke-width:0.76359957px"
-           id="tspan5493">For details click at any time the  <tspan
+           id="tspan5493">For details click at any time the <tspan
+   style="fill:#000080"
+   id="tspan4907"></tspan></tspan><tspan
+           sodipodi:role="line"
+           x="-65.068222"
+           y="394.05768"
+           style="font-size:36.65277863px;line-height:1;text-align:center;text-anchor:middle;stroke-width:0.76359957px"
+           id="tspan4911"><tspan
+   style="fill:#000080"
+   id="tspan4913">&quot;</tspan><tspan
    style="font-size:36.65277863px;line-height:1;fill:#ffffff;stroke-width:0.76359957px"
-   id="tspan5428">Visit Tutorial  </tspan> or  <tspan
-   style="fill:#ffffff"
-   id="tspan4929">Quick Tour</tspan>  buttons</tspan></text>
+   id="tspan5428"><tspan
+   style="fill:#000080"
+   id="tspan4899">Visit Tutorial&quot;</tspan> </tspan>or <tspan
+   style="fill:#000080"
+   id="tspan4903">&quot;Quick Tour&quot; </tspan>buttons</tspan></text>
     </g>
   </g>
 </svg>
