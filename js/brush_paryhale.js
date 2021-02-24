@@ -337,7 +337,8 @@ function depth_delete_node(d,n){
 		var new_children = [];
 		var sisters = d.children;
 		new_children = sisters.filter( x => !flagged_nodes.includes(x) );
-		d.children = new_children;
+		if (new_children.length === 0) {d.children = null;console.log("no children")}
+		else {d.children = new_children;}
 		})
 	}
 
