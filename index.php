@@ -328,6 +328,7 @@ clones at a given depth/time">
 			<strong>Source</strong> : <a href="https://github.com/irepansalvador/celavi" style= "color: white;" target="_blank" >https://github.com/irepansalvador/celavi</a>
 			<br>
 			<strong>Contact</strong> : <a href="mailto:irepan_salvador@hotmail.com" style="color: white;">irepan_salvador@hotmail.com</a>
+				<?php include("./lib/counter.php"); ?>
 		</div>
 		<div class="myalert hide">
 			<div class="message">
