@@ -357,6 +357,8 @@ clones at a given depth/time">
 	</div>
 	<!-- JS Libraries -->
 	<!--<script src="d3.js" charset="utf-8"></script>-->
+	<!--Random with seed-->
+	<script src="./lib/seedrandom.js"></script>
 	<!-- Custom JS code -->
 	<!--<script src="cells_3d_paryhale.js"></script> -->
 	<script src="./js/cell_lineage_v4_paryhale.js"></script>

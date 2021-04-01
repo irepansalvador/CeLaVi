@@ -19,6 +19,7 @@ var csv_config={header: true,
 
 function activate_3D_controls() {
 	document.getElementById("reset").disabled = false;
+	document.getElementById("reset").click();
 	document.getElementById("CellSize").disabled = false;
 //	document.getElementById("CellStroke").disabled = false;
 	document.getElementById("Cells_checkbox").checked = false
@@ -530,6 +531,7 @@ function setStrokeWidth(new_width) {
 
 d3.select("#reset").on("click", function() {
 	console.log("CLICKED ON RESET");
+	Math.seedrandom("CeLaVi");
 	reset_cell_cols(); reset_node_cols();
 	//Reset clones selection to default without deleting saved clones
 	$('#saved_clones option').prop('selected', function() {
