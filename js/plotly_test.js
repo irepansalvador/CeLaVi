@@ -147,6 +147,29 @@ show_axes_button.addEventListener( 'change', function() {
 		}
 	});
 
+var show_darkmode = document.querySelector("input[id=Show_Darkmode");
+show_darkmode.addEventListener( 'change', function() {
+	// if select the option of "show lineage" display warning
+	if (document.getElementById("Show_Darkmode").checked == true)
+		{
+		if (document.getElementById("Show_grid").checked == true)
+			{
+			document.getElementById("Show_grid").click()
+			}
+		layout.scene.bgcolor = "rgb(50,50,50)";
+		Plotly.update("area2",data,layout,0)
+		}
+	else if (document.getElementById("Show_Darkmode").checked == false)
+		{
+		if (document.getElementById("Show_grid").checked == false)
+			{
+			document.getElementById("Show_grid").click()
+			}
+		layout.scene.bgcolor = "rgb(255,255,255)";
+		Plotly.update("area2",data,layout,0);
+		}
+	});
+
 
 var my_view;
 var Npoints;   // Number of cells

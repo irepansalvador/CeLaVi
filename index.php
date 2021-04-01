@@ -300,6 +300,9 @@
 										<div title="This option requires that the lineage tree is completely expanded" >
 											<input id="Cells_checkbox" type="checkbox" value="">Show Lineage
 										</div>
+										<div title="" >
+											<input id="Show_Darkmode" type="checkbox" checked="false" value="">Darkmode
+										</div>
 									</div>
 								</div>
 							</div>        

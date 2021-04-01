@@ -19,6 +19,8 @@ document.getElementById("reset").disabled = true;
 document.getElementById("CellSize").disabled = true;
 //document.getElementById("CellStroke").disabled = true;
 document.getElementById("Cells_checkbox").disabled = true;
+document.getElementById("Show_Darkmode").checked = false;
+document.getElementById("Show_grid").checked = true;
 
 function activate_tree_controls() {
 	var selectobject = document.getElementById("saved_clones");
