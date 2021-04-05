@@ -142,7 +142,7 @@
 						</div>
 					</div>
 				</div>
-				<div class = "col-sm-3">
+				<div class = "col-sm-2">
 					<div class= "btn-group">
 						<div class = "row">
 							<button class="btn btn-dark" onclick="reduce_areas()" >-</button>
@@ -151,7 +151,10 @@
 						</div>
 					</div>
 				</div>
-				<div class = "col-sm-4">
+				<div class="col-sm-2">
+					<button class="btn  btn-primary" id="Change_BGcol">Pick BG colour</button>
+				</div>
+			<div class = "col-sm-3">
 					<div class ="row">
 						<div class="col-sm-12" id="GOI_submit" style="display: none">
 							<form autocomplete="off" action="javascript:Submit_GOI();" >
@@ -303,6 +306,7 @@
 										<div title="" >
 											<input id="Show_Darkmode" type="checkbox" checked="false" value="">Darkmode
 										</div>
+
 									</div>
 								</div>
 							</div>        

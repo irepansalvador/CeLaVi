@@ -170,6 +170,29 @@ show_darkmode.addEventListener( 'change', function() {
 		}
 	});
 
+$('#Change_BGcol').colpick({
+	flat:false,
+	layout:'rgbhex',
+	onSubmit:function(hsb,hex,rgb,el,bySetColor) {
+	//	$(el).val('#'+hex);
+		$(el).colpickHide();
+		var result = hexToRgb("#"+hex);
+		var RGBcol  = "rgb("+ result.r + "," + result.g + ","  + result.b + ")" ;
+		// messages to find bug
+	//	console.log("##################################");
+	//	console.log("THIS SHOWS WHEN CHOOSING ANY COLOUR");
+		console.log("chosen colour = " + RGBcol);
+		//console.log('Test: ' + my_clone)
+		if (document.getElementById("Show_grid").checked == true)
+			{
+			document.getElementById("Show_grid").click()
+			}
+		layout.scene.bgcolor = RGBcol;
+		Plotly.update("area2",data,layout,0)
+		}
+	});
+
+
 
 var my_view;
 var Npoints;   // Number of cells
