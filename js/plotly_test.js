@@ -230,6 +230,7 @@ function Coords_upload_button(el, callback) {
 		var contents = e.target.result;
 		var parse_results = Papa.parse(contents, csv_config);
 		header = parse_results.meta.fields;
+		console.log(header);
 		// check if the header has the columns with proper names.
 		// if not, throw an error
 		if (containsAll(["X","Y","Z","cell"],header))
@@ -283,6 +284,23 @@ var trace2=[];
 function load_dataset_2(csv,tree) {
 	var CS2 = document.getElementById("CS2")
 	if (CS2 != null) {CS2.remove();}
+
+	var parse_results = Papa.parse(csv, csv_config);
+	header = parse_results.meta.fields;
+	console.log(header);
+	//-- Check for source as an extra column
+	var source;
+	const regex2 =  /(Source:[a-zA-Z0-9_ \\\/\:\"\.\,\(\)]+)/ig;
+	if (regex2.test(header[header.length -1]) == true)
+		{source = header[header.length -1].match(regex2);
+		console.log(source);
+		}
+	if (source != undefined) 
+		{
+		var mytxt = source[0];
+		d3.select("#source2").text(mytxt);
+		}
+	if (source == undefined){d3.select("#source2").text("");}
 
 	missing_3D = [];
 	var data_3d = d3.csvParse(csv);
