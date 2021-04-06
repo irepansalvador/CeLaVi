@@ -25,7 +25,7 @@ function Examples(e)
 	d3.select("#slider").selectAll("svg").remove();
 	// remove the previous line
 	d3.select("#area1").select("svg").select("g").selectAll("*").remove();
-	d3.select("#area1").select("div").remove();
+//	d3.select("#area1").select("div").remove();
 	// remove metadata table
 	d3.select("#metadata_table").remove();
 	// remove any svg on the scale div

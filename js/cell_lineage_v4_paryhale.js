@@ -205,14 +205,29 @@ function load_dataset_json(json) {
 						"Go to \"More Options\" and \"Show all branches\" " +
 						" to change this behaviour.")
 		}
+	if (root.data.species != undefined) 
+		{console.log("yes")
+		var mytxt = "Species: " + root.data.species;
+		d3.select("#species").text(mytxt);
+		}
+	if (root.data.species == undefined){d3.select("#species").text("");}
+
+	if (root.data.source != undefined) 
+		{
+		var mytxt = "Source: " + root.data.source;
+		d3.select("#source").text(mytxt);
+		}
+	if (root.data.source == undefined){d3.select("#source").text("");}
+
 	update(root);
 	//resetAll();
 }
-function load_dataset_newick(newick){
+function load_dataset_newick(newick,sp,source){
 	root = d3.hierarchy(newick);
 	root.x0 = h / 4;
 	root.y0 = 0;
 	expandAll();
+	console.log(sp);
 	// get all the heights
 	max_H  = get_height();
 	nodelen = 600/max_H;
@@ -230,6 +245,21 @@ function load_dataset_newick(newick){
 						"Go to \"More Options\" and \"Show all branches\" " +
 						" to change this behaviour.")
 		}
+	if (sp != undefined) 
+		{
+		var mytxt = sp[0];
+		d3.select("#species").text(mytxt);
+		console.log(mytxt);
+		}
+	if (sp == undefined){d3.select("#species").text("");}
+
+	if (source != undefined) 
+		{
+		var mytxt = source[0];
+		d3.select("#source").text(mytxt);
+		}
+	if (source == undefined){d3.select("#source").text("");}
+	
 	update(root);
 	//resetAll();
 }

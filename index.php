@@ -171,6 +171,9 @@
 		<div id="container2"> <!-- added -->
 			<div id="container1">	
 				<div id="area1" style="padding-bottom: 32%" class="svg-container-inbox"> <!-- cell lineage -->
+					
+					<div class="sp" id="species"></div>
+					<div class="source"  id="source" ></div> 
 				</div>
 				<div id="area2" style="padding-bottom: 32%" class="svg-container-inbox"> <!-- cells in 3d -->
 				</div>

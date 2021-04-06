@@ -1,3 +1,22 @@
+
+.sp {
+	position: absolute;
+	bottom: 16px;
+	left: 10px;
+	color: grey;
+	font-size: 14px;
+	font-style: italic;
+}
+.source {
+	position: absolute;
+	bottom: 2px;
+	left: 10px;
+	color: grey;
+	font-size: 14px;
+	font-style: italic;
+}
+
+
 /* Alert fading box */
 .hide {
 	display: none;

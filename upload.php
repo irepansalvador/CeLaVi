@@ -19,7 +19,7 @@ if (preg_match("/error|fault/", $nt_output)) {
 } else {
 	$lines = explode("\n", $nt_output);
 	echo "Tree loaded successfully.\n[newik-tools --info]\n";
-	echo "$lines[1]\n$lines[2]";
+	/* echo "$lines[1]\n$lines[2]";*/
 }
 
 

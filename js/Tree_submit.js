@@ -110,7 +110,7 @@ function Submit_Function(tree_format)
 	d3.select("#slider").selectAll("svg").remove();
 	// remove the previous line
 	d3.select("#area1").select("svg").select("g").selectAll("*").remove();
-	d3.select("#area1").select("div").remove();
+	//d3.select("#area1").select("div").remove();
 	// remove metadata table
 	d3.select("#metadata_table").remove();
 	// remove 3d plot if exists 
@@ -139,14 +139,55 @@ function Submit_Function(tree_format)
 		var contents = e.target.result;
 		// check if the format is correct
 		IsJsonString(contents);
-		// --------------------
+		// -------------------
+		console.log(contents);
 		load_dataset_json(contents);
 	};
 	var newick_reader = new FileReader();
 	newick_reader.onload = function(e) {
 		var contents = e.target.result;
-		var newick = Newick.parse(contents);
-		load_dataset_newick(newick);
+		console.log(contents);
+		arrayOfLines = contents.match(/[^\r\n]+/g);
+		//--------------------
+		var sp;
+		var source;
+		var lastLine = arrayOfLines[arrayOfLines.length -1];
+		console.log(arrayOfLines[0]);
+		if (arrayOfLines.length > 1)
+			{
+			var l;
+			for (l=0; l<arrayOfLines.length; l++)
+				{
+				const regex =  /(Species:[a-zA-Z0-9_ ]+)/ig;
+				if (regex.test(arrayOfLines[l]) == true)
+					{sp =  arrayOfLines[l].match(regex);}
+				const regex2 =  /(Source:[a-zA-Z0-9_ \:\"\.\,\(\)]+)/ig;
+				if (regex2.test(arrayOfLines[l]) == true)
+					{source =  arrayOfLines[l].match(regex2);
+					console.log(source);
+					}
+				}
+			}
+		// test newick ----------------------
+		var form_data = new FormData();                  
+		form_data.append('file',lastLine);
+		//alert(form_data);                             
+		$.ajax({
+			url: 'upload.php', // point to server-side PHP script 
+			dataType: 'text',  // what to expect back from the PHP script, if anything
+			cache: false,
+			contentType: false,
+			processData: false,
+			data: form_data,                         
+			type: 'post',
+			success: function(php_script_response){
+				showAlert(php_script_response); // display response from the PHP script, if any
+				}
+			});
+		var newick = Newick.parse(lastLine);
+		console.log(newick);
+		load_dataset_newick(newick,sp,source);
+		//--------------------
 	};
 	// function to call the reader 
 	function handleFiles() {
@@ -169,22 +210,6 @@ function Submit_Function(tree_format)
 			var file = uploader.files[0];
 			try {newick_reader.readAsText(file);
 					console.log("file selected");
-					// test newick ----------------------
-					var form_data = new FormData();                  
-					form_data.append('file', file);
-					//alert(form_data);                             
-					$.ajax({
-						url: 'upload.php', // point to server-side PHP script 
-						dataType: 'text',  // what to expect back from the PHP script, if anything
-						cache: false,
-						contentType: false,
-						processData: false,
-						data: form_data,                         
-						type: 'post',
-						success: function(php_script_response){
-							showAlert(php_script_response); // display response from the PHP script, if any
-							}
-						});
 			//-----------------------------------
 			} catch (e) { alert(e);
 			alert("Error loading file\nHave you selected a file already?")
