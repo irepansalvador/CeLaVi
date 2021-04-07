@@ -66,8 +66,26 @@ function Examples(e)
 		tree_file = "test_data/Ciona/Ciona_cell_lineage.nw";
 		activate_tree_controls();
 		Upload_example_tree();
-		var newick = Newick.parse(tree_txt);
-		load_dataset_newick(newick);
+		//--------------------
+		arrayOfLines = tree_txt.match(/[^\r\n]+/g);
+		var sp;
+		var source;
+		var lastLine = arrayOfLines[arrayOfLines.length -1];
+		console.log(arrayOfLines[0]);
+		var l;
+		for (l=0; l<arrayOfLines.length; l++)
+			{
+			const regex =  /(Species:[a-zA-Z0-9_ ]+)/ig;
+			if (regex.test(arrayOfLines[l]) == true)
+				{sp =  arrayOfLines[l].match(regex);}
+			const regex2 =  /(Source:[a-zA-Z0-9_ \:\"\.\,\(\)]+)/ig;
+			if (regex2.test(arrayOfLines[l]) == true)
+				{source =  arrayOfLines[l].match(regex2);
+				console.log(source);
+				}
+			}
+		var newick = Newick.parse(lastLine);
+		load_dataset_newick(newick,sp,source);
 		$("label[for=JSON_uploader").text("Ciona_cell_lineage.nw");
 		// 3D cells file
 		cells3D_file = "test_data/Ciona/Ciona_3D_coords.csv";
@@ -87,8 +105,26 @@ function Examples(e)
 		tree_file = "test_data/Parhyale/Parhyale_tree.nw";
 		activate_tree_controls();
 		Upload_example_tree();
-		var newick = Newick.parse(tree_txt);
-		load_dataset_newick(newick);
+		//--------------------
+		arrayOfLines = tree_txt.match(/[^\r\n]+/g);
+		var sp;
+		var source;
+		var lastLine = arrayOfLines[arrayOfLines.length -1];
+		console.log(arrayOfLines[0]);
+		var l;
+		for (l=0; l<arrayOfLines.length; l++)
+			{
+			const regex =  /(Species:[a-zA-Z0-9_ ]+)/ig;
+			if (regex.test(arrayOfLines[l]) == true)
+				{sp =  arrayOfLines[l].match(regex);}
+			const regex2 =  /(Source:[a-zA-Z0-9_ \:\"\.\,\(\)]+)/ig;
+			if (regex2.test(arrayOfLines[l]) == true)
+				{source =  arrayOfLines[l].match(regex2);
+				console.log(source);
+				}
+			}
+		var newick = Newick.parse(lastLine);
+		load_dataset_newick(newick,sp,source);
 		$("label[for=JSON_uploader").text("Parhyale_tree.nw");
 		// 3D cells file
 		cells3D_file = "test_data/Parhyale/Parhyale_3D_cells.csv";
