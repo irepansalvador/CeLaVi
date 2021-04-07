@@ -1,4 +1,5 @@
-{"did": "x_zygote", "children":[
+{"species":"NA (In silico organoid)","source":"Germann et al (2019). doi:10.1016/J.CELS.2019.02.007",
+"did": "x_zygote", "children":[
 {"did": "c_00105", "children":[
 {"did": "x_137811"}]},
 {"did": "c_00478", "children":[
