@@ -140,7 +140,17 @@ var menu = [
 	title: function(d) {return 'Save clone ' + d.data.did},
 	action: function(d) {save_clone(d)}
 	},
-    {
+	{
+	title: function(d) {return 'Export clone ' + d.data.did + ' to JSON file'},
+	action: function(d) 
+						{
+						d.species = root.species;
+						d.source = root.source;
+						if (Abs_BL < 2)
+							{nodes.forEach(function(dd){dd.length = dd.blength})}
+						export_clone_json(d)}
+	},
+  {
 	title: 'Find common ancestor',
     action: function(d, i) {
         if (double_element.length == 0){
@@ -209,6 +219,7 @@ function load_dataset_json(json) {
 		{console.log("yes")
 		var mytxt = "Species: " + root.data.species;
 		d3.select("#species").text(mytxt);
+		root.species = mytxt;
 		}
 	if (root.data.species == undefined){d3.select("#species").text("");}
 
@@ -216,6 +227,7 @@ function load_dataset_json(json) {
 		{
 		var mytxt = "Source: " + root.data.source;
 		d3.select("#source").text(mytxt);
+		root.source = mytxt;
 		}
 	if (root.data.source == undefined){d3.select("#source").text("");}
 
@@ -250,6 +262,7 @@ function load_dataset_newick(newick,sp,source){
 		var mytxt = sp[0];
 		d3.select("#species").text(mytxt);
 		console.log(mytxt);
+		root.species = mytxt;
 		}
 	if (sp == undefined){d3.select("#species").text("");}
 
@@ -257,6 +270,7 @@ function load_dataset_newick(newick,sp,source){
 		{
 		var mytxt = source[0];
 		d3.select("#source").text(mytxt);
+		root.source = mytxt;
 		}
 	if (source == undefined){d3.select("#source").text("");}
 	
@@ -435,10 +449,15 @@ function update(source) {
   var node = svg_tree.selectAll('g.node')
       .data(nodes, function(d) 
             {return d.id || (d.id = ++i); });
+	// set node property
+	nodes.forEach(function(d){
+	d.did = d.data.did;
+	})
 
   // Enter any new modes at the parent's previous position.
   var nodeEnter = node.enter().append('g')
       .attr("id", function(d) {return d.data.did;})
+      .attr("did", function(d) {return d.data.did;})
       .attr('class', 'node')
       .attr("transform", function(d) {
         return "translate(" + source.y0 + "," + source.x0 + ")";

@@ -388,4 +388,5 @@ clones at a given depth/time">
 	<!-- export png -->
 	<script src="./js/tree_png_download.js"></script>
 	<script src="./lib/intro.js"></script>
+	<script src="./js/export_clone.js"></script>
 </body>
