@@ -42,6 +42,7 @@ const getCircularReplacer = (deletePorperties) => { //func that allows a circula
 				delete value.node;
 				delete value.blength;
 				delete value.data;
+				delete value.id;
 				delete value.parent;
 				}
 			if (seen.has(value)) {
