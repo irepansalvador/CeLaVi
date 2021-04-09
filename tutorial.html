@@ -104,6 +104,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 		<div id="MainOption6" class="w3-hide w3-white w3-card">
 			<a href="#h-6.1" class="w3-bar-item w3-button w3-medium "> 6.1 Uploading a gene expression file</a>
 			<a href="#h-6.2" class="w3-bar-item w3-button w3-medium "> 6.2 Plotting gene expression </a>
+			<a href="#h-6.3" class="w3-bar-item w3-button w3-medium "> 6.3 Plotting other quantitative variables </a>
 		</div>
 		<!------------>
 		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(7)">
@@ -733,6 +734,25 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 				viewer area.
 				The accompanying video shows how to upload and visualise gene expression
 				data using the <i>Ciona</i> gastrula example dataset.
+			</p>
+			<h3 class="w3-text-teal"><a name="h-6.3">6.3</a> Plotting other quantitative variables</h3>
+			<p>
+				The gene expression highlighting option can be used to plot any other 
+				quantitative feature associated with the cells (UMI, mitochondrial gene
+				expression, etc). For this, the user just needs to upload a file with the
+				same format as a the gene expression file.
+				The quantitative information file needs to be a csv file with the features
+				to display as rows and cells as columns, and it needs to contain a header
+				with the format “gene,cell_01,cell_02,cell_03” with the cell ID identical 
+				to the cell IDs used in both the 3D cells and lineage tree files.<br>
+				After successful loading of the custom quantitative data file, use the gene
+				search box that will appear above the 3D viewer.
+				To plot the quantitative feature of interest, type its name in the gene 
+				search box and click on the “submit” button.
+				The quantitative information (i.e. UMIs) will be represented on the 3D
+				and lineage viewers using a heatmap.
+				The heatmap scale (level of expression) will be plotted at the bottom 
+				of the 3D viewer area.
 			</p>
 		</div>
 		<div class="w3-half w3-container">
