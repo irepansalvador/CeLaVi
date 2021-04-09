@@ -45,11 +45,12 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 		</a>
 
 		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(1)">
-		1. Opening Input Files <i class="fa fa-caret-down"></i>
+		1. Input Files <i class="fa fa-caret-down"></i>
 		</button>
 		<div id="MainOption1" class="w3-hide w3-white w3-card">
 			<a href="#h-1.1" class="w3-bar-item w3-button w3-medium"> 1.1 Cell Lineage Tree file</a>
-			<a href="#h-1.2" class="w3-bar-item w3-button w3-medium"> 1.2 3D coordinates file</a>
+			<a href="#h-1.1.1" class="w3-bar-item w3-button w3-small"> 1.1.1 About branch lenght mode</a>
+		<a href="#h-1.2" class="w3-bar-item w3-button w3-medium"> 1.2 3D coordinates file</a>
 		</div>
 		<!------------>
 		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(2)">
@@ -63,7 +64,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			<a href="#h-2.5" class="w3-bar-item w3-button w3-medium"> 2.5 Collapse extra cells</a>
 			<a href="#h-2.6" class="w3-bar-item w3-button w3-medium"> 2.6 Delete extra cells</a>
 			<a href="#h-2.7" class="w3-bar-item w3-button w3-medium"> 2.7 Reset view</a>
-			<a href="#h-2.8" class="w3-bar-item w3-button w3-medium"> 2.8 Render all/only some branches</a>
+			<a href="#h-2.8" class="w3-bar-item w3-button w3-medium"> 2.8 How to deal with very large datasets</a>
 		</div>
 		<!------------>
 		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(3)">
@@ -85,7 +86,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			<a href="#h-4.3" class="w3-bar-item w3-button w3-medium "> 4.3 Showing clones from a given time point</a>
 			<a href="#h-4.4" class="w3-bar-item w3-button w3-medium "> 4.4 Saving clones</a>
 			<a href="#h-4.5" class="w3-bar-item w3-button w3-medium "> 4.5 Export clones as a cell annotations file</a>
-		</div>
+			<a href="#h-4.6" class="w3-bar-item w3-button w3-medium "> 4.6 Exporting a clone to a JSON file</a>
+	</div>
 		<!------------>
 		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(5)">
 		5. Cell annotations<i class="fa fa-caret-down"></i>
@@ -189,9 +191,11 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 	<!--Open input files   -->
 	<div class="w3-row w3-padding-64">
 		<div class="w3-half w3-container">
-			<h2 class="w3-text-teal"><a name="h-1">1.</a> Opening Input files</h2>
+			<h2 class="w3-text-teal"><a name="h-1">1.</a> Input files</h2>
 			<p>To visualize a Cell Lineage Tree and relate it to a 3D cell
-			map, the user needs to provide two files:
+			map, the user needs to provide two files: 1) Cell lineage tree file and
+			2) 3D coordinates file. Below we explain how to upload these files and
+			what is the specific format for each.
 			</p>
 			<h3 class="w3-text-teal"><a name="h-1.1">1.1</a> Cell lineage tree file</h3>
 			<p>
@@ -200,6 +204,9 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 				choose the file to upload. If the selected file has a correct
 				extension, i.e. “.nw” or “.newick” for newick or “.json” for json
 				files, the tree will automatically be shown.<br>
+			</p> 
+			<h4 class="w3-text-dark-gray"><a name="h-1.1.1">1.1.1  </a> About branch-lenght modes </h4>
+			<p>
 				For lineage tree files containing branch length information (timing of
 				cell divisions) a dialog box will appear allowing the user to specify
 				how branch lengths should be plotted: if branch lengths represent time
@@ -208,7 +215,14 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 				user needs to write "absolute" and then click “OK”. If the user clicks
 				on “Cancel” instead, branch lengths will be ignored.
 				For more details on the structure of the input files please download
-				the Test Files.
+				the Test Files.<br>
+				Below we show in a schematic diagram how the same tree would be encoded
+				in a json file usign either the "relative" or "absolute" mode. After
+				selecting the approapriate mode, the tree depicted is the same.
+				<br>
+				<img src="./Images/branch_length_mode_example.png"
+				alt="Branch length modes" width="500"  >
+				<br>
 			</p>
 			<h3 class="w3-text-teal"><a name="h-1.2">1.2</a> 3D coordinates
 			file</h3>
@@ -335,24 +349,37 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			</p>
 
 			<h3 class="w3-text-teal"><a name="h-2.8">2.8</a>
-			Render all/only some branches</h3>
+			How to deal with very large datastets</h3>
 			<p>
 				Rendering a lineage tree with thousands of cells can be
-				computationally intensive on the client side (user’s computer). In
-				order to reduce the computational burden of dealing with such trees,
+				computationally intensive on the client side (user’s computer).
+				Although the maximum number of cells and cell lineage nodes
+				that can be visualised without experiencing delays would depend
+				on the client computer, we have noted that CeLaVi typically becomes
+				less responsive when more than 10,000 cells are loaded.<br>
+				In order to reduce the computational burden of dealing with such trees,
 				CeLaVi has an option to plot only some of the branches of the tree,
 				which is automatically selected when the number of cells is greater
 				than 500. This function is only relevant, however, when the lineage
 				tree is not completely resolved, i.e. some internal nodes have more
 				than 2 daughters (polytomies). This is a common case in clonal
 				analyses, where cells are grouped in clones but the inter-clonal
-				relationships are not resolved.<br>
+				relationships are not resolved.
 				When the “Render only some branches” is selected, only the first and
 				last branches are plotted in each polytomy, potentially reducing
 				massively the amount of lines that need to be plotted (see
 				video of this function with the organoid example). This
 				option can be changed by the user by clicking on “Render all
-				branches”.
+				branches”.<br>
+				Another way of increasing the respo esponsiveness of the Lineage 
+				viewer is to reduce the number of elements displayed in the Lineage
+				viewer, for example by showing only the root node label (click on
+				the “0” Tree depth level and selecting “Show label until this depth”)
+				or by collapsing non-relevant nodes in the tree. Also, if the user
+				is interested in a specific clone, it is possible to export the clone
+				as a JSON file (see “Exporting a clone to a JSON file” section).
+				This file can be loaded and visualised subsequently in CeLaVi, with
+				the original coordinates and annotation files.
 			</p>
 		</div>
 		<div class="w3-half w3-container">
@@ -544,6 +571,12 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 				list to display them and how to export them as a cell annotations
 				file.
 			</p>
+			<h3 class="w3-text-teal"><a name="h-4.6">4.6</a> Exporting a clone to a JSON file</h3>
+			<p>
+			
+
+			</p>
+
 		</div>
 		<div class="w3-half w3-container">
 			<p class=" w3-padding-large w3-padding-32 w3-center">
