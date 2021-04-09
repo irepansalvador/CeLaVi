@@ -51,7 +51,8 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			<a href="#h-1.1" class="w3-bar-item w3-button w3-medium"> 1.1 Cell Lineage Tree file</a>
 			<a href="#h-1.1.1" class="w3-bar-item w3-button w3-small"> 1.1.1 About branch lenght mode</a>
 		<a href="#h-1.2" class="w3-bar-item w3-button w3-medium"> 1.2 3D coordinates file</a>
-		</div>
+		<a href="#h-1.3" class="w3-bar-item w3-button w3-medium"> 1.3 Store and display the data source</a>
+	</div>
 		<!------------>
 		<button class="w3-button w3-block w3-left-align" onclick="myAccFunc(2)">
 		2. Interacting with the Lineage Tree <i class="fa fa-caret-down"></i>
@@ -234,6 +235,49 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 				cell. The first column contains the cell ID, and the next columns are
 				the three coordinate values (X,Y and Z, respectively).
 			</p>
+			<h3 class="w3-text-teal"><a name="h-1.3">1.3</a> Store and display the data source</h3>
+			<p>
+				There is an option to store the data source metadata in both the lineage
+				tree and 3D coordinates files. If a file contains this metadata, the source
+				information will be displayed at the bottom of the corresponding viewer,
+				like in the example datasets. Below we describe how to add the data source to
+				the files.<br>
+				<h4>JSON file</h4>
+				In the field corresponding to the descriptor of the first cell, add <br>
+				<p style="background-color:LightGray;"> 
+				{"species”:“xxx”, “source”:”yyy”,
+				</p>
+				where “xxx” is the name of the species, and “yyy” the source information
+				to display. Take care of including a comma after the source name, as
+				indicated in the example below: <br>
+				<p style="background-color:LightGray;"> 
+				{"species":"NA (In silico organoid)","source":"Germann et al (2019). 
+						doi:10.1016/J.CELS.2019.02.007",
+				</p>
+				<h4>NEWICK file</h4>
+				Introduce the following 2 lines at the top of the file:</br>
+				<p style="background-color:LightGray;"> 
+				[Species:xxx];<br>
+				[Source:yyy];
+				</p>
+				where "xxx" is the name of the species, and "yyy" the source information
+				to display, just as in the following example:<br>
+				<p style="background-color:LightGray;"> 
+				[Species: Ciona intestinalis];<br>
+				[Source: Manually created based on Conklin nomenclature (Conklin EG, 1905)];
+				</p>
+				
+				<h4>CSV 3D coordinates file</h4>
+				In the header line, after the last coordinate column in the header 
+				(typically Z), add the following text after the comma:
+				<p style="background-color:LightGray;"> 
+				[Source: xxxxx]
+				</p>
+				Where "xxx" is the text describing the source, as in the example header below:<br>
+				<p style="background-color:LightGray;"> 
+				clone,cell,X,Y,Z,[Source: Germann et al (2019). doi:10.1016/J.CELS.2019.02.007]
+				</p>
+			</p>
 		</div>
 		<div class="w3-half w3-container">
 			<p class=" w3-padding-large w3-padding-32 w3-center">
@@ -310,7 +354,6 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 				Importantly, the pruning of the tree does not affect the original
 				input file, so the user can restart by loading again the lineage file.
 			</p>
-
 			<h3 class="w3-text-teal"><a name="h-2.5">2.5</a>
 			Collapse extra cells</h3>
 			<p>
@@ -573,10 +616,21 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			</p>
 			<h3 class="w3-text-teal"><a name="h-4.6">4.6</a> Exporting a clone to a JSON file</h3>
 			<p>
-			
-
+				With this function, it is possible to export the complete lineage
+				information of any selected clone (all tree levels, not only the 
+				final time point), together with the cell IDs and branch lengths
+				of all the descendants, as a JSON file in the user's computer.<br>
+				This file can be loaded and visualised subsequently in CeLaVi, with 
+				the original coordinates and annotation files.
+				This feature is useful for users that want to focus on, or easily 
+				share, a specific clone.
+				The accompanying video shows the exporting of the EMS lineage
+				in <i>C. elegans</i>.
+				Note that when loading a 3D coordinates file again, the cells that
+				are missing are shown only with a blue outline. The user can hide these
+				cells by clicking on the box "Cells missing in tree" on the right top
+				of the 3D viewer".
 			</p>
-
 		</div>
 		<div class="w3-half w3-container">
 			<p class=" w3-padding-large w3-padding-32 w3-center">
@@ -840,8 +894,14 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
 			<h2 class="w3-text-teal"><a name="h-10">10.</a> Contact</h2>
 			<p>
 			If you have any questions about CeLaVi, you want to report a
-			bug, or you want to provide feedback please send an email to:
-			<a href="mailto:irepan_salvador@hotmail.com" style="color: darkblue;">irepan_salvador@hotmail.com</a>. 
+			bug, or you want to provide feedback please create an "issue" 
+			in the Github repository:
+			<a href="https://github.com/irepansalvador/CeLaVi/issues"
+							style="color: darkblue;">
+							https://github.com/irepansalvador/CeLaVi/issues</a><br>
+			Alternatively, send an email to:
+			<a href="mailto:irepan_salvador@hotmail.com"
+							style="color: darkblue;">irepan_salvador@hotmail.com</a>. 
 			</p>
 		</div>
 	</div>
