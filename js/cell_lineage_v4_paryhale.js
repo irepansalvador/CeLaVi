@@ -917,6 +917,10 @@ dropdownButton.on("change", function(d) {
 	d3.select("#square_clone").style("fill", clones_list.cols[idx])
 	})
 
+function Transparency() {
+	setAlpha(points_array, 0)
+}
+
 function resetClones() {
 	options = 0;
 	clones_list.cols = {};

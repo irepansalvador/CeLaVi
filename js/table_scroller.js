@@ -174,13 +174,13 @@ function load_table(data_meta) {
 			.attr("fill-opacity", 0.55)
 			.attr("cursor" , "pointer")
 			.on("mouseover.t", function(d) {
-				setAlpha(points_array, 0);
+			//	setAlpha(points_array, 0);
 				setAlphaStroke(points_array, 0.15);
 				highlightMetadata(d);
 				})
 			.on("mouseout.c", function (d) {
 				setAlphaStroke(points_array, 1);
-				setAlpha(points_array, 1);
+			//	setAlpha(points_array, 1);
 				})
 			.on("click", function(d) {
 				plotMetadata(d)})
@@ -201,13 +201,13 @@ function load_table(data_meta) {
 				return (d);})
 			.attr("cursor" , "pointer")
 			.on("mouseover.t", function(d) {
-				setAlpha(points_array, 0);
+			//	setAlpha(points_array, 0);
 				setAlphaStroke(points_array, 0.15);
 				highlightMetadata(d);
 				})
 			.on("mouseout.c", function (d) {
 				setAlphaStroke(points_array, 1);
-				setAlpha(points_array, 1);
+			//	setAlpha(points_array, 1);
 				})
 			.on("click", function(d) {
 				plotMetadata(d)})
@@ -278,7 +278,7 @@ function highlightMetadata(d){
 	//console.log(cells)
 	var pts = getPoints(cells);
 	// make cells visible  
-	setAlpha(pts, 1);
+//	setAlpha(pts, 1);
 	setAlphaStroke(pts, 1);
 	}
 

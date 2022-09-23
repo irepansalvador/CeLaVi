@@ -268,6 +268,9 @@
 										<div>
 											<button id="reset" title="Set the colour of the cells back to default (white)" type="button" class="btn-tiny">Reset Colors</button>
 										</div>
+										<div>
+											<button id="Transparency" title="Set the colour of the cells transparent" type="button" onclick="Transparency()" class="btn-tiny">Transparency</button>
+										</div>
 									</div>
 								</div>
 							</div>
